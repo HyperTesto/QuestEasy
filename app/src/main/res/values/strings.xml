@@ -1,5 +1,9 @@
 <resources>
-	<string name="app_name">QuestEasy</string>
-	<string name="action_settings">Settings</string>
-	<string name="title_activity_home">HomeActivity</string>
+    <string name="app_name">QuestEasy</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="insertDcard">CREAZIONE SCHEDA</string>
+    <string name="categoryS">SINGOLO</string>
+    <string name="categoryF">FAMIGLIA</string>
+    <string name="categoryG">GRUPPO</string>
 </resources>

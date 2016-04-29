@@ -1,7 +1,11 @@
 package me.hypertesto.questeasy;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -11,6 +15,7 @@ import me.hypertesto.questeasy.model.listitems.DecListItem;
 
 public class HomeActivity extends AppCompatActivity {
 
+	private FloatingActionButton insertNewDcard;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,6 +37,14 @@ public class HomeActivity extends AppCompatActivity {
 
 		DecListAdapter adapter = new DecListAdapter(this, R.layout.dec_list_item, items);
 		lv.setAdapter(adapter);
+
+		insertNewDcard = (FloatingActionButton)findViewById(R.id.fab);
+		insertNewDcard.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(HomeActivity.this,CreateCard.class));
+			}
+		});
 
 	}
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="me.hypertesto.questeasy.CardCategoryGuest">
+
+    <Button
+        android:id="@+id/singleGuest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/user_single2"/>
+    <TextView
+        android:id="@+id/singleGuestLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/singleGuest"
+        android:text="@string/categoryS"
+        />
+    <Button
+        android:id="@+id/familyGuest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/user_family2"/>
+    <TextView
+        android:id="@+id/familyGuestLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/categoryF"
+        android:layout_below="@id/singleGuestLabel"
+        android:layout_alignRight="@id/familyGuest"
+        android:layout_alignEnd="@id/familyGuest" />
+    <Button
+        android:id="@+id/groupGuest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="@drawable/user_group2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp" />
+    <TextView
+        android:id="@+id/groupGuestLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/categoryG"
+        android:textSize="30dp"
+        android:layout_alignTop="@+id/groupGuest"
+        android:layout_alignLeft="@+id/groupGuest"
+        android:layout_alignStart="@+id/groupGuest"
+        android:layout_marginTop="93dp" />
+
+
+
+</RelativeLayout>
