@@ -1,15 +1,15 @@
-package me.hypertesto.questeasy;
+package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.adapters.DecListAdapter;
 import me.hypertesto.questeasy.model.listitems.DecListItem;
 
@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
 		insertNewDcard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this,CreateCard.class));
+				startActivity(new Intent(HomeActivity.this,EditDecActivity.class));
 			}
 		});
 

@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity">
+        <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -16,9 +16,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateCard"
+            android:name=".activities.EditDecActivity"
             android:label="@string/insertDcard"></activity>
-        <activity android:name=".CardCategoryGuest"></activity>
+        <activity android:name=".activities.NewCardActivity"></activity>
     </application>
 
 </manifest>

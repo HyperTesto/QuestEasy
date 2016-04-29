@@ -1,13 +1,15 @@
-package me.hypertesto.questeasy;
+package me.hypertesto.questeasy.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class CardCategoryGuest extends AppCompatActivity {
+import me.hypertesto.questeasy.R;
+
+public class NewCardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_category_guest);
+        setContentView(R.layout.activity_new_card);
     }
 }

@@ -17,6 +17,7 @@ public class GuestListItem {
     private Date Arrivo;
     private Date Partenza;
 
+
     public String getName() {
         return Name;
     }
