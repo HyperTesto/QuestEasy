@@ -52,13 +52,13 @@ public class CardListAdapter extends ArrayAdapter<CardListItem> {
         type = type.toUpperCase();
         switch(type){
             case "SINGOLO":
-                typeImg.setImageResource(R.drawable.user_single2);
+                typeImg.setImageResource(R.drawable.guest_single3);
                 break;
             case "GRUPPO":
-                typeImg.setImageResource(R.drawable.user_group2);
+                typeImg.setImageResource(R.drawable.guest_group3);
                 break;
             case "FAMIGLIA":
-                typeImg.setImageResource(R.drawable.user_family2);
+                typeImg.setImageResource(R.drawable.guest_family3);
                 break;
             default:
                 throw new RuntimeException("Unknown card type");

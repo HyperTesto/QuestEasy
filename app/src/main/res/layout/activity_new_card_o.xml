@@ -16,9 +16,9 @@
         android:clickable="true"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="50dp"
         android:layout_alignParentStart="true"
-        android:background="@drawable/user_single2"/>
+        android:background="@drawable/guest_single_category"/>
     <TextView
         android:id="@+id/singleGuestLabel"
         android:layout_width="wrap_content"
@@ -36,8 +36,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="70dp"
-        android:background="@drawable/user_family2"/>
+        android:layout_marginRight="50dp"
+        android:background="@drawable/guest_family_category"/>
     <TextView
         android:id="@+id/familyGuestLabel"
         android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:background="@drawable/user_group2"
+        android:background="@drawable/guest_group_category"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
          />

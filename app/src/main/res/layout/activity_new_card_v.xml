@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="35dp"
         android:layout_centerInParent="true"
-        android:background="@drawable/user_single2"/>
+        android:background="@drawable/guest_single_category_v"/>
     <TextView
         android:id="@+id/singleGuestLabel"
         android:layout_width="wrap_content"
@@ -27,6 +27,7 @@
         android:text="@string/categoryS"
         android:textSize="30sp"
         />
+
     <Button
         android:id="@+id/familyGuest"
         android:layout_width="wrap_content"
@@ -34,8 +35,8 @@
         android:clickable="true"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/user_family2"/>
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/guest_family_category_v"/>
     <TextView
         android:id="@+id/familyGuestLabel"
         android:layout_width="wrap_content"
@@ -44,14 +45,14 @@
         android:textSize="30sp"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="58dp"
+
         />
     <Button
         android:id="@+id/groupGuest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:background="@drawable/user_group2"
+        android:background="@drawable/guest_group_category_v"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
          />
