@@ -14,51 +14,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:layout_centerInParent="true"
         android:background="@drawable/user_single2"/>
     <TextView
         android:id="@+id/singleGuestLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/singleGuest"
+        android:layout_centerInParent="true"
         android:text="@string/categoryS"
+        android:textSize="30sp"
         />
     <Button
         android:id="@+id/familyGuest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/user_family2"/>
     <TextView
         android:id="@+id/familyGuestLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/categoryF"
-        android:layout_below="@id/singleGuestLabel"
-        android:layout_alignRight="@id/familyGuest"
-        android:layout_alignEnd="@id/familyGuest" />
+        android:textSize="30sp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="58dp"
+        />
     <Button
         android:id="@+id/groupGuest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:background="@drawable/user_group2"
-        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="180dp" />
+         />
     <TextView
         android:id="@+id/groupGuestLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/categoryG"
-        android:textSize="30dp"
-        android:layout_alignTop="@+id/groupGuest"
-        android:layout_alignLeft="@+id/groupGuest"
-        android:layout_alignStart="@+id/groupGuest"
-        android:layout_marginTop="93dp" />
+        android:textSize="30sp"
+        android:layout_below="@id/groupGuest"
+        android:layout_centerInParent="true"
+        />
 
 
 
