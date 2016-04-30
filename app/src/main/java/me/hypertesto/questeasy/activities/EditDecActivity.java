@@ -26,7 +26,7 @@ public class EditDecActivity extends AppCompatActivity {
 
         ArrayList<CardListItem> items = new ArrayList<>();
         items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
-        items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
+        items.add(new CardListItem("famiglia","Famiglia Rossi", "3 persone", false, null, null));
         items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
         items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
         items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));

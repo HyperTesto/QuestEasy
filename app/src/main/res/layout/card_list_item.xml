@@ -25,20 +25,19 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_dialog_alert"
-        android:background="#000000"/>
+        android:src="@drawable/warning"/>
 
     <TextView
         android:id="@+id/cardName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/cardTypeImg"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:text="Pinco Panco"
         android:textColor="#000000"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/cardDesc"
@@ -46,8 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/cardName"
         android:layout_toRightOf="@id/cardTypeImg"
-        android:layout_marginLeft="10dp"
+        android:layout_alignLeft="@id/cardName"
+        android:layout_marginTop="8dp"
         android:text="Ospite Singolo"
-        android:textSize="20sp"/>
+        android:textSize="14sp"/>
 
 </RelativeLayout>

@@ -17,8 +17,8 @@
 			android:layout_alignParentEnd="true"
 			android:layout_alignParentRight="true"
 			android:layout_centerVertical="true"
-			android:src="@android:drawable/ic_dialog_alert"
-			android:background="#000000"/>
+			android:src="@drawable/warning"
+			/>
 
 	<TextView
 			android:id="@+id/decDate"
