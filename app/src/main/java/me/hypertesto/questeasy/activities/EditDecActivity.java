@@ -1,13 +1,14 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ListView;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ import me.hypertesto.questeasy.model.listitems.CardListItem;
 
 public class EditDecActivity extends AppCompatActivity {
 
-    private FloatingActionButton gotoSelectCategory;
+    private FloatingActionsMenu gotoSelectCategory;
     private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +44,14 @@ public class EditDecActivity extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.cardlistView);
         listView.setAdapter(adapter);
 
-        gotoSelectCategory = (FloatingActionButton)findViewById(R.id.categoryGuestGo);
+        /*gotoSelectCategory = (FloatingActionsMenu)findViewById(R.id.categoryGuestGo);
         gotoSelectCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditDecActivity.this,NewCardActivity.class));
+                //startActivity(new Intent(EditDecActivity.this,NewCardActivity.class));
             }
         });
+        */
     }
 
     @Override
