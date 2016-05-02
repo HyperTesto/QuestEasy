@@ -1,11 +1,15 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -26,8 +30,8 @@ public class EditDecActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_dec);
 
         ArrayList<CardListItem> items = new ArrayList<>();
-        items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
-        items.add(new CardListItem("famiglia","Famiglia Rossi", "3 persone", false, null, null));
+        items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
+        items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
         items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
         items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
         items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
@@ -37,7 +41,7 @@ public class EditDecActivity extends AppCompatActivity {
         items.add(new CardListItem("gruppo","Scolaresca","25 persone",true,null,null));
         items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
         items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
-        items.add(new CardListItem("gruppo","Scolaresca","25 persone",true,null,null));
+        items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
 
 
         CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
@@ -52,6 +56,34 @@ public class EditDecActivity extends AppCompatActivity {
             }
         });
         */
+        final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
+
+        try {
+            frameLayout.getBackground().setAlpha(0);
+            final FloatingActionsMenu fabMenu = (FloatingActionsMenu) findViewById(R.id.categoryGuestGo);
+            fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+                @Override
+                public void onMenuExpanded() {
+                    frameLayout.getBackground().setAlpha(170);
+                    frameLayout.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            fabMenu.collapse();
+                            return true;
+                        }
+                    });
+                }
+
+                @Override
+                public void onMenuCollapsed() {
+                    frameLayout.getBackground().setAlpha(0);
+                    frameLayout.setOnTouchListener(null);
+                }
+            });
+        }catch (NullPointerException e){
+            Log.e("ERROR","error null field");
+        }
+
 
     }
 
