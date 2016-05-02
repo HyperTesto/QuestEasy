@@ -41,17 +41,29 @@
             fab:fab_labelsPosition="left">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/categoryGuestGroupGo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/guest_group3"
                 fab:fab_colorNormal="@color/white"
-                fab:fab_title="Label on the right"
+                fab:fab_title="@string/categoryG"
+                fab:fab_colorPressed="@color/white_pressed"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/categoryGuestFamilyGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/guest_family3"
+                fab:fab_colorNormal="@color/white"
+                fab:fab_title="@string/categoryF"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/categoryGuestSingleGo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
-                fab:fab_title="Another one on the right"
+                fab:fab_title="@string/categoryS"
+                android:src="@drawable/guest_single3"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>

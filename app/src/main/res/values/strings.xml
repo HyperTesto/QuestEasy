@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="insertDcard">MODIFICA DICHIARAZIONE</string>
-    <string name="categoryS">SINGOLO</string>
-    <string name="categoryF">FAMIGLIA</string>
-    <string name="categoryG">GRUPPO</string>
+    <string name="categoryS">singolo</string>
+    <string name="categoryF">famiglia</string>
+    <string name="categoryG">gruppo</string>
 </resources>
