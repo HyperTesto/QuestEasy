@@ -9,13 +9,16 @@ import java.util.Date;
  * Contiene una lista di schede e la data.
  * Created by rigel on 02/05/16.
  */
-public class Declaration {
+public class Declaration extends ArrayList<Card> {
 
 	private Date date;
 	private boolean complete;
-	private ArrayList<Card> cards;
 
-	public int getCardCount(){
-		return cards.size();
+	public boolean isComplete(){
+		return this.complete;
+	}
+
+	public Date getDate(){
+		return this.date;
 	}
 }
