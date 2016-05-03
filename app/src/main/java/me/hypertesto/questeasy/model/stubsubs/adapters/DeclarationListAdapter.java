@@ -48,6 +48,7 @@ public class DeclarationListAdapter extends ArrayAdapter<Declaration> {
 		TextView txtDesc = (TextView) view.findViewById(R.id.decCount);
 		String desc = item.size() + " arrivi.";
 		txtDesc.setText(desc);
-		return null;
+
+		return view;
 	}
 }
