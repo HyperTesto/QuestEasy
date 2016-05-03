@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.listitems.DecListItem;
@@ -43,10 +45,12 @@ public class DeclarationListAdapter extends ArrayAdapter<Declaration> {
 		}
 
 		TextView txtDate = (TextView) view.findViewById(R.id.decDate);
-		txtDate.setText(item.getDate().toString());
+		Date date = item.getDate();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		txtDate.setText(sdf.format(date));
 
 		TextView txtDesc = (TextView) view.findViewById(R.id.decCount);
-		String desc = item.size() + " arrivi.";
+		String desc = item.size() + " arrivi";
 		txtDesc.setText(desc);
 
 		return view;
