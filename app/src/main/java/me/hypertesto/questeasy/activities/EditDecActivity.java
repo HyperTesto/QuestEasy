@@ -25,10 +25,17 @@ public class EditDecActivity extends AppCompatActivity {
 
     private FloatingActionsMenu gotoSelectCategory;
     private ListView listView;
+    private FrameLayout frameLayout;
+    private FloatingActionsMenu fabMenu;
+    boolean stateMenu;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        switch (getResources().getConfiguration().orientation) {
+        setContentView(R.layout.activity_edit_dec);
+
+       /*switch (getResources().getConfiguration().orientation) {
             case Configuration.ORIENTATION_PORTRAIT:
                 setContentView(R.layout.activity_edit_dec);
                 break;
@@ -36,6 +43,12 @@ public class EditDecActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_edit_dec_o);
                 break;
         }
+        */
+
+        frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
+        fabMenu = (FloatingActionsMenu) findViewById
+                (R.id.categoryGuestGo);
+
 
         ArrayList<CardListItem> items = new ArrayList<>();
         items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
@@ -64,19 +77,22 @@ public class EditDecActivity extends AppCompatActivity {
             }
         });
         */
-        final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
+
+
 
         try {
             frameLayout.getBackground().setAlpha(0);
-            final FloatingActionsMenu fabMenu = (FloatingActionsMenu) findViewById(R.id.categoryGuestGo);
-            fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+            fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.
+                    OnFloatingActionsMenuUpdateListener() {
                 @Override
                 public void onMenuExpanded() {
+                    stateMenu = fabMenu.isExpanded();
                     frameLayout.getBackground().setAlpha(170);
                     frameLayout.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
                             fabMenu.collapse();
+                            stateMenu = fabMenu.isExpanded();
                             return true;
                         }
                     });
@@ -85,12 +101,84 @@ public class EditDecActivity extends AppCompatActivity {
                 @Override
                 public void onMenuCollapsed() {
                     frameLayout.getBackground().setAlpha(0);
+                    stateMenu = fabMenu.isExpanded();
                     frameLayout.setOnTouchListener(null);
                 }
             });
         }catch (NullPointerException e){
             Log.e("ERROR","error null field");
         }
+
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+
+        // Checks the orientation
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_edit_dec_o);
+
+        } else if (config.orientation == Configuration.ORIENTATION_PORTRAIT){
+            setContentView(R.layout.activity_edit_dec);
+        }
+        ArrayList<CardListItem> items = new ArrayList<>();
+        items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
+        items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
+        items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
+        items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
+        items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
+        items.add(new CardListItem("gruppo","Scolaresca","25 persone",true,null,null));
+        items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
+        items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
+        items.add(new CardListItem("gruppo","Scolaresca","25 persone",true,null,null));
+        items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
+        items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
+        items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
+
+
+        CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
+        listView = (ListView)findViewById(R.id.cardlistView);
+        listView.setAdapter(adapter);
+
+        frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
+        fabMenu = (FloatingActionsMenu) findViewById
+                (R.id.categoryGuestGo);
+        try {
+            frameLayout.getBackground().setAlpha(0);
+            fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.
+                    OnFloatingActionsMenuUpdateListener() {
+                @Override
+                public void onMenuExpanded() {
+                    stateMenu = fabMenu.isExpanded();
+                    frameLayout.getBackground().setAlpha(170);
+                    frameLayout.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            fabMenu.collapse();
+                            stateMenu = fabMenu.isExpanded();
+                            return true;
+                        }
+                    });
+                }
+
+                @Override
+                public void onMenuCollapsed() {
+                    frameLayout.getBackground().setAlpha(0);
+                    stateMenu = fabMenu.isExpanded();
+                    frameLayout.setOnTouchListener(null);
+                }
+            });
+        }catch (NullPointerException e){
+            Log.e("ERROR","error null field");
+        }
+
+        if (stateMenu) {
+            fabMenu.expand();
+            frameLayout.getBackground().setAlpha(170);
+        }
+
 
 
     }

@@ -39,6 +39,7 @@
             fab:fab_addButtonColorPressed="@color/white_pressed"
             fab:fab_addButtonPlusIconColor="@color/half_black"
             fab:fab_expandDirection="left"
+            fab:fab_labelsPosition="right"
             >
 
             <com.getbase.floatingactionbutton.FloatingActionButton
