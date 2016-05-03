@@ -1,7 +1,5 @@
 package me.hypertesto.questeasy.activities;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,14 +9,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.adapters.CardListAdapter;
-import me.hypertesto.questeasy.model.listitems.CardListItem;
+import me.hypertesto.questeasy.model.stubsubs.Card;
+import me.hypertesto.questeasy.model.stubsubs.FamilyCard;
+import me.hypertesto.questeasy.model.stubsubs.FamilyMemberGuest;
+import me.hypertesto.questeasy.model.stubsubs.GroupCard;
+import me.hypertesto.questeasy.model.stubsubs.GroupMemberGuest;
+import me.hypertesto.questeasy.model.stubsubs.SingleGuestCard;
+import me.hypertesto.questeasy.model.stubsubs.adapters.CardListAdapter;
 
 public class EditDecActivity extends AppCompatActivity {
 
@@ -29,24 +32,20 @@ public class EditDecActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_dec);
 
-        ArrayList<CardListItem> items = new ArrayList<>();
-        items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
-        items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
-        items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
-        items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
-        items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
-        items.add(new CardListItem("gruppo","Scolaresca","25 persone",true,null,null));
-        items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
-        items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
-        items.add(new CardListItem("gruppo","Scolaresca","25 persone",true,null,null));
-        items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
-        items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
-        items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
+      ArrayList<Card> items = new ArrayList<>();
+			items.add(new SingleGuestCard(null, new Date(), 5, true));
+			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
+			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
+			items.add(new SingleGuestCard(null, new Date(), 5, false));
+			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, false));
+			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, false));
+			items.add(new SingleGuestCard(null, new Date(), 5, true));
+			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
+			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
 
-
-        CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
-        listView = (ListView)findViewById(R.id.cardlistView);
-        listView.setAdapter(adapter);
+			CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
+      listView = (ListView)findViewById(R.id.cardlistView);
+			listView.setAdapter(adapter);
 
         /*gotoSelectCategory = (FloatingActionsMenu)findViewById(R.id.categoryGuestGo);
         gotoSelectCategory.setOnClickListener(new View.OnClickListener() {
