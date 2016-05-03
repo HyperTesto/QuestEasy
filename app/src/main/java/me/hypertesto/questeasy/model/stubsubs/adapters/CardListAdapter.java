@@ -11,11 +11,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.listitems.CardListItem;
 import me.hypertesto.questeasy.model.stubsubs.Card;
 import me.hypertesto.questeasy.model.stubsubs.FamilyCard;
 import me.hypertesto.questeasy.model.stubsubs.GroupCard;
-import me.hypertesto.questeasy.model.stubsubs.SingleGuest;
 import me.hypertesto.questeasy.model.stubsubs.SingleGuestCard;
 
 /**
