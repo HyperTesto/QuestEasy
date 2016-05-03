@@ -10,9 +10,14 @@ import java.util.Date;
  * Created by rigel on 02/05/16.
  */
 public class Declaration extends ArrayList<Card> {
-
 	private Date date;
 	private boolean complete;
+
+	public Declaration(Date date, boolean complete){
+		super();
+		this.date = date;
+		this.complete = complete;
+	}
 
 	public boolean isComplete(){
 		return this.complete;
