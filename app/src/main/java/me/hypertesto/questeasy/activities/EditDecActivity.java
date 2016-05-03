@@ -1,6 +1,7 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,7 +28,14 @@ public class EditDecActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_dec);
+        switch (getResources().getConfiguration().orientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+                setContentView(R.layout.activity_edit_dec);
+                break;
+            case Configuration.ORIENTATION_LANDSCAPE:
+                setContentView(R.layout.activity_edit_dec_o);
+                break;
+        }
 
         ArrayList<CardListItem> items = new ArrayList<>();
         items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
