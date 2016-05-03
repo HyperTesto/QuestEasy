@@ -8,10 +8,13 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.adapters.DecListAdapter;
 import me.hypertesto.questeasy.model.listitems.DecListItem;
+import me.hypertesto.questeasy.model.stubsubs.Declaration;
+import me.hypertesto.questeasy.model.stubsubs.adapters.DeclarationListAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -21,21 +24,19 @@ public class HomeActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		ArrayList<DecListItem> items = new ArrayList<>();
-		items.add(new DecListItem(true, "20/14/18 - 23/28/12", "caccacaccacaccacaccaccaca"));
-		items.add(new DecListItem(false, "20/5439/18 - 122/28/12", "hkfsadfhafhaskfhaksdjf"));
-		items.add(new DecListItem(true, "20/14/18 - 23/28/12", "caccacaccacaccacaccaccaca"));
-		items.add(new DecListItem(false, "20/5439/18 - 122/28/12", "hkfsadfhafhaskfhaksdjf"));
-		items.add(new DecListItem(true, "20/14/18 - 23/28/12", "caccacaccacaccacaccaccaca"));
-		items.add(new DecListItem(false, "20/5439/18 - 122/28/12", "hkfsadfhafhaskfhaksdjf"));
-		items.add(new DecListItem(true, "20/14/18 - 23/28/12", "caccacaccacaccacaccaccaca"));
-		items.add(new DecListItem(false, "20/5439/18 - 122/28/12", "hkfsadfhafhaskfhaksdjf"));
-		items.add(new DecListItem(true, "20/14/18 - 23/28/12", "caccacaccacaccacaccaccaca"));
-		items.add(new DecListItem(false, "20/5439/18 - 122/28/12", "hkfsadfhafhaskfhaksdjf"));
+		ArrayList<Declaration> items = new ArrayList<>();
+		items.add(new Declaration(new Date(), true));
+		items.add(new Declaration(new Date(), false));
+		items.add(new Declaration(new Date(), false));
+		items.add(new Declaration(new Date(), true));
+		items.add(new Declaration(new Date(), true));
+		items.add(new Declaration(new Date(), false));
+		items.add(new Declaration(new Date(), false));
+		items.add(new Declaration(new Date(), true));
 
 		ListView lv = (ListView) findViewById(R.id.lvDichiarazioni);
 
-		DecListAdapter adapter = new DecListAdapter(this, R.layout.dec_list_item, items);
+		DeclarationListAdapter adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
 		lv.setAdapter(adapter);
 
 		insertNewDcard = (FloatingActionButton)findViewById(R.id.fab);
