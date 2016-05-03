@@ -5,7 +5,7 @@ package me.hypertesto.questeasy.model.stubsubs;
  * il capo gruppo.
  * Created by rigel on 02/05/16.
  */
-public class MainGuest implements Guest{
+public abstract class MainGuest implements Guest{
 
 	private String name;
 	private String surname;

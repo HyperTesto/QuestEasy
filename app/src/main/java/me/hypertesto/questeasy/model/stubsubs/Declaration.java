@@ -11,8 +11,11 @@ import java.util.Date;
  */
 public class Declaration {
 
-	private Date dateFrom;
-	private Date dateTo;
+	private Date date;
+	private boolean complete;
 	private ArrayList<Card> cards;
 
+	public int getCardCount(){
+		return cards.size();
+	}
 }

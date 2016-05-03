@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by rigel on 02/05/16.
  */
 public class GroupCard extends Card {
-	private MainGuest capoGruppo;
+	private GroupHeadGuest capoGruppo;
 	private ArrayList<GroupMemberGuest> altri;
 
 	@Override

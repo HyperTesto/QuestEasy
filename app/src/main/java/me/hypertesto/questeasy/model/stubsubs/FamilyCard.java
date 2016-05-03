@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by rigel on 02/05/16.
  */
 public class FamilyCard extends Card {
-	private MainGuest capoFamiglia;
+	private FamilyHeadGuest capoFamiglia;
 	private ArrayList<FamilyMemberGuest> familiari;
 
 	@Override

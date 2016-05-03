@@ -5,7 +5,7 @@ package me.hypertesto.questeasy.model.stubsubs;
  * Created by rigel on 02/05/16.
  */
 public class SingleGuestCard extends Card {
-	private MainGuest guest;
+	private SingleGuest guest;
 
 	@Override
 	public String getTitle(){

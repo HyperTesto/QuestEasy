@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public abstract class Card {
 	private Date date;
+	private int permanenza;
 
 	public abstract String getTitle();
 
