@@ -25,9 +25,4 @@ public class GroupCard extends Card {
 	public String getTitle(){
 		return "Nome comitiva";
 	}
-
-	@Override
-	public String getDescription(){
-		return "Numero membri";
-	}
 }

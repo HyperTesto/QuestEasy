@@ -19,5 +19,7 @@ public abstract class Card {
 
 	public abstract String getTitle();
 
-	public abstract String getDescription();
+	public String getDescription(){
+		return "Permanenza: " + this.permanenza + " giorni";
+	}
 }

@@ -20,9 +20,4 @@ public class SingleGuestCard extends Card {
 	public String getTitle(){
 		return "Nome dell'ospite";
 	}
-
-	@Override
-	public String getDescription(){
-		return "Qualcosa a caso";
-	}
 }
