@@ -11,6 +11,11 @@ import java.util.Date;
 public abstract class Card {
 	private Date date;
 	private int permanenza;
+	private boolean complete;
+
+	public boolean isComplete(){
+		return this.complete;
+	}
 
 	public abstract String getTitle();
 
