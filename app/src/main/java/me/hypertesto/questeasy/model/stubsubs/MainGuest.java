@@ -6,5 +6,5 @@ package me.hypertesto.questeasy.model.stubsubs;
  * Created by rigel on 02/05/16.
  */
 public abstract class MainGuest extends Guest {
-	private Documento documento;
+	protected Documento documento;
 }

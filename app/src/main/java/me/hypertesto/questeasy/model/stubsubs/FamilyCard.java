@@ -1,6 +1,7 @@
 package me.hypertesto.questeasy.model.stubsubs;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Classe che specializza Card per documentare l'arrivo di una famiglia.
@@ -10,6 +11,15 @@ import java.util.ArrayList;
 public class FamilyCard extends Card {
 	private FamilyHeadGuest capoFamiglia;
 	private ArrayList<FamilyMemberGuest> familiari;
+
+	public FamilyCard(FamilyHeadGuest guest, ArrayList<FamilyMemberGuest> others, Date date,
+										int permanenza, boolean complete){
+		this.capoFamiglia = guest;
+		this.familiari = others;
+		this.date = date;
+		this.permanenza = permanenza;
+		this.complete = complete;
+	}
 
 	@Override
 	public String getTitle(){

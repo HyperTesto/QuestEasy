@@ -9,9 +9,9 @@ import java.util.Date;
  * Created by rigel on 02/05/16.
  */
 public abstract class Card {
-	private Date date;
-	private int permanenza;
-	private boolean complete;
+	protected Date date;
+	protected int permanenza;
+	protected boolean complete;
 
 	public boolean isComplete(){
 		return this.complete;

@@ -10,13 +10,13 @@ import java.util.Date;
  * Created by rigel on 02/05/16.
  */
 public abstract class Guest {
-	private String name;
-	private String surname;
-	private Date birthDate;
-	private String sex;
-	private String comuneDiNascita;
-	private String provinciaDiNascita;
-	private String statoDiNascita;
-	private String cittadinanza;
+	protected String name;
+	protected String surname;
+	protected Date birthDate;
+	protected String sex;
+	protected String comuneDiNascita;
+	protected String provinciaDiNascita;
+	protected String statoDiNascita;
+	protected String cittadinanza;
 
 }
