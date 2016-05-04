@@ -13,6 +13,7 @@ import java.util.Date;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
+import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -33,15 +34,30 @@ public class HomeActivity extends AppCompatActivity {
 		items.add(new Declaration(new Date(), true));
 
 		ListView lv = (ListView) findViewById(R.id.lvDichiarazioni);
-
 		DeclarationListAdapter adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
 		lv.setAdapter(adapter);
+
+		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
+		fsd.open();
+
+		for (Declaration dec : items){
+			fsd.insertDeclaration(dec);
+		}
+
+		ArrayList<Declaration> decs = fsd.getAllDeclarations();
+
+		for (Declaration d : decs){
+			System.out.println(d.getDate());
+			System.out.println(d.isComplete());
+		}
+
+		fsd.close();
 
 		insertNewDcard = (FloatingActionButton)findViewById(R.id.fab);
 		insertNewDcard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this,EditDecActivity.class));
+				startActivity(new Intent(HomeActivity.this, EditDecActivity.class));
 			}
 		});
 

@@ -1,5 +1,6 @@
 package me.hypertesto.questeasy.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * informazioni dietro le quinte (se possibile), oppure fregarsene proprio.
  * Created by rigel on 02/05/16.
  */
-public abstract class Guest {
+public abstract class Guest implements Serializable{
 	protected String name;
 	protected String surname;
 	protected Date birthDate;
