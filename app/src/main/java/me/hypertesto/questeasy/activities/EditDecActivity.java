@@ -16,10 +16,15 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.adapters.CardListAdapter;
-import me.hypertesto.questeasy.model.listitems.CardListItem;
+import me.hypertesto.questeasy.model.stubsubs.Card;
+import me.hypertesto.questeasy.model.stubsubs.FamilyCard;
+import me.hypertesto.questeasy.model.stubsubs.FamilyMemberGuest;
+import me.hypertesto.questeasy.model.stubsubs.GroupCard;
+import me.hypertesto.questeasy.model.stubsubs.GroupMemberGuest;
+import me.hypertesto.questeasy.model.stubsubs.SingleGuestCard;
 
 public class EditDecActivity extends AppCompatActivity {
 
@@ -73,22 +78,19 @@ public class EditDecActivity extends AppCompatActivity {
 				(R.id.categoryGuestGo);
 		guestForm = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
 
-		ArrayList<CardListItem> items = new ArrayList<>();
-		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
-		items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
-		items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
-		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
-		items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
-		items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
-		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
-		items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
-		items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
-		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
-		items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
-		items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
+		ArrayList<Card> items = new ArrayList<>();
+		items.add(new SingleGuestCard(null, new Date(), 5, true));
+		items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
+		items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
+		items.add(new SingleGuestCard(null, new Date(), 5, false));
+		items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, false));
+		items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, false));
+		items.add(new SingleGuestCard(null, new Date(), 5, true));
+		items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
+		items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
 
-		CardListAdapter adapter = new CardListAdapter(this, R.layout.card_list_item, items);
-		listView = (ListView) findViewById(R.id.cardlistView);
+		me.hypertesto.questeasy.model.stubsubs.adapters.CardListAdapter adapter = new me.hypertesto.questeasy.model.stubsubs.adapters.CardListAdapter(this,R.layout.card_list_item,items);
+		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
 
 		try {
