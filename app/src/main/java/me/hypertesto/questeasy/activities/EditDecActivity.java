@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -28,6 +29,7 @@ public class EditDecActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
     private FloatingActionsMenu fabMenu;
     private boolean stateMenu;
+	private FloatingActionButton guestForm;
 
 
     @Override
@@ -80,6 +82,7 @@ public class EditDecActivity extends AppCompatActivity {
 		frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
 		fabMenu = (FloatingActionsMenu) findViewById
 				(R.id.categoryGuestGo);
+		guestForm = (FloatingActionButton)findViewById(R.id.categoryGuestSingleGo);
 
 		ArrayList<CardListItem> items = new ArrayList<>();
 		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
@@ -139,5 +142,12 @@ public class EditDecActivity extends AppCompatActivity {
 			Log.e("ERROR","error null field");
 		}
 
+		guestForm.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				startActivity(new Intent(EditDecActivity.this,FormGuestActivity.class));
+			}
+		});
 	}
 }
