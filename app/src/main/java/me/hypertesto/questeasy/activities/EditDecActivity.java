@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.stubsubs.Card;
-import me.hypertesto.questeasy.model.stubsubs.FamilyCard;
-import me.hypertesto.questeasy.model.stubsubs.FamilyMemberGuest;
-import me.hypertesto.questeasy.model.stubsubs.GroupCard;
-import me.hypertesto.questeasy.model.stubsubs.GroupMemberGuest;
-import me.hypertesto.questeasy.model.stubsubs.SingleGuestCard;
+import me.hypertesto.questeasy.model.adapters.CardListAdapter;
+import me.hypertesto.questeasy.model.Card;
+import me.hypertesto.questeasy.model.FamilyCard;
+import me.hypertesto.questeasy.model.FamilyMemberGuest;
+import me.hypertesto.questeasy.model.GroupCard;
+import me.hypertesto.questeasy.model.GroupMemberGuest;
+import me.hypertesto.questeasy.model.SingleGuestCard;
 
 public class EditDecActivity extends AppCompatActivity {
 
@@ -89,7 +90,7 @@ public class EditDecActivity extends AppCompatActivity {
 		items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
 		items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
 
-		me.hypertesto.questeasy.model.stubsubs.adapters.CardListAdapter adapter = new me.hypertesto.questeasy.model.stubsubs.adapters.CardListAdapter(this,R.layout.card_list_item,items);
+		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
 

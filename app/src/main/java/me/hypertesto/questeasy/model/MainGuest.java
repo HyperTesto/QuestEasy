@@ -1,4 +1,4 @@
-package me.hypertesto.questeasy.model.stubsubs;
+package me.hypertesto.questeasy.model;
 
 /**
  * Classe che specializza l'ospite completo, usata per l'ospite singolo, il capo famiglia e

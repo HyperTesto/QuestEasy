@@ -1,4 +1,4 @@
-package me.hypertesto.questeasy.model.stubsubs;
+package me.hypertesto.questeasy.model;
 
 import java.util.ArrayList;
 import java.util.Date;

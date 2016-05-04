@@ -1,4 +1,4 @@
-package me.hypertesto.questeasy.model.stubsubs;
+package me.hypertesto.questeasy.model;
 
 /**
  * Created by rigel on 03/05/16.

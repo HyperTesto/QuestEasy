@@ -1,4 +1,4 @@
-package me.hypertesto.questeasy.model.stubsubs.adapters;
+package me.hypertesto.questeasy.model.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.listitems.DecListItem;
-import me.hypertesto.questeasy.model.stubsubs.Declaration;
+import me.hypertesto.questeasy.model.Declaration;
 
 /**
  * Created by rigel on 03/05/16.

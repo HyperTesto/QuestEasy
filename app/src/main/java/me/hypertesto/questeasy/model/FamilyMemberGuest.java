@@ -1,4 +1,4 @@
-package me.hypertesto.questeasy.model.stubsubs;
+package me.hypertesto.questeasy.model;
 
 /**
  * Classe che implementa l'utente membro di una famiglia di cui non è capo.

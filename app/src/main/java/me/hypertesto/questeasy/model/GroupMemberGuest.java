@@ -1,4 +1,4 @@
-package me.hypertesto.questeasy.model.stubsubs;
+package me.hypertesto.questeasy.model;
 
 /**
  * Classe che rappresenta l'ospite membro di un gruppo di cui non è a capo.

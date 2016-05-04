@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.adapters.DecListAdapter;
-import me.hypertesto.questeasy.model.listitems.DecListItem;
-import me.hypertesto.questeasy.model.stubsubs.Declaration;
-import me.hypertesto.questeasy.model.stubsubs.adapters.DeclarationListAdapter;
+import me.hypertesto.questeasy.model.Declaration;
+import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
