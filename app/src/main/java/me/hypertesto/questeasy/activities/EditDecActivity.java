@@ -2,7 +2,6 @@ package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +9,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -24,28 +23,19 @@ import me.hypertesto.questeasy.model.listitems.CardListItem;
 
 public class EditDecActivity extends AppCompatActivity {
 
-    private FloatingActionsMenu gotoSelectCategory;
-    private ListView listView;
-    private FrameLayout frameLayout;
-    private FloatingActionsMenu fabMenu;
-    private boolean stateMenu;
+	private FloatingActionsMenu gotoSelectCategory;
+	private ListView listView;
+	private FrameLayout frameLayout;
+	private FloatingActionsMenu fabMenu;
+	private boolean stateMenu;
 	private FloatingActionButton guestForm;
 
 
-    @Override
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_dec);
 
-       /*switch (getResources().getConfiguration().orientation) {
-            case Configuration.ORIENTATION_PORTRAIT:
-                setContentView(R.layout.activity_edit_dec);
-                break;
-            case Configuration.ORIENTATION_LANDSCAPE:
-                setContentView(R.layout.activity_edit_dec_o);
-                break;
-        }
-        */
 		defineSettings();
 	}
 
@@ -57,18 +47,17 @@ public class EditDecActivity extends AppCompatActivity {
 		if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setContentView(R.layout.activity_edit_dec_o);
 
-		} else if (config.orientation == Configuration.ORIENTATION_PORTRAIT){
+		} else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
 			setContentView(R.layout.activity_edit_dec);
 		}
 		defineSettings();
-        if (stateMenu) {
-            fabMenu.expand();
-            frameLayout.getBackground().setAlpha(170);
-        }
+		if (stateMenu) {
+			fabMenu.expand();
+			frameLayout.getBackground().setAlpha(170);
+		}
 
 
-
-    }
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,40 +67,29 @@ public class EditDecActivity extends AppCompatActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	private void defineSettings (){
+	private void defineSettings() {
 		frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
 		fabMenu = (FloatingActionsMenu) findViewById
 				(R.id.categoryGuestGo);
-		guestForm = (FloatingActionButton)findViewById(R.id.categoryGuestSingleGo);
+		guestForm = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
 
 		ArrayList<CardListItem> items = new ArrayList<>();
 		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
 		items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
 		items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
-		items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
-		items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
-		items.add(new CardListItem("gruppo","Scolaresca","25 persone",true,null,null));
-		items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
-		items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
-		items.add(new CardListItem("gruppo","Scolaresca","25 persone",true,null,null));
-		items.add(new CardListItem("singolo","Pippo","Fuffa",true,null,null));
-		items.add(new CardListItem("famiglia","Famiglia Rossi","3 persone",false,null,null));
+		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
+		items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
+		items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
+		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
+		items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
+		items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
+		items.add(new CardListItem("singolo", "Pippo", "Fuffa", true, null, null));
+		items.add(new CardListItem("famiglia", "Famiglia Rossi", "3 persone", false, null, null));
 		items.add(new CardListItem("gruppo", "Scolaresca", "25 persone", true, null, null));
 
-		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
-		listView = (ListView)findViewById(R.id.cardlistView);
+		CardListAdapter adapter = new CardListAdapter(this, R.layout.card_list_item, items);
+		listView = (ListView) findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
-
-        /*gotoSelectCategory = (FloatingActionsMenu)findViewById(R.id.categoryGuestGo);
-        gotoSelectCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(EditDecActivity.this,NewCardActivity.class));
-            }
-        });
-        */
-
-
 
 		try {
 			frameLayout.getBackground().setAlpha(0);
@@ -138,15 +116,15 @@ public class EditDecActivity extends AppCompatActivity {
 					frameLayout.setOnTouchListener(null);
 				}
 			});
-		}catch (NullPointerException e){
-			Log.e("ERROR","error null field");
+		} catch (NullPointerException e) {
+			Log.e("ERROR", "error null field");
 		}
 
 		guestForm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
-				startActivity(new Intent(EditDecActivity.this,FormGuestActivity.class));
+				startActivity(new Intent(EditDecActivity.this, FormGuestActivity.class));
 			}
 		});
 	}

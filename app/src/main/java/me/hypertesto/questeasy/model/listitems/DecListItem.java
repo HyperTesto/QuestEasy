@@ -9,11 +9,11 @@ public class DecListItem {
 	private String date;
 	private String description;
 
-	public DecListItem(){
+	public DecListItem() {
 		super();
 	}
 
-	public DecListItem(boolean warningSign, String date, String description){
+	public DecListItem(boolean warningSign, String date, String description) {
 		super();
 		this.warningSign = warningSign;
 		this.date = date;

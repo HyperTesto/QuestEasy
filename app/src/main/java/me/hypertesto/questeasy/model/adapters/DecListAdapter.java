@@ -29,14 +29,14 @@ public class DecListAdapter extends ArrayAdapter<DecListItem> {
 	}
 
 	@Override
-	public View getView(int position, View view, ViewGroup parent){
+	public View getView(int position, View view, ViewGroup parent) {
 		LayoutInflater vi = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 		view = vi.inflate(this.layoutId, null);
 
 		DecListItem item = this.items.get(position);
 
 		ImageView img = (ImageView) view.findViewById(R.id.decWarningImg);
-		if (!item.isWarningSign()){
+		if (!item.isWarningSign()) {
 			img.setVisibility(View.GONE);
 		}
 

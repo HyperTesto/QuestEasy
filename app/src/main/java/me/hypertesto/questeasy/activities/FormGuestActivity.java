@@ -7,9 +7,9 @@ import me.hypertesto.questeasy.R;
 
 public class FormGuestActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_guest);
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_form_guest);
+		}
 }
