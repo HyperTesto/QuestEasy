@@ -14,6 +14,10 @@ public class Declaration extends ArrayList<Card> implements Serializable {
 	private Date date;
 	private boolean complete;
 
+	public Declaration(){
+		super();
+	};
+
 	public Declaration(Date date, boolean complete){
 		super();
 		this.date = date;
