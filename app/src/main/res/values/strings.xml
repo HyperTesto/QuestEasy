@@ -6,9 +6,17 @@
     <string name="categoryS">singolo</string>
     <string name="categoryF">famiglia</string>
     <string name="categoryG">gruppo</string>
+	<string name = "personalDataGuest">Dati personali</string>
     <string name = "nameGuest">Nome</string>
     <string name = "surnameGuest">Cognome</string>
     <string name = "sexGuest">Sesso</string>
+	<string name = "sexMen">Uomo</string>
+	<string name = "sexWoman">Donna</string>
     <string name="dateBirthGuest">Data di nascita</string>
+	<string name = "cittadinanzaGuest">Cittadinanza</string>
     <string name = "luogoGuest">Luogo di nascita</string>
+	<string name = "documentoGuest">Documento</string>
+	<string name = "codeDocumentoGuest">Codice</string>
+	<string name = "numberDocumentoGuest">Numero documento</string>
+	<string name = "placeDocumentoGuest">Luogo di rilascio</string>
 </resources>

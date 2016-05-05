@@ -13,6 +13,13 @@
 		android:layout_height="match_parent"
 		android:orientation="vertical">
 
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/personalDataGuest"
+			android:textSize="20dp"
+			/>
+
 		<EditText
 			android:id="@+id/editText_name_guest_form"
 			android:layout_width="match_parent"
@@ -27,13 +34,6 @@
 			android:hint="@string/surnameGuest"
 			/>
 
-		<EditText
-			android:id="@+id/editText_luogoN_guest_form"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:hint="@string/luogoGuest"
-			/>
-
 		<TextView
 			android:id="@+id/editText_birthDate_guest_form"
 			android:layout_width="match_parent"
@@ -45,26 +45,67 @@
 			style="@style/Widget.AppCompat.Spinner.Underlined"
 			/>
 
-		<TextView
-			android:layout_width="wrap_content"
+		<EditText
+			android:id="@+id/editText_luogoN_guest_form"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:hint="@string/sexGuest"
-			android:textSize="18sp"
-			android:layout_marginLeft="5dp"
+			android:hint="@string/luogoGuest"
+			/>
+
+		<EditText
+			android:id="@+id/editText_cittadinanza_guest_form"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/cittadinanzaGuest"
 			/>
 
 		<RadioGroup android:layout_height="wrap_content" android:id="@+id/gender_group"
 					android:layout_width="wrap_content"
 					android:orientation="horizontal"
-					android:layout_gravity="center"
 			>
-			<RadioButton android:text="Male"
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:hint="@string/sexGuest"
+				android:textSize="18sp"
+				android:layout_marginLeft="5dp"
+				android:paddingRight="10dp"
+				/>
+			<RadioButton android:text="@string/sexMen"
 						 android:layout_width="wrap_content" android:id="@+id/radio0"
-						 android:layout_height="wrap_content" android:checked="true"></RadioButton>
-			<RadioButton android:text="Female"
+						 android:layout_height="wrap_content"
+
+						 android:checked="true"></RadioButton>
+			<RadioButton android:text="@string/sexWoman"
 						 android:layout_width="wrap_content" android:id="@+id/radio1"
 						 android:layout_height="wrap_content"></RadioButton>
 		</RadioGroup>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/documentoGuest"
+			android:textSize="20dp"
+			/>
+
+		<EditText
+			android:id="@+id/editText_documentoCodice_guest_form"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/codeDocumentoGuest"
+			/>
+		<EditText
+			android:id="@+id/editText_documentoNumber_guest_form"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/numberDocumentoGuest"
+			/>
+		<EditText
+			android:id="@+id/editText_documentoPlace_guest_form"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/placeDocumentoGuest"
+			/>
 
 	</LinearLayout>
 
