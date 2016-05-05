@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -31,6 +32,8 @@ public  class DatePickerFragment extends DialogFragment implements
 
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-		//Do something with the date that user inserts
+			TextView dateBirth = (TextView)getActivity().findViewById
+					(R.id.editText_birthDate_guest_form);
+			dateBirth.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 	}
 }
