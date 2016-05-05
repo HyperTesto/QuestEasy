@@ -146,8 +146,8 @@ public class FSDeclarationDao implements DeclarationDao {
 		Declaration d2 = new Declaration(new Date(), true);
 		GroupHeadGuest g3 = new GroupHeadGuest();
 		g3.setBirthDate(new Date());
-		g3.setName("Manilo");
-		g3.setSurname("Carlini");
+		g3.setName("Lapillo");
+		g3.setSurname("lupalini");
 		g3.setSex("TF");
 		g3.setCittadinanza("Italia");
 		g3.setComuneDiNascita("Dambel");
@@ -158,8 +158,8 @@ public class FSDeclarationDao implements DeclarationDao {
 		ArrayList<GroupMemberGuest> gmgs = new ArrayList<>();
 		GroupMemberGuest g4 = new GroupMemberGuest();
 		g4.setBirthDate(new Date());
-		g4.setName("Carlo");
-		g4.setSurname("Carlini");
+		g4.setName("Marala");
+		g4.setSurname("Carlona");
 		g4.setSex("TF");
 		g4.setCittadinanza("Italia");
 		g4.setComuneDiNascita("Dambel");
@@ -169,8 +169,8 @@ public class FSDeclarationDao implements DeclarationDao {
 
 		g4 = new GroupMemberGuest();
 		g4.setBirthDate(new Date());
-		g4.setName("Rallo");
-		g4.setSurname("Lorlini");
+		g4.setName("Trullo");
+		g4.setSurname("frolliani");
 		g4.setSex("TF");
 		g4.setCittadinanza("Italia");
 		g4.setComuneDiNascita("Dambel");
