@@ -20,6 +20,14 @@ public class Declaration extends ArrayList<Card> implements Serializable {
 		this.complete = complete;
 	}
 
+	public void setDate(Date date){
+		this.date = date;
+	}
+
+	public void setComplete(boolean complete){
+		this.complete = complete;
+	}
+
 	public boolean isComplete(){
 		return this.complete;
 	}

@@ -14,6 +14,26 @@ public abstract class Card implements Serializable{
 	protected int permanenza;
 	protected boolean complete;
 
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public void setPermanenza(int permanenza) {
+		this.permanenza = permanenza;
+	}
+
+	public void setComplete(boolean complete) {
+		this.complete = complete;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public int getPermanenza() {
+		return permanenza;
+	}
+
 	public boolean isComplete(){
 		return this.complete;
 	}

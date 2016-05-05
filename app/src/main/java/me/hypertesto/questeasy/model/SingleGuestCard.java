@@ -16,6 +16,10 @@ public class SingleGuestCard extends Card {
 		this.complete = complete;
 	}
 
+	public SingleGuest getGuest() {
+		return guest;
+	}
+
 	@Override
 	public String getTitle(){
 		return "Nome dell'ospite";
