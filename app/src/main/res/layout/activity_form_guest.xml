@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	xmlns:fab="http://schemas.android.com/apk/res-auto"
 	android:layout_marginRight="15dp"
 	android:layout_marginLeft="15dp"
 	tools:context="me.hypertesto.questeasy.activities.FormGuestActivity">
@@ -129,6 +130,7 @@
 			android:id="@+id/editText_luogoN_guest_form"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginTop="3dp"
 			android:layout_below="@id/editText_birthDate_guest_form"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
@@ -153,6 +155,7 @@
 			android:id="@+id/editText_cittadinanza_guest_form"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginTop="7dp"
 			android:layout_below="@id/editText_luogoN_guest_form"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
@@ -222,6 +225,42 @@
 			android:layout_below="@id/editText_documentoNumber_guest_form"
 			android:hint="@string/placeDocumentoGuest"
 			/>
+		<com.getbase.floatingactionbutton.AddFloatingActionButton
+			android:id = "@+id/add_another_guest_form"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/editText_documentoNumber_guest_form"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:layout_marginTop="15dp"
+			fab:fab_colorNormal="@color/colorPrimary"
+
+
+			/>
+		<com.getbase.floatingactionbutton.FloatingActionButton
+			android:id = "@+id/camera__guest_form"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@id/add_another_guest_form"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			fab:fab_colorNormal="@color/white"
+			fab:fab_size="mini"
+
+			/>
+		<com.getbase.floatingactionbutton.FloatingActionButton
+			android:id = "@+id/voice_guest_form"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@id/add_another_guest_form"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:layout_marginLeft="35dp"
+			fab:fab_size="mini"
+			fab:fab_colorNormal="@color/colorPrimary"
+
+			/>
+
 
 	</RelativeLayout>
 
