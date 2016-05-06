@@ -8,66 +8,69 @@
 	android:layout_marginLeft="15dp"
 	tools:context="me.hypertesto.questeasy.activities.FormGuestActivity">
 
-	<LinearLayout
+	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical">
-
+		android:layout_height="wrap_content"
+		android:layout_marginRight="10dp"
+		android:layout_marginLeft="10dp"
+		>
 		<TextView
+			android:id="@+id/person_data_Title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/personalDataGuest"
-			android:textSize="20dp"
+			android:layout_marginTop="10dp"
+			android:textSize="20sp"
 			/>
-
+		<ImageView
+			android:id="@+id/person_data_imageView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_marginLeft="5dp"
+			android:layout_marginTop="20dp"
+			android:layout_below="@id/person_data_Title"
+			android:src="@drawable/icon_person_form_guest"
+			/>
 		<EditText
 			android:id="@+id/editText_name_guest_form"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_below="@id/person_data_Title"
+			android:layout_marginTop="10dp"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:maxLength="60"
+			android:ems="15"
+			android:textSize="15sp"
 			android:hint="@string/nameGuest"
 			/>
 
 		<EditText
 			android:id="@+id/editText_surname_guest_form"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_below="@id/editText_name_guest_form"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:maxLength="60"
+			android:ems="15"
+			android:textSize="15sp"
 			android:hint="@string/surnameGuest"
-			/>
-
-		<TextView
-			android:id="@+id/editText_birthDate_guest_form"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:focusable="false"
-			android:onClick="showDatePickerDialog"
-			android:hint="@string/dateBirthGuest"
-			android:textSize="18sp"
-			style="@style/Widget.AppCompat.Spinner.Underlined"
-			/>
-
-		<EditText
-			android:id="@+id/editText_luogoN_guest_form"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:hint="@string/luogoGuest"
-			/>
-
-		<EditText
-			android:id="@+id/editText_cittadinanza_guest_form"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:hint="@string/cittadinanzaGuest"
 			/>
 
 		<RadioGroup android:layout_height="wrap_content" android:id="@+id/gender_group"
 					android:layout_width="wrap_content"
 					android:orientation="horizontal"
+					android:layout_marginTop="10dp"
+					android:layout_below="@id/editText_surname_guest_form"
+					android:layout_alignLeft="@id/editText_surname_guest_form"
 			>
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:hint="@string/sexGuest"
-				android:textSize="18sp"
+				android:textSize="15sp"
 				android:layout_marginLeft="5dp"
 				android:paddingRight="10dp"
 				/>
@@ -81,32 +84,145 @@
 						 android:layout_height="wrap_content"></RadioButton>
 		</RadioGroup>
 
-		<TextView
+		<ImageView
+			android:id="@+id/person_dateBirth_imageView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:layout_marginLeft="5dp"
+			android:layout_marginTop="15dp"
+			android:layout_below="@id/gender_group"
+			android:src="@drawable/icon_date_form_guest"
+			/>
+
+		<TextView
+			android:id="@+id/editText_birthDate_guest_form"
+			android:layout_width="265dp"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_below="@id/gender_group"
+			android:layout_marginTop="8dp"
+			android:focusable="false"
+			android:onClick="showDatePickerDialog"
+			android:hint="@string/dateBirthGuest"
+			android:ems="15"
+			android:textSize="15sp"
+			style="@style/Widget.AppCompat.Spinner.Underlined"
+			/>
+
+
+
+		<ImageView
+			android:id="@+id/person_place_imageView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:layout_marginTop="20dp"
+			android:layout_marginLeft="5dp"
+			android:layout_below="@id/person_dateBirth_imageView"
+			android:src="@drawable/icon_placeholder_form_guest"
+			/>
+
+		<EditText
+			android:id="@+id/editText_luogoN_guest_form"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/editText_birthDate_guest_form"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:maxLength="60"
+			android:ems="15"
+			android:textSize="15sp"
+			android:hint="@string/luogoGuest"
+			/>
+		<ImageView
+			android:id="@+id/person_citizenship_imageView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:layout_marginTop="20dp"
+			android:layout_marginLeft="5dp"
+			android:layout_below="@id/person_place_imageView"
+			android:src="@drawable/icon_waving_flag_form_guest"
+			/>
+
+		<EditText
+			android:id="@+id/editText_cittadinanza_guest_form"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/editText_luogoN_guest_form"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:maxLength="60"
+			android:ems="15"
+			android:textSize="15sp"
+			android:hint="@string/cittadinanzaGuest"
+
+			/>
+
+
+		<TextView
+			android:id="@+id/person_document_Title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/person_citizenship_imageView"
+			android:layout_marginTop="20dp"
 			android:text="@string/documentoGuest"
 			android:textSize="20dp"
+					/>
+		<ImageView
+			android:id="@+id/person_identityCard_imageView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:layout_marginLeft="5dp"
+			android:layout_marginTop="20dp"
+			android:layout_below="@id/person_document_Title"
+			android:src="@drawable/icon_identification_card_form_guest"
 			/>
 
 		<EditText
 			android:id="@+id/editText_documentoCodice_guest_form"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:maxLength="60"
+			android:ems="15"
+			android:textSize="15sp"
+			android:layout_below="@id/person_document_Title"
 			android:hint="@string/codeDocumentoGuest"
 			/>
 		<EditText
 			android:id="@+id/editText_documentoNumber_guest_form"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:maxLength="60"
+			android:ems="15"
+			android:textSize="15sp"
+			android:layout_below="@id/editText_documentoCodice_guest_form"
 			android:hint="@string/numberDocumentoGuest"
 			/>
 		<EditText
 			android:id="@+id/editText_documentoPlace_guest_form"
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:maxLength="60"
+			android:ems="15"
+			android:textSize="15sp"
+			android:layout_below="@id/editText_documentoNumber_guest_form"
 			android:hint="@string/placeDocumentoGuest"
 			/>
 
-	</LinearLayout>
+	</RelativeLayout>
 
 </ScrollView>
