@@ -75,13 +75,14 @@
 				android:layout_marginLeft="5dp"
 				android:paddingRight="10dp"
 				/>
-			<RadioButton android:text="@string/sexMen"
-						 android:layout_width="wrap_content" android:id="@+id/radio0"
-						 android:layout_height="wrap_content"
+			<RadioButton
+						android:text="@string/sexMen"
+						android:layout_width="wrap_content" android:id="@+id/sex_man"
+						android:layout_height="wrap_content"
 
 						 android:checked="true"></RadioButton>
 			<RadioButton android:text="@string/sexWoman"
-						 android:layout_width="wrap_content" android:id="@+id/radio1"
+						 android:layout_width="wrap_content" android:id="@+id/sex_woman"
 						 android:layout_height="wrap_content"></RadioButton>
 		</RadioGroup>
 
@@ -174,7 +175,7 @@
 			android:layout_below="@id/person_citizenship_imageView"
 			android:layout_marginTop="20dp"
 			android:text="@string/documentoGuest"
-			android:textSize="20dp"
+			android:textSize="20sp"
 					/>
 		<ImageView
 			android:id="@+id/person_identityCard_imageView"
@@ -225,14 +226,20 @@
 			android:layout_below="@id/editText_documentoNumber_guest_form"
 			android:hint="@string/placeDocumentoGuest"
 			/>
+		<FrameLayout
+			android:id="@+id/frameButtonCategory"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/white_overlay"
+
+			android:layout_below="@id/editText_documentoPlace_guest_form"
+			>
 		<com.getbase.floatingactionbutton.AddFloatingActionButton
 			android:id = "@+id/add_another_guest_form"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/editText_documentoNumber_guest_form"
-			android:layout_alignParentRight="true"
-			android:layout_alignParentEnd="true"
-			android:layout_marginTop="15dp"
+			android:layout_gravity="right|bottom"
 			fab:fab_colorNormal="@color/colorPrimary"
 
 
@@ -241,9 +248,7 @@
 			android:id = "@+id/camera__guest_form"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignBottom="@id/add_another_guest_form"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentStart="true"
+			android:layout_gravity="left|bottom"
 			fab:fab_colorNormal="@color/white"
 			fab:fab_size="mini"
 
@@ -252,15 +257,13 @@
 			android:id = "@+id/voice_guest_form"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignBottom="@id/add_another_guest_form"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentStart="true"
+			android:layout_gravity="left|bottom"
 			android:layout_marginLeft="35dp"
 			fab:fab_size="mini"
 			fab:fab_colorNormal="@color/colorPrimary"
 
 			/>
-
+</FrameLayout>
 
 	</RelativeLayout>
 

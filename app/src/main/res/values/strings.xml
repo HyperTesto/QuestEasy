@@ -19,4 +19,6 @@
 	<string name = "codeDocumentoGuest">Codice</string>
 	<string name = "numberDocumentoGuest">Numero documento</string>
 	<string name = "placeDocumentoGuest">Luogo di rilascio</string>
+    <string name="speech_prompt">&#8230;</string>
+    <string name="speech_not_supported">Il dispositivo non supporta questa funzione</string>
 </resources>
