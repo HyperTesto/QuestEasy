@@ -246,36 +246,46 @@
 
 			android:layout_below="@id/editText_documentoPlace_guest_form"
 			>
-		<com.getbase.floatingactionbutton.AddFloatingActionButton
-			android:id = "@+id/add_another_guest_form"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/editText_documentoNumber_guest_form"
-			android:layout_gravity="right|bottom"
-			fab:fab_colorNormal="@color/colorPrimary"
+			<com.getbase.floatingactionbutton.AddFloatingActionButton
+				android:id = "@+id/add_another_guest_form"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/editText_documentoNumber_guest_form"
+				android:layout_gravity="right|bottom"
+				fab:fab_colorNormal="@color/colorPrimary"
 
 
-			/>
-		<com.getbase.floatingactionbutton.FloatingActionButton
-			android:id = "@+id/camera_guest_form"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="left|bottom"
-			fab:fab_colorNormal="@color/white"
-			fab:fab_size="mini"
+				/>
+			<com.getbase.floatingactionbutton.FloatingActionButton
+				android:id = "@+id/camera_guest_form"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="left|bottom"
+				fab:fab_colorNormal="@color/white"
+				fab:fab_size="mini"
 
-			/>
-		<com.getbase.floatingactionbutton.FloatingActionButton
-			android:id = "@+id/voice_guest_form"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="left|bottom"
-			android:layout_marginLeft="35dp"
-			fab:fab_size="mini"
-			fab:fab_colorNormal="@color/colorPrimary"
+				/>
+			<com.getbase.floatingactionbutton.FloatingActionButton
+				android:id = "@+id/voice_guest_form"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="left|bottom"
+				android:layout_marginLeft="35dp"
+				fab:fab_size="mini"
+				fab:fab_colorNormal="@color/colorPrimary"
 
-			/>
-</FrameLayout>
+				/>
+
+			<com.getbase.floatingactionbutton.FloatingActionButton
+				android:id = "@+id/voice_guest_photo1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="left|bottom"
+				android:layout_marginLeft="100dp"
+				fab:fab_size="mini"
+				fab:fab_colorNormal="@color/white"
+				/>
+		</FrameLayout>
 
 	</RelativeLayout>
 
