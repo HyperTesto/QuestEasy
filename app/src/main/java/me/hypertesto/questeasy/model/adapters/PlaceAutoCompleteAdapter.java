@@ -1,7 +1,5 @@
 package me.hypertesto.questeasy.model.adapters;
 
-import android.app.DownloadManager;
-import android.app.admin.SystemUpdatePolicy;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +9,9 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -25,7 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -111,8 +104,6 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 		List<String> filteredPlaces = new ArrayList<>();
 		RequestFuture<JSONObject> future = RequestFuture.newFuture();
 		JsonObjectRequest request = new JsonObjectRequest(url, null, future, future);
-
-		System.out.println("[DEBUG] Sono qui");
 		queue.add(request);
 
 		try {
