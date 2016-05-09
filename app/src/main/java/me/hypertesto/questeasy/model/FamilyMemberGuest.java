@@ -6,4 +6,6 @@ package me.hypertesto.questeasy.model;
  */
 public class FamilyMemberGuest extends SecondaryGuest {
 	public static final String CODICE = "19";
+
+	public FamilyMemberGuest(){}
 }

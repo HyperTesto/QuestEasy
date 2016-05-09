@@ -13,6 +13,8 @@ import java.util.Date;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
+import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.model.testcrap.ModelTestMethods;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -33,15 +35,16 @@ public class HomeActivity extends AppCompatActivity {
 		items.add(new Declaration(new Date(), true));
 
 		ListView lv = (ListView) findViewById(R.id.lvDichiarazioni);
-
 		DeclarationListAdapter adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
 		lv.setAdapter(adapter);
+
+		ModelTestMethods.testWriteReadSomeCrap(this.getApplicationContext());
 
 		insertNewDcard = (FloatingActionButton)findViewById(R.id.fab);
 		insertNewDcard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this,EditDecActivity.class));
+				startActivity(new Intent(HomeActivity.this, EditDecActivity.class));
 			}
 		});
 
