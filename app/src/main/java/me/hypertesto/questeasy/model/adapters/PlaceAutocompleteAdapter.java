@@ -90,7 +90,8 @@ public class PlaceAutocompleteAdapter extends BaseAdapter implements Filterable 
         // GoogleBooksProtocol is a wrapper for the Google Books API
         //GoogleBooksProtocol protocol = new GoogleBooksProtocol(context, MAX_RESULTS);
         //return protocol.findBooks(bookTitle);
-        return "test";
+
+        return new ArrayList<>("test", "test1", "test2");
     }
 }
 
