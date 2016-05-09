@@ -35,33 +35,35 @@
 			/>
 		<EditText
 			android:id="@+id/editText_name_guest_form"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/person_data_Title"
 			android:layout_marginTop="10dp"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:maxLength="60"
-			android:ems="15"
 			android:textSize="15sp"
+			android:layout_marginLeft="46dp"
+			android:layout_marginStart="46dp"
 			android:hint="@string/nameGuest"
 			/>
 
 		<EditText
 			android:id="@+id/editText_surname_guest_form"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/editText_name_guest_form"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:maxLength="60"
-			android:ems="15"
+			android:layout_marginLeft="46dp"
+			android:layout_marginStart="46dp"
 			android:textSize="15sp"
 			android:hint="@string/surnameGuest"
 			/>
 
 		<RadioGroup android:layout_height="wrap_content" android:id="@+id/gender_group"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:orientation="horizontal"
 					android:layout_marginTop="10dp"
 					android:layout_below="@id/editText_surname_guest_form"
@@ -79,11 +81,15 @@
 						android:text="@string/sexMen"
 						android:layout_width="wrap_content" android:id="@+id/sex_man"
 						android:layout_height="wrap_content"
-
+						android:layout_marginLeft="20dp"
+						android:layout_marginStart="20dp"
 						 android:checked="true"></RadioButton>
 			<RadioButton android:text="@string/sexWoman"
 						 android:layout_width="wrap_content" android:id="@+id/sex_woman"
-						 android:layout_height="wrap_content"></RadioButton>
+						 android:layout_height="wrap_content"
+						 android:layout_marginLeft="20dp"
+						 android:layout_marginStart="20dp"
+				></RadioButton>
 		</RadioGroup>
 
 		<ImageView
@@ -100,7 +106,7 @@
 
 		<TextView
 			android:id="@+id/editText_birthDate_guest_form"
-			android:layout_width="265dp"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_alignParentRight="true"
 			android:layout_below="@id/gender_group"
@@ -108,7 +114,8 @@
 			android:focusable="false"
 			android:onClick="showDatePickerDialog"
 			android:hint="@string/dateBirthGuest"
-			android:ems="15"
+			android:layout_marginLeft="46dp"
+			android:layout_marginStart="46dp"
 			android:textSize="15sp"
 			style="@style/Widget.AppCompat.Spinner.Underlined"
 			/>
@@ -129,14 +136,15 @@
 
 		<EditText
 			android:id="@+id/editText_luogoN_guest_form"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="3dp"
 			android:layout_below="@id/editText_birthDate_guest_form"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:maxLength="60"
-			android:ems="15"
+			android:layout_marginLeft="46dp"
+			android:layout_marginStart="46dp"
 			android:textSize="15sp"
 			android:hint="@string/luogoGuest"
 			/>
@@ -154,14 +162,15 @@
 
 		<EditText
 			android:id="@+id/editText_cittadinanza_guest_form"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="7dp"
 			android:layout_below="@id/editText_luogoN_guest_form"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:maxLength="60"
-			android:ems="15"
+			android:layout_marginLeft="46dp"
+			android:layout_marginStart="46dp"
 			android:textSize="15sp"
 			android:hint="@string/cittadinanzaGuest"
 
@@ -191,37 +200,40 @@
 
 		<EditText
 			android:id="@+id/editText_documentoCodice_guest_form"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="10dp"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:maxLength="60"
-			android:ems="15"
+			android:layout_marginLeft="46dp"
+			android:layout_marginStart="46dp"
 			android:textSize="15sp"
 			android:layout_below="@id/person_document_Title"
 			android:hint="@string/codeDocumentoGuest"
 			/>
 		<EditText
 			android:id="@+id/editText_documentoNumber_guest_form"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:maxLength="60"
-			android:ems="15"
+			android:layout_marginLeft="46dp"
+			android:layout_marginStart="46dp"
 			android:textSize="15sp"
 			android:layout_below="@id/editText_documentoCodice_guest_form"
 			android:hint="@string/numberDocumentoGuest"
 			/>
 		<EditText
 			android:id="@+id/editText_documentoPlace_guest_form"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentEnd="true"
 			android:maxLength="60"
-			android:ems="15"
+			android:layout_marginLeft="46dp"
+			android:layout_marginStart="46dp"
 			android:textSize="15sp"
 			android:layout_below="@id/editText_documentoNumber_guest_form"
 			android:hint="@string/placeDocumentoGuest"
@@ -245,7 +257,7 @@
 
 			/>
 		<com.getbase.floatingactionbutton.FloatingActionButton
-			android:id = "@+id/camera__guest_form"
+			android:id = "@+id/camera_guest_form"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="left|bottom"

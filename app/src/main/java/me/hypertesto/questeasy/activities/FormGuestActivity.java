@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import me.hypertesto.questeasy.DatePickerFragment;
 import me.hypertesto.questeasy.R;
@@ -43,6 +45,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	private EditText guest_documentNumber;
 	private EditText guest_documentPlace;
 	private FloatingActionButton button_voice_form;
+	private FloatingActionButton button_photo;
 
 
 	//REQ_CODE for voice
@@ -70,7 +73,15 @@ public class FormGuestActivity extends AppCompatActivity {
 		guest_documentNumber = (EditText)findViewById(R.id.editText_documentoNumber_guest_form);
 		guest_documentPlace = (EditText)findViewById(R.id.editText_documentoPlace_guest_form);
 
+		button_photo = (FloatingActionButton)findViewById(R.id.camera_guest_form);
 		button_voice_form = (FloatingActionButton)findViewById(R.id.voice_guest_form);
+
+		button_photo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//TransitionManager.beginDelayedTransition(sceneRoot);
+			}
+		});
 		button_voice_form.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -130,6 +141,7 @@ public class FormGuestActivity extends AppCompatActivity {
 			String wordSupport = data[i].toUpperCase();
 			System.out.println("***Value " + wordSupport);
 			switch (wordSupport){
+				//manage more than one name
 				case "NOME" :
 					guest_name.setText(data[i+1]);
 					break;
