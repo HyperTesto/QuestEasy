@@ -1,4 +1,4 @@
-package me.hypertesto.questeasy.model.adapters;
+package me.hypertesto.questeasy.ui;
 
 import android.content.Context;
 import android.os.Handler;
