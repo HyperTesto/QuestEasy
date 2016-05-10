@@ -9,20 +9,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.utils.AutoCompleteRequest;
 
 /**
  * Created by hypertesto on 09/05/16.
@@ -31,11 +22,12 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 
 	private static final int MAX_RESULTS = 10;
 	private Context mContext;
-	//private List<Book> resultList = new ArrayList<Book>();
 	private List<String> resultList = new ArrayList<>();
+	private AutoCompleteRequest api;
 
-	public PlaceAutoCompleteAdapter(Context context) {
+	public PlaceAutoCompleteAdapter(Context context, AutoCompleteRequest api) {
 		mContext = context;
+		this.api = api;
 	}
 
 	@Override
@@ -71,7 +63,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 			protected FilterResults performFiltering(CharSequence constraint) {
 				Filter.FilterResults filterResults = new FilterResults();
 				if (constraint != null) {
-					List<String> places = findPlace(mContext, constraint.toString());
+					List<String> places = api.find(mContext, constraint.toString());
 
 					// Assign the data to the FilterResults
 					filterResults.values = places;
@@ -91,44 +83,6 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 			}
 		};
 		return filter;
-	}
-
-	/**
-	 * Returns a search result for the given book title.
-	 */
-	private List<String> findPlace(Context context, String place) {
-
-		RequestQueue queue = Volley.newRequestQueue(context);
-		String url ="https://questura.hypertesto.me/api/v1/comuni/" + place;
-		List<String> filteredPlaces = new ArrayList<>();
-		RequestFuture<JSONObject> future = RequestFuture.newFuture();
-		JsonObjectRequest request = new JsonObjectRequest(url, null, future, future);
-		queue.add(request);
-
-		try {
-			JSONObject response = future.get(); // this will block (forever)
-			JSONArray jArray = response.getJSONArray("comuni");
-			System.out.println(jArray);
-			for (int i=0; i < jArray.length(); i++) {
-				try {
-					JSONObject oneObject = jArray.getJSONObject(i);
-					// Pulling items from the array
-					filteredPlaces.add(oneObject.getString("nome"));
-					System.out.println("[DEBUG] " + oneObject.getString("nome"));
-
-				} catch (JSONException e) {
-					// Oops
-				}
-			}
-		} catch (InterruptedException e) {
-			// exception handling
-		} catch (ExecutionException e) {
-			// exception handling
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		return filteredPlaces;
 	}
 }
 

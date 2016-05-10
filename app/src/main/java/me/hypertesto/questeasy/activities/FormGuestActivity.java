@@ -32,6 +32,7 @@ import me.hypertesto.questeasy.DatePickerFragment;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.ui.DelayAutoCompleteTextView;
+import me.hypertesto.questeasy.utils.CitizenshipRequest;
 
 public class FormGuestActivity extends AppCompatActivity {
 
@@ -69,10 +70,10 @@ public class FormGuestActivity extends AppCompatActivity {
 		guest_sexMan = (RadioButton)findViewById(R.id.sex_man);
 		guest_sexWoman = (RadioButton)findViewById(R.id.sex_woman);
 		guest_placeBirth = (EditText)findViewById(R.id.editText_luogoN_guest_form);
-		//guest_citizenship = (AutoCompleteTextView)findViewById(R.id.editText_cittadinanza_guest_form);
 		final DelayAutoCompleteTextView guest_citizenship = (DelayAutoCompleteTextView) findViewById(R.id.editText_cittadinanza_guest_form);
 		guest_citizenship.setThreshold(1);
-		guest_citizenship.setAdapter(new PlaceAutoCompleteAdapter(this)); // 'this' is Activity instance
+		PlaceAutoCompleteAdapter citizenshipAdapter = new PlaceAutoCompleteAdapter(this, new CitizenshipRequest());
+		guest_citizenship.setAdapter(citizenshipAdapter); // 'this' is Activity instance
 		guest_citizenship.setLoadingIndicator(
 				(android.widget.ProgressBar) findViewById(R.id.pb_loading_indicator));
 		guest_citizenship.setOnItemClickListener(new AdapterView.OnItemClickListener() {
