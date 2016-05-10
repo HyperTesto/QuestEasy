@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.Card;
 import me.hypertesto.questeasy.model.FamilyCard;
@@ -80,15 +81,22 @@ public class EditDecActivity extends AppCompatActivity {
 		guestForm = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
 
 		ArrayList<Card> items = new ArrayList<>();
-		items.add(new SingleGuestCard(null, new Date(), 5, true));
-		items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
-		items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
-		items.add(new SingleGuestCard(null, new Date(), 5, false));
-		items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, false));
-		items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, false));
-		items.add(new SingleGuestCard(null, new Date(), 5, true));
-		items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
-		items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
+
+		Intent intent = getIntent();
+		if (intent.hasExtra("DEC")){
+			ArrayList d = (ArrayList) intent.getSerializableExtra("DEC");
+			items.addAll(d);
+		} else {
+			items.add(new SingleGuestCard(null, new Date(), 5, true));
+			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
+			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
+			items.add(new SingleGuestCard(null, new Date(), 5, false));
+			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, false));
+			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, false));
+			items.add(new SingleGuestCard(null, new Date(), 5, true));
+			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
+			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
+		}
 
 		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
 		listView = (ListView)findViewById(R.id.cardlistView);
