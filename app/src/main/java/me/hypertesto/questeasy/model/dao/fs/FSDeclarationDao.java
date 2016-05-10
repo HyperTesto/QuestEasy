@@ -96,9 +96,7 @@ public class FSDeclarationDao implements DeclarationDao {
 	}
 
 	public void populate(){
-		Date DATE = new Date();
 
-		Declaration d = new Declaration(DATE, true);
 		SingleGuest g = new SingleGuest();
 		g.setBirthDate(new Date());
 		g.setName("Paolo");
@@ -109,9 +107,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g.setProvinciaDiNascita("TN");
 		g.setStatoDiNascita("ITA");
 		g.setDocumento(new Documento("a", "b", "c"));
-		d.add(new SingleGuestCard(g, new Date(), 5, true));
 
-		Declaration d1 = new Declaration(DATE, true);
 		FamilyHeadGuest g1 = new FamilyHeadGuest();
 		g1.setBirthDate(new Date());
 		g1.setName("Manilo");
@@ -146,10 +142,6 @@ public class FSDeclarationDao implements DeclarationDao {
 		g2.setStatoDiNascita("ITA");
 		fmgs.add(g2);
 
-		d1.add(new SingleGuestCard(g, new Date(), 5, true));
-		d1.add(new FamilyCard(g1, fmgs, new Date(), 5, true));
-
-		Declaration d2 = new Declaration(DATE, true);
 		GroupHeadGuest g3 = new GroupHeadGuest();
 		g3.setBirthDate(new Date());
 		g3.setName("Lapillo");
@@ -184,14 +176,38 @@ public class FSDeclarationDao implements DeclarationDao {
 		g4.setStatoDiNascita("ITA");
 		gmgs.add(g4);
 
-		d2.add(new SingleGuestCard(g, new Date(), 5, true));
-		d2.add(new FamilyCard(g1, fmgs, new Date(), 23, true));
-		d2.add(new GroupCard(g3, gmgs, new Date(), 7, true));
+		SingleGuestCard SGC = new SingleGuestCard(g, new Date(), 5, true);
+		FamilyCard FC = new FamilyCard(g1, fmgs, new Date(), 12, true);
+		GroupCard GC = new GroupCard(g3, gmgs, new Date(), 3, true);
+
 
 		this.open();
-		this.insertDeclaration(d);
-		this.insertDeclaration(d1);
-		this.insertDeclaration(d2);
+
+		Declaration d;
+
+		for (int j = 0; j < 3; j++){
+			d = new Declaration(new Date(2016, 4, 1 + j*3), true);
+			for (int i = 0; i < 5; i++){
+				d.add(SGC);
+			}
+			this.insertDeclaration(d);
+
+			d = new Declaration(new Date(2016, 4,  1 + j*3 + 1), true);
+			for (int i = 0; i < 3; i++){
+				d.add(SGC);
+				d.add(FC);
+			}
+			this.insertDeclaration(d);
+
+			d = new Declaration(new Date(2016, 4, 1 + j*3 + 2), true);
+			for (int i = 0; i < 2; i++){
+				d.add(SGC);
+				d.add(GC);
+				d.add(FC);
+			}
+			this.insertDeclaration(d);
+		}
+
 		this.close();
 	}
 
