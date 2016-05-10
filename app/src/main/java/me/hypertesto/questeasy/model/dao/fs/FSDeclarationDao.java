@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.Documento;
@@ -33,21 +34,36 @@ public class FSDeclarationDao implements DeclarationDao {
 	private Context context;
 	private static final String FILENAME = "declarations.ser";
 
+	private HashMap<Date, Declaration> cache;
+
 	public FSDeclarationDao(Context context){
 		this.context = context;
+		this.cache = null;
 	}
 
 	@Override
 	public boolean insertDeclaration(Declaration declaration){
 		try {
-			fos.writeObject(declaration);
+			if (cache.get(declaration.getDate()) == null){
+				this.cache.put(declaration.getDate(), declaration);
+				fos.writeObject(declaration);
+			} else {
+				this.updateDeclaration(declaration);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return true;
 	}
 
+	public boolean updateDeclaration(Declaration declaration){
+		this.deleteDeclaration(declaration);
+		return this.insertDeclaration(declaration);
+	}
+
 	@Override
+	@Deprecated
 	public ArrayList<Declaration> getAllDeclarations(){
 		ArrayList<Declaration> res = new ArrayList<>();
 		try {
@@ -82,13 +98,33 @@ public class FSDeclarationDao implements DeclarationDao {
 		return res;
 	}
 
+	public HashMap<Date, Declaration> getAllDeclarationsAsMap(){
+		HashMap<Date, Declaration> res = new HashMap<>();
+		res.putAll(this.cache);
+		return res;
+	}
+
+	public Declaration getDeclarationByDate(Date date){
+		return this.cache.get(date);
+	}
+
 	@Override
 	public void deleteDeclaration(Declaration declaration){
-		System.out.println("NOT YET IMPLEMENTED");
+		HashMap<Date, Declaration> decs = this.getAllDeclarationsAsMap();
+		decs.remove(declaration.getDate());
+
+		this.close();
+		this.clear();
+		this.open();
+
+		for (Date d : decs.keySet()){
+			this.insertDeclaration(decs.get(d));
+		}
 	}
 
 	public void clear(){
 		context.deleteFile(FILENAME);
+		this.cache = null;
 	}
 
 	public void populate(){
@@ -189,6 +225,45 @@ public class FSDeclarationDao implements DeclarationDao {
 		this.close();
 	}
 
+	private void updateCache(){
+		this.cache = new HashMap<>();
+
+		try {
+			fis = new ObjectInputStream(context.openFileInput(FILENAME));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		while (true){
+			try {
+				Object o = fis.readObject();
+				Declaration dec;
+
+				if (o instanceof Declaration){
+					dec = (Declaration) o;
+					Date date = dec.getDate();
+
+					if (this.cache.get(date) != null){
+						this.cache.get(date).addAll(dec);
+					} else {
+						this.cache.put(date, dec);
+					}
+				} else {
+					throw new RuntimeException("WTF??");
+				}
+			} catch (EOFException ex){
+				break;
+			} catch (IOException ex){
+				ex.printStackTrace();
+				break;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				break;
+			}
+		}
+	}
+
 	@Override
 	public void open(){
 		try {
@@ -200,6 +275,8 @@ public class FSDeclarationDao implements DeclarationDao {
 				this.fos = new AppendingObjectOutputStream(
 						context.openFileOutput(FILENAME, Context.MODE_APPEND));
 			}
+
+			this.updateCache();
 		} catch (FileNotFoundException e){
 			e.printStackTrace();
 		} catch (IOException e){
@@ -210,6 +287,7 @@ public class FSDeclarationDao implements DeclarationDao {
 	@Override
 	public void close(){
 		try {
+			this.cache = null;
 			this.fos.close();
 		} catch (FileNotFoundException e){
 			e.printStackTrace();
