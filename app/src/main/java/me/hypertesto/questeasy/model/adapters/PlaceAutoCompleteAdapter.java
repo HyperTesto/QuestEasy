@@ -61,7 +61,6 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 			convertView = inflater.inflate(R.layout.simple_dropdown_item, parent, false);
 		}
 		((TextView) convertView.findViewById(R.id.autocompleted_text)).setText(getItem(position));
-		((TextView) convertView.findViewById(R.id.text2)).setText("filler");
 		return convertView;
 	}
 
