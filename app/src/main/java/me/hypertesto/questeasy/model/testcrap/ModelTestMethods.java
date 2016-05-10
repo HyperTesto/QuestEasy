@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import me.hypertesto.questeasy.model.Card;
 import me.hypertesto.questeasy.model.Declaration;
@@ -18,11 +19,6 @@ import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
  */
 public class ModelTestMethods {
 	public static void testWriteReadSomeCrap(Context context){
-		ArrayList<Declaration> items = new ArrayList<>();
-		items.add(new Declaration(new Date(), false));
-		items.add(new Declaration(new Date(), false));
-		items.add(new Declaration(new Date(), false));
-
 		FSDeclarationDao fsd = new FSDeclarationDao(context);
 
 		fsd.clear();
@@ -31,13 +27,13 @@ public class ModelTestMethods {
 
 		fsd.open();
 
-		for (Declaration dec : items){
-			//fsd.insertDeclaration(dec);
-		}
+		HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
 
-		ArrayList<Declaration> decs = fsd.getAllDeclarations();
+		System.out.println(decs.keySet().size());
 
-		for (Declaration d : decs){
+		for (Date key :decs.keySet()){
+			Declaration d = decs.get(key);
+
 			System.out.println(d.getDate());
 			for (Card c : d){
 				System.out.println("> " + c.getTitle());

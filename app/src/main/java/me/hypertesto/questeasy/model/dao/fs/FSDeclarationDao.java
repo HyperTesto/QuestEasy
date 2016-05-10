@@ -57,60 +57,27 @@ public class FSDeclarationDao implements DeclarationDao {
 		return true;
 	}
 
+	@Override
 	public boolean updateDeclaration(Declaration declaration){
 		this.deleteDeclaration(declaration);
 		return this.insertDeclaration(declaration);
 	}
 
 	@Override
-	@Deprecated
-	public ArrayList<Declaration> getAllDeclarations(){
-		ArrayList<Declaration> res = new ArrayList<>();
-		try {
-			fis = new ObjectInputStream(context.openFileInput(FILENAME));
-		} catch (IOException e) {
-			e.printStackTrace();
-			return res;
-		}
-
-		while (true){
-			try {
-				Object o = fis.readObject();
-				Declaration dec;
-
-				if (o instanceof Declaration){
-					dec = (Declaration) o;
-					res.add(dec);
-				} else {
-					throw new RuntimeException("WTF??");
-				}
-			} catch (EOFException ex){
-				break;
-			} catch (IOException ex){
-				ex.printStackTrace();
-				break;
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				break;
-			}
-		}
-
-		return res;
-	}
-
-	public HashMap<Date, Declaration> getAllDeclarationsAsMap(){
+	public HashMap<Date, Declaration> getAllDeclarations(){
 		HashMap<Date, Declaration> res = new HashMap<>();
 		res.putAll(this.cache);
 		return res;
 	}
 
+	@Override
 	public Declaration getDeclarationByDate(Date date){
 		return this.cache.get(date);
 	}
 
 	@Override
 	public void deleteDeclaration(Declaration declaration){
-		HashMap<Date, Declaration> decs = this.getAllDeclarationsAsMap();
+		HashMap<Date, Declaration> decs = this.getAllDeclarations();
 		decs.remove(declaration.getDate());
 
 		this.close();
@@ -122,13 +89,16 @@ public class FSDeclarationDao implements DeclarationDao {
 		}
 	}
 
+	@Override
 	public void clear(){
 		context.deleteFile(FILENAME);
 		this.cache = null;
 	}
 
 	public void populate(){
-		Declaration d = new Declaration(new Date(), true);
+		Date DATE = new Date();
+
+		Declaration d = new Declaration(DATE, true);
 		SingleGuest g = new SingleGuest();
 		g.setBirthDate(new Date());
 		g.setName("Paolo");
@@ -141,7 +111,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g.setDocumento(new Documento("a", "b", "c"));
 		d.add(new SingleGuestCard(g, new Date(), 5, true));
 
-		Declaration d1 = new Declaration(new Date(), true);
+		Declaration d1 = new Declaration(DATE, true);
 		FamilyHeadGuest g1 = new FamilyHeadGuest();
 		g1.setBirthDate(new Date());
 		g1.setName("Manilo");
@@ -179,7 +149,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		d1.add(new SingleGuestCard(g, new Date(), 5, true));
 		d1.add(new FamilyCard(g1, fmgs, new Date(), 5, true));
 
-		Declaration d2 = new Declaration(new Date(), true);
+		Declaration d2 = new Declaration(DATE, true);
 		GroupHeadGuest g3 = new GroupHeadGuest();
 		g3.setBirthDate(new Date());
 		g3.setName("Lapillo");

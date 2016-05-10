@@ -1,6 +1,8 @@
 package me.hypertesto.questeasy.model.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import me.hypertesto.questeasy.model.Declaration;
 
@@ -12,6 +14,9 @@ public interface DeclarationDao {
 	void close();
 
 	boolean insertDeclaration(Declaration declaration);
+	boolean updateDeclaration(Declaration declaration);
+	Declaration getDeclarationByDate(Date date);
 	void deleteDeclaration(Declaration declaration);
-	ArrayList<Declaration> getAllDeclarations();
+	void clear();
+	HashMap<Date, Declaration> getAllDeclarations();
 }
