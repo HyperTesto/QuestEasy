@@ -2,6 +2,7 @@ package me.hypertesto.questeasy.model.adapters;
 
 import android.content.Context;
 import android.text.Layout;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,11 @@ public class DeclarationListAdapter extends ArrayAdapter<Declaration> {
 		String desc = item.size() + " arrivi";
 		txtDesc.setText(desc);
 
+
+
+		if(mSelectedItems.get(position)){
+			Log.e("SELEZIONATo" ,position+"item selezionato");
+		}
 		return view;
 	}
 
