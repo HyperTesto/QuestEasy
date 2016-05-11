@@ -1,6 +1,5 @@
 package me.hypertesto.questeasy.activities;
 
-import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,56 +11,46 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
-import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
 import android.widget.EditText;
-
-import java.io.File;
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import android.support.v4.app.FragmentActivity;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import me.hypertesto.questeasy.DatePickerFragment;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.ui.DelayAutoCompleteTextView;
 import me.hypertesto.questeasy.utils.CitizenshipRequest;
+import me.hypertesto.questeasy.utils.PlaceRequest;
 
 public class FormGuestActivity extends AppCompatActivity {
 
-
+	private DelayAutoCompleteTextView guestBirthPlace;
+	private DelayAutoCompleteTextView guest_citizenship;
 	private EditText guest_name;
 	private EditText guest_surname;
 	private RadioButton guest_sexMan;
 	private RadioButton guest_sexWoman;
 	private TextView guest_dateBirth;
-	private EditText guest_placeBirth;
-	private EditText guest_citizenship;
 	private EditText guest_documentCode;
 	private EditText guest_documentNumber;
 	private EditText guest_documentPlace;
@@ -97,8 +86,24 @@ public class FormGuestActivity extends AppCompatActivity {
 		guest_dateBirth = (TextView)findViewById(R.id.editText_birthDate_guest_form);
 		guest_sexMan = (RadioButton)findViewById(R.id.sex_man);
 		guest_sexWoman = (RadioButton)findViewById(R.id.sex_woman);
-		guest_placeBirth = (EditText)findViewById(R.id.editText_luogoN_guest_form);
-		final DelayAutoCompleteTextView guest_citizenship = (DelayAutoCompleteTextView) findViewById(R.id.editText_cittadinanza_guest_form);
+
+		//Autocomplete luogo nascita
+		guestBirthPlace = (DelayAutoCompleteTextView) findViewById(R.id.editText_luogoN_guest_form);
+		guestBirthPlace.setThreshold(1);
+		PlaceAutoCompleteAdapter birthPlaceAdapter = new PlaceAutoCompleteAdapter(this, new PlaceRequest());
+		guestBirthPlace.setAdapter(birthPlaceAdapter); // 'this' is Activity instance
+		guestBirthPlace.setLoadingIndicator(
+				(android.widget.ProgressBar) findViewById(R.id.pb_loading_indicator_luogo));
+		guestBirthPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+				String place = (String) adapterView.getItemAtPosition(position);
+				guestBirthPlace.setText(place);
+			}
+		});
+
+		//Autocomplete cittadinanza
+		guest_citizenship = (DelayAutoCompleteTextView) findViewById(R.id.editText_cittadinanza_guest_form);
 		guest_citizenship.setThreshold(1);
 		PlaceAutoCompleteAdapter citizenshipAdapter = new PlaceAutoCompleteAdapter(this, new CitizenshipRequest());
 		guest_citizenship.setAdapter(citizenshipAdapter); // 'this' is Activity instance
@@ -331,7 +336,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					//guest_surname.setText(result.get(i+2).toString());
 					break;
 				case "NASCITA" :
-					guest_placeBirth.setText(data[i+1]);
+					guestBirthPlace.setText(data[i+1]);
 					break;
 				case "CODICE" :
 					guest_documentCode.setText(data[i+1]);
