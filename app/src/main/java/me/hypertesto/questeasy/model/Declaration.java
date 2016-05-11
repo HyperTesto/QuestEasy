@@ -1,5 +1,6 @@
 package me.hypertesto.questeasy.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,13 +10,25 @@ import java.util.Date;
  * Contiene una lista di schede e la data.
  * Created by rigel on 02/05/16.
  */
-public class Declaration extends ArrayList<Card> {
+public class Declaration extends ArrayList<Card> implements Serializable {
 	private Date date;
 	private boolean complete;
+
+	public Declaration(){
+		super();
+	};
 
 	public Declaration(Date date, boolean complete){
 		super();
 		this.date = date;
+		this.complete = complete;
+	}
+
+	public void setDate(Date date){
+		this.date = date;
+	}
+
+	public void setComplete(boolean complete){
 		this.complete = complete;
 	}
 

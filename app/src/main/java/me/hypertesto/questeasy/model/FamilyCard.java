@@ -21,6 +21,21 @@ public class FamilyCard extends Card {
 		this.complete = complete;
 	}
 
+	public void addFamilyMember(FamilyMemberGuest guest){
+		if (this.familiari == null){
+			this.familiari = new ArrayList<>();
+		}
+		this.familiari.add(guest);
+	}
+
+	public FamilyHeadGuest getCapoFamiglia() {
+		return capoFamiglia;
+	}
+
+	public ArrayList<FamilyMemberGuest> getFamiliari() {
+		return familiari;
+	}
+
 	@Override
 	public String getTitle(){
 		return "Cognome capo famiglia";

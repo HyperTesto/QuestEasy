@@ -21,6 +21,21 @@ public class GroupCard extends Card {
 		this.complete = complete;
 	}
 
+	public void addGroupMember(GroupMemberGuest guest){
+		if (this.altri == null){
+			this.altri = new ArrayList<>();
+		}
+		this.altri.add(guest);
+	}
+
+	public GroupHeadGuest getCapoGruppo() {
+		return capoGruppo;
+	}
+
+	public ArrayList<GroupMemberGuest> getAltri() {
+		return altri;
+	}
+
 	@Override
 	public String getTitle(){
 		return "Nome comitiva";

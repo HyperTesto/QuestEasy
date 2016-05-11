@@ -11,37 +11,49 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
+import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 
 public class HomeActivity extends AppCompatActivity {
 
 	ListView lv;
 	private FloatingActionButton insertNewDcard;
+	DeclarationListAdapter adapter;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
 		ArrayList<Declaration> items = new ArrayList<>();
-		items.add(new Declaration(new Date(), true));
-		items.add(new Declaration(new Date(), false));
-		items.add(new Declaration(new Date(), false));
-		items.add(new Declaration(new Date(), true));
-		items.add(new Declaration(new Date(), true));
-		items.add(new Declaration(new Date(), false));
-		items.add(new Declaration(new Date(), false));
-		items.add(new Declaration(new Date(), true));
+
+		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
+
+		fsd.clear();
+		fsd.populate();
+
+		fsd.open();
+
+		HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
+
+		for (Date k : decs.keySet()){
+			items.add(decs.get(k));
+		}
+
+		fsd.close();
 
 		lv = (ListView) findViewById(R.id.lvDichiarazioni);
-
-		final DeclarationListAdapter adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
+		adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
 		lv.setAdapter(adapter);
 
 		lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -102,7 +114,27 @@ public class HomeActivity extends AppCompatActivity {
 				adapter.removeSelection();
 			}
 		});
-		insertNewDcard = (FloatingActionButton) findViewById(R.id.fab);
+
+		//ModelTestMethods.testWriteReadSomeCrap(this.getApplicationContext());
+
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Object o = parent.getItemAtPosition(position);
+
+				if (o instanceof Declaration) {
+					Declaration target = (Declaration) o;
+					System.out.println(target.getDate());
+
+					Intent intent = new Intent(HomeActivity.this, EditDecActivity.class);
+					intent.putExtra("DEC", target);
+
+					startActivity(intent);
+				}
+			}
+		});
+
+		insertNewDcard = (FloatingActionButton)findViewById(R.id.fab);
 		insertNewDcard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

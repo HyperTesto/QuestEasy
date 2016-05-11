@@ -5,4 +5,6 @@ package me.hypertesto.questeasy.model;
  */
 public class GroupHeadGuest extends MainGuest {
 	public static final String CODICE = "18";
+
+	public GroupHeadGuest(){}
 }

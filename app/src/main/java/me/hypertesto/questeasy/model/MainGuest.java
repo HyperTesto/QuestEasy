@@ -7,4 +7,12 @@ package me.hypertesto.questeasy.model;
  */
 public abstract class MainGuest extends Guest {
 	protected Documento documento;
+
+	public Documento getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
+	}
 }
