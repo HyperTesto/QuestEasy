@@ -44,7 +44,7 @@ public class PlaceRequest implements AutoCompleteRequest {
 					System.out.println("[DEBUG] " + oneObject.getString("nome"));
 
 				} catch (JSONException e) {
-					CharSequence text = "Error parsing JSON;
+					CharSequence text = "Error parsing JSON";
 					int duration = Toast.LENGTH_SHORT;
 
 					Toast toast = Toast.makeText(context, text, duration);
