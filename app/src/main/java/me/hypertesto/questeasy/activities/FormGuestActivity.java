@@ -21,6 +21,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -143,6 +145,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		});
 
 
+
 	}
 
 
@@ -151,7 +154,6 @@ public class FormGuestActivity extends AppCompatActivity {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getSupportFragmentManager(), "datePicker");
 	}
-
 
 
 	private Bitmap getCircleBitmap(Bitmap bitmap) {

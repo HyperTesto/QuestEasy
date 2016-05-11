@@ -64,17 +64,6 @@ public class HomeActivity extends AppCompatActivity {
 				final int checkedCount = lv.getCheckedItemCount();
 				mode.setTitle(checkedCount + " Selected");
 				SparseBooleanArray selected = adapter.getSelectedIds();
-				/*if (selected.valueAt(position)) {
-					Log.e("selectedb", String.valueOf(selected.valueAt(position)));
-				} else {
-					Log.e("selectedvv", String.valueOf(selected.valueAt(position)));
-
-				}*/
-				if (checked) {
-					Log.e("selectedvv", String.valueOf(selected.valueAt(position)));
-
-				}
-
 				adapter.toggleSelection(position);
 
 			}
