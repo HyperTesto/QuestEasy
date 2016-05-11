@@ -1,6 +1,7 @@
 package me.hypertesto.questeasy.utils;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -44,11 +45,21 @@ public class CitizenshipRequest implements AutoCompleteRequest{
 					System.out.println("[DEBUG] " + oneObject.getString("nome"));
 
 				} catch (JSONException e) {
-					// Oops
+					CharSequence text = "Error parsing JSON";
+					int duration = Toast.LENGTH_SHORT;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+					e.printStackTrace();
 				}
 			}
 
 		} catch (InterruptedException | ExecutionException | JSONException e) {
+			CharSequence text = "Errore di rete";
+			int duration = Toast.LENGTH_SHORT;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
 			e.printStackTrace();
 		}
 
