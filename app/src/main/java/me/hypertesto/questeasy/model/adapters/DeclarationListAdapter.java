@@ -1,6 +1,9 @@
 package me.hypertesto.questeasy.model.adapters;
 
 import android.content.Context;
+import android.text.Layout;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +24,17 @@ import me.hypertesto.questeasy.model.Declaration;
 public class DeclarationListAdapter extends ArrayAdapter<Declaration> {
 	private int layoutId;
 	private Context context;
+	LayoutInflater inflater;
 	private ArrayList<Declaration> items;
+	private SparseBooleanArray mSelectedItems;
 
 	public DeclarationListAdapter(Context context, int layoutId, ArrayList<Declaration> items) {
 		super(context, layoutId, items);
+		mSelectedItems = new SparseBooleanArray();
 		this.context = context;
 		this.layoutId = layoutId;
 		this.items = items;
+		inflater = LayoutInflater.from(context);
 	}
 
 	@Override
@@ -52,6 +59,48 @@ public class DeclarationListAdapter extends ArrayAdapter<Declaration> {
 		String desc = item.size() + " arrivi";
 		txtDesc.setText(desc);
 
+
+
+		if(mSelectedItems.get(position)){
+			Log.e("SELEZIONATo" ,position+"item selezionato");
+		}
 		return view;
 	}
+
+	@Override
+	public void remove(Declaration object){
+		items.remove(object);
+		notifyDataSetChanged();
+	}
+
+	public ArrayList<Declaration> getDeclarationList(){
+		return items;
+	}
+
+	public void toggleSelection(int position){
+		selectView(position, !mSelectedItems.get(position));
+	}
+
+	public void removeSelection(){
+		mSelectedItems = new SparseBooleanArray();
+		notifyDataSetChanged();
+	}
+
+	public void selectView (int position, boolean value){
+		if (value){
+			mSelectedItems.put(position, value);
+		}
+		else{
+			mSelectedItems.delete(position);
+		}
+	}
+
+	public int getSelectedCount(){
+		return mSelectedItems.size();
+	}
+
+	public SparseBooleanArray getSelectedIds(){
+		return mSelectedItems;
+	}
+
 }

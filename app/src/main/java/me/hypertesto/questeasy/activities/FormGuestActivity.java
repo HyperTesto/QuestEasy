@@ -3,11 +3,25 @@ package me.hypertesto.questeasy.activities;
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.hardware.Camera;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,18 +29,22 @@ import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import android.support.v4.app.FragmentActivity;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import me.hypertesto.questeasy.DatePickerFragment;
 import me.hypertesto.questeasy.R;
@@ -48,6 +66,16 @@ public class FormGuestActivity extends AppCompatActivity {
 	private EditText guest_documentNumber;
 	private EditText guest_documentPlace;
 	private FloatingActionButton button_voice_form;
+	private FloatingActionButton button_photo;
+
+	private FloatingActionButton photo_guest1;
+
+	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 200;
+	public static final int MEDIA_TYPE_IMAGE = 1;
+
+	// directory name to store captured images and videos
+	private static final String IMAGE_DIRECTORY_NAME = "Hello Camera";
+	private Uri fileUri; // file url to store image/video
 
 
 	//REQ_CODE for voice
@@ -88,13 +116,27 @@ public class FormGuestActivity extends AppCompatActivity {
 		guest_documentNumber = (EditText)findViewById(R.id.editText_documentoNumber_guest_form);
 		guest_documentPlace = (EditText)findViewById(R.id.editText_documentoPlace_guest_form);
 
+		button_photo = (FloatingActionButton)findViewById(R.id.camera_guest_form);
 		button_voice_form = (FloatingActionButton)findViewById(R.id.voice_guest_form);
+
+		photo_guest1 = (FloatingActionButton)findViewById(R.id.voice_guest_photo1);
+		photo_guest1.setVisibility(View.INVISIBLE);
+
+		button_photo.setOnClickListener(new
+												View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// capture picture
+				captureImage();
+			}
+		});
 		button_voice_form.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				promptSpeechInput();
 			}
 		});
+
 
 	}
 
@@ -105,6 +147,110 @@ public class FormGuestActivity extends AppCompatActivity {
 		newFragment.show(getSupportFragmentManager(), "datePicker");
 	}
 
+
+
+	private Bitmap getCircleBitmap(Bitmap bitmap) {
+		final Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+				bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+		final Canvas canvas = new Canvas(output);
+
+		final int color = Color.RED;
+		final Paint paint = new Paint();
+		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+		final RectF rectF = new RectF(rect);
+
+		paint.setAntiAlias(true);
+		canvas.drawARGB(0, 0, 0, 0);
+		paint.setColor(color);
+		canvas.drawOval(rectF, paint);
+
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+		canvas.drawBitmap(bitmap, rect, rect, paint);
+
+		bitmap.recycle();
+
+		return output;
+	}
+	/*
+ 	 Launch the camera
+ 	*/
+	private void captureImage() {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+
+		// start the image capture Intent
+		startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+	}
+
+	/*
+     * Display image from a path to ImageView
+     */
+	private void previewCapturedImage() {
+		try {
+
+			photo_guest1.setVisibility(View.VISIBLE);
+
+
+			// bimatp factory
+			BitmapFactory.Options options = new BitmapFactory.Options();
+
+			// downsizing image as it throws OutOfMemory Exception for larger
+			// images
+			options.inSampleSize = 16;
+
+
+			final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath());
+			Bitmap circle = getCircleBitmap(bitmap);
+			photo_guest1.setImageBitmap(circle);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Creating file uri to store image/video
+	 */
+	public Uri getOutputMediaFileUri(int type) {
+		return Uri.fromFile(getOutputMediaFile(type));
+	}
+
+	/*
+	 * returning image / video
+	 */
+	private static File getOutputMediaFile(int type) {
+
+		// External sdcard location
+		File mediaStorageDir = new File(
+				Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				IMAGE_DIRECTORY_NAME);
+
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				Log.e(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
+						+ IMAGE_DIRECTORY_NAME + " directory");
+				return null;
+			}
+		}
+
+		// Create a media file name
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+				Locale.getDefault()).format(new Date());
+		File mediaFile;
+		if (type == MEDIA_TYPE_IMAGE) {
+			mediaFile = new File(mediaStorageDir.getPath() + File.separator
+					+ "IMG_" + timeStamp + ".jpg");
+		}
+		else {
+			return null;
+		}
+
+		return mediaFile;
+	}
 	//manage data voice insertion
 
 	/**
@@ -128,15 +274,32 @@ public class FormGuestActivity extends AppCompatActivity {
 	@Override
 	protected void onActivityResult(int requestCode,int resultCode,Intent data){
 		super.onActivityResult(requestCode, resultCode, data);
+
 		switch(requestCode){
-			case REQ_CODE_SPEECH_INPUT:{
+
+			case REQ_CODE_SPEECH_INPUT :
 				if (resultCode == RESULT_OK && null!=data){
 					ArrayList<String> result = data.getStringArrayListExtra
 							(RecognizerIntent.EXTRA_RESULTS);
 					ParsingAndAssignData(result);
 
 				}
-			}
+				break;
+
+			case CAMERA_CAPTURE_IMAGE_REQUEST_CODE :
+				if (resultCode == RESULT_OK){
+					previewCapturedImage();
+				}else if (resultCode == RESULT_CANCELED){
+					// user cancelled Image capture
+					Toast.makeText(getApplicationContext(),
+							"L'utente ha cancellato l'immagine", Toast.LENGTH_SHORT)
+							.show();
+				}else{
+					Toast.makeText(getApplicationContext(),
+							"Ooops si è verificato un errore", Toast.LENGTH_SHORT)
+							.show();
+				}
+
 			break;
 			default:break;
 		}
@@ -148,6 +311,7 @@ public class FormGuestActivity extends AppCompatActivity {
 			String wordSupport = data[i].toUpperCase();
 			System.out.println("***Value " + wordSupport);
 			switch (wordSupport){
+				//manage more than one name
 				case "NOME" :
 					guest_name.setText(data[i+1]);
 					break;
@@ -186,5 +350,31 @@ public class FormGuestActivity extends AppCompatActivity {
 		}
 
 	}
+
+	/**
+	 * Here we store the file url as it will be null after returning from camera
+	 * app
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
+		// save file url in bundle as it will be null on scren orientation
+		// changes
+		outState.putParcelable("file_uri", fileUri);
+	}
+
+	/*
+	 * Here we restore the fileUri again
+	 */
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+
+		// get the file url
+		fileUri = savedInstanceState.getParcelable("file_uri");
+	}
+
+
 
 }
