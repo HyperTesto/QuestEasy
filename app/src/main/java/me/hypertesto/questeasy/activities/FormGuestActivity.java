@@ -65,7 +65,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	public static final int MEDIA_TYPE_IMAGE = 1;
 
 	// directory name to store captured images and videos
-	private static final String IMAGE_DIRECTORY_NAME = "Hello Camera";
+	private static final String IMAGE_DIRECTORY_NAME = "QuestEasy";
 	private Uri fileUri; // file url to store image/video
 
 
@@ -295,6 +295,9 @@ public class FormGuestActivity extends AppCompatActivity {
 
 			case CAMERA_CAPTURE_IMAGE_REQUEST_CODE :
 				if (resultCode == RESULT_OK){
+					Toast.makeText(this, "Image saved to:\n" +
+							fileUri.toString(), Toast.LENGTH_LONG).show();
+					Log.e("SAVED",fileUri.toString());
 					previewCapturedImage();
 				}else if (resultCode == RESULT_CANCELED){
 					// user cancelled Image capture

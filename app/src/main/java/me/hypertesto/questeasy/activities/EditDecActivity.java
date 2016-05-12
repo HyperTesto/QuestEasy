@@ -70,7 +70,7 @@ public class EditDecActivity extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.edit_dec_bar, menu);
+		inflater.inflate(R.menu.search_bar, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -139,4 +139,6 @@ public class EditDecActivity extends AppCompatActivity {
 			}
 		});
 	}
+
+
 }
