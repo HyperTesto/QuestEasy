@@ -1,6 +1,7 @@
 package me.hypertesto.questeasy.model.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
 
 import java.util.ArrayList;
 
@@ -57,12 +60,17 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 
 		ImageView typeImg = (ImageView) view.findViewById(R.id.cardTypeImg);
 
+		TextDrawable drawable = TextDrawable.builder().buildRoundRect("A",Color.RED,100);
+
+		int color = Color.parseColor("#ffffff");
 		if (item instanceof SingleGuestCard){
-			typeImg.setImageResource(R.drawable.ospite_singolo);
+			typeImg.setImageDrawable(drawable);
 		} else if (item instanceof FamilyCard){
-			typeImg.setImageResource(R.drawable.famiglia);
+			//typeImg.setImageResource(R.drawable.famiglia);
+			typeImg.setImageDrawable(drawable);
 		} else if (item instanceof GroupCard){
-			typeImg.setImageResource(R.drawable.gruppo);
+			typeImg.setImageDrawable(drawable);
+			//typeImg.setImageResource(R.drawable.gruppo);
 		} else {
 			throw new RuntimeException("Unknown card type");
 		}
