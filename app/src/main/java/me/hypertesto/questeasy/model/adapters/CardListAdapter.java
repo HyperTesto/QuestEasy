@@ -60,9 +60,10 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 
 		ImageView typeImg = (ImageView) view.findViewById(R.id.cardTypeImg);
 
-		TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getIntialLetter(),
-				Color.RED,100);
 
+		TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
+				Color.RED,100);
+		typeImg.setImageDrawable(drawable);
 
 
 		return view;
