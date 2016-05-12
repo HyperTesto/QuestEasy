@@ -60,20 +60,10 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 
 		ImageView typeImg = (ImageView) view.findViewById(R.id.cardTypeImg);
 
-		TextDrawable drawable = TextDrawable.builder().buildRoundRect("A",Color.RED,100);
+		TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getIntialLetter(),
+				Color.RED,100);
 
-		int color = Color.parseColor("#ffffff");
-		if (item instanceof SingleGuestCard){
-			typeImg.setImageDrawable(drawable);
-		} else if (item instanceof FamilyCard){
-			//typeImg.setImageResource(R.drawable.famiglia);
-			typeImg.setImageDrawable(drawable);
-		} else if (item instanceof GroupCard){
-			typeImg.setImageDrawable(drawable);
-			//typeImg.setImageResource(R.drawable.gruppo);
-		} else {
-			throw new RuntimeException("Unknown card type");
-		}
+
 
 		return view;
 	}
