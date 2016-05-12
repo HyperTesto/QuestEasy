@@ -44,5 +44,5 @@ public abstract class Card implements Serializable{
 		return "Permanenza: " + this.permanenza + " giorni";
 	}
 
-	public abstract String getIntialLetter();
+	public abstract String getInitialLetter();
 }
