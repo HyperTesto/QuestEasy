@@ -24,4 +24,9 @@ public class SingleGuestCard extends Card {
 	public String getTitle(){
 		return "Nome dell'ospite";
 	}
+
+	@Override
+	public String getInitialLetter() {
+		return guest.getName().substring(0,1);
+	}
 }

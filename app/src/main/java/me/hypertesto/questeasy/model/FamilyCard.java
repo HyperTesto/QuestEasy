@@ -40,4 +40,9 @@ public class FamilyCard extends Card {
 	public String getTitle(){
 		return "Cognome capo famiglia";
 	}
+
+	@Override
+	public String getInitialLetter() {
+		return capoFamiglia.getName().substring(0,1);
+	}
 }
