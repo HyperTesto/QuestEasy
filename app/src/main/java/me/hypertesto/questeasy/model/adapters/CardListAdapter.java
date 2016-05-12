@@ -58,11 +58,11 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		ImageView typeImg = (ImageView) view.findViewById(R.id.cardTypeImg);
 
 		if (item instanceof SingleGuestCard){
-			typeImg.setImageResource(R.drawable.guest_single3);
+			typeImg.setImageResource(R.drawable.ospite_singolo);
 		} else if (item instanceof FamilyCard){
-			typeImg.setImageResource(R.drawable.guest_family3);
+			typeImg.setImageResource(R.drawable.famiglia);
 		} else if (item instanceof GroupCard){
-			typeImg.setImageResource(R.drawable.guest_group3);
+			typeImg.setImageResource(R.drawable.gruppo);
 		} else {
 			throw new RuntimeException("Unknown card type");
 		}

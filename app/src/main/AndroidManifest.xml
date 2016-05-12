@@ -29,7 +29,6 @@
 					   android:resource="@xml/searchable" />-->
 
 		</activity>
-        <activity android:name=".activities.NewCardActivity" />
         <activity android:name=".activities.FormGuestActivity"
                   android:configChanges="orientation|screenSize"
 
