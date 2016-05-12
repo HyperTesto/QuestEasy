@@ -40,4 +40,9 @@ public class GroupCard extends Card {
 	public String getTitle(){
 		return "Nome comitiva";
 	}
+
+	@Override
+	public String getInitialLetter() {
+		return capoGruppo.getName().substring(0,1);
+	}
 }
