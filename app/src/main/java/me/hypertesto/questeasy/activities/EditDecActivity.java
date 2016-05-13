@@ -104,10 +104,6 @@ public class EditDecActivity extends AppCompatActivity {
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
 
-		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-
-		}
-
 
 		try{
 			frameLayout.getBackground().setAlpha(0);

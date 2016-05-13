@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/gruppo"
                 fab:fab_colorNormal="@color/white"
+				fab:fab_size="mini"
                 fab:fab_label="@string/categoryG"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
@@ -53,6 +54,7 @@
                 android:src="@drawable/famiglia"
                 fab:fab_colorNormal="@color/white"
                 fab:fab_label="@string/categoryF"
+				fab:fab_size="mini"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
             <com.github.clans.fab.FloatingActionButton
@@ -61,6 +63,7 @@
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
                 fab:fab_label="@string/categoryS"
+				fab:fab_size="mini"
                 android:src="@drawable/ospite_singolo"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
