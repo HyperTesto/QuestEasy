@@ -2,8 +2,8 @@ package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,29 +12,24 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.Declaration;
-import me.hypertesto.questeasy.model.SingleGuest;
-import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.Card;
-import me.hypertesto.questeasy.model.FamilyCard;
-import me.hypertesto.questeasy.model.FamilyMemberGuest;
-import me.hypertesto.questeasy.model.GroupCard;
-import me.hypertesto.questeasy.model.GroupMemberGuest;
+import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
+import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 
 public class EditDecActivity extends AppCompatActivity {
 
-	private FloatingActionsMenu gotoSelectCategory;
+	private FloatingActionMenu gotoSelectCategory;
 	private ListView listView;
 	private FrameLayout frameLayout;
-	private FloatingActionsMenu fabMenu;
+	private FloatingActionMenu fabMenu;
 	private boolean stateMenu;
 	private FloatingActionButton guestForm;
 
@@ -59,10 +54,10 @@ public class EditDecActivity extends AppCompatActivity {
 			setContentView(R.layout.activity_edit_dec);
 		}
 		defineSettings();
-		if (stateMenu) {
+		/*if (stateMenu) {
 			fabMenu.expand();
 			frameLayout.getBackground().setAlpha(170);
-		}
+		}*/
 
 
 	}
@@ -77,7 +72,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 	private void defineSettings() {
 		frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
-		fabMenu = (FloatingActionsMenu) findViewById
+		fabMenu = (FloatingActionMenu) findViewById
 				(R.id.categoryGuestGo);
 		guestForm = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
 
@@ -106,10 +101,10 @@ public class EditDecActivity extends AppCompatActivity {
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
 
-		try {
+		try{
 			frameLayout.getBackground().setAlpha(0);
-			fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.
-					OnFloatingActionsMenuUpdateListener() {
+			/*fabMenu.on(new FloatingActionMenu.
+					OnFloatingActionMenuUpdateListener() {
 				@Override
 				public void onMenuExpanded() {
 					stateMenu = fabMenu.isExpanded();
@@ -130,7 +125,7 @@ public class EditDecActivity extends AppCompatActivity {
 					stateMenu = fabMenu.isExpanded();
 					frameLayout.setOnTouchListener(null);
 				}
-			});
+			});*/
 		} catch (NullPointerException e) {
 			Log.e("ERROR", "error null field");
 		}
