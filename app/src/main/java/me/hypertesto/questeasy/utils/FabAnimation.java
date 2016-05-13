@@ -42,7 +42,7 @@ public class FabAnimation extends Handler {
 				}
 
 			}
-		}, 300);
+		}, 200);
 	}
 
 }
