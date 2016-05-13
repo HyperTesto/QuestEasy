@@ -189,8 +189,9 @@ public class EditDecActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				if (fabMenu.isOpened()){
-					fabMenu.hideMenu(false);
+					fabMenu.close(false);
 				}
+
 				startActivity(new Intent(EditDecActivity.this, FormGuestActivity.class));
 			}
 		});
