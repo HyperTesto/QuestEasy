@@ -35,6 +35,7 @@ import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.utils.FabAnimation;
+import me.hypertesto.questeasy.utils.ListScrollListener;
 
 public class EditDecActivity extends AppCompatActivity {
 
@@ -133,21 +134,7 @@ public class EditDecActivity extends AppCompatActivity {
 		new FabAnimation(fabMenu, getApplicationContext());
 
 
-		listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				if (firstVisibleItem > mPreviousVisibleItem) {
-					fabMenu.hideMenuButton(true);
-				} else if (firstVisibleItem < mPreviousVisibleItem) {
-					fabMenu.showMenuButton(true);
-				}
-				mPreviousVisibleItem = firstVisibleItem;
-			}
-		});
+		listView.setOnScrollListener(new ListScrollListener(fabMenu));
 
 		try{
 			frameLayout.getBackground().setAlpha(0);

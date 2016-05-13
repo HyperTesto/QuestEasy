@@ -26,6 +26,7 @@ import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.utils.FabAnimation;
+import me.hypertesto.questeasy.utils.ListScrollListener;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -148,21 +149,7 @@ public class HomeActivity extends AppCompatActivity {
 		}, 300);*/
 		new FabAnimation(insertNewDcard, getApplicationContext());
 
-		lv.setOnScrollListener(new AbsListView.OnScrollListener() {
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				if (firstVisibleItem > mPreviousVisibleItem) {
-					insertNewDcard.hide(true);
-				} else if (firstVisibleItem < mPreviousVisibleItem) {
-					insertNewDcard.show(true);
-				}
-				mPreviousVisibleItem = firstVisibleItem;
-			}
-		});
+		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));
 
 	}
 
