@@ -8,6 +8,7 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -166,5 +167,12 @@ public class HomeActivity extends AppCompatActivity {
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.activity_main_bar, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 
 }

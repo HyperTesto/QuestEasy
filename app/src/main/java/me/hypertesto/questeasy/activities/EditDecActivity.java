@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
@@ -56,6 +57,7 @@ public class EditDecActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_edit_dec);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		defineSettings();
 	}
 
@@ -86,7 +88,7 @@ public class EditDecActivity extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.search_bar, menu);
+		inflater.inflate(R.menu.edit_dec_bar, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -191,9 +193,9 @@ public class EditDecActivity extends AppCompatActivity {
 				if (fabMenu.isOpened()){
 					fabMenu.close(false);
 				}
-
 				startActivity(new Intent(EditDecActivity.this, FormGuestActivity.class));
 			}
+
 		});
 	}
 

@@ -20,6 +20,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
@@ -381,6 +383,13 @@ public class FormGuestActivity extends AppCompatActivity {
 		fileUri = savedInstanceState.getParcelable("file_uri");
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.form_bar, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 
 
 }
