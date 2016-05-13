@@ -3,6 +3,7 @@ package me.hypertesto.questeasy.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -41,6 +42,7 @@ public class EditDecActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_dec);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		defineSettings();
 	}
 
@@ -64,6 +66,8 @@ public class EditDecActivity extends AppCompatActivity {
 
 	}
 	*/
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -138,7 +142,9 @@ public class EditDecActivity extends AppCompatActivity {
 		guestForm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				if (fabMenu.isOpened()){
+					fabMenu.hideMenu(false);
+				}
 				startActivity(new Intent(EditDecActivity.this, FormGuestActivity.class));
 			}
 		});

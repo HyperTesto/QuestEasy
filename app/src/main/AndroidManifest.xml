@@ -23,15 +23,25 @@
         </activity>
         <activity
 			android:name=".activities.EditDecActivity"
-			android:label="@string/insertDcard">
+			android:label="@string/insertDcard"
+			android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity"
+            >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
 			<!--<meta-data android:name="android.app.searchable"
 					   android:resource="@xml/searchable" />-->
 
 		</activity>
         <activity android:name=".activities.FormGuestActivity"
                   android:configChanges="orientation|screenSize"
-
+				  android:parentActivityName=".activities.EditDecActivity"
 			>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".activities.EditDecActivity" />
         </activity>
     </application>
 
