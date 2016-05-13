@@ -46,6 +46,8 @@ public class EditDecActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_dec);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		defineSettings();
 	}
 
@@ -70,11 +72,13 @@ public class EditDecActivity extends AppCompatActivity {
 	}
 	*/
 
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.search_bar, menu);
+		inflater.inflate(R.menu.edit_dec_bar, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -132,9 +136,12 @@ public class EditDecActivity extends AppCompatActivity {
 		guestForm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				if (fabMenu.isOpened()){
+					fabMenu.close(false);
+				}
 				startActivity(new Intent(EditDecActivity.this, FormGuestActivity.class));
 			}
+
 		});
 	}
 

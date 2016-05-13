@@ -2,10 +2,13 @@
     <string name="app_name">QuestEasy</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="insertDcard">MODIFICA DICHIARAZIONE</string>
+    <string name="insertDcard">dichiarazione</string>
+    <string name="formTitleBar">ospite</string>
     <string name="categoryS">singolo</string>
     <string name="categoryF">famiglia</string>
     <string name="categoryG">gruppo</string>
+    <string name="saveDecMenuItem">salva</string>
+    <string name="confirmGuestForm">conferma ospite</string>
 	<string name = "personalDataGuest">Dati personali</string>
     <string name = "nameGuest">Nome</string>
     <string name = "surnameGuest">Cognome</string>

@@ -20,6 +20,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
@@ -56,10 +58,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	private EditText guest_documentCode;
 	private EditText guest_documentNumber;
 	private EditText guest_documentPlace;
-	private FloatingActionButton button_voice_form;
-	private FloatingActionButton button_photo;
 
-	private FloatingActionButton photo_guest1;
 
 	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 200;
 	public static final int MEDIA_TYPE_IMAGE = 1;
@@ -123,13 +122,10 @@ public class FormGuestActivity extends AppCompatActivity {
 		guest_documentNumber = (EditText)findViewById(R.id.editText_documentoNumber_guest_form);
 		guest_documentPlace = (EditText)findViewById(R.id.editText_documentoPlace_guest_form);
 
-		button_photo = (FloatingActionButton)findViewById(R.id.camera_guest_form);
-		button_voice_form = (FloatingActionButton)findViewById(R.id.voice_guest_form);
 
-		photo_guest1 = (FloatingActionButton)findViewById(R.id.voice_guest_photo1);
-		photo_guest1.setVisibility(View.INVISIBLE);
 
-		button_photo.setOnClickListener(new
+
+		/*button_photo.setOnClickListener(new
 												View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -143,6 +139,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				promptSpeechInput();
 			}
 		});
+		*/
 
 
 
@@ -195,7 +192,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	/*
      * Display image from a path to ImageView
      */
-	private void previewCapturedImage() {
+	/*private void previewCapturedImage() {
 		try {
 
 			photo_guest1.setVisibility(View.VISIBLE);
@@ -216,6 +213,7 @@ public class FormGuestActivity extends AppCompatActivity {
 			e.printStackTrace();
 		}
 	}
+	*/
 
 	/**
 	 * Creating file uri to store image/video
@@ -298,7 +296,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					Toast.makeText(this, "Image saved to:\n" +
 							fileUri.toString(), Toast.LENGTH_LONG).show();
 					Log.e("SAVED",fileUri.toString());
-					previewCapturedImage();
+					//previewCapturedImage();
 				}else if (resultCode == RESULT_CANCELED){
 					// user cancelled Image capture
 					Toast.makeText(getApplicationContext(),
@@ -385,6 +383,13 @@ public class FormGuestActivity extends AppCompatActivity {
 		fileUri = savedInstanceState.getParcelable("file_uri");
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.form_bar, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 
 
 }
