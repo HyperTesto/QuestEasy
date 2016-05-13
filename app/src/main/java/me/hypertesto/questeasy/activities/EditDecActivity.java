@@ -3,6 +3,7 @@ package me.hypertesto.questeasy.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -22,6 +24,12 @@ import java.util.Date;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Card;
+import me.hypertesto.questeasy.model.FamilyCard;
+import me.hypertesto.questeasy.model.FamilyHeadGuest;
+import me.hypertesto.questeasy.model.FamilyMemberGuest;
+import me.hypertesto.questeasy.model.GroupCard;
+import me.hypertesto.questeasy.model.GroupHeadGuest;
+import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
@@ -86,25 +94,39 @@ public class EditDecActivity extends AppCompatActivity {
 			ArrayList d = (ArrayList) intent.getSerializableExtra("DEC");
 			items.addAll(d);
 		} else {
-			SingleGuest g = new SingleGuest();
-			g.setName("tizio");
-			items.add(new SingleGuestCard(g, new Date(), 5, true));
-			/*items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
-			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
-			items.add(new SingleGuestCard(null, new Date(), 5, false));
-			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, false));
-			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, false));
-			items.add(new SingleGuestCard(null, new Date(), 5, true));
-			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
-			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
-		*/
+			SingleGuest s = new SingleGuest();
+			s.setName("Tizio");
+			FamilyHeadGuest f = new FamilyHeadGuest();
+			f.setName("Caio");
+			GroupHeadGuest g = new GroupHeadGuest();
+			g.setName("Semprogno");
+			items.add(new SingleGuestCard(s, new Date(), 5, true));
+			items.add(new FamilyCard(f, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
+			items.add(new GroupCard(g, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
+			items.add(new SingleGuestCard(s, new Date(), 5, false));
+			items.add(new FamilyCard(f, new ArrayList<FamilyMemberGuest>(), new Date(), 12, false));
+			items.add(new GroupCard(g, new ArrayList<GroupMemberGuest>(), new Date(), 7, false));
+			items.add(new SingleGuestCard(s, new Date(), 5, true));
+			items.add(new FamilyCard(f, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
+			items.add(new GroupCard(g, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
+
+			System.out.println("Added stub guests");
+
 		}
 
 		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
 
-
+		fabMenu.hideMenuButton(false);
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				fabMenu.showMenuButton(true);
+				fabMenu.setMenuButtonShowAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_from_bottom));
+				fabMenu.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_to_bottom));
+			}
+		}, 300);
 		try{
 			frameLayout.getBackground().setAlpha(0);
 
