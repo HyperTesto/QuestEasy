@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -42,7 +44,7 @@ public class EditDecActivity extends AppCompatActivity {
 		defineSettings();
 	}
 
-	@Override
+	/*@Override
 	public void onConfigurationChanged(Configuration config) {
 		super.onConfigurationChanged(config);
 
@@ -57,10 +59,11 @@ public class EditDecActivity extends AppCompatActivity {
 		/*if (stateMenu) {
 			fabMenu.expand();
 			frameLayout.getBackground().setAlpha(170);
-		}*/
+		}
 
 
 	}
+	*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,8 +104,14 @@ public class EditDecActivity extends AppCompatActivity {
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
 
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+		}
+
+
 		try{
 			frameLayout.getBackground().setAlpha(0);
+
 			/*fabMenu.on(new FloatingActionMenu.
 					OnFloatingActionMenuUpdateListener() {
 				@Override

@@ -30,7 +30,7 @@
         android:layout_alignParentEnd="true"
         >
 
-        <com.github.clans.fab.FloatingActionsMenu
+        <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/categoryGuestGo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:src="@drawable/guest_single3"
                 />
 
-        </com.github.clans.fab.FloatingActionsMenu>
+        </com.github.clans.fab.FloatingActionMenu>
 
     </FrameLayout>
 
