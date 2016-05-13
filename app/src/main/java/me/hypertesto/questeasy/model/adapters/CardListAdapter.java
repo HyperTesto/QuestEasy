@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
 
@@ -60,9 +61,10 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 
 		ImageView typeImg = (ImageView) view.findViewById(R.id.cardTypeImg);
 
-
+		ColorGenerator generator = ColorGenerator.MATERIAL;
+		int color = generator.getRandomColor();
 		TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
-				Color.RED,100);
+				color, 100);
 		typeImg.setImageDrawable(drawable);
 
 

@@ -18,18 +18,15 @@
 			android:dividerHeight="1dp"/>
 
 
-	<com.getbase.floatingactionbutton.AddFloatingActionButton
+	<com.github.clans.fab.FloatingActionButton
 		android:id="@+id/fab"
+
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true"
 		android:layout_alignParentEnd="true"
+		android:src="@drawable/fab_add"
 		fab:fab_colorNormal="@color/colorPrimary"
-
-		fab:fab_addButtonPlusIconColor="@color/white"
-		fab:fab_labelStyle="@style/menu_labels_style"
-
-
 		android:layout_margin="16dp"/>
 </RelativeLayout>

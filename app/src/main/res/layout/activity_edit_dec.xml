@@ -29,44 +29,45 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         >
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
+        <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/categoryGuestGo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            fab:fab_addButtonColorNormal="@color/colorPrimary"
-            fab:fab_addButtonPlusIconColor="@color/white"
-            fab:fab_labelStyle="@style/menu_labels_style"
-            fab:fab_labelsPosition="left"
-            >
+			fab:menu_colorNormal="@color/colorPrimary"
+            fab:menu_icon="@drawable/fab_add">
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
+            <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/categoryGuestGroupGo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/gruppo"
                 fab:fab_colorNormal="@color/white"
-                fab:fab_title="@string/categoryG"
+				fab:fab_size="mini"
+                fab:fab_label="@string/categoryG"
                 fab:fab_colorPressed="@color/white_pressed"/>
-            <com.getbase.floatingactionbutton.FloatingActionButton
+
+            <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/categoryGuestFamilyGo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/famiglia"
                 fab:fab_colorNormal="@color/white"
-                fab:fab_title="@string/categoryF"
+                fab:fab_label="@string/categoryF"
+				fab:fab_size="mini"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
+            <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/categoryGuestSingleGo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
-                fab:fab_title="@string/categoryS"
+                fab:fab_label="@string/categoryS"
+				fab:fab_size="mini"
                 android:src="@drawable/ospite_singolo"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
-        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        </com.github.clans.fab.FloatingActionMenu>
 
     </FrameLayout>
 
