@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -42,6 +43,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private FloatingActionMenu fabMenu;
 	private boolean stateMenu;
 	private FloatingActionButton guestForm;
+	private int mPreviousVisibleItem;
 
 
 	@Override
@@ -127,6 +129,24 @@ public class EditDecActivity extends AppCompatActivity {
 				fabMenu.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_to_bottom));
 			}
 		}, 300);
+
+
+		listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+				if (firstVisibleItem > mPreviousVisibleItem) {
+					fabMenu.hideMenuButton(true);
+				} else if (firstVisibleItem < mPreviousVisibleItem) {
+					fabMenu.showMenuButton(true);
+				}
+				mPreviousVisibleItem = firstVisibleItem;
+			}
+		});
+
 		try{
 			frameLayout.getBackground().setAlpha(0);
 
