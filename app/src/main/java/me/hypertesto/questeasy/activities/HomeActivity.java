@@ -2,7 +2,6 @@ package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -10,7 +9,6 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -139,14 +137,7 @@ public class HomeActivity extends AppCompatActivity {
 			}
 		});
 		insertNewDcard.hide(false);
-		/*new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				insertNewDcard.show(true);
-				insertNewDcard.setShowAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_from_bottom));
-				insertNewDcard.setHideAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_to_bottom));
-			}
-		}, 300);*/
+
 		new FabAnimation(insertNewDcard, getApplicationContext());
 
 		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));

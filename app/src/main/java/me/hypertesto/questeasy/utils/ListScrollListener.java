@@ -2,7 +2,6 @@ package me.hypertesto.questeasy.utils;
 
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ListView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;

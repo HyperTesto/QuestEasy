@@ -1,19 +1,12 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -123,14 +116,7 @@ public class EditDecActivity extends AppCompatActivity {
 		listView.setAdapter(adapter);
 
 		fabMenu.hideMenuButton(false);
-		/*new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				fabMenu.showMenuButton(true);
-				fabMenu.setMenuButtonShowAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_from_bottom));
-				fabMenu.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_to_bottom));
-			}
-		}, 300);*/
+
 		new FabAnimation(fabMenu, getApplicationContext());
 
 
@@ -139,29 +125,6 @@ public class EditDecActivity extends AppCompatActivity {
 		try{
 			frameLayout.getBackground().setAlpha(0);
 
-			/*fabMenu.on(new FloatingActionMenu.
-					OnFloatingActionMenuUpdateListener() {
-				@Override
-				public void onMenuExpanded() {
-					stateMenu = fabMenu.isExpanded();
-					frameLayout.getBackground().setAlpha(170);
-					frameLayout.setOnTouchListener(new View.OnTouchListener() {
-						@Override
-						public boolean onTouch(View v, MotionEvent event) {
-							fabMenu.collapse();
-							stateMenu = fabMenu.isExpanded();
-							return true;
-						}
-					});
-				}
-
-				@Override
-				public void onMenuCollapsed() {
-					frameLayout.getBackground().setAlpha(0);
-					stateMenu = fabMenu.isExpanded();
-					frameLayout.setOnTouchListener(null);
-				}
-			});*/
 		} catch (NullPointerException e) {
 			Log.e("ERROR", "error null field");
 		}
