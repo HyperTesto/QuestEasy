@@ -19,14 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.Card;
-import me.hypertesto.questeasy.model.FamilyCard;
-import me.hypertesto.questeasy.model.FamilyMemberGuest;
-import me.hypertesto.questeasy.model.GroupCard;
-import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 
 public class EditDecActivity extends AppCompatActivity {
@@ -90,7 +85,7 @@ public class EditDecActivity extends AppCompatActivity {
 		} else {
 			SingleGuest g = new SingleGuest();
 			g.setName("tizio");
-			items.add(new SingleGuestCard(g, new Date(), 5, true));
+			items.add(new SingleGuestCard(g, new Date(), 5));
 			/*items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
 			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
 			items.add(new SingleGuestCard(null, new Date(), 5, false));

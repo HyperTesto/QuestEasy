@@ -9,11 +9,15 @@ import java.util.Date;
 public class SingleGuestCard extends Card {
 	private SingleGuest guest;
 
-	public SingleGuestCard(SingleGuest guest, Date date, int permanenza, boolean complete){
+	public SingleGuestCard(SingleGuest guest, Date date, int permanenza){
 		this.guest = guest;
 		this.date = date;
 		this.permanenza = permanenza;
-		this.complete = complete;
+	}
+
+	@Override
+	public boolean isComplete() {
+		return this.guest.isComplete();
 	}
 
 	public SingleGuest getGuest() {

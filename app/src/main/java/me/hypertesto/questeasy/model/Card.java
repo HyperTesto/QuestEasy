@@ -12,7 +12,8 @@ import java.util.Date;
 public abstract class Card implements Serializable{
 	protected Date date;
 	protected int permanenza;
-	protected boolean complete;
+
+	public abstract boolean isComplete();
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -22,20 +23,12 @@ public abstract class Card implements Serializable{
 		this.permanenza = permanenza;
 	}
 
-	public void setComplete(boolean complete) {
-		this.complete = complete;
-	}
-
 	public Date getDate() {
 		return date;
 	}
 
 	public int getPermanenza() {
 		return permanenza;
-	}
-
-	public boolean isComplete(){
-		return this.complete;
 	}
 
 	public abstract String getTitle();

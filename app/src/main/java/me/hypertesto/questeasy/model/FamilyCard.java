@@ -13,12 +13,26 @@ public class FamilyCard extends Card {
 	private ArrayList<FamilyMemberGuest> familiari;
 
 	public FamilyCard(FamilyHeadGuest guest, ArrayList<FamilyMemberGuest> others, Date date,
-										int permanenza, boolean complete){
+										int permanenza){
 		this.capoFamiglia = guest;
 		this.familiari = others;
 		this.date = date;
 		this.permanenza = permanenza;
-		this.complete = complete;
+	}
+
+	@Override
+	public boolean isComplete(){
+		if (!this.capoFamiglia.isComplete()){
+			return false;
+		} else {
+			for (Guest fm : this.familiari){
+				if (!fm.isComplete()){
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	public void addFamilyMember(FamilyMemberGuest guest){
