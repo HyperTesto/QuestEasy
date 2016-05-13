@@ -34,6 +34,7 @@ import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
+import me.hypertesto.questeasy.utils.FabAnimation;
 
 public class EditDecActivity extends AppCompatActivity {
 
@@ -121,14 +122,15 @@ public class EditDecActivity extends AppCompatActivity {
 		listView.setAdapter(adapter);
 
 		fabMenu.hideMenuButton(false);
-		new Handler().postDelayed(new Runnable() {
+		/*new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				fabMenu.showMenuButton(true);
 				fabMenu.setMenuButtonShowAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_from_bottom));
 				fabMenu.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_to_bottom));
 			}
-		}, 300);
+		}, 300);*/
+		new FabAnimation(fabMenu, getApplicationContext());
 
 
 		listView.setOnScrollListener(new AbsListView.OnScrollListener() {

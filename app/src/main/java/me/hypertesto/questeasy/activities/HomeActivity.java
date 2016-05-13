@@ -25,6 +25,7 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.utils.FabAnimation;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -137,14 +138,15 @@ public class HomeActivity extends AppCompatActivity {
 			}
 		});
 		insertNewDcard.hide(false);
-		new Handler().postDelayed(new Runnable() {
+		/*new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				insertNewDcard.show(true);
 				insertNewDcard.setShowAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_from_bottom));
 				insertNewDcard.setHideAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_to_bottom));
 			}
-		}, 300);
+		}, 300);*/
+		new FabAnimation(insertNewDcard, getApplicationContext());
 
 		lv.setOnScrollListener(new AbsListView.OnScrollListener() {
 			@Override
