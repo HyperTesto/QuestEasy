@@ -4,6 +4,8 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="insertDcard">dichiarazione</string>
     <string name="formTitleBar">ospite</string>
+    <string name="settingsNav">impostazioni</string>
+    <string name="aboutNav">info</string>
     <string name="categoryS">singolo</string>
     <string name="categoryF">famiglia</string>
     <string name="categoryG">gruppo</string>

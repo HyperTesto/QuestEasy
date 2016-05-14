@@ -1,8 +1,13 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -33,6 +38,10 @@ public class HomeActivity extends AppCompatActivity {
 	private FloatingActionButton insertNewDcard;
 	private DeclarationListAdapter adapter;
 	private int mPreviousVisibleItem;
+	private NavigationView mNavigationView;
+	private DrawerLayout mDrawerLayout;
+	private ActionBarDrawerToggle mDrawerToggle;
+
 
 
 	@Override
@@ -40,6 +49,26 @@ public class HomeActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
+
+		mNavigationView = (NavigationView)findViewById(R.id.nav_view_main);
+		mDrawerLayout = (DrawerLayout)findViewById(R.id.nav_drawer_layout);
+
+
+		setupDrawer();
+
+		mNavigationView.setNavigationItemSelectedListener(
+				new NavigationView.OnNavigationItemSelectedListener() {
+					@Override
+					public boolean onNavigationItemSelected(MenuItem menuItem) {
+						menuItem.setChecked(true);
+						mDrawerLayout.closeDrawers();
+						return true;
+					}
+				});
+
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
 		ArrayList<Declaration> items = new ArrayList<>();
 
 		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
@@ -153,4 +182,57 @@ public class HomeActivity extends AppCompatActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+
+
+		// Activate the navigation drawer toggle
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void setupDrawer(){
+		mDrawerToggle = new ActionBarDrawerToggle(
+				this,
+				mDrawerLayout,         /* DrawerLayout object */
+				R.string.aboutNav,  /* "open drawer" description */
+				R.string.aboutNav
+		){
+			/** Called when a drawer has settled in a completely closed state. */
+			public void onDrawerClosed(View view) {
+				super.onDrawerClosed(view);
+				//getSupportActionBar().setTitle("");
+				invalidateOptionsMenu();
+			}
+
+			/** Called when a drawer has settled in a completely open state. */
+			public void onDrawerOpened(View drawerView) {
+				super.onDrawerOpened(drawerView);
+				//getSupportActionBar().setTitle("");
+				invalidateOptionsMenu();
+			}
+		};
+
+
+		mDrawerToggle.setDrawerIndicatorEnabled(true);
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
 }
