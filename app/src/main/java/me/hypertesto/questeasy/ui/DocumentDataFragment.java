@@ -36,8 +36,8 @@ public class DocumentDataFragment extends Fragment {
 	}
 
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 
 		guest_documentCode = (EditText)getView().findViewById(R.id.editText_documentoCodice_guest_form);
 		guest_documentNumber = (EditText)getView().findViewById(R.id.editText_documentoNumber_guest_form);

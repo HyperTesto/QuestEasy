@@ -15,6 +15,27 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<fragment
+				android:name="me.hypertesto.questeasy.ui.PersonalDataFragment"
+				android:id="@+id/personalDataFragment"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight = "1"
+				/>
+
+			<fragment
+				android:name="me.hypertesto.questeasy.ui.DocumentDataFragment"
+				android:id="@+id/documentDataFragment"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight = "2"
+				/>
+		</LinearLayout>
+
 
 
 	</ScrollView>

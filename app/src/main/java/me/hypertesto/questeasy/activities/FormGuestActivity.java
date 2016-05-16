@@ -1,5 +1,7 @@
 package me.hypertesto.questeasy.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -38,6 +40,7 @@ import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.ui.DelayAutoCompleteTextView;
+import me.hypertesto.questeasy.ui.DocumentDataFragment;
 import me.hypertesto.questeasy.ui.PersonalDataFragment;
 import me.hypertesto.questeasy.utils.CitizenshipRequest;
 import me.hypertesto.questeasy.utils.PlaceRequest;
@@ -64,7 +67,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
 
-		getSupportFragmentManager().beginTransaction().add(R.id.fragment_guest_container, new PersonalDataFragment()).commit();
+
 		//dateFomatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
 
 
