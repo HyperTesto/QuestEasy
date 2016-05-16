@@ -1,4 +1,4 @@
-package me.hypertesto.questeasy;
+package me.hypertesto.questeasy.ui;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -9,6 +9,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.util.Calendar;
+
+import me.hypertesto.questeasy.R;
 
 /**
  * Created by gianluke on 05/05/16.
