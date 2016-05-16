@@ -37,7 +37,9 @@ public class EditDecActivity extends AppCompatActivity {
 	private FrameLayout frameLayout;
 	private FloatingActionMenu fabMenu;
 	private boolean stateMenu;
-	private FloatingActionButton guestForm;
+	private FloatingActionButton singlefab;
+	private FloatingActionButton groupFab;
+	private FloatingActionButton familyFab;
 	private int mPreviousVisibleItem;
 
 
@@ -86,7 +88,9 @@ public class EditDecActivity extends AppCompatActivity {
 		frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
 		fabMenu = (FloatingActionMenu) findViewById
 				(R.id.categoryGuestGo);
-		guestForm = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
+		singlefab = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
+		groupFab = (FloatingActionButton) findViewById(R.id.categoryGuestGroupGo);
+		familyFab = (FloatingActionButton) findViewById(R.id.categoryGuestFamilyGo);
 
 		ArrayList<Card> items = new ArrayList<>();
 
@@ -133,7 +137,8 @@ public class EditDecActivity extends AppCompatActivity {
 			Log.e("ERROR", "error null field");
 		}
 
-		guestForm.setOnClickListener(new View.OnClickListener() {
+		/*Intent intentForm = new Intent();
+		singlefab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (fabMenu.isOpened()){
@@ -143,6 +148,39 @@ public class EditDecActivity extends AppCompatActivity {
 			}
 
 		});
+		*/
+		sendFormRequest(singlefab,0);
+		sendFormRequest(groupFab,1);
+		sendFormRequest(familyFab,2);
+	}
+
+	public void sendFormRequest (FloatingActionButton formFab, Integer typeGuest){
+		final Intent intentForm = new Intent(EditDecActivity.this, FormGuestActivity.class);
+		switch(typeGuest){
+			case 0 :
+				intentForm.putExtra("me.hypertesto.questeasy.activities.category", "Singolo");
+				break;
+			case 1 :
+				intentForm.putExtra("me.hypertesto.questeasy.activities.category", "Capogruppo");
+				break;
+			case 2 :
+				intentForm.putExtra("me.hypertesto.questeasy.activities.category", "Capofamiglia");
+				break;
+			default:
+				break;
+		}
+
+		formFab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (fabMenu.isOpened()){
+					fabMenu.close(false);
+				}
+				startActivity(intentForm);
+
+			}
+		});
+
 	}
 
 

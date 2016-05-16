@@ -67,6 +67,9 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
 
+		Intent intent = getIntent();
+		System.out.println("*****Category"+ intent.getStringExtra("me.hypertesto.questeasy.activities.category"));
+		setTitle(intent.getStringExtra("me.hypertesto.questeasy.activities.category"));
 
 		//dateFomatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
 
@@ -346,7 +349,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		// get the file url
 		fileUri = savedInstanceState.getParcelable("file_uri");
 	}
-
+*/
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -354,6 +357,6 @@ public class FormGuestActivity extends AppCompatActivity {
 		inflater.inflate(R.menu.form_bar, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-*/
+
 
 }

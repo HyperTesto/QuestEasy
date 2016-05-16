@@ -6,7 +6,7 @@
 		android:id="@+id/action_settings"
 		android:orderInCategory="100"
 		app:showAsAction="always"
-		android:icon="@drawable/checked"
+		android:icon="@android:drawable/ic_menu_save"
 		android:title="@string/confirmGuestForm"
 		/>
 </menu>

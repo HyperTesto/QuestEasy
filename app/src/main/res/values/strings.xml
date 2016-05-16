@@ -26,4 +26,7 @@
 	<string name = "placeDocumentoGuest">Luogo di rilascio</string>
     <string name="speech_prompt">&#8230;</string>
     <string name="speech_not_supported">Il dispositivo non supporta questa funzione</string>
+    <string name="categoryNameSingle">Singolo</string>
+	<string name="categoryNameGroup">Capogruppo</string>
+	<string name="categoryNameFamily">Capofamiglia</string>
 </resources>
