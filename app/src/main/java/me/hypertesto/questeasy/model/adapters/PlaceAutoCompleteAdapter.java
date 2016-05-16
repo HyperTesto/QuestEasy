@@ -10,6 +10,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.hypertesto.questeasy.R;
@@ -66,6 +67,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 					List<String> places = api.find(mContext, constraint.toString());
 
 					// Assign the data to the FilterResults
+					Collections.sort(places);
 					filterResults.values = places;
 					filterResults.count = places.size();
 				}
