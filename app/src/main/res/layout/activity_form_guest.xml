@@ -11,304 +11,34 @@
 	tools:context="me.hypertesto.questeasy.activities.FormGuestActivity"
 	>
 	<ScrollView
+		android:id = "@+id/fragment_guest_container"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		>
-
-		<RelativeLayout
-			android:layout_width="match_parent"
+		<LinearLayout
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginRight="10dp"
-			android:layout_marginLeft="10dp"
-			>
-			<TextView
-				android:id="@+id/person_data_Title"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/personalDataGuest"
-				android:layout_marginTop="10dp"
-				android:textSize="20sp"
-				/>
-			<ImageView
-				android:id="@+id/person_data_imageView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentLeft="true"
-				android:layout_marginLeft="5dp"
-				android:layout_marginTop="20dp"
-				android:layout_below="@id/person_data_Title"
-				android:src="@drawable/icon_person_form_guest"
-				/>
-			<EditText
-				android:id="@+id/editText_name_guest_form"
+			android:orientation="vertical">
+			<fragment
+				android:name="me.hypertesto.questeasy.ui.PersonalDataFragment"
+				android:id="@+id/personalDataFragment"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/person_data_Title"
-				android:layout_marginTop="10dp"
-				android:layout_alignParentRight="true"
-				android:layout_alignParentEnd="true"
-				android:maxLength="60"
-				android:textSize="15sp"
-				android:layout_marginLeft="46dp"
-				android:layout_marginStart="46dp"
-				android:hint="@string/nameGuest"
+				android:layout_weight = "1"
 				/>
 
-			<EditText
-				android:id="@+id/editText_surname_guest_form"
+			<fragment
+				android:name="me.hypertesto.questeasy.ui.DocumentDataFragment"
+				android:id="@+id/documentDataFragment"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/editText_name_guest_form"
-				android:layout_alignParentRight="true"
-				android:layout_alignParentEnd="true"
-				android:maxLength="60"
-				android:layout_marginLeft="46dp"
-				android:layout_marginStart="46dp"
-				android:textSize="15sp"
-				android:hint="@string/surnameGuest"
+				android:layout_weight = "2"
 				/>
-
-			<RadioGroup android:layout_height="wrap_content" android:id="@+id/gender_group"
-						android:layout_width="match_parent"
-						android:orientation="horizontal"
-						android:layout_marginTop="10dp"
-						android:layout_below="@id/editText_surname_guest_form"
-						android:layout_alignLeft="@id/editText_surname_guest_form"
-				>
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:hint="@string/sexGuest"
-					android:textSize="15sp"
-					android:layout_marginLeft="5dp"
-					android:paddingRight="10dp"
-					/>
-				<RadioButton
-							android:text="@string/sexMen"
-							android:layout_width="wrap_content" android:id="@+id/sex_man"
-							android:layout_height="wrap_content"
-							android:layout_marginLeft="20dp"
-							android:layout_marginStart="20dp"
-							 android:checked="true"></RadioButton>
-				<RadioButton android:text="@string/sexWoman"
-							 android:layout_width="wrap_content" android:id="@+id/sex_woman"
-							 android:layout_height="wrap_content"
-							 android:layout_marginLeft="20dp"
-							 android:layout_marginStart="20dp"
-					></RadioButton>
-			</RadioGroup>
-
-			<ImageView
-				android:id="@+id/person_dateBirth_imageView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true"
-				android:layout_marginLeft="5dp"
-				android:layout_marginTop="15dp"
-				android:layout_below="@id/gender_group"
-				android:src="@drawable/icon_date_form_guest"
-				/>
-
-			<TextView
-				android:id="@+id/editText_birthDate_guest_form"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_alignParentRight="true"
-				android:layout_below="@id/gender_group"
-				android:layout_marginTop="8dp"
-				android:focusable="false"
-				android:onClick="showDatePickerDialog"
-				android:hint="@string/dateBirthGuest"
-				android:layout_marginLeft="46dp"
-				android:layout_marginStart="46dp"
-				android:textSize="15sp"
-				style="@style/Widget.AppCompat.Spinner.Underlined"
-				/>
+		</LinearLayout>
 
 
 
-			<ImageView
-				android:id="@+id/person_place_imageView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true"
-				android:layout_marginTop="20dp"
-				android:layout_marginLeft="5dp"
-				android:layout_below="@id/person_dateBirth_imageView"
-				android:src="@drawable/icon_placeholder_form_guest"
-				/>
-			<FrameLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/editText_birthDate_guest_form"
-				android:layout_alignLeft="@+id/editText_birthDate_guest_form"
-				android:layout_alignStart="@+id/editText_birthDate_guest_form"
-				android:id="@+id/frameLayout">
-
-
-				<me.hypertesto.questeasy.ui.DelayAutoCompleteTextView
-					android:id="@+id/editText_luogoN_guest_form"
-					android:inputType="textCapSentences"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/luogoGuest"
-					android:imeOptions="flagNoExtractUi|actionSearch"
-					android:textSize="15dp" />
-
-				<ProgressBar
-					android:id="@+id/pb_loading_indicator_luogo"
-					style="?android:attr/progressBarStyleSmall"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_vertical|right"
-
-
-					android:visibility="gone"/>
-			</FrameLayout>
-
-			<ImageView
-				android:id="@+id/person_citizenship_imageView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true"
-				android:layout_marginTop="20dp"
-				android:layout_marginLeft="5dp"
-				android:layout_below="@id/person_place_imageView"
-				android:src="@drawable/icon_waving_flag_form_guest"
-				/>
-			<FrameLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_above="@+id/person_document_Title"
-				android:layout_alignLeft="@+id/frameLayout"
-				android:layout_alignStart="@+id/frameLayout"
-				>
-
-
-				<me.hypertesto.questeasy.ui.DelayAutoCompleteTextView
-					android:id="@+id/editText_cittadinanza_guest_form"
-					android:inputType="textCapSentences"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/cittadinanzaGuest"
-					android:imeOptions="flagNoExtractUi|actionSearch"
-					android:textSize="15dp" />
-
-				<ProgressBar
-					android:id="@+id/pb_loading_indicator"
-					style="?android:attr/progressBarStyleSmall"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_vertical|right"
-
-
-					android:visibility="gone"/>
-			</FrameLayout>
-
-			<TextView
-				android:id="@+id/person_document_Title"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/person_citizenship_imageView"
-				android:layout_marginTop="20dp"
-				android:text="@string/documentoGuest"
-				android:textSize="20sp"
-						/>
-			<ImageView
-				android:id="@+id/person_identityCard_imageView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true"
-				android:layout_marginLeft="5dp"
-				android:layout_marginTop="20dp"
-				android:layout_below="@id/person_document_Title"
-				android:src="@drawable/icon_identification_card_form_guest"
-				/>
-
-			<EditText
-				android:id="@+id/editText_documentoCodice_guest_form"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="10dp"
-				android:layout_alignParentRight="true"
-				android:layout_alignParentEnd="true"
-				android:maxLength="60"
-				android:layout_marginLeft="46dp"
-				android:layout_marginStart="46dp"
-				android:textSize="15sp"
-				android:layout_below="@id/person_document_Title"
-				android:hint="@string/codeDocumentoGuest"
-				/>
-			<EditText
-				android:id="@+id/editText_documentoNumber_guest_form"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_alignParentRight="true"
-				android:layout_alignParentEnd="true"
-				android:maxLength="60"
-				android:layout_marginLeft="46dp"
-				android:layout_marginStart="46dp"
-				android:textSize="15sp"
-				android:layout_below="@id/editText_documentoCodice_guest_form"
-				android:hint="@string/numberDocumentoGuest"
-				/>
-			<EditText
-				android:id="@+id/editText_documentoPlace_guest_form"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_alignParentRight="true"
-				android:layout_alignParentEnd="true"
-				android:maxLength="60"
-				android:layout_marginLeft="46dp"
-				android:layout_marginStart="46dp"
-				android:textSize="15sp"
-				android:layout_below="@id/editText_documentoNumber_guest_form"
-				android:hint="@string/placeDocumentoGuest"
-				/>
-		</RelativeLayout>
 	</ScrollView>
 
 
-				<com.github.clans.fab.FloatingActionButton
-					android:id = "@+id/camera_guest_form"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentTop="true"
-					android:layout_marginTop="-25dp"
-					android:layout_alignParentRight="true"
-					android:layout_alignParentEnd="true"
-					fab:fab_colorNormal="@color/white"
-					fab:fab_size="mini"
-
-					/>
-				<com.github.clans.fab.FloatingActionButton
-					android:id = "@+id/voice_guest_form"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentBottom="true"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentStart="true"
-					android:layout_marginLeft="35dp"
-					fab:fab_size="mini"
-					fab:fab_colorNormal="@color/colorPrimary"
-
-					/>
-
-				<com.github.clans.fab.FloatingActionButton
-					android:id = "@+id/voice_guest_photo1"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentBottom="true"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentStart="true"
-					android:layout_marginLeft="100dp"
-					fab:fab_size="mini"
-					fab:fab_colorNormal="@color/white"
-					/>
-
-
-		</RelativeLayout>
+</RelativeLayout>

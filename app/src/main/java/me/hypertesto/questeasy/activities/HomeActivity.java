@@ -1,16 +1,20 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -25,6 +29,8 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.utils.FabAnimation;
+import me.hypertesto.questeasy.utils.ListScrollListener;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -32,6 +38,10 @@ public class HomeActivity extends AppCompatActivity {
 	private FloatingActionButton insertNewDcard;
 	private DeclarationListAdapter adapter;
 	private int mPreviousVisibleItem;
+	private NavigationView mNavigationView;
+	private DrawerLayout mDrawerLayout;
+	private ActionBarDrawerToggle mDrawerToggle;
+
 
 
 	@Override
@@ -39,6 +49,26 @@ public class HomeActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
+
+		mNavigationView = (NavigationView)findViewById(R.id.nav_view_main);
+		mDrawerLayout = (DrawerLayout)findViewById(R.id.nav_drawer_layout);
+
+
+		setupDrawer();
+
+		mNavigationView.setNavigationItemSelectedListener(
+				new NavigationView.OnNavigationItemSelectedListener() {
+					@Override
+					public boolean onNavigationItemSelected(MenuItem menuItem) {
+						menuItem.setChecked(true);
+						mDrawerLayout.closeDrawers();
+						return true;
+					}
+				});
+
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
 		ArrayList<Declaration> items = new ArrayList<>();
 
 		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
@@ -137,32 +167,72 @@ public class HomeActivity extends AppCompatActivity {
 			}
 		});
 		insertNewDcard.hide(false);
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				insertNewDcard.show(true);
-				insertNewDcard.setShowAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_from_bottom));
-				insertNewDcard.setHideAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_to_bottom));
-			}
-		}, 300);
 
-		lv.setOnScrollListener(new AbsListView.OnScrollListener() {
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-			}
+		new FabAnimation(insertNewDcard, getApplicationContext());
 
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				if (firstVisibleItem > mPreviousVisibleItem) {
-					insertNewDcard.hide(true);
-				} else if (firstVisibleItem < mPreviousVisibleItem) {
-					insertNewDcard.show(true);
-				}
-				mPreviousVisibleItem = firstVisibleItem;
-			}
-		});
+		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
 
+		inflater.inflate(R.menu.activity_main_bar, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+
+
+		// Activate the navigation drawer toggle
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void setupDrawer(){
+		mDrawerToggle = new ActionBarDrawerToggle(
+				this,
+				mDrawerLayout,         /* DrawerLayout object */
+				R.string.aboutNav,  /* "open drawer" description */
+				R.string.aboutNav
+		){
+			/** Called when a drawer has settled in a completely closed state. */
+			public void onDrawerClosed(View view) {
+				super.onDrawerClosed(view);
+				//getSupportActionBar().setTitle("");
+				invalidateOptionsMenu();
+			}
+
+			/** Called when a drawer has settled in a completely open state. */
+			public void onDrawerOpened(View drawerView) {
+				super.onDrawerOpened(drawerView);
+				//getSupportActionBar().setTitle("");
+				invalidateOptionsMenu();
+			}
+		};
+
+
+		mDrawerToggle.setDrawerIndicatorEnabled(true);
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
 }

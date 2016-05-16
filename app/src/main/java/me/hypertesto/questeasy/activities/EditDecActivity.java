@@ -17,10 +17,18 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.model.Card;
+import me.hypertesto.questeasy.model.FamilyCard;
+import me.hypertesto.questeasy.model.FamilyHeadGuest;
+import me.hypertesto.questeasy.model.FamilyMemberGuest;
+import me.hypertesto.questeasy.model.GroupCard;
+import me.hypertesto.questeasy.model.GroupHeadGuest;
+import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
-import me.hypertesto.questeasy.model.Card;
 import me.hypertesto.questeasy.model.SingleGuestCard;
+import me.hypertesto.questeasy.utils.FabAnimation;
+import me.hypertesto.questeasy.utils.ListScrollListener;
 
 public class EditDecActivity extends AppCompatActivity {
 
@@ -30,12 +38,15 @@ public class EditDecActivity extends AppCompatActivity {
 	private FloatingActionMenu fabMenu;
 	private boolean stateMenu;
 	private FloatingActionButton guestForm;
+	private int mPreviousVisibleItem;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_dec);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		defineSettings();
 	}
@@ -61,11 +72,13 @@ public class EditDecActivity extends AppCompatActivity {
 	}
 	*/
 
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 
-		inflater.inflate(R.menu.search_bar, menu);
+		inflater.inflate(R.menu.edit_dec_bar, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -85,48 +98,24 @@ public class EditDecActivity extends AppCompatActivity {
 			SingleGuest g = new SingleGuest();
 			g.setName("tizio");
 			items.add(new SingleGuestCard(g, new Date(), 5));
-			/*items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
-			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
-			items.add(new SingleGuestCard(null, new Date(), 5, false));
-			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, false));
-			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, false));
-			items.add(new SingleGuestCard(null, new Date(), 5, true));
-			items.add(new FamilyCard(null, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
-			items.add(new GroupCard(null, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
-		*/
+
+			System.out.println("Added stub guests");
 		}
 
 		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
 
+		fabMenu.hideMenuButton(false);
+
+		new FabAnimation(fabMenu, getApplicationContext());
+
+
+		listView.setOnScrollListener(new ListScrollListener(fabMenu));
 
 		try{
 			frameLayout.getBackground().setAlpha(0);
 
-			/*fabMenu.on(new FloatingActionMenu.
-					OnFloatingActionMenuUpdateListener() {
-				@Override
-				public void onMenuExpanded() {
-					stateMenu = fabMenu.isExpanded();
-					frameLayout.getBackground().setAlpha(170);
-					frameLayout.setOnTouchListener(new View.OnTouchListener() {
-						@Override
-						public boolean onTouch(View v, MotionEvent event) {
-							fabMenu.collapse();
-							stateMenu = fabMenu.isExpanded();
-							return true;
-						}
-					});
-				}
-
-				@Override
-				public void onMenuCollapsed() {
-					frameLayout.getBackground().setAlpha(0);
-					stateMenu = fabMenu.isExpanded();
-					frameLayout.setOnTouchListener(null);
-				}
-			});*/
 		} catch (NullPointerException e) {
 			Log.e("ERROR", "error null field");
 		}
@@ -134,9 +123,12 @@ public class EditDecActivity extends AppCompatActivity {
 		guestForm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				if (fabMenu.isOpened()){
+					fabMenu.close(false);
+				}
 				startActivity(new Intent(EditDecActivity.this, FormGuestActivity.class));
 			}
+
 		});
 	}
 
