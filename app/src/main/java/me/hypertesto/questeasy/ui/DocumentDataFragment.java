@@ -6,9 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
+import me.hypertesto.questeasy.utils.PlaceRequest;
 
 /**
  * Created by gianluke on 16/05/16.
@@ -17,7 +21,7 @@ public class DocumentDataFragment extends Fragment {
 
 	private EditText guest_documentCode;
 	private EditText guest_documentNumber;
-	private EditText guest_documentPlace;
+	private DelayAutoCompleteTextView guest_documentPlace;
 
 	@Override
 	public void onCreate (Bundle savedInstanceState){
@@ -41,6 +45,19 @@ public class DocumentDataFragment extends Fragment {
 
 		guest_documentCode = (EditText)getView().findViewById(R.id.editText_documentoCodice_guest_form);
 		guest_documentNumber = (EditText)getView().findViewById(R.id.editText_documentoNumber_guest_form);
-		guest_documentPlace = (EditText)getView().findViewById(R.id.editText_documentoPlace_guest_form);
+		//guest_documentPlace = (EditText)getView().findViewById(R.id.editText_documentoPlace_guest_form);
+		guest_documentPlace = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_documentoPlace_guest_form);
+		guest_documentPlace.setThreshold(1);
+		PlaceAutoCompleteAdapter birthPlaceAdapter = new PlaceAutoCompleteAdapter(getActivity(), new PlaceRequest());
+		guest_documentPlace.setAdapter(birthPlaceAdapter); // 'this' is Activity instance
+		guest_documentPlace.setLoadingIndicator(
+				(ProgressBar) getView().findViewById(R.id.pb_loading_indicator_doc));
+		guest_documentPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+				String place = (String) adapterView.getItemAtPosition(position);
+				guest_documentPlace.setText(place);
+			}
+		});
 	}
 }

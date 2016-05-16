@@ -54,7 +54,7 @@
 		android:layout_below="@id/editText_documentoCodice_guest_form"
 		android:hint="@string/numberDocumentoGuest"
 		/>
-	<EditText
+	<!--<EditText
 		android:id="@+id/editText_documentoPlace_guest_form"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -66,6 +66,35 @@
 		android:textSize="15sp"
 		android:layout_below="@id/editText_documentoNumber_guest_form"
 		android:hint="@string/placeDocumentoGuest"
-		/>
+		/>-->
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/editText_documentoNumber_guest_form"
+		android:layout_alignLeft="@+id/editText_documentoNumber_guest_form"
+		android:layout_alignStart="@+id/editText_documentoNumber_guest_form"
+		android:id="@+id/frameLayout">
+
+
+		<me.hypertesto.questeasy.ui.DelayAutoCompleteTextView
+			android:id="@+id/editText_documentoPlace_guest_form"
+			android:inputType="textCapSentences"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/placeDocumentoGuest"
+			android:imeOptions="flagNoExtractUi|actionSearch"
+			android:textSize="15dp" />
+
+		<ProgressBar
+			android:id="@+id/pb_loading_indicator_doc"
+			style="?android:attr/progressBarStyleSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical|right"
+
+
+			android:visibility="gone"/>
+	</FrameLayout>
 
 </RelativeLayout>
