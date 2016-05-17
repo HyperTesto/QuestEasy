@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+
 
     tools:context=".activities.EditDecActivity">
 
@@ -34,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
 			fab:menu_colorNormal="@color/colorPrimary"
-            fab:menu_icon="@drawable/fab_add">
+            fab:menu_icon="@drawable/fab_add"
+			android:layout_margin="16dp">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/categoryGuestGroupGo"
