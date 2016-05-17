@@ -12,6 +12,8 @@ public class GroupCard extends Card {
 	private GroupHeadGuest capoGruppo;
 	private ArrayList<GroupMemberGuest> altri;
 
+	public GroupCard(){}
+
 	public GroupCard(GroupHeadGuest guest, ArrayList<GroupMemberGuest> others, Date date,
 									 int permanenza){
 		this.capoGruppo = guest;
@@ -40,6 +42,22 @@ public class GroupCard extends Card {
 			this.altri = new ArrayList<>();
 		}
 		this.altri.add(guest);
+	}
+
+	public void setCapoGruppo(GroupHeadGuest capoGruppo) {
+		this.capoGruppo = capoGruppo;
+	}
+
+	public void setAltri(ArrayList<GroupMemberGuest> altri) {
+		this.altri = altri;
+	}
+
+	public void setDate(Date date){
+		this.date = date;
+	}
+
+	public void setPermanenza(){
+		this.permanenza = permanenza;
 	}
 
 	public GroupHeadGuest getCapoGruppo() {

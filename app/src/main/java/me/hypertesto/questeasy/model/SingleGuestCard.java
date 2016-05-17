@@ -9,9 +9,23 @@ import java.util.Date;
 public class SingleGuestCard extends Card {
 	private SingleGuest guest;
 
+	public SingleGuestCard(){}
+
 	public SingleGuestCard(SingleGuest guest, Date date, int permanenza){
 		this.guest = guest;
 		this.date = date;
+		this.permanenza = permanenza;
+	}
+
+	public void setGuest(SingleGuest guest) {
+		this.guest = guest;
+	}
+
+	public void setDate(Date date){
+		this.date = date;
+	}
+
+	public void setPermanenza(){
 		this.permanenza = permanenza;
 	}
 

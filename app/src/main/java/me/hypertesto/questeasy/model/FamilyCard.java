@@ -12,6 +12,8 @@ public class FamilyCard extends Card {
 	private FamilyHeadGuest capoFamiglia;
 	private ArrayList<FamilyMemberGuest> familiari;
 
+	public FamilyCard(){}
+
 	public FamilyCard(FamilyHeadGuest guest, ArrayList<FamilyMemberGuest> others, Date date,
 										int permanenza){
 		this.capoFamiglia = guest;
@@ -40,6 +42,22 @@ public class FamilyCard extends Card {
 			this.familiari = new ArrayList<>();
 		}
 		this.familiari.add(guest);
+	}
+
+	public void setCapoFamiglia(FamilyHeadGuest capoFamiglia) {
+		this.capoFamiglia = capoFamiglia;
+	}
+
+	public void setFamiliari(ArrayList<FamilyMemberGuest> familiari) {
+		this.familiari = familiari;
+	}
+
+	public void setDate(Date date){
+		this.date = date;
+	}
+
+	public void setPermanenza(){
+		this.permanenza = permanenza;
 	}
 
 	public FamilyHeadGuest getCapoFamiglia() {
