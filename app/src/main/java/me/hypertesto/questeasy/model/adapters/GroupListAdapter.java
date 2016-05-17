@@ -51,8 +51,10 @@ public class GroupListAdapter extends ArrayAdapter<Guest>{
 
 		TextView txtName = (TextView) view.findViewById(R.id.guestNameAndSurname);
 		txtName.setText(String.format("%s %s", item.getName(), item.getSurname()));
+		TextView placeOfBirth = (TextView) view.findViewById(R.id.guestBirthPlace);
+		placeOfBirth.setText(item.getStatoDiNascita()); //FIXME: use new Place class
 
-				ImageView typeImg = (ImageView) view.findViewById(R.id.guestTypeImg);
+		ImageView typeImg = (ImageView) view.findViewById(R.id.guestTypeImg);
 
 		ColorGenerator generator = ColorGenerator.MATERIAL;
 		int color = generator.getRandomColor();
