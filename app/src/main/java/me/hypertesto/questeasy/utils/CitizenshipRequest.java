@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import me.hypertesto.questeasy.model.Place;
+
 /**
  * Created by hypertesto on 10/05/16.
  */
@@ -24,11 +26,11 @@ public class CitizenshipRequest implements AutoCompleteRequest{
 	private String remoteAPI = "https://questura.hypertesto.me/api/v1/cittadinanza/";
 
 	@Override
-	public List<String> find(Context context, String str) {
+	public List<Place> find(Context context, String str) {
 
 		RequestQueue queue = Volley.newRequestQueue(context);
 		String url = remoteAPI + str;
-		List<String> filteredPlaces = new ArrayList<>();
+		List<Place> filteredPlaces = new ArrayList<>();
 		RequestFuture<JSONObject> future = RequestFuture.newFuture();
 		JsonObjectRequest request = new JsonObjectRequest(url, null, future, future);
 		queue.add(request);
@@ -41,7 +43,13 @@ public class CitizenshipRequest implements AutoCompleteRequest{
 				try {
 					JSONObject oneObject = jArray.getJSONObject(i);
 					// Pulling items from the array
-					filteredPlaces.add(oneObject.getString("nome"));
+					Place item = new Place();
+					item.setState(true);
+					item.setId(oneObject.getString("id"));
+					item.setName(oneObject.getString("nome"));
+
+					filteredPlaces.add(item);
+
 					System.out.println("[DEBUG] " + oneObject.getString("nome"));
 
 				} catch (JSONException e) {

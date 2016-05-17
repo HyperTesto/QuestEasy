@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.utils.AutoCompleteRequest;
 
 /**
@@ -23,7 +24,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 
 	private static final int MAX_RESULTS = 10;
 	private Context mContext;
-	private List<String> resultList = new ArrayList<>();
+	private List<Place> resultList = new ArrayList<>();
 	private AutoCompleteRequest api;
 
 	public PlaceAutoCompleteAdapter(Context context, AutoCompleteRequest api) {
@@ -37,7 +38,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 	}
 
 	@Override
-	public String getItem(int index) {
+	public Place getItem(int index) {
 		return resultList.get(index);
 	}
 
@@ -53,7 +54,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.simple_dropdown_item, parent, false);
 		}
-		((TextView) convertView.findViewById(R.id.autocompleted_text)).setText(getItem(position));
+		((TextView) convertView.findViewById(R.id.autocompleted_text)).setText(getItem(position).getName());
 		return convertView;
 	}
 
@@ -64,7 +65,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 			protected FilterResults performFiltering(CharSequence constraint) {
 				Filter.FilterResults filterResults = new FilterResults();
 				if (constraint != null) {
-					List<String> places = api.find(mContext, constraint.toString());
+					List<Place> places = api.find(mContext, constraint.toString());
 
 					// Assign the data to the FilterResults
 					Collections.sort(places);
@@ -77,7 +78,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 			@Override
 			protected void publishResults(CharSequence constraint, FilterResults results) {
 				if (results != null && results.count > 0) {
-					resultList = (List<String>) results.values;
+					resultList = (List<Place>) results.values;
 					notifyDataSetChanged();
 				} else {
 					notifyDataSetInvalidated();

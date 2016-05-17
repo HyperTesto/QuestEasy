@@ -70,7 +70,7 @@ public class PersonalDataFragment extends Fragment {
 		guestBirthPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-				String place = (String) adapterView.getItemAtPosition(position);
+				String place = adapterView.getItemAtPosition(position).toString();
 				guestBirthPlace.setText(place);
 			}
 		});
@@ -85,7 +85,7 @@ public class PersonalDataFragment extends Fragment {
 		guest_citizenship.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-				String place = (String) adapterView.getItemAtPosition(position);
+				String place = adapterView.getItemAtPosition(position).toString();
 				guest_citizenship.setText(place);
 			}
 		});
