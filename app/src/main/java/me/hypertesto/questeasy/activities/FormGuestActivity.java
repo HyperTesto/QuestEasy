@@ -11,6 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import me.hypertesto.questeasy.model.FamilyHeadGuest;
+import me.hypertesto.questeasy.model.FamilyMemberGuest;
+import me.hypertesto.questeasy.model.GroupHeadGuest;
+import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
@@ -51,8 +55,47 @@ public class FormGuestActivity extends AppCompatActivity {
 				System.out.println("wow");
 
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
+				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 5);
 				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
 			break;
+
+			case Guest.type.FAMILY_HEAD:
+				FamilyHeadGuest fhg = new FamilyHeadGuest();
+				fhg.setName("Kabobo");
+				fhg.setSurname("Mumingu");
+
+				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
+				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 7);
+				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				break;
+
+			case Guest.type.FAMILY_MEMBER:
+				FamilyMemberGuest fmg = new FamilyMemberGuest();
+				fmg.setName("Kabunga");
+				fmg.setSurname("JungaLunga");
+
+				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fmg);
+				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				break;
+
+			case Guest.type.GROUP_HEAD:
+				GroupHeadGuest ghg = new GroupHeadGuest();
+				ghg.setName("Venerdì");
+				ghg.setSurname("Tonngabonga");
+
+				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
+				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 9);
+				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				break;
+
+			case Guest.type.GROUP_MEMBER:
+				GroupMemberGuest gmg = new GroupMemberGuest();
+				gmg.setName("Mokungo");
+				gmg.setSurname("Punto Ga");
+
+				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
+				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				break;
 
 			default:
 				throw new RuntimeException("Cacca");

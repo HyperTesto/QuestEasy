@@ -22,6 +22,7 @@ public class StaticGlobals {
 		public static final String DECLARATION = "me.hypertesto.questeasy.activities.DECLARATION";
 		public static final String CARD = "me.hypertesto.questeasy.activities.CARD";
 		public static final String CREATED_GUEST = "me.hypertesto.questeasy.activities.CREATED_GUEST";
+		public static final String PERMANENZA = "me.hypertesto.questeasy.activities.PERMANENZA";
 	}
 
 }
