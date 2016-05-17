@@ -31,6 +31,7 @@ import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
+import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -150,7 +151,7 @@ public class HomeActivity extends AppCompatActivity {
 					System.out.println(target.getDate());
 
 					Intent intent = new Intent(HomeActivity.this, EditDecActivity.class);
-					intent.putExtra("DEC", target);
+					intent.putExtra(StaticGlobals.intentExtras.DECLARATION, target);
 
 					startActivity(intent);
 				}

@@ -29,6 +29,7 @@ import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
+import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class EditDecActivity extends AppCompatActivity {
 
@@ -95,8 +96,8 @@ public class EditDecActivity extends AppCompatActivity {
 		ArrayList<Card> items = new ArrayList<>();
 
 		Intent intent = getIntent();
-		if (intent.hasExtra("DEC")){
-			ArrayList d = (ArrayList) intent.getSerializableExtra("DEC");
+		if (intent.hasExtra(StaticGlobals.intentExtras.DECLARATION)){
+			ArrayList d = (ArrayList) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
 			items.addAll(d);
 		} else {
 			SingleGuest g = new SingleGuest();
@@ -145,13 +146,13 @@ public class EditDecActivity extends AppCompatActivity {
 		final Intent intentForm = new Intent(EditDecActivity.this, EditCardActivity.class);
 		switch(typeGuest){
 			case 0 :
-				intentForm.putExtra("me.hypertesto.questeasy.activities.CARD", new SingleGuestCard());
+				intentForm.putExtra(StaticGlobals.intentExtras.CARD, new SingleGuestCard());
 				break;
 			case 1 :
-				intentForm.putExtra("me.hypertesto.questeasy.activities.CARD", new GroupCard());
+				intentForm.putExtra(StaticGlobals.intentExtras.CARD, new GroupCard());
 				break;
 			case 2 :
-				intentForm.putExtra("me.hypertesto.questeasy.activities.CARD", new FamilyCard());
+				intentForm.putExtra(StaticGlobals.intentExtras.CARD, new FamilyCard());
 				break;
 			default:
 				break;

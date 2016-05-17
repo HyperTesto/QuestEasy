@@ -12,6 +12,7 @@ import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
+import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class EditCardActivity extends AppCompatActivity {
 	private Card card;
@@ -23,7 +24,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 
-		Serializable tmp = intent.getSerializableExtra("me.hypertesto.questeasy.activities.CARD");
+		Serializable tmp = intent.getSerializableExtra(StaticGlobals.intentExtras.CARD);
 
 		Intent intentToForm = new Intent(EditCardActivity.this, FormGuestActivity.class);
 
@@ -35,8 +36,8 @@ public class EditCardActivity extends AppCompatActivity {
 				//START FORM
 				sgCard.setPermanenza(4);
 
-				intentToForm.putExtra("guestType", "SINGLE_GUEST");
-				startActivityForResult(intentToForm, 1);
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, "SINGLE_GUEST");
+				startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_SINGLE_GUEST);
 			}
 
 
@@ -54,9 +55,9 @@ public class EditCardActivity extends AppCompatActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (requestCode == 1){
-			if (resultCode == 1){
-				Serializable s = data.getSerializableExtra("CREATED_GUEST");
+		if (requestCode == StaticGlobals.requestCodes.NEW_SINGLE_GUEST){
+			if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+				Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
 
 				if (s instanceof SingleGuest){
 					SingleGuest sg = (SingleGuest) s;

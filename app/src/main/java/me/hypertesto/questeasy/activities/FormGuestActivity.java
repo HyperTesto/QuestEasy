@@ -1,50 +1,18 @@
 package me.hypertesto.questeasy.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.speech.RecognizerIntent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
-import me.hypertesto.questeasy.ui.DelayAutoCompleteTextView;
-import me.hypertesto.questeasy.ui.DocumentDataFragment;
-import me.hypertesto.questeasy.ui.PersonalDataFragment;
-import me.hypertesto.questeasy.utils.CitizenshipRequest;
-import me.hypertesto.questeasy.utils.PlaceRequest;
+import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class FormGuestActivity extends AppCompatActivity {
 
@@ -71,7 +39,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		//TODO STUB STUPIDO
 		Intent intent = getIntent();
-		String guestType = intent.getStringExtra("guestType");
+		String guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
 		System.out.println("*****Category" + guestType);
 		setTitle(guestType);
 
@@ -84,8 +52,8 @@ public class FormGuestActivity extends AppCompatActivity {
 				System.out.println("wow");
 
 				Intent resultIntent = new Intent();
-				resultIntent.putExtra("CREATED_GUEST", sg);
-				setResult(1, resultIntent);
+				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
+				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
 				finish();
 			break;
 
