@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
@@ -67,9 +68,32 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
 
+
+		//TODO STUB STUPIDO
 		Intent intent = getIntent();
-		System.out.println("*****Category"+ intent.getStringExtra("me.hypertesto.questeasy.activities.category"));
-		setTitle(intent.getStringExtra("me.hypertesto.questeasy.activities.category"));
+		String guestType = intent.getStringExtra("guestType");
+		System.out.println("*****Category" + guestType);
+		setTitle(guestType);
+
+		switch (guestType){
+			case "SINGLE_GUEST":
+				SingleGuest sg = new SingleGuest();
+				sg.setName("Testo");
+				sg.setSurname("Lapo");
+
+				System.out.println("wow");
+
+				Intent resultIntent = new Intent();
+				resultIntent.putExtra("CREATED_GUEST", sg);
+				setResult(1, resultIntent);
+				finish();
+			break;
+
+			default:
+				throw new RuntimeException("Cacca");
+		}
+
+
 
 		//dateFomatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
 

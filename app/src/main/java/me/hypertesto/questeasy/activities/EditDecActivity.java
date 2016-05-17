@@ -142,16 +142,16 @@ public class EditDecActivity extends AppCompatActivity {
 	}
 
 	public void sendFormRequest (FloatingActionButton formFab, Integer typeGuest){
-		final Intent intentForm = new Intent(EditDecActivity.this, FormGuestActivity.class);
+		final Intent intentForm = new Intent(EditDecActivity.this, EditCardActivity.class);
 		switch(typeGuest){
 			case 0 :
-				intentForm.putExtra("me.hypertesto.questeasy.activities.category", "Singolo");
+				intentForm.putExtra("me.hypertesto.questeasy.activities.CARD", new SingleGuestCard());
 				break;
 			case 1 :
-				intentForm.putExtra("me.hypertesto.questeasy.activities.category", "Capogruppo");
+				intentForm.putExtra("me.hypertesto.questeasy.activities.CARD", new GroupCard());
 				break;
 			case 2 :
-				intentForm.putExtra("me.hypertesto.questeasy.activities.category", "Capofamiglia");
+				intentForm.putExtra("me.hypertesto.questeasy.activities.CARD", new FamilyCard());
 				break;
 			default:
 				break;
