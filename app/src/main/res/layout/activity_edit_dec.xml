@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
 			fab:menu_colorNormal="@color/colorPrimary"
+			fab:menu_colorPressed="@color/colorPrimary"
             fab:menu_icon="@drawable/fab_add"
 			android:layout_margin="16dp">
 
