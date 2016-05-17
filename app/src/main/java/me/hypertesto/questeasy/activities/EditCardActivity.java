@@ -10,6 +10,7 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Card;
 import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.GroupCard;
+import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -36,7 +37,7 @@ public class EditCardActivity extends AppCompatActivity {
 				//START FORM
 				sgCard.setPermanenza(4);
 
-				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, "SINGLE_GUEST");
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
 				startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_SINGLE_GUEST);
 			}
 

@@ -20,6 +20,14 @@ public abstract class Guest implements Serializable{
 	protected String statoDiNascita;
 	protected String cittadinanza;
 
+	public static final class type {
+		public static final String SINGLE_GUEST = "Ospite Singolo";
+		public static final String FAMILY_HEAD = "Capofamiglia";
+		public static final String FAMILY_MEMBER = "Failiare";
+		public static final String GROUP_HEAD = "Capogruppo";
+		public static final String GROUP_MEMBER = "Membro";
+	}
+
 	public boolean isComplete(){
 		if (this.name == null || this.name.equals("")){
 			return false;

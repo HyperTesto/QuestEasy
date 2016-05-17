@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 
+import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
@@ -44,7 +45,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		setTitle(guestType);
 
 		switch (guestType){
-			case "SINGLE_GUEST":
+			case Guest.type.SINGLE_GUEST:
 				SingleGuest sg = new SingleGuest();
 				sg.setName("Testo");
 				sg.setSurname("Lapo");
