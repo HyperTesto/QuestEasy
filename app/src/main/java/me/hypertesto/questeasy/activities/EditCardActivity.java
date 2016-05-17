@@ -3,8 +3,10 @@ package me.hypertesto.questeasy.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Card;
@@ -15,10 +17,14 @@ import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
+import me.hypertesto.questeasy.model.adapters.GroupListAdapter;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class EditCardActivity extends AppCompatActivity {
 	private Card card;
+	private ArrayList<Guest> guestsArray;
+	private ListView listView;
+	private GroupListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,7 @@ public class EditCardActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_edit_card);
 
 		Intent intent = getIntent();
+		guestsArray = new ArrayList<>();
 
 		Serializable tmp = intent.getSerializableExtra(StaticGlobals.intentExtras.CARD);
 
@@ -34,7 +41,7 @@ public class EditCardActivity extends AppCompatActivity {
 		if (tmp instanceof SingleGuestCard){
 			SingleGuestCard sgCard = (SingleGuestCard) tmp;
 			card = sgCard;
-
+			//TODO: maybe hide add fab?
 			if (sgCard.getGuest() == null){
 				//START FORM
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
@@ -64,6 +71,10 @@ public class EditCardActivity extends AppCompatActivity {
 			throw new RuntimeException("cacca");
 		}
 
+		adapter = new GroupListAdapter(this,R.layout.guest_list_item,guestsArray);
+		listView = (ListView)findViewById(R.id.lvMembers);
+		listView.setAdapter(adapter);
+
 	}
 
 	@Override
@@ -91,8 +102,10 @@ public class EditCardActivity extends AppCompatActivity {
 					if (s instanceof FamilyHeadGuest){
 						FamilyHeadGuest fhg = (FamilyHeadGuest) s;
 						((FamilyCard) card).setCapoFamiglia(fhg);
-
 						System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
+
+						System.out.println("Adding guest to support guest list...");
+						guestsArray.add(fhg);
 					}
 				}
 				break;

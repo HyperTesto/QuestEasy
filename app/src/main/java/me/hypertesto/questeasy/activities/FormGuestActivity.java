@@ -63,7 +63,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				FamilyHeadGuest fhg = new FamilyHeadGuest();
 				fhg.setName("Kabobo");
 				fhg.setSurname("Mumingu");
-
+				fhg.setStatoDiNascita("Magreb"); //FIXME: use place class
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
 				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 7);
 				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
