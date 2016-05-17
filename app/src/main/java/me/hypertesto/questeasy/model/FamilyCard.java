@@ -52,14 +52,6 @@ public class FamilyCard extends Card {
 		this.familiari = familiari;
 	}
 
-	public void setDate(Date date){
-		this.date = date;
-	}
-
-	public void setPermanenza(){
-		this.permanenza = permanenza;
-	}
-
 	public FamilyHeadGuest getCapoFamiglia() {
 		return capoFamiglia;
 	}

@@ -52,14 +52,6 @@ public class GroupCard extends Card {
 		this.altri = altri;
 	}
 
-	public void setDate(Date date){
-		this.date = date;
-	}
-
-	public void setPermanenza(){
-		this.permanenza = permanenza;
-	}
-
 	public GroupHeadGuest getCapoGruppo() {
 		return capoGruppo;
 	}

@@ -21,14 +21,6 @@ public class SingleGuestCard extends Card {
 		this.guest = guest;
 	}
 
-	public void setDate(Date date){
-		this.date = date;
-	}
-
-	public void setPermanenza(){
-		this.permanenza = permanenza;
-	}
-
 	@Override
 	public boolean isComplete() {
 		return this.guest.isComplete();
