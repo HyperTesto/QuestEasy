@@ -20,11 +20,18 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
 			<fragment
+				android:name="me.hypertesto.questeasy.ui.PermanenzaFragment"
+				android:id="@+id/stayDaysFragment"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight = "1"
+				/>
+			<fragment
 				android:name="me.hypertesto.questeasy.ui.PersonalDataFragment"
 				android:id="@+id/personalDataFragment"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight = "1"
+				android:layout_weight = "2"
 				/>
 
 			<fragment
@@ -32,7 +39,7 @@
 				android:id="@+id/documentDataFragment"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight = "2"
+				android:layout_weight = "3"
 				/>
 		</LinearLayout>
 

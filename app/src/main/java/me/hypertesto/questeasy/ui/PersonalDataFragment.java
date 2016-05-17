@@ -2,7 +2,6 @@ package me.hypertesto.questeasy.ui;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,7 @@ public class PersonalDataFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState)
 	{
-		View rootView = inflater.inflate(R.layout.activity_form_guest_part1_fragment, container, false);
+		View rootView = inflater.inflate(R.layout.activity_form_guest_fragment_data, container, false);
 
 		return rootView;
 

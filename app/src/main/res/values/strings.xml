@@ -12,6 +12,7 @@
     <string name="saveDecMenuItem">salva</string>
     <string name="confirmGuestForm">conferma ospite</string>
 	<string name = "personalDataGuest">Dati personali</string>
+	<string name = "permanenzaHint">30</string>
     <string name = "nameGuest">Nome</string>
     <string name = "surnameGuest">Cognome</string>
     <string name = "sexGuest">Sesso</string>
@@ -22,6 +23,7 @@
     <string name = "luogoGuest">Luogo di nascita</string>
 	<string name = "documentoGuest">Documento</string>
 	<string name = "codeDocumentoGuest">Codice</string>
+    <string name = "permanenzaGiorni">Giorni di permanenza</string>
 	<string name = "numberDocumentoGuest">Numero documento</string>
 	<string name = "placeDocumentoGuest">Luogo di rilascio</string>
     <string name="speech_prompt">&#8230;</string>
