@@ -1,5 +1,6 @@
 package me.hypertesto.questeasy.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -60,8 +61,30 @@ public class HomeActivity extends AppCompatActivity {
 				new NavigationView.OnNavigationItemSelectedListener() {
 					@Override
 					public boolean onNavigationItemSelected(MenuItem menuItem) {
-						menuItem.setChecked(true);
+
+						if (menuItem.isChecked())
+							menuItem.setChecked(false);
+						else
+							menuItem.setChecked(true);
+
+						//menuItem.setChecked(true);
 						mDrawerLayout.closeDrawers();
+
+						switch(menuItem.getItemId()){
+							case R.id.nav_about:
+								// 1. Instantiate an AlertDialog.Builder with its constructor
+								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+
+								// 2. Chain together various setter methods to set the dialog characteristics
+								builder.setMessage("cacca2")
+										.setTitle("Grande cacca");
+
+								// 3. Get the AlertDialog from create()
+								AlertDialog dialog = builder.create();
+								dialog.show();
+								break;
+							default : break;
+						}
 						return true;
 					}
 				});
