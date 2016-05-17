@@ -32,6 +32,9 @@ public class ListScrollListener implements AbsListView.OnScrollListener {
 				((FloatingActionMenu) obj).hideMenuButton(true);
 			} else if (firstVisibleItem < mPreviousVisibleItem) {
 				((FloatingActionMenu) obj).showMenuButton(true);
+			} else {
+
+				//
 			}
 
 		} else if (obj instanceof FloatingActionButton) {
@@ -41,7 +44,7 @@ public class ListScrollListener implements AbsListView.OnScrollListener {
 			} else if (firstVisibleItem < mPreviousVisibleItem) {
 				((FloatingActionButton) obj).show(true);
 			} else {
-				System.out.println("Not implemented");
+				//System.out.println("Not implemented");
 			}
 
 		}

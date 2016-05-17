@@ -53,8 +53,22 @@ public class PlaceRequest implements AutoCompleteRequest {
 				}
 			}
 
-		} catch (InterruptedException | ExecutionException | JSONException e) {
+		} catch (InterruptedException e) {
 			CharSequence text = "Errore di rete";
+			int duration = Toast.LENGTH_SHORT;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			/*CharSequence text = "Errore di esecuzione";
+			int duration = Toast.LENGTH_SHORT;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();*/
+			e.printStackTrace();
+		} catch (JSONException e) {
+			CharSequence text = "Error parsing JSON";
 			int duration = Toast.LENGTH_SHORT;
 
 			Toast toast = Toast.makeText(context, text, duration);
