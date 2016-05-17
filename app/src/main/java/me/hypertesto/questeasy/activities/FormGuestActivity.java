@@ -7,7 +7,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
@@ -16,10 +18,6 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class FormGuestActivity extends AppCompatActivity {
-
-
-
-
 	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 200;
 	public static final int MEDIA_TYPE_IMAGE = 1;
 
@@ -31,12 +29,12 @@ public class FormGuestActivity extends AppCompatActivity {
 	//REQ_CODE for voice
 	private final int REQ_CODE_SPEECH_INPUT = 100;
 
+	private final Intent resultIntent = new Intent();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
-
 
 		//TODO STUB STUPIDO
 		Intent intent = getIntent();
@@ -52,16 +50,13 @@ public class FormGuestActivity extends AppCompatActivity {
 
 				System.out.println("wow");
 
-				Intent resultIntent = new Intent();
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
 				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
-				finish();
 			break;
 
 			default:
 				throw new RuntimeException("Cacca");
 		}
-
 
 
 		//dateFomatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
@@ -84,8 +79,26 @@ public class FormGuestActivity extends AppCompatActivity {
 		});
 		*/
 
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
 
+		if (id == R.id.btnSaveForm){
+			finish();
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+
+		inflater.inflate(R.menu.form_bar, menu);
+
+		return super.onCreateOptionsMenu(menu);
 	}
 
 
@@ -343,13 +356,6 @@ public class FormGuestActivity extends AppCompatActivity {
 		fileUri = savedInstanceState.getParcelable("file_uri");
 	}
 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.form_bar, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
 
 
 }
