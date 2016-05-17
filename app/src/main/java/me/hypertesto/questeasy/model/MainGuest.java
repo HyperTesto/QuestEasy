@@ -8,6 +8,17 @@ package me.hypertesto.questeasy.model;
 public abstract class MainGuest extends Guest {
 	protected Documento documento;
 
+	@Override
+	public boolean isComplete() {
+		if (!super.isComplete()){
+			return false;
+		} else if (documento == null){
+				return false;
+			}
+
+		return true;
+	}
+
 	public Documento getDocumento() {
 		return documento;
 	}

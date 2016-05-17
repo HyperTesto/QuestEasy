@@ -20,6 +20,28 @@ public abstract class Guest implements Serializable{
 	protected String statoDiNascita;
 	protected String cittadinanza;
 
+	public boolean isComplete(){
+		if (this.name == null || this.name.equals("")){
+			return false;
+		} else if (this.surname == null || this.surname.equals("")){
+			return false;
+		} else if (this.birthDate == null){
+			return false;
+		} else if (this.sex == null || this.sex.equals("")){
+			return false;
+		} else if (this.comuneDiNascita == null || this.comuneDiNascita.equals("")){
+			return false;
+		} else if (this.provinciaDiNascita == null || this.provinciaDiNascita.equals("")){
+			return false;
+		} else if (this.statoDiNascita == null || this.statoDiNascita.equals("")){
+			return false;
+		} else if (this.cittadinanza == null || this.cittadinanza.equals("")){
+			return false;
+		}
+
+		return true;
+	}
+
 	public String getName() {
 		return name;
 	}

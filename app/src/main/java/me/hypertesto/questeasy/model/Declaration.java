@@ -12,28 +12,28 @@ import java.util.Date;
  */
 public class Declaration extends ArrayList<Card> implements Serializable {
 	private Date date;
-	private boolean complete;
 
 	public Declaration(){
 		super();
-	};
+	}
 
-	public Declaration(Date date, boolean complete){
+	public Declaration(Date date){
 		super();
 		this.date = date;
-		this.complete = complete;
+	}
+
+	public boolean isComplete(){
+		for (Card c : this){
+			if (!c.isComplete()){
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public void setDate(Date date){
 		this.date = date;
-	}
-
-	public void setComplete(boolean complete){
-		this.complete = complete;
-	}
-
-	public boolean isComplete(){
-		return this.complete;
 	}
 
 	public Date getDate(){

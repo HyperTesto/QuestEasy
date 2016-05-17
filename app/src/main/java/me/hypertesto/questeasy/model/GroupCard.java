@@ -13,12 +13,26 @@ public class GroupCard extends Card {
 	private ArrayList<GroupMemberGuest> altri;
 
 	public GroupCard(GroupHeadGuest guest, ArrayList<GroupMemberGuest> others, Date date,
-										int permanenza, boolean complete){
+									 int permanenza){
 		this.capoGruppo = guest;
 		this.altri = others;
 		this.date = date;
 		this.permanenza = permanenza;
-		this.complete = complete;
+	}
+
+	@Override
+	public boolean isComplete(){
+		if (!this.capoGruppo.isComplete()){
+			return false;
+		} else {
+			for (Guest gm : this.altri){
+				if (!gm.isComplete()){
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	public void addGroupMember(GroupMemberGuest guest){

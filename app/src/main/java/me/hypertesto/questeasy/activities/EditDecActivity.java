@@ -25,8 +25,8 @@ import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.SingleGuest;
-import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
+import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 
@@ -99,24 +99,11 @@ public class EditDecActivity extends AppCompatActivity {
 			ArrayList d = (ArrayList) intent.getSerializableExtra("DEC");
 			items.addAll(d);
 		} else {
-			SingleGuest s = new SingleGuest();
-			s.setName("Tizio");
-			FamilyHeadGuest f = new FamilyHeadGuest();
-			f.setName("Caio");
-			GroupHeadGuest g = new GroupHeadGuest();
-			g.setName("Semprogno");
-			items.add(new SingleGuestCard(s, new Date(), 5, true));
-			items.add(new FamilyCard(f, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
-			items.add(new GroupCard(g, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
-			items.add(new SingleGuestCard(s, new Date(), 5, false));
-			items.add(new FamilyCard(f, new ArrayList<FamilyMemberGuest>(), new Date(), 12, false));
-			items.add(new GroupCard(g, new ArrayList<GroupMemberGuest>(), new Date(), 7, false));
-			items.add(new SingleGuestCard(s, new Date(), 5, true));
-			items.add(new FamilyCard(f, new ArrayList<FamilyMemberGuest>(), new Date(), 12, true));
-			items.add(new GroupCard(g, new ArrayList<GroupMemberGuest>(), new Date(), 7, true));
+			SingleGuest g = new SingleGuest();
+			g.setName("tizio");
+			items.add(new SingleGuestCard(g, new Date(), 5));
 
 			System.out.println("Added stub guests");
-
 		}
 
 		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
