@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -138,8 +139,32 @@ public class EditDecActivity extends AppCompatActivity {
 		});
 		*/
 		sendFormRequest(singlefab,0);
-		sendFormRequest(groupFab,1);
-		sendFormRequest(familyFab,2);
+		sendFormRequest(groupFab, 1);
+		sendFormRequest(familyFab, 2);
+
+		final Intent intentToEditCard = new Intent(EditDecActivity.this, EditCardActivity.class);
+
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Object o = parent.getItemAtPosition(position);
+
+				if (o instanceof SingleGuestCard){
+					SingleGuestCard sgc = (SingleGuestCard) o;
+					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, sgc);
+				} else if (o instanceof FamilyCard){
+					FamilyCard fc = (FamilyCard) o;
+					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, fc);
+				} else if (o instanceof GroupCard){
+					GroupCard gc = (GroupCard) o;
+					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, gc);
+				} else {
+					throw new RuntimeException("Dafuq??");
+				}
+
+				startActivity(intentToEditCard);
+			}
+		});
 	}
 
 	public void sendFormRequest (FloatingActionButton formFab, Integer typeGuest){
