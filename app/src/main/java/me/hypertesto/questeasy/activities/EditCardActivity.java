@@ -3,7 +3,10 @@ package me.hypertesto.questeasy.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+
+import com.github.clans.fab.FloatingActionButton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 		Serializable tmp = intent.getSerializableExtra(StaticGlobals.intentExtras.CARD);
 
-		Intent intentToForm = new Intent(EditCardActivity.this, FormGuestActivity.class);
+		final Intent intentToForm = new Intent(EditCardActivity.this, FormGuestActivity.class);
 
 		if (tmp instanceof SingleGuestCard){
 			SingleGuestCard sgCard = (SingleGuestCard) tmp;
@@ -80,6 +83,29 @@ public class EditCardActivity extends AppCompatActivity {
 		} else {
 			throw new RuntimeException("cacca");
 		}
+
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_edit_card);
+
+		if (fab != null) {
+			fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+
+					if (card instanceof SingleGuestCard){
+						//Fuffa
+					} else if (card instanceof FamilyCard) {
+						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.FAMILY_MEMBER);
+						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
+						startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_FAMILY_MEMBER);
+					} else if (card instanceof GroupCard){
+						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.GROUP_MEMBER);
+						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
+						startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_GROUP_MEMBER);
+					}
+				}
+			});
+		}
+
 	}
 
 	@Override
@@ -127,6 +153,8 @@ public class EditCardActivity extends AppCompatActivity {
 						((FamilyCard) card).addFamilyMember(fmg);
 					}
 				}
+
+				this.updateListView();
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_HEAD:
@@ -154,6 +182,8 @@ public class EditCardActivity extends AppCompatActivity {
 						((GroupCard) card).addGroupMember(gmg);
 					}
 				}
+
+				this.updateListView();
 				break;
 
 			default:
