@@ -26,6 +26,7 @@ import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.ui.DocumentDataFragment;
+import me.hypertesto.questeasy.ui.PermanenzaFragment;
 import me.hypertesto.questeasy.ui.PersonalDataFragment;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 
@@ -64,7 +65,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		//TODO: permanenza
+		Fragment fragmentPermanenza = new PermanenzaFragment();
 		Fragment fragmentPersonal = new PersonalDataFragment();
 		Fragment fragmentDocument = new DocumentDataFragment();
 
@@ -74,6 +75,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				sg.setName("Testo");
 				sg.setSurname("Lapo");
 
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
@@ -90,6 +92,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				fhg.setSurname("Mumingu");
 				fhg.setStatoDiNascita("Magreb"); //FIXME: use place class
 
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
@@ -114,6 +117,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				ghg.setName("Venerdì");
 				ghg.setSurname("Tonngabonga");
 
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
