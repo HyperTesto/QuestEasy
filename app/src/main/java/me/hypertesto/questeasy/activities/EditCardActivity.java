@@ -12,8 +12,10 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Card;
 import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
+import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
+import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
@@ -22,7 +24,6 @@ import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class EditCardActivity extends AppCompatActivity {
 	private Card card;
-	private ArrayList<Guest> guestsArray;
 	private ListView listView;
 	private GroupListAdapter adapter;
 
@@ -30,9 +31,9 @@ public class EditCardActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_card);
+		this.listView = (ListView) findViewById(R.id.lvMembers);
 
 		Intent intent = getIntent();
-		guestsArray = new ArrayList<>();
 
 		Serializable tmp = intent.getSerializableExtra(StaticGlobals.intentExtras.CARD);
 
@@ -70,11 +71,6 @@ public class EditCardActivity extends AppCompatActivity {
 		} else {
 			throw new RuntimeException("cacca");
 		}
-
-		adapter = new GroupListAdapter(this,R.layout.guest_list_item,guestsArray);
-		listView = (ListView)findViewById(R.id.lvMembers);
-		listView.setAdapter(adapter);
-
 	}
 
 	@Override
@@ -93,6 +89,8 @@ public class EditCardActivity extends AppCompatActivity {
 						System.out.println(((SingleGuestCard) card).getGuest().getName());
 					}
 				}
+
+				this.updateListView();
 				break;
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_HEAD:
@@ -102,12 +100,13 @@ public class EditCardActivity extends AppCompatActivity {
 					if (s instanceof FamilyHeadGuest){
 						FamilyHeadGuest fhg = (FamilyHeadGuest) s;
 						((FamilyCard) card).setCapoFamiglia(fhg);
-						System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
+						((FamilyCard) card).setFamiliari(new ArrayList<FamilyMemberGuest>());
 
-						System.out.println("Adding guest to support guest list...");
-						guestsArray.add(fhg);
+						System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
 					}
 				}
+
+				this.updateListView();
 				break;
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_MEMBER:
@@ -120,10 +119,13 @@ public class EditCardActivity extends AppCompatActivity {
 					if (s instanceof GroupHeadGuest){
 						GroupHeadGuest ghg = (GroupHeadGuest) s;
 						((GroupCard) card).setCapoGruppo(ghg);
+						((GroupCard) card).setAltri(new ArrayList<GroupMemberGuest>());
 
 						System.out.println(((GroupCard) card).getCapoGruppo().getName());
 					}
 				}
+
+				this.updateListView();
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_MEMBER:
@@ -132,5 +134,31 @@ public class EditCardActivity extends AppCompatActivity {
 			default:
 				break;
 		}
+	}
+
+	private void updateListView(){
+		ArrayList<Guest> guests = new ArrayList<>();
+
+		if (this.card instanceof SingleGuestCard){
+			SingleGuestCard sgc = (SingleGuestCard) this.card;
+			//TODO forse fare item dedicato?
+			guests.add(sgc.getGuest());
+
+		} else if (this.card instanceof FamilyCard){
+			FamilyCard fc = (FamilyCard) this.card;
+			guests.add(fc.getCapoFamiglia());
+			guests.addAll(fc.getFamiliari());
+
+		} else if (this.card instanceof GroupCard){
+			GroupCard gc = (GroupCard) this.card;
+			guests.add(gc.getCapoGruppo());
+			guests.addAll(gc.getAltri());
+
+		} else {
+			throw new RuntimeException("WTF");
+		}
+
+		adapter = new GroupListAdapter(this, R.layout.guest_list_item, guests);
+		listView.setAdapter(adapter);
 	}
 }
