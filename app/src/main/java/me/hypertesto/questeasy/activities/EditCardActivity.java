@@ -110,6 +110,16 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_MEMBER:
+				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+
+					if (s instanceof FamilyMemberGuest){
+						FamilyMemberGuest fmg = (FamilyMemberGuest) s;
+						((FamilyCard) card).addFamilyMember(fmg);
+						//System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
+
+					}
+				}
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_HEAD:
@@ -129,6 +139,16 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_MEMBER:
+				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+
+					if (s instanceof GroupMemberGuest){
+						GroupMemberGuest gmg = (GroupMemberGuest) s;
+						((GroupCard) card).addGroupMember(gmg);
+
+						//System.out.println(((GroupCard) card).getCapoGruppo().getName());
+					}
+				}
 				break;
 
 			default:
