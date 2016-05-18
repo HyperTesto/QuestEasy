@@ -116,8 +116,6 @@ public class EditCardActivity extends AppCompatActivity {
 					if (s instanceof FamilyMemberGuest){
 						FamilyMemberGuest fmg = (FamilyMemberGuest) s;
 						((FamilyCard) card).addFamilyMember(fmg);
-						//System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
-
 					}
 				}
 				break;
@@ -145,8 +143,6 @@ public class EditCardActivity extends AppCompatActivity {
 					if (s instanceof GroupMemberGuest){
 						GroupMemberGuest gmg = (GroupMemberGuest) s;
 						((GroupCard) card).addGroupMember(gmg);
-
-						//System.out.println(((GroupCard) card).getCapoGruppo().getName());
 					}
 				}
 				break;
