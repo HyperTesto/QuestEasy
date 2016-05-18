@@ -9,7 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+
+import java.io.Serializable;
 
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
 import me.hypertesto.questeasy.model.FamilyMemberGuest;
@@ -42,6 +43,14 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		//TODO STUB STUPIDO
 		Intent intent = getIntent();
+		Serializable ser = intent.getSerializableExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT);
+
+		if (ser == null){
+			//Nuovo guest, non mostrare dati sul form
+		} else {
+			//Guest esistente da editare; mostrare dati sul form
+		}
+
 		String guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
 		System.out.println("*****Category" + guestType);
 		setTitle(guestType);
@@ -56,7 +65,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
 				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 5);
-				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 			break;
 
 			case Guest.type.FAMILY_HEAD:
@@ -66,7 +75,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				fhg.setStatoDiNascita("Magreb"); //FIXME: use place class
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
 				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 7);
-				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.FAMILY_MEMBER:
@@ -75,7 +84,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				fmg.setSurname("JungaLunga");
 
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fmg);
-				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.GROUP_HEAD:
@@ -85,7 +94,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
 				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 9);
-				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.GROUP_MEMBER:
@@ -94,7 +103,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				gmg.setSurname("Punto Ga");
 
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
-				setResult(StaticGlobals.resultCodes.NEW_GUEST_SUCCESS, resultIntent);
+				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			default:

@@ -46,7 +46,10 @@ public class EditCardActivity extends AppCompatActivity {
 			if (sgCard.getGuest() == null){
 				//START FORM
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
 				startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_SINGLE_GUEST);
+			} else {
+				this.updateListView();
 			}
 
 		} else if (tmp instanceof FamilyCard){
@@ -56,7 +59,10 @@ public class EditCardActivity extends AppCompatActivity {
 			if (fCard.getCapoFamiglia() == null){
 				//Start form
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.FAMILY_HEAD);
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
 				startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_FAMILY_HEAD);
+			} else {
+				this.updateListView();
 			}
 
 		} else if (tmp instanceof GroupCard){
@@ -65,7 +71,10 @@ public class EditCardActivity extends AppCompatActivity {
 
 			if (gCard.getCapoGruppo() == null){
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.GROUP_HEAD);
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
 				startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_GROUP_HEAD);
+			} else {
+				this.updateListView();
 			}
 
 		} else {
@@ -79,7 +88,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 		switch (requestCode){
 			case StaticGlobals.requestCodes.NEW_SINGLE_GUEST:
-				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
 
 					if (s instanceof SingleGuest){
@@ -94,7 +103,7 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_HEAD:
-				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
 
 					if (s instanceof FamilyHeadGuest){
@@ -110,7 +119,7 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_MEMBER:
-				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
 
 					if (s instanceof FamilyMemberGuest){
@@ -121,7 +130,7 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_HEAD:
-				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
 
 					if (s instanceof GroupHeadGuest){
@@ -137,7 +146,7 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_MEMBER:
-				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
 
 					if (s instanceof GroupMemberGuest){
