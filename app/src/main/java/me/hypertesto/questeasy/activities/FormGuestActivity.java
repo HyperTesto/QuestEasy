@@ -1,5 +1,10 @@
 package me.hypertesto.questeasy.activities;
 
+
+
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +25,7 @@ import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.ui.DocumentDataFragment;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class FormGuestActivity extends AppCompatActivity {
@@ -61,6 +67,13 @@ public class FormGuestActivity extends AppCompatActivity {
 				sg.setName("Testo");
 				sg.setSurname("Lapo");
 
+
+				FragmentManager fragmentManager = getFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+				Fragment fragment = new DocumentDataFragment();
+				fragmentTransaction.add(R.id.fragment_guest_container, fragment);
+				fragmentTransaction.commit();
 				System.out.println("wow");
 
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);

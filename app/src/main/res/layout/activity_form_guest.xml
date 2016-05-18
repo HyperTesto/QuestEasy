@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-	android:id="@+id/FormMainLayout"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
@@ -11,29 +10,16 @@
 	tools:context="me.hypertesto.questeasy.activities.FormGuestActivity"
 	>
 	<ScrollView
-		android:id = "@+id/fragment_guest_container"
+
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		>
 		<LinearLayout
+			android:id = "@+id/fragment_guest_container"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
-			<fragment
-				android:name="me.hypertesto.questeasy.ui.PersonalDataFragment"
-				android:id="@+id/personalDataFragment"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_weight = "1"
-				/>
 
-			<fragment
-				android:name="me.hypertesto.questeasy.ui.DocumentDataFragment"
-				android:id="@+id/documentDataFragment"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_weight = "2"
-				/>
 		</LinearLayout>
 
 
