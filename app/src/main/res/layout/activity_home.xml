@@ -33,6 +33,7 @@
 		android:layout_alignParentEnd="true"
 		android:src="@drawable/fab_add"
 		fab:fab_colorNormal="@color/colorPrimary"
+		fab:fab_colorPressed="@color/colorPrimary"
 		android:layout_margin="16dp"/>
 	</RelativeLayout>
 	<android.support.design.widget.NavigationView

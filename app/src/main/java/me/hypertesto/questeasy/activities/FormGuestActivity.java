@@ -1,5 +1,10 @@
 package me.hypertesto.questeasy.activities;
 
+
+
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +25,9 @@ import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.ui.DocumentDataFragment;
+import me.hypertesto.questeasy.ui.PermanenzaFragment;
+import me.hypertesto.questeasy.ui.PersonalDataFragment;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class FormGuestActivity extends AppCompatActivity {
@@ -55,11 +63,21 @@ public class FormGuestActivity extends AppCompatActivity {
 		System.out.println("*****Category" + guestType);
 		setTitle(guestType);
 
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		Fragment fragmentPermanenza = new PermanenzaFragment();
+		Fragment fragmentPersonal = new PersonalDataFragment();
+		Fragment fragmentDocument = new DocumentDataFragment();
+
 		switch (guestType){
 			case Guest.type.SINGLE_GUEST:
 				SingleGuest sg = new SingleGuest();
 				sg.setName("Testo");
 				sg.setSurname("Lapo");
+
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
 				System.out.println("wow");
 
@@ -73,6 +91,11 @@ public class FormGuestActivity extends AppCompatActivity {
 				fhg.setName("Kabobo");
 				fhg.setSurname("Mumingu");
 				fhg.setStatoDiNascita("Magreb"); //FIXME: use place class
+
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
+
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
 				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 7);
 				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
@@ -83,6 +106,8 @@ public class FormGuestActivity extends AppCompatActivity {
 				fmg.setName("Kabunga");
 				fmg.setSurname("JungaLunga");
 
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
+
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fmg);
 				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
@@ -91,6 +116,10 @@ public class FormGuestActivity extends AppCompatActivity {
 				GroupHeadGuest ghg = new GroupHeadGuest();
 				ghg.setName("Venerdì");
 				ghg.setSurname("Tonngabonga");
+
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
 				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 9);
@@ -102,6 +131,8 @@ public class FormGuestActivity extends AppCompatActivity {
 				gmg.setName("Mokungo");
 				gmg.setSurname("Punto Ga");
 
+				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
+
 				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
 				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
@@ -110,6 +141,7 @@ public class FormGuestActivity extends AppCompatActivity {
 				throw new RuntimeException("Cacca");
 		}
 
+		fragmentTransaction.commit();
 
 		//dateFomatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
 
