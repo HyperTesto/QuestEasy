@@ -13,6 +13,12 @@ public abstract class Card implements Serializable{
 	protected Date date;
 	protected int permanenza;
 
+	public static final class type {
+		public static final String SINGLE_GUEST_CARD = "SINGLE_GUEST_CARD";
+		public static final String FAMILY_CARD = "FAMILY_CARD";
+		public static final String GROUP_CARD = "GROUP_CARD";
+	}
+
 	public abstract boolean isComplete();
 
 	public void setDate(Date date) {
