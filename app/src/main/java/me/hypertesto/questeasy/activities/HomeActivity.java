@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -75,10 +76,14 @@ public class HomeActivity extends AppCompatActivity {
 								// 1. Instantiate an AlertDialog.Builder with its constructor
 								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
-								// 2. Chain together various setter methods to set the dialog characteristics
-								builder.setMessage("cacca2")
-										.setTitle("Grande cacca");
 
+
+
+								View view = (View) LayoutInflater.from(HomeActivity.this).
+										inflate(R.layout.alert_dialog_home, null);
+
+								// 2. Chain together various setter methods to set the dialog characteristics
+								builder.setView(view);
 								// 3. Get the AlertDialog from create()
 								AlertDialog dialog = builder.create();
 								dialog.show();
