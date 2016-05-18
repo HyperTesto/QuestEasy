@@ -12,8 +12,10 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Card;
 import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
+import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
+import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
@@ -111,6 +113,16 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_MEMBER:
+				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+
+					if (s instanceof FamilyMemberGuest){
+						FamilyMemberGuest fmg = (FamilyMemberGuest) s;
+						((FamilyCard) card).addFamilyMember(fmg);
+						//System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
+
+					}
+				}
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_HEAD:
@@ -127,6 +139,16 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_MEMBER:
+				if (resultCode == StaticGlobals.resultCodes.NEW_GUEST_SUCCESS){
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+
+					if (s instanceof GroupMemberGuest){
+						GroupMemberGuest gmg = (GroupMemberGuest) s;
+						((GroupCard) card).addGroupMember(gmg);
+
+						//System.out.println(((GroupCard) card).getCapoGruppo().getName());
+					}
+				}
 				break;
 
 			default:
