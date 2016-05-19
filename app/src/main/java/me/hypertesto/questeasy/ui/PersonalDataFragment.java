@@ -12,6 +12,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Locale;
+
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
@@ -106,9 +111,9 @@ public class PersonalDataFragment extends Fragment {
 
 	}
 
-	public String getDateofBirth(){
-
-		return guest_dateBirth.getText().toString();
+	public Date getDateofBirth() throws ParseException {
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+		return df.parse(guest_dateBirth.getText().toString());
 
 	}
 
