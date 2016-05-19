@@ -30,6 +30,8 @@ public class PersonalDataFragment extends Fragment {
 	private RadioButton guest_sexMan;
 	private RadioButton guest_sexWoman;
 	private TextView guest_dateBirth;
+	private PlaceAutoCompleteAdapter birthPlaceAdapter;
+	private PlaceAutoCompleteAdapter citizenshipAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -64,7 +66,7 @@ public class PersonalDataFragment extends Fragment {
 		//Autocomplete luogo nascita
 		guestBirthPlace = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_luogoN_guest_form);
 		guestBirthPlace.setThreshold(1);
-		PlaceAutoCompleteAdapter birthPlaceAdapter = new PlaceAutoCompleteAdapter(getActivity(), new PlaceRequest());
+		birthPlaceAdapter = new PlaceAutoCompleteAdapter(getActivity(), new PlaceRequest());
 		guestBirthPlace.setAdapter(birthPlaceAdapter); // 'this' is Activity instance
 		guestBirthPlace.setLoadingIndicator(
 				(android.widget.ProgressBar) getView().findViewById(R.id.pb_loading_indicator_luogo));
@@ -79,7 +81,7 @@ public class PersonalDataFragment extends Fragment {
 		//Autocomplete cittadinanza
 		guest_citizenship = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_cittadinanza_guest_form);
 		guest_citizenship.setThreshold(1);
-		PlaceAutoCompleteAdapter citizenshipAdapter = new PlaceAutoCompleteAdapter(getActivity(), new CitizenshipRequest());
+		citizenshipAdapter = new PlaceAutoCompleteAdapter(getActivity(), new CitizenshipRequest());
 		guest_citizenship.setAdapter(citizenshipAdapter); // 'this' is Activity instance
 		guest_citizenship.setLoadingIndicator(
 				(android.widget.ProgressBar) getView().findViewById(R.id.pb_loading_indicator));
@@ -93,27 +95,41 @@ public class PersonalDataFragment extends Fragment {
 	}
 
 	public String getName(){
-		return "";
+
+		return guest_name.getText().toString();
+
 	}
 
 	public String getSurname(){
-		return "";
+
+		return guest_surname.getText().toString();
+
 	}
 
 	public String getDateofBirth(){
-		return "";
+
+		return guest_dateBirth.getText().toString();
+
 	}
 
 	public String getSex(){
-		return "";
+
+		if(guest_sexMan.isSelected()){
+			return "M";
+		} else if (guest_sexWoman.isSelected()){
+			return "F";
+		} else {
+			return "";
+		}
+
 	}
 
 	public Place getBirthPlace(){
-		return null;
+		return birthPlaceAdapter.getItem(0);
 	}
 
 	public Place getCittadinanza(){
-		return null;
+		return citizenshipAdapter.getItem(0);
 	}
 
 
