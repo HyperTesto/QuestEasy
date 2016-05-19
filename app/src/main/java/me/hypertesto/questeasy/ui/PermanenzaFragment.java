@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import me.hypertesto.questeasy.R;
 
@@ -12,6 +13,8 @@ import me.hypertesto.questeasy.R;
  * Created by gianluke on 17/05/16.
  */
 public class PermanenzaFragment extends Fragment {
+
+	EditText permTextView;
 
 
 	@Override
@@ -33,5 +36,10 @@ public class PermanenzaFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		permTextView = (EditText) getView().findViewById(R.id.input_permanenza);
+	}
+
+	public int getPermanenza(){
+		return Integer.parseInt(permTextView.getText().toString());
 	}
 }

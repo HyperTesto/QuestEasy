@@ -44,6 +44,10 @@ public class FormGuestActivity extends AppCompatActivity {
 
 	private final Intent resultIntent = new Intent();
 
+	private PermanenzaFragment fragmentPermanenza;
+	private Fragment fragmentPersonal;
+	private Fragment fragmentDocument;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -65,9 +69,10 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		Fragment fragmentPermanenza = new PermanenzaFragment();
-		Fragment fragmentPersonal = new PersonalDataFragment();
-		Fragment fragmentDocument = new DocumentDataFragment();
+
+		fragmentPermanenza = new PermanenzaFragment();
+		fragmentPersonal = new PersonalDataFragment();
+		fragmentDocument = new DocumentDataFragment();
 
 		switch (guestType){
 			case Guest.type.SINGLE_GUEST:
@@ -170,6 +175,9 @@ public class FormGuestActivity extends AppCompatActivity {
 		int id = item.getItemId();
 
 		if (id == R.id.btnSaveForm){
+			//TODO: get fragments data ad set class attributes
+
+			resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA,fragmentPermanenza.getPermanenza());
 			finish();
 		}
 

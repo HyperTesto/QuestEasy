@@ -120,6 +120,7 @@ public class EditCardActivity extends AppCompatActivity {
 					if (s instanceof SingleGuest){
 						SingleGuest sg = (SingleGuest) s;
 						((SingleGuestCard) card).setGuest(sg);
+						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
 
 						System.out.println(((SingleGuestCard) card).getGuest().getName());
 					}
@@ -136,6 +137,7 @@ public class EditCardActivity extends AppCompatActivity {
 						FamilyHeadGuest fhg = (FamilyHeadGuest) s;
 						((FamilyCard) card).setCapoFamiglia(fhg);
 						((FamilyCard) card).setFamiliari(new ArrayList<FamilyMemberGuest>());
+						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
 
 						System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
 					}
@@ -165,6 +167,7 @@ public class EditCardActivity extends AppCompatActivity {
 						GroupHeadGuest ghg = (GroupHeadGuest) s;
 						((GroupCard) card).setCapoGruppo(ghg);
 						((GroupCard) card).setAltri(new ArrayList<GroupMemberGuest>());
+						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
 
 						System.out.println(((GroupCard) card).getCapoGruppo().getName());
 					}
