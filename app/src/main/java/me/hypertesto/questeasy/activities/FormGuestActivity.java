@@ -19,11 +19,13 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 
+import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
 import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
+import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
@@ -190,11 +192,27 @@ public class FormGuestActivity extends AppCompatActivity {
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					//FIXME: change model to use place?
-					//sg.setCittadinanza(fragmentPersonal.getCittadinanza());
-					//FIXME: model should use place instead of strings
-
 					sg.setSex(fragmentPersonal.getSex());
+					//FIXME: change model to use place?
+					sg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+					Place p = fragmentPersonal.getBirthPlace();
+
+					//FIXME: bad bad bad very bad...
+					if (p.isState()){
+						//allog.comuneNascita.length()-3, allog.comuneNascita.length()-1)
+						sg.setStatoDiNascita(p.getName());
+					} else {
+						sg.setComuneDiNascita(p.getName().substring(0,p.getName().length()-5).trim());
+						sg.setProvinciaDiNascita(p.getName().substring(p.getName().length()-3,p.getName().length()-1));
+						sg.setStatoDiNascita("ITALIA");
+					}
+
+					Documento d = new Documento();
+					d.setTipo("");	//TODO: align with new wrapper class
+					d.setCodice(fragmentDocument.getDocumentNumber());
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
+
+					sg.setDocumento(d);
 
 					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
 					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
