@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.utils.PlaceRequest;
 
@@ -22,6 +23,7 @@ public class DocumentDataFragment extends Fragment {
 	private EditText guest_documentCode;
 	private EditText guest_documentNumber;
 	private DelayAutoCompleteTextView guest_documentPlace;
+	PlaceAutoCompleteAdapter releasePlaceAdapter;
 
 	@Override
 	public void onCreate (Bundle savedInstanceState){
@@ -48,8 +50,8 @@ public class DocumentDataFragment extends Fragment {
 		//guest_documentPlace = (EditText)getView().findViewById(R.id.editText_documentoPlace_guest_form);
 		guest_documentPlace = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_documentoPlace_guest_form);
 		guest_documentPlace.setThreshold(1);
-		PlaceAutoCompleteAdapter birthPlaceAdapter = new PlaceAutoCompleteAdapter(getActivity(), new PlaceRequest());
-		guest_documentPlace.setAdapter(birthPlaceAdapter); // 'this' is Activity instance
+		releasePlaceAdapter = new PlaceAutoCompleteAdapter(getActivity(), new PlaceRequest());
+		guest_documentPlace.setAdapter(releasePlaceAdapter); // 'this' is Activity instance
 		guest_documentPlace.setLoadingIndicator(
 				(ProgressBar) getView().findViewById(R.id.pb_loading_indicator_doc));
 		guest_documentPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,5 +61,17 @@ public class DocumentDataFragment extends Fragment {
 				guest_documentPlace.setText(place);
 			}
 		});
+	}
+
+	public String getDocumentNumber(){
+		return guest_documentNumber.toString();
+	}
+
+	public Place getDocumentType(){
+		return null; //TODO: we need a wrap class for name and id
+	}
+
+	public Place getDocumentReleasePlace(){
+		return releasePlaceAdapter.getItem(0);
 	}
 }
