@@ -14,6 +14,8 @@
 		android:id="@+id/guestTypeImg"
 		android:layout_width="45dp"
 		android:layout_height="45dp"
+		android:layout_marginLeft="@dimen/activity_horizontal_margin"
+		android:layout_marginStart="@dimen/activity_horizontal_margin"
 		android:layout_alignParentStart="true"
 		android:layout_alignParentLeft="true"
 		android:layout_centerVertical="true"
@@ -25,6 +27,8 @@
 		android:layout_alignParentEnd="true"
 		android:layout_alignParentRight="true"
 		android:layout_centerVertical="true"
+		android:layout_marginRight="@dimen/activity_horizontal_margin"
+		android:layout_marginEnd="@dimen/activity_horizontal_margin"
 		android:src="@drawable/warning"/>
 
 	<TextView
@@ -33,9 +37,8 @@
 		android:layout_height="wrap_content"
 		android:layout_toRightOf="@id/guestTypeImg"
 		android:layout_marginLeft="30dp"
+		android:layout_alignTop="@id/cardTypeImg"
 		android:layout_marginTop="5dp"
-		android:layout_alignParentTop="true"
-		android:layout_centerVertical="true"
 		android:text="Pinco Panco"
 		android:textColor="#000000"
 		android:textSize="18sp"/>
@@ -47,7 +50,7 @@
 		android:layout_below="@id/guestNameAndSurname"
 		android:layout_toRightOf="@id/guestTypeImg"
 		android:layout_alignLeft="@id/guestNameAndSurname"
-		android:layout_marginTop="8dp"
+		android:layout_marginTop="2dp"
 		android:text="Ospite Singolo"
 		android:textSize="14sp"/>
 
