@@ -1,6 +1,7 @@
 package me.hypertesto.questeasy.activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -77,14 +78,23 @@ public class HomeActivity extends AppCompatActivity {
 								// 1. Instantiate an AlertDialog.Builder with its constructor
 								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
+								builder.
+										setTitle(R.string.app_name).
+										setMessage(R.string.developInfo)
+										.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+											@Override
+											public void onClick(DialogInterface dialog, int which) {
+												dialog.cancel();
+											}
+										});
 
 
-
-								View view = (View) LayoutInflater.from(HomeActivity.this).
+								/*View view = (View) LayoutInflater.from(HomeActivity.this).
 										inflate(R.layout.alert_dialog_home, null);
 
 								// 2. Chain together various setter methods to set the dialog characteristics
 								builder.setView(view);
+								*/
 								// 3. Get the AlertDialog from create()
 								AlertDialog dialog = builder.create();
 								dialog.show();

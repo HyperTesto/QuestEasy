@@ -31,7 +31,8 @@
     <string name = "categoryNameSingle">Singolo</string>
 	<string name = "categoryNameGroup">Capogruppo</string>
 	<string name = "categoryNameFamily">Capofamiglia</string>
-    <string name = "developInfo">Questa applicazione è stata sviluppata da:\n  Enrico Testori\n  Simone Calciolari\n  Gianluca Apriceno\n</string>
+    <string name = "developInfo">Questa applicazione è stata sviluppata da:  \n\n\t\t\tEnrico Testori
+		\n\t\t\tSimone Calciolari \n\t\t\tGianluca Apriceno\n</string>
 	<string name = "saveGuestCard">salva ospiti</string>
 	<string name = "cardTitleBar">ospiti</string>
 </resources>
