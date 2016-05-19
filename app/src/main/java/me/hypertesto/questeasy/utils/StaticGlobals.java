@@ -23,6 +23,7 @@ public class StaticGlobals {
 
 	public static final	class resultCodes {
 		public static final int GUEST_FORM_SUCCESS = 1;
+		public static final int EDIT_CARD_SUCCESS = 2;
 	}
 
 	public static final class intentExtras {

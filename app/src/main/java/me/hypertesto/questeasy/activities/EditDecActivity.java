@@ -29,6 +29,7 @@ import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
+import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -46,6 +47,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private int mPreviousVisibleItem;
 
 	private Declaration displayed;
+	private int indexClicked;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +152,7 @@ public class EditDecActivity extends AppCompatActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Object o = parent.getItemAtPosition(position);
+				indexClicked = position;
 
 				if (o instanceof SingleGuestCard){
 					SingleGuestCard sgc = (SingleGuestCard) o;
@@ -200,6 +203,7 @@ public class EditDecActivity extends AppCompatActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
 
 		switch (requestCode){
 
@@ -207,6 +211,24 @@ public class EditDecActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.EDIT_CARD:
+				if (resultCode == StaticGlobals.resultCodes.EDIT_CARD_SUCCESS){
+					Object o = data.getSerializableExtra(StaticGlobals.intentExtras.CARD);
+
+					if (o instanceof Card){
+						Card c = (Card) o;
+
+						displayed.remove(indexClicked);
+						displayed.add(c);
+
+						System.out.println(displayed);
+
+						fsd.open();
+						fsd.updateDeclaration(this.displayed);
+						fsd.close();
+					} else {
+						throw new RuntimeException("");
+					}
+				}
 				break;
 
 		}
