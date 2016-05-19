@@ -72,12 +72,10 @@ public class HomeActivity extends AppCompatActivity {
 						//menuItem.setChecked(true);
 						mDrawerLayout.closeDrawers();
 
-						switch(menuItem.getItemId()){
+						switch (menuItem.getItemId()) {
 							case R.id.nav_about:
 								// 1. Instantiate an AlertDialog.Builder with its constructor
 								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-
-
 
 
 								View view = (View) LayoutInflater.from(HomeActivity.this).
@@ -89,7 +87,8 @@ public class HomeActivity extends AppCompatActivity {
 								AlertDialog dialog = builder.create();
 								dialog.show();
 								break;
-							default : break;
+							default:
+								break;
 						}
 						return true;
 					}
@@ -98,27 +97,8 @@ public class HomeActivity extends AppCompatActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
-		ArrayList<Declaration> items = new ArrayList<>();
-
-		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
-
-		fsd.clear();
-		fsd.populate();
-
-		fsd.open();
-
-		HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
-
-		for (Date k : decs.keySet()){
-			items.add(decs.get(k));
-		}
-
-		fsd.close();
 
 		lv = (ListView) findViewById(R.id.lvDichiarazioni);
-		adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
-		lv.setAdapter(adapter);
-
 		lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
 		lv.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -193,6 +173,7 @@ public class HomeActivity extends AppCompatActivity {
 		insertNewDcard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				//TODO add empty declaration as intent extra
 				startActivity(new Intent(HomeActivity.this, EditDecActivity.class));
 			}
 		});
@@ -202,6 +183,31 @@ public class HomeActivity extends AppCompatActivity {
 
 		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
+
+		fsd.clear();
+		fsd.populate();
+
+		fsd.open();
+
+		HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
+
+		ArrayList<Declaration> items = new ArrayList<>();
+
+		for (Date k : decs.keySet()){
+			items.add(decs.get(k));
+		}
+
+		fsd.close();
+
+		adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
+		lv.setAdapter(adapter);
 	}
 
 	@Override

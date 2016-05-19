@@ -98,8 +98,6 @@ public class EditDecActivity extends AppCompatActivity {
 		groupFab = (FloatingActionButton) findViewById(R.id.categoryGuestGroupGo);
 		familyFab = (FloatingActionButton) findViewById(R.id.categoryGuestFamilyGo);
 
-		ArrayList<Card> items = new ArrayList<>();
-
 		Intent intent = getIntent();
 
 		this.displayed = new Declaration();
@@ -110,11 +108,7 @@ public class EditDecActivity extends AppCompatActivity {
 		this.displayed.setDate(date);
 		this.displayed.addAll(d);
 
-		items.addAll(displayed);
-
-		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
-		listView = (ListView)findViewById(R.id.cardlistView);
-		listView.setAdapter(adapter);
+		this.updateList();
 
 		fabMenu.hideMenuButton(false);
 
@@ -220,11 +214,11 @@ public class EditDecActivity extends AppCompatActivity {
 						displayed.remove(indexClicked);
 						displayed.add(c);
 
-						System.out.println(displayed);
-
 						fsd.open();
 						fsd.updateDeclaration(this.displayed);
 						fsd.close();
+
+						this.updateList();
 					} else {
 						throw new RuntimeException("");
 					}
@@ -232,5 +226,13 @@ public class EditDecActivity extends AppCompatActivity {
 				break;
 
 		}
+	}
+
+	private void updateList(){
+		ArrayList<Card> items = new ArrayList<>();
+		items.addAll(displayed);
+		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
+		listView = (ListView)findViewById(R.id.cardlistView);
+		listView.setAdapter(adapter);
 	}
 }
