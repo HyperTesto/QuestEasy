@@ -45,8 +45,8 @@ public class FormGuestActivity extends AppCompatActivity {
 	private final Intent resultIntent = new Intent();
 
 	private PermanenzaFragment fragmentPermanenza;
-	private Fragment fragmentPersonal;
-	private Fragment fragmentDocument;
+	private PersonalDataFragment fragmentPersonal;
+	private DocumentDataFragment fragmentDocument;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
