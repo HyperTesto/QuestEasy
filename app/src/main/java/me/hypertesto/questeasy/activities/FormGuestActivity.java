@@ -177,7 +177,9 @@ public class FormGuestActivity extends AppCompatActivity {
 		if (id == R.id.btnSaveForm){
 			//TODO: get fragments data ad set class attributes
 
-			resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA,fragmentPermanenza.getPermanenza());
+			//FIXME bugged, it's called even with secondary mebers
+			//resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA,fragmentPermanenza.getPermanenza());
+
 			finish();
 		}
 
