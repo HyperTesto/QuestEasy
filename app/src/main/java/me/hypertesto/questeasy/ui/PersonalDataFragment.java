@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.utils.CitizenshipRequest;
 import me.hypertesto.questeasy.utils.PlaceRequest;
@@ -89,6 +90,30 @@ public class PersonalDataFragment extends Fragment {
 				guest_citizenship.setText(place);
 			}
 		});
+	}
+
+	public String getName(){
+		return "";
+	}
+
+	public String getSurname(){
+		return "";
+	}
+
+	public String getDateofBirth(){
+		return "";
+	}
+
+	public String getSex(){
+		return "";
+	}
+
+	public Place getBirthPlace(){
+		return null;
+	}
+
+	public Place getCittadinanza(){
+		return null;
 	}
 
 
