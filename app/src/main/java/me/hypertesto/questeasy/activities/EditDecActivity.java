@@ -19,6 +19,7 @@ import java.util.Date;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Card;
+import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
 import me.hypertesto.questeasy.model.FamilyMemberGuest;
@@ -44,6 +45,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private FloatingActionButton familyFab;
 	private int mPreviousVisibleItem;
 
+	private Declaration displayed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,16 +99,16 @@ public class EditDecActivity extends AppCompatActivity {
 		ArrayList<Card> items = new ArrayList<>();
 
 		Intent intent = getIntent();
-		if (intent.hasExtra(StaticGlobals.intentExtras.DECLARATION)){
-			ArrayList d = (ArrayList) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
-			items.addAll(d);
-		} else {
-			SingleGuest g = new SingleGuest();
-			g.setName("tizio");
-			items.add(new SingleGuestCard(g, new Date(), 5));
 
-			System.out.println("Added stub guests");
-		}
+		this.displayed = new Declaration();
+
+		Date date = (Date) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION_DATE);
+		ArrayList<Card> d = (ArrayList<Card>) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
+
+		this.displayed.setDate(date);
+		this.displayed.addAll(d);
+
+		items.addAll(displayed);
 
 		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
 		listView = (ListView)findViewById(R.id.cardlistView);
@@ -162,7 +164,7 @@ public class EditDecActivity extends AppCompatActivity {
 					throw new RuntimeException("Dafuq??");
 				}
 
-				startActivity(intentToEditCard);
+				startActivityForResult(intentToEditCard, StaticGlobals.requestCodes.EDIT_CARD);
 			}
 		});
 	}
@@ -189,12 +191,24 @@ public class EditDecActivity extends AppCompatActivity {
 				if (fabMenu.isOpened()){
 					fabMenu.close(false);
 				}
-				startActivity(intentForm);
 
+				startActivityForResult(intentForm, StaticGlobals.requestCodes.NEW_CARD);
 			}
 		});
-
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 
+		switch (requestCode){
+
+			case StaticGlobals.requestCodes.NEW_CARD:
+				break;
+
+			case StaticGlobals.requestCodes.EDIT_CARD:
+				break;
+
+		}
+	}
 }

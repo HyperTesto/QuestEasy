@@ -180,6 +180,7 @@ public class HomeActivity extends AppCompatActivity {
 
 					Intent intent = new Intent(HomeActivity.this, EditDecActivity.class);
 					intent.putExtra(StaticGlobals.intentExtras.DECLARATION, target);
+					intent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, target.getDate());
 
 					startActivity(intent);
 				}

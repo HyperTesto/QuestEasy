@@ -16,6 +16,9 @@ public class StaticGlobals {
 		public static final int EDIT_FAMILY_MEMBER = 8;
 		public static final int EDIT_GROUP_HEAD = 9;
 		public static final int EDIT_GROUP_MEMBER = 10;
+
+		public static final int NEW_CARD = 11;
+		public static final int EDIT_CARD = 12;
 	}
 
 	public static final	class resultCodes {
@@ -25,6 +28,7 @@ public class StaticGlobals {
 	public static final class intentExtras {
 		public static final	String GUEST_TYPE = "me.hypertesto.questeasy.activities.GUEST_TYPE";
 		public static final String DECLARATION = "me.hypertesto.questeasy.activities.DECLARATION";
+		public static final String DECLARATION_DATE = "me.hypertesto.questeasy.activities.DECLARATION_DATE";
 		public static final String CARD = "me.hypertesto.questeasy.activities.CARD";
 		public static final String CREATED_GUEST = "me.hypertesto.questeasy.activities.CREATED_GUEST";
 		public static final String PERMANENZA = "me.hypertesto.questeasy.activities.PERMANENZA";
