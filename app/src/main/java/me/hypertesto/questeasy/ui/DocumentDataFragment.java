@@ -57,7 +57,7 @@ public class DocumentDataFragment extends Fragment {
 		guest_documentPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-				String place = (String) adapterView.getItemAtPosition(position);
+				String place = adapterView.getItemAtPosition(position).toString();
 				guest_documentPlace.setText(place);
 			}
 		});
