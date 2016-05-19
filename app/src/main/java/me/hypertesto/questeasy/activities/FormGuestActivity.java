@@ -44,7 +44,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 	private final Intent resultIntent = new Intent();
 
-	private Fragment fragmentPermanenza;
+	private PermanenzaFragment fragmentPermanenza;
 	private Fragment fragmentPersonal;
 	private Fragment fragmentDocument;
 
@@ -176,6 +176,8 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		if (id == R.id.btnSaveForm){
 			//TODO: get fragments data ad set class attributes
+
+			resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA,fragmentPermanenza.getPermanenza());
 			finish();
 		}
 
