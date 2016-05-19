@@ -28,7 +28,7 @@ public class PermanenzaFragment extends Fragment {
 							 Bundle savedInstanceState)
 	{
 		View rootView = inflater.inflate(R.layout.activity_form_guest_fragment_permanenza, container, false);
-		permTextView = (EditText) getView().findViewById(R.id.input_permanenza);
+
 		return rootView;
 
 	}
@@ -36,6 +36,7 @@ public class PermanenzaFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		permTextView = (EditText) getView().findViewById(R.id.input_permanenza);
 	}
 
 	public int getPermanenza(){
