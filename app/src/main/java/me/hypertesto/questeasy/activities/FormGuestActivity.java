@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Date;
 
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
 import me.hypertesto.questeasy.model.FamilyMemberGuest;
@@ -47,6 +49,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	private PermanenzaFragment fragmentPermanenza;
 	private PersonalDataFragment fragmentPersonal;
 	private DocumentDataFragment fragmentDocument;
+	private String guestType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -63,7 +66,7 @@ public class FormGuestActivity extends AppCompatActivity {
 			//Guest esistente da editare; mostrare dati sul form
 		}
 
-		String guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
+		guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
 		System.out.println("*****Category" + guestType);
 		setTitle(guestType);
 
@@ -176,7 +179,47 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		if (id == R.id.btnSaveForm){
 			//TODO: get fragments data ad set class attributes
+			switch (guestType){
+				case Guest.type.SINGLE_GUEST:
 
+					SingleGuest sg = new SingleGuest();
+					sg.setName(fragmentPersonal.getGuestName());
+					sg.setSurname(fragmentPersonal.getSurname());
+					try {
+						sg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					//FIXME: change model to use place?
+					//sg.setCittadinanza(fragmentPersonal.getCittadinanza());
+					//FIXME: model should use place instead of strings
+
+					sg.setSex(fragmentPersonal.getSex());
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
+					break;
+
+				case Guest.type.FAMILY_HEAD:
+
+					break;
+
+				case Guest.type.FAMILY_MEMBER:
+
+					break;
+
+				case Guest.type.GROUP_HEAD:
+
+					break;
+
+				case Guest.type.GROUP_MEMBER:
+
+					break;
+
+				default:
+					throw new RuntimeException("Unhandled type of guest");
+			}
 			//FIXME bugged, it's called even with secondary mebers
 			//resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA,fragmentPermanenza.getPermanenza());
 
