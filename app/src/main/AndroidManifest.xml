@@ -51,7 +51,9 @@
 					android:name="android.support.PARENT_ACTIVITY"
 					android:value=".activities.EditDecActivity"/>
 		</activity>
-		<activity android:name=".activities.EditCardActivity">
+		<activity android:name=".activities.EditCardActivity"
+				  android:label="@string/cardTitleBar"
+			>
 		</activity>
 	</application>
 
