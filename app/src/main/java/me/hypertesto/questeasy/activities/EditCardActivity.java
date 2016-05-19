@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -102,6 +103,20 @@ public class EditCardActivity extends AppCompatActivity {
 						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
 						startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_GROUP_MEMBER);
 					}
+				}
+			});
+		}
+
+		Button btnSave = (Button) findViewById(R.id.btnSaveStub);
+
+		if (btnSave != null) {
+			btnSave.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent resultIntent = new Intent();
+					resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
+					setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+					finish();
 				}
 			});
 		}

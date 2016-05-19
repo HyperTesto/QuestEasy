@@ -185,28 +185,20 @@ public class FSDeclarationDao implements DeclarationDao {
 
 		Declaration d;
 
-		for (int j = 0; j < 3; j++){
-			d = new Declaration(new Date(2016, 4, 1 + j*3));
-			for (int i = 0; i < 5; i++){
-				d.add(SGC);
-			}
-			this.insertDeclaration(d);
+		d = new Declaration(new Date(2016, 4, 1));
+		d.add(SGC);
+		this.insertDeclaration(d);
 
-			d = new Declaration(new Date(2016, 4,  1 + j*3 + 1));
-			for (int i = 0; i < 3; i++){
-				d.add(SGC);
-				d.add(FC);
-			}
-			this.insertDeclaration(d);
+		d = new Declaration(new Date(2016, 4, 2));
+		d.add(SGC);
+		d.add(FC);
+		this.insertDeclaration(d);
 
-			d = new Declaration(new Date(2016, 4, 1 + j*3 + 2));
-			for (int i = 0; i < 2; i++){
-				d.add(SGC);
-				d.add(GC);
-				d.add(FC);
-			}
-			this.insertDeclaration(d);
-		}
+		d = new Declaration(new Date(2016, 4, 3));
+		d.add(SGC);
+		d.add(FC);
+		d.add(GC);
+		this.insertDeclaration(d);
 
 		this.close();
 	}

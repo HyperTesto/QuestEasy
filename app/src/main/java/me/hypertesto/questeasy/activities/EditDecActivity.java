@@ -19,6 +19,7 @@ import java.util.Date;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Card;
+import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
 import me.hypertesto.questeasy.model.FamilyMemberGuest;
@@ -28,6 +29,7 @@ import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
+import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -44,6 +46,8 @@ public class EditDecActivity extends AppCompatActivity {
 	private FloatingActionButton familyFab;
 	private int mPreviousVisibleItem;
 
+	private Declaration displayed;
+	private int indexClicked;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,23 +98,17 @@ public class EditDecActivity extends AppCompatActivity {
 		groupFab = (FloatingActionButton) findViewById(R.id.categoryGuestGroupGo);
 		familyFab = (FloatingActionButton) findViewById(R.id.categoryGuestFamilyGo);
 
-		ArrayList<Card> items = new ArrayList<>();
-
 		Intent intent = getIntent();
-		if (intent.hasExtra(StaticGlobals.intentExtras.DECLARATION)){
-			ArrayList d = (ArrayList) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
-			items.addAll(d);
-		} else {
-			SingleGuest g = new SingleGuest();
-			g.setName("tizio");
-			items.add(new SingleGuestCard(g, new Date(), 5));
 
-			System.out.println("Added stub guests");
-		}
+		this.displayed = new Declaration();
 
-		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
-		listView = (ListView)findViewById(R.id.cardlistView);
-		listView.setAdapter(adapter);
+		Date date = (Date) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION_DATE);
+		ArrayList<Card> d = (ArrayList<Card>) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
+
+		this.displayed.setDate(date);
+		this.displayed.addAll(d);
+
+		this.updateList();
 
 		fabMenu.hideMenuButton(false);
 
@@ -148,6 +146,7 @@ public class EditDecActivity extends AppCompatActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Object o = parent.getItemAtPosition(position);
+				indexClicked = position;
 
 				if (o instanceof SingleGuestCard){
 					SingleGuestCard sgc = (SingleGuestCard) o;
@@ -162,7 +161,7 @@ public class EditDecActivity extends AppCompatActivity {
 					throw new RuntimeException("Dafuq??");
 				}
 
-				startActivity(intentToEditCard);
+				startActivityForResult(intentToEditCard, StaticGlobals.requestCodes.EDIT_CARD);
 			}
 		});
 	}
@@ -189,12 +188,51 @@ public class EditDecActivity extends AppCompatActivity {
 				if (fabMenu.isOpened()){
 					fabMenu.close(false);
 				}
-				startActivity(intentForm);
 
+				startActivityForResult(intentForm, StaticGlobals.requestCodes.NEW_CARD);
 			}
 		});
-
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
 
+		switch (requestCode){
+
+			case StaticGlobals.requestCodes.NEW_CARD:
+				break;
+
+			case StaticGlobals.requestCodes.EDIT_CARD:
+				if (resultCode == StaticGlobals.resultCodes.EDIT_CARD_SUCCESS){
+					Object o = data.getSerializableExtra(StaticGlobals.intentExtras.CARD);
+
+					if (o instanceof Card){
+						Card c = (Card) o;
+
+						displayed.remove(indexClicked);
+						displayed.add(c);
+
+						fsd.open();
+						fsd.updateDeclaration(this.displayed);
+						fsd.close();
+
+						this.updateList();
+					} else {
+						throw new RuntimeException("");
+					}
+				}
+				break;
+
+		}
+	}
+
+	private void updateList(){
+		ArrayList<Card> items = new ArrayList<>();
+		items.addAll(displayed);
+		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
+		listView = (ListView)findViewById(R.id.cardlistView);
+		listView.setAdapter(adapter);
+	}
 }
