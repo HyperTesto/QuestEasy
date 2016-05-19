@@ -94,7 +94,7 @@ public class PersonalDataFragment extends Fragment {
 		});
 	}
 
-	public String getName(){
+	public String getGuestName(){
 
 		return guest_name.getText().toString();
 
