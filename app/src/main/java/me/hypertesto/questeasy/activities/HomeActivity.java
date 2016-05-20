@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
 	private NavigationView mNavigationView;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
+	private ActionMode myActionMode;
 
 
 
@@ -135,6 +136,7 @@ public class HomeActivity extends AppCompatActivity {
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = lv.getCheckedItemCount();
+				myActionMode = mode;
 				mode.setTitle(checkedCount + " Selezionati");
 				SparseBooleanArray selected = adapter.getSelectedIds();
 				adapter.toggleSelection(position);
@@ -273,5 +275,23 @@ public class HomeActivity extends AppCompatActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle icicle) {
+		super.onSaveInstanceState(icicle);
+
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		//getLoaderManager().initLoader(0, null, this);
+		if (lv.getCheckedItemCount() > 0 && myActionMode == null) {
+			System.out.println("Ciao");
+
+			//myActionMode = ((ActionBarActivity) getActivity()).startSupportActionMode(new ContextualActionBarActionModeCallBack());
+			//actionMode.setTitle(myListView.getCheckedItemCount() + " selected");
+		}
 	}
 }
