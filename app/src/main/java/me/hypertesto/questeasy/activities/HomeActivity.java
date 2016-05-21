@@ -169,14 +169,35 @@ public class HomeActivity extends AppCompatActivity {
 
 		lv.setTextFilterEnabled(true);
 
-		insertNewDcard = (FloatingActionButton)findViewById(R.id.fab);
-		insertNewDcard.setOnClickListener(new View.OnClickListener() {
+		insertNewDcard = (FloatingActionButton) findViewById(R.id.fab);
+
+		insertNewDcard.setOnClickListener(new View.OnClickListener(){
 			@Override
-			public void onClick(View v) {
-				//TODO add empty declaration as intent extra
-				startActivity(new Intent(HomeActivity.this, EditDecActivity.class));
+			public void onClick(View v){
+				Intent newDecIntent = new Intent(HomeActivity.this, EditDecActivity.class);
+				Declaration newDec = new Declaration();
+				//TODO fare meglio: settare solo giorno/mese/anno o che ne so
+				Date date = new Date();
+
+				FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
+				fsd.open();
+				Declaration dec = fsd.getDeclarationByDate(date);
+
+				if (dec == null){
+					dec = new Declaration(date);
+				}
+
+				fsd.insertDeclaration(dec);
+
+				System.out.println(dec);
+
+				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION, dec);
+				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, dec.getDate());
+
+				startActivity(newDecIntent);
 			}
 		});
+
 		insertNewDcard.hide(false);
 
 		new FabAnimation(insertNewDcard, getApplicationContext());
