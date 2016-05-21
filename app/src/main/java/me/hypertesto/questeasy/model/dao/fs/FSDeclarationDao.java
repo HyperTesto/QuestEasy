@@ -20,6 +20,7 @@ import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.GroupMemberGuest;
+import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.DeclarationDao;
@@ -96,6 +97,7 @@ public class FSDeclarationDao implements DeclarationDao {
 	}
 
 	public void populate(){
+		Place DAMBEL = new Place("12", "Dambel (TN)", false);
 
 		SingleGuest g = new SingleGuest();
 		g.setBirthDate(new Date());
@@ -103,9 +105,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g.setSurname("Rossi");
 		g.setSex("MF");
 		g.setCittadinanza("Italia");
-		g.setComuneDiNascita("Dambel");
-		g.setProvinciaDiNascita("TN");
-		g.setStatoDiNascita("ITA");
+		g.setPlaceOfBirth(DAMBEL);
 		g.setDocumento(new Documento("a", "b", "c"));
 
 		FamilyHeadGuest g1 = new FamilyHeadGuest();
@@ -114,9 +114,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g1.setSurname("Carlini");
 		g1.setSex("TF");
 		g1.setCittadinanza("Italia");
-		g1.setComuneDiNascita("Dambel");
-		g1.setProvinciaDiNascita("TN");
-		g1.setStatoDiNascita("ITA");
+		g1.setPlaceOfBirth(DAMBEL);
 		g1.setDocumento(new Documento("e", "d", "c"));
 
 		ArrayList<FamilyMemberGuest> fmgs = new ArrayList<>();
@@ -126,9 +124,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g2.setSurname("Carlini");
 		g2.setSex("TF");
 		g2.setCittadinanza("Italia");
-		g2.setComuneDiNascita("Dambel");
-		g2.setProvinciaDiNascita("TN");
-		g2.setStatoDiNascita("ITA");
+		g2.setPlaceOfBirth(DAMBEL);
 		fmgs.add(g2);
 
 		g2 = new FamilyMemberGuest();
@@ -137,9 +133,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g2.setSurname("Lorlini");
 		g2.setSex("TF");
 		g2.setCittadinanza("Italia");
-		g2.setComuneDiNascita("Dambel");
-		g2.setProvinciaDiNascita("TN");
-		g2.setStatoDiNascita("ITA");
+		g2.setPlaceOfBirth(DAMBEL);
 		fmgs.add(g2);
 
 		GroupHeadGuest g3 = new GroupHeadGuest();
@@ -148,9 +142,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g3.setSurname("lupalini");
 		g3.setSex("TF");
 		g3.setCittadinanza("Italia");
-		g3.setComuneDiNascita("Dambel");
-		g3.setProvinciaDiNascita("TN");
-		g3.setStatoDiNascita("ITA");
+		g3.setPlaceOfBirth(DAMBEL);
 		g3.setDocumento(new Documento("e", "d", "c"));
 
 		ArrayList<GroupMemberGuest> gmgs = new ArrayList<>();
@@ -160,9 +152,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g4.setSurname("Carlona");
 		g4.setSex("TF");
 		g4.setCittadinanza("Italia");
-		g4.setComuneDiNascita("Dambel");
-		g4.setProvinciaDiNascita("TN");
-		g4.setStatoDiNascita("ITA");
+		g4.setPlaceOfBirth(DAMBEL);
 		gmgs.add(g4);
 
 		g4 = new GroupMemberGuest();
@@ -171,9 +161,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g4.setSurname("frolliani");
 		g4.setSex("TF");
 		g4.setCittadinanza("Italia");
-		g4.setComuneDiNascita("Dambel");
-		g4.setProvinciaDiNascita("TN");
-		g4.setStatoDiNascita("ITA");
+		g4.setPlaceOfBirth(DAMBEL);
 		gmgs.add(g4);
 
 		SingleGuestCard SGC = new SingleGuestCard(g, new Date(), 5);
