@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import me.hypertesto.questeasy.model.Declaration;
+import me.hypertesto.questeasy.model.DocumentType;
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
@@ -106,7 +107,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g.setSex("MF");
 		g.setCittadinanza("Italia");
 		g.setPlaceOfBirth(DAMBEL);
-		g.setDocumento(new Documento("a", "b", "c"));
+		g.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "b", "c"));
 
 		FamilyHeadGuest g1 = new FamilyHeadGuest();
 		g1.setBirthDate(new Date());
@@ -115,7 +116,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g1.setSex("TF");
 		g1.setCittadinanza("Italia");
 		g1.setPlaceOfBirth(DAMBEL);
-		g1.setDocumento(new Documento("e", "d", "c"));
+		g1.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", "c"));
 
 		ArrayList<FamilyMemberGuest> fmgs = new ArrayList<>();
 		FamilyMemberGuest g2 = new FamilyMemberGuest();
@@ -143,7 +144,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g3.setSex("TF");
 		g3.setCittadinanza("Italia");
 		g3.setPlaceOfBirth(DAMBEL);
-		g3.setDocumento(new Documento("e", "d", "c"));
+		g3.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", "c"));
 
 		ArrayList<GroupMemberGuest> gmgs = new ArrayList<>();
 		GroupMemberGuest g4 = new GroupMemberGuest();

@@ -56,11 +56,11 @@ public class DocumentDataFragment extends Fragment {
 		guest_documentType.setAdapter(docTypeAdapter);
 		guest_documentType.setLoadingIndicator(
 				(ProgressBar) getView().findViewById(R.id.pb_loading_indicator_doc_type));
-		guest_documentPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		guest_documentType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 				String type = adapterView.getItemAtPosition(position).toString();
-				guest_documentPlace.setText(type);
+				guest_documentType.setText(type);
 			}
 		});
 
