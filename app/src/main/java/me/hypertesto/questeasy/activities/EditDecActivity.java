@@ -206,6 +206,22 @@ public class EditDecActivity extends AppCompatActivity {
 		switch (requestCode){
 
 			case StaticGlobals.requestCodes.NEW_CARD:
+				if (resultCode == StaticGlobals.resultCodes.EDIT_CARD_SUCCESS){
+					Object o = data.getSerializableExtra(StaticGlobals.intentExtras.CARD);
+
+					if (o instanceof Card){
+						Card c = (Card) o;
+						displayed.add(c);
+
+						fsd.open();
+						fsd.updateDeclaration(this.displayed);
+						fsd.close();
+
+						this.updateList();
+					} else {
+						throw new RuntimeException("");
+					}
+				}
 				break;
 
 			case StaticGlobals.requestCodes.EDIT_CARD:
