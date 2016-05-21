@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -108,7 +112,7 @@ public class EditDecActivity extends AppCompatActivity {
 			System.out.println("Added stub guests");
 		}
 
-		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
+		final CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
 
@@ -149,13 +153,13 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Object o = parent.getItemAtPosition(position);
 
-				if (o instanceof SingleGuestCard){
+				if (o instanceof SingleGuestCard) {
 					SingleGuestCard sgc = (SingleGuestCard) o;
 					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, sgc);
-				} else if (o instanceof FamilyCard){
+				} else if (o instanceof FamilyCard) {
 					FamilyCard fc = (FamilyCard) o;
 					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, fc);
-				} else if (o instanceof GroupCard){
+				} else if (o instanceof GroupCard) {
 					GroupCard gc = (GroupCard) o;
 					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, gc);
 				} else {
@@ -163,6 +167,55 @@ public class EditDecActivity extends AppCompatActivity {
 				}
 
 				startActivity(intentToEditCard);
+			}
+		});
+
+		//This is setted to enable multi selection on items
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+		//Methods to manage item's selection
+		listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+				final int checkedCount = listView.getCheckedItemCount();
+				mode.setTitle(checkedCount + " Selezionati");
+				adapter.toggleSelection(position);
+
+			}
+
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				mode.getMenuInflater().inflate(R.menu.delete_item_ba2v2, menu);
+				return true;
+			}
+
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				return false;
+			}
+
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				switch (item.getItemId()) {
+					case R.id.delete:
+						SparseBooleanArray selected = adapter.getSelectedIds();
+						Log.e("selected", String.valueOf(selected));
+						for (int i = (selected.size() - 1); i >= 0; i--) {
+							if (selected.valueAt(i)) {
+								Card selectedItem = adapter.getItem(selected.keyAt(i));
+								adapter.remove(selectedItem);
+							}
+						}
+						mode.finish();
+						return true;
+					default:
+						return false;
+				}
+			}
+
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+				adapter.removeSelection();
 			}
 		});
 	}

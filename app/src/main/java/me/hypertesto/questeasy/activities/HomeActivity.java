@@ -135,7 +135,6 @@ public class HomeActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = lv.getCheckedItemCount();
 				mode.setTitle(checkedCount + " Selezionati");
-				SparseBooleanArray selected = adapter.getSelectedIds();
 				adapter.toggleSelection(position);
 
 			}
