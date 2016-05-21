@@ -64,7 +64,7 @@ public class GroupCard extends Card {
 
 	@Override
 	public String getTitle(){
-		return "Nome comitiva";
+		return String.format("Gruppo %s", this.capoGruppo.getSurname());
 	}
 
 	@Override

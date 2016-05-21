@@ -64,7 +64,7 @@ public class FamilyCard extends Card {
 
 	@Override
 	public String getTitle(){
-		return "Cognome capo famiglia";
+		return String.format("Famiglia %s", this.capoFamiglia.getSurname());
 	}
 
 	@Override
