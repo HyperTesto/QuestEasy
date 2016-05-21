@@ -57,6 +57,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private Animation flipAnim;
 	private Animation flipAnimReverse;
 	private ImageView letterImage;
+	private TextDrawable textDrawable;
 	private int previousColor;
 
 
@@ -142,7 +143,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				TextDrawable textDrawable = (TextDrawable) letterImage.getDrawable();
+				textDrawable = (TextDrawable) letterImage.getDrawable();
 				previousColor = textDrawable.getPaint().getColor();
 				//TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
 				//color, 100);
@@ -167,7 +168,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				TextDrawable textDrawable = (TextDrawable) letterImage.getDrawable();
+				textDrawable = (TextDrawable) letterImage.getDrawable();
 				//TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
 				//color, 100);
 				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
