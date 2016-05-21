@@ -27,20 +27,47 @@
 		android:src="@drawable/icon_identification_card_form_guest"
 		/>
 
-	<EditText
+	<!--<EditText
 		android:id="@+id/editText_documentoCodice_guest_form"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentEnd="true"
+
 		android:maxLength="60"
 		android:layout_marginLeft="46dp"
 		android:layout_marginStart="46dp"
 		android:textSize="15sp"
 		android:layout_below="@id/person_document_Title"
 		android:hint="@string/codeDocumentoGuest"
-		/>
+		/>-->
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/docTypeFrameLayout"
+		android:layout_alignBottom="@+id/person_identityCard_imageView"
+		android:layout_alignLeft="@+id/editText_documentoNumber_guest_form"
+		android:layout_alignStart="@+id/editText_documentoNumber_guest_form">
+
+
+		<me.hypertesto.questeasy.ui.DelayAutoCompleteTextView
+			android:id="@+id/editText_documentoCodice_guest_form"
+			android:inputType="textCapSentences"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/documentoGuest"
+			android:imeOptions="flagNoExtractUi|actionSearch"
+			android:textSize="15dp" />
+
+		<ProgressBar
+			android:id="@+id/pb_loading_indicator_doc_type"
+			style="?android:attr/progressBarStyleSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical|right"
+
+
+			android:visibility="gone"/>
+	</FrameLayout>
 	<EditText
 		android:id="@+id/editText_documentoNumber_guest_form"
 		android:layout_width="match_parent"
@@ -51,7 +78,7 @@
 		android:layout_marginLeft="46dp"
 		android:layout_marginStart="46dp"
 		android:textSize="15sp"
-		android:layout_below="@id/editText_documentoCodice_guest_form"
+		android:layout_below="@id/docTypeFrameLayout"
 		android:hint="@string/numberDocumentoGuest"
 		/>
 	<!--<EditText

@@ -3,10 +3,10 @@ package me.hypertesto.questeasy.model;
 /**
  * Created by hypertesto on 21/05/16.
  */
-public class DocumentType {
+public class DocumentType implements Comparable<DocumentType> {
 
 	private String code;
-	private String nome;
+	private String name;
 
 	public DocumentType() {}
 
@@ -18,11 +18,16 @@ public class DocumentType {
 		this.code = code;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public int compareTo(DocumentType another) {
+		return this.name.compareTo(another.getName());
 	}
 }

@@ -4,29 +4,19 @@ import java.io.Serializable;
 
 /**
  * Created by rigel on 03/05/16.
- * TODO: migrate tipo to docType
  */
 public class Documento implements Serializable{
 
 	private DocumentType docType;
-	private String tipo;
 	private String codice;
 	private String luogoRilascio;
 
 	public Documento(){}
 
-	public Documento(String tipo, String codice, String luogoRilascio){
-		this.tipo = tipo;
+	public Documento(DocumentType docType, String codice, String luogoRilascio) {
+		this.docType = docType;
 		this.codice = codice;
 		this.luogoRilascio = luogoRilascio;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public String getCodice() {
