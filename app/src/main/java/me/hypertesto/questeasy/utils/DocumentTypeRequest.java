@@ -24,7 +24,7 @@ import me.hypertesto.questeasy.model.Place;
  */
 public class DocumentTypeRequest {
 
-	private String remoteAPI = "https://questura.hypertesto.me/api/v1/comuni/";
+	private String remoteAPI = "https://questura.hypertesto.me/api/v1/documenti/";
 
 	public List<DocumentType> find(Context context, String str){
 
@@ -86,6 +86,6 @@ public class DocumentTypeRequest {
 		}
 
 		return filteredPlaces;
-		
+
 	}
 }
