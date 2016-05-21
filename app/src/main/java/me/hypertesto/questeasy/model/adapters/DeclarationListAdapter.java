@@ -60,10 +60,6 @@ public class DeclarationListAdapter extends ArrayAdapter<Declaration> {
 		txtDesc.setText(desc);
 
 
-
-		if(mSelectedItems.get(position)){
-			Log.e("SELEZIONATo" ,position+"item selezionato");
-		}
 		return view;
 	}
 

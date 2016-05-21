@@ -41,11 +41,9 @@ public class HomeActivity extends AppCompatActivity {
 	private ListView lv;
 	private FloatingActionButton insertNewDcard;
 	private DeclarationListAdapter adapter;
-	private int mPreviousVisibleItem;
 	private NavigationView mNavigationView;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private ActionMode myActionMode;
 
 
 
@@ -136,7 +134,6 @@ public class HomeActivity extends AppCompatActivity {
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = lv.getCheckedItemCount();
-				myActionMode = mode;
 				mode.setTitle(checkedCount + " Selezionati");
 				SparseBooleanArray selected = adapter.getSelectedIds();
 				adapter.toggleSelection(position);
@@ -283,15 +280,4 @@ public class HomeActivity extends AppCompatActivity {
 
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		//getLoaderManager().initLoader(0, null, this);
-		if (lv.getCheckedItemCount() > 0 && myActionMode == null) {
-			System.out.println("Ciao");
-
-			//myActionMode = ((ActionBarActivity) getActivity()).startSupportActionMode(new ContextualActionBarActionModeCallBack());
-			//actionMode.setTitle(myListView.getCheckedItemCount() + " selected");
-		}
-	}
 }
