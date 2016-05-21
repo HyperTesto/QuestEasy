@@ -6,24 +6,29 @@ import java.io.Serializable;
  * Created by rigel on 03/05/16.
  */
 public class Documento implements Serializable{
-	private String tipo;
+
+	private DocumentType docType;
 	private String codice;
-	private String luogoRilascio;
+	private Place luogoRilascio;
 
-	public Documento(){};
+	public Documento(){}
 
-	public Documento(String tipo, String codice, String luogoRilascio){
-		this.tipo = tipo;
+	public Documento(DocumentType docType, String codice, Place luogoRilascio) {
+		this.docType = docType;
 		this.codice = codice;
 		this.luogoRilascio = luogoRilascio;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
+	public boolean isComplete(){
+		if (this.docType == null || !this.docType.isComplete()){
+			return false;
+		} else if (this.codice == null || this.codice.equals("")){
+			return false;
+		} else if (this.luogoRilascio == null || !this.luogoRilascio.isComplete()){
+			return false;
+		}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+		return true;
 	}
 
 	public String getCodice() {
@@ -34,11 +39,19 @@ public class Documento implements Serializable{
 		this.codice = codice;
 	}
 
-	public String getLuogoRilascio() {
+	public Place getLuogoRilascio() {
 		return luogoRilascio;
 	}
 
-	public void setLuogoRilascio(String luogoRilascio) {
+	public void setLuogoRilascio(Place luogoRilascio) {
 		this.luogoRilascio = luogoRilascio;
+	}
+
+	public DocumentType getDocType() {
+		return docType;
+	}
+
+	public void setDocType(DocumentType docType) {
+		this.docType = docType;
 	}
 }

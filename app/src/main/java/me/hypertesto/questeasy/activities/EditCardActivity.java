@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -108,6 +109,20 @@ public class EditCardActivity extends AppCompatActivity {
 			});
 		}
 
+		Button btnSave = (Button) findViewById(R.id.btnSaveStub);
+
+		if (btnSave != null) {
+			btnSave.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent resultIntent = new Intent();
+					resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
+					setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+					finish();
+				}
+			});
+		}
+
 	}
 
 	@Override
@@ -122,6 +137,7 @@ public class EditCardActivity extends AppCompatActivity {
 					if (s instanceof SingleGuest){
 						SingleGuest sg = (SingleGuest) s;
 						((SingleGuestCard) card).setGuest(sg);
+						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
 
 						System.out.println(((SingleGuestCard) card).getGuest().getName());
 					}
@@ -138,6 +154,7 @@ public class EditCardActivity extends AppCompatActivity {
 						FamilyHeadGuest fhg = (FamilyHeadGuest) s;
 						((FamilyCard) card).setCapoFamiglia(fhg);
 						((FamilyCard) card).setFamiliari(new ArrayList<FamilyMemberGuest>());
+						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
 
 						System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
 					}
@@ -167,6 +184,7 @@ public class EditCardActivity extends AppCompatActivity {
 						GroupHeadGuest ghg = (GroupHeadGuest) s;
 						((GroupCard) card).setCapoGruppo(ghg);
 						((GroupCard) card).setAltri(new ArrayList<GroupMemberGuest>());
+						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
 
 						System.out.println(((GroupCard) card).getCapoGruppo().getName());
 					}

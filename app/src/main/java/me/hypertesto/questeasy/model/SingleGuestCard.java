@@ -23,6 +23,10 @@ public class SingleGuestCard extends Card {
 
 	@Override
 	public boolean isComplete() {
+		if (this.guest == null){
+			return false;
+		}
+
 		return this.guest.isComplete();
 	}
 
@@ -32,7 +36,7 @@ public class SingleGuestCard extends Card {
 
 	@Override
 	public String getTitle(){
-		return "Nome dell'ospite";
+		return String.format("%s %s", this.guest.getName(), this.guest.getSurname());
 	}
 
 	@Override

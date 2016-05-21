@@ -15,10 +15,8 @@ public abstract class Guest implements Serializable{
 	protected String surname;
 	protected Date birthDate;
 	protected String sex;
-	protected String comuneDiNascita;
-	protected String provinciaDiNascita;
-	protected String statoDiNascita;
-	protected String cittadinanza;
+	protected Place placeOfBirth;
+	protected Place cittadinanza;
 
 	public static final class type {
 		public static final String SINGLE_GUEST = "Ospite Singolo";
@@ -37,13 +35,9 @@ public abstract class Guest implements Serializable{
 			return false;
 		} else if (this.sex == null || this.sex.equals("")){
 			return false;
-		} else if (this.comuneDiNascita == null || this.comuneDiNascita.equals("")){
+		} else if (this.placeOfBirth == null || !this.placeOfBirth.isComplete()){
 			return false;
-		} else if (this.provinciaDiNascita == null || this.provinciaDiNascita.equals("")){
-			return false;
-		} else if (this.statoDiNascita == null || this.statoDiNascita.equals("")){
-			return false;
-		} else if (this.cittadinanza == null || this.cittadinanza.equals("")){
+		} else if (this.cittadinanza == null || !this.cittadinanza.isComplete()){
 			return false;
 		}
 
@@ -82,35 +76,19 @@ public abstract class Guest implements Serializable{
 		this.sex = sex;
 	}
 
-	public String getComuneDiNascita() {
-		return comuneDiNascita;
+	public Place getPlaceOfBirth(){
+		return placeOfBirth;
 	}
 
-	public void setComuneDiNascita(String comuneDiNascita) {
-		this.comuneDiNascita = comuneDiNascita;
+	public void setPlaceOfBirth(Place placeOfBirth){
+		this.placeOfBirth = placeOfBirth;
 	}
 
-	public String getProvinciaDiNascita() {
-		return provinciaDiNascita;
-	}
-
-	public void setProvinciaDiNascita(String provinciaDiNascita) {
-		this.provinciaDiNascita = provinciaDiNascita;
-	}
-
-	public String getStatoDiNascita() {
-		return statoDiNascita;
-	}
-
-	public void setStatoDiNascita(String statoDiNascita) {
-		this.statoDiNascita = statoDiNascita;
-	}
-
-	public String getCittadinanza() {
+	public Place getCittadinanza() {
 		return cittadinanza;
 	}
 
-	public void setCittadinanza(String cittadinanza) {
+	public void setCittadinanza(Place cittadinanza) {
 		this.cittadinanza = cittadinanza;
 	}
 }

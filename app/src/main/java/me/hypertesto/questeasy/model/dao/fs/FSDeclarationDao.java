@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import me.hypertesto.questeasy.model.Declaration;
+import me.hypertesto.questeasy.model.DocumentType;
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
@@ -20,6 +21,7 @@ import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.GroupMemberGuest;
+import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.DeclarationDao;
@@ -96,28 +98,25 @@ public class FSDeclarationDao implements DeclarationDao {
 	}
 
 	public void populate(){
+		Place DAMBEL = new Place("12", "Dambel (TN)", false);
 
 		SingleGuest g = new SingleGuest();
 		g.setBirthDate(new Date());
 		g.setName("Paolo");
 		g.setSurname("Rossi");
 		g.setSex("MF");
-		g.setCittadinanza("Italia");
-		g.setComuneDiNascita("Dambel");
-		g.setProvinciaDiNascita("TN");
-		g.setStatoDiNascita("ITA");
-		g.setDocumento(new Documento("a", "b", "c"));
+		g.setCittadinanza(new Place("12","ITALIA",true));
+		g.setPlaceOfBirth(DAMBEL);
+		g.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "b", new Place("Falcade (BL)", "4000000", false)));
 
 		FamilyHeadGuest g1 = new FamilyHeadGuest();
 		g1.setBirthDate(new Date());
 		g1.setName("Manilo");
 		g1.setSurname("Carlini");
 		g1.setSex("TF");
-		g1.setCittadinanza("Italia");
-		g1.setComuneDiNascita("Dambel");
-		g1.setProvinciaDiNascita("TN");
-		g1.setStatoDiNascita("ITA");
-		g1.setDocumento(new Documento("e", "d", "c"));
+		g1.setCittadinanza(new Place("12","ITALIA",true));
+		g1.setPlaceOfBirth(DAMBEL);
+		g1.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", new Place("Falcade (BL)", "4000000", false)));
 
 		ArrayList<FamilyMemberGuest> fmgs = new ArrayList<>();
 		FamilyMemberGuest g2 = new FamilyMemberGuest();
@@ -125,10 +124,8 @@ public class FSDeclarationDao implements DeclarationDao {
 		g2.setName("Carlo");
 		g2.setSurname("Carlini");
 		g2.setSex("TF");
-		g2.setCittadinanza("Italia");
-		g2.setComuneDiNascita("Dambel");
-		g2.setProvinciaDiNascita("TN");
-		g2.setStatoDiNascita("ITA");
+		g2.setCittadinanza(new Place("12","ITALIA",true));
+		g2.setPlaceOfBirth(DAMBEL);
 		fmgs.add(g2);
 
 		g2 = new FamilyMemberGuest();
@@ -136,10 +133,8 @@ public class FSDeclarationDao implements DeclarationDao {
 		g2.setName("Rallo");
 		g2.setSurname("Lorlini");
 		g2.setSex("TF");
-		g2.setCittadinanza("Italia");
-		g2.setComuneDiNascita("Dambel");
-		g2.setProvinciaDiNascita("TN");
-		g2.setStatoDiNascita("ITA");
+		g2.setCittadinanza(new Place("12","ITALIA",true));
+		g2.setPlaceOfBirth(DAMBEL);
 		fmgs.add(g2);
 
 		GroupHeadGuest g3 = new GroupHeadGuest();
@@ -147,11 +142,9 @@ public class FSDeclarationDao implements DeclarationDao {
 		g3.setName("Lapillo");
 		g3.setSurname("lupalini");
 		g3.setSex("TF");
-		g3.setCittadinanza("Italia");
-		g3.setComuneDiNascita("Dambel");
-		g3.setProvinciaDiNascita("TN");
-		g3.setStatoDiNascita("ITA");
-		g3.setDocumento(new Documento("e", "d", "c"));
+		g3.setCittadinanza(new Place("12","ITALIA",true));
+		g3.setPlaceOfBirth(DAMBEL);
+		g3.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", new Place("Falcade (BL)", "4000000", false)));
 
 		ArrayList<GroupMemberGuest> gmgs = new ArrayList<>();
 		GroupMemberGuest g4 = new GroupMemberGuest();
@@ -159,10 +152,8 @@ public class FSDeclarationDao implements DeclarationDao {
 		g4.setName("Marala");
 		g4.setSurname("Carlona");
 		g4.setSex("TF");
-		g4.setCittadinanza("Italia");
-		g4.setComuneDiNascita("Dambel");
-		g4.setProvinciaDiNascita("TN");
-		g4.setStatoDiNascita("ITA");
+		g4.setCittadinanza(new Place("12","ITALIA",true));
+		g4.setPlaceOfBirth(DAMBEL);
 		gmgs.add(g4);
 
 		g4 = new GroupMemberGuest();
@@ -170,10 +161,8 @@ public class FSDeclarationDao implements DeclarationDao {
 		g4.setName("Trullo");
 		g4.setSurname("frolliani");
 		g4.setSex("TF");
-		g4.setCittadinanza("Italia");
-		g4.setComuneDiNascita("Dambel");
-		g4.setProvinciaDiNascita("TN");
-		g4.setStatoDiNascita("ITA");
+		g4.setCittadinanza(new Place("12","ITALIA",true));
+		g4.setPlaceOfBirth(DAMBEL);
 		gmgs.add(g4);
 
 		SingleGuestCard SGC = new SingleGuestCard(g, new Date(), 5);
@@ -185,28 +174,20 @@ public class FSDeclarationDao implements DeclarationDao {
 
 		Declaration d;
 
-		for (int j = 0; j < 3; j++){
-			d = new Declaration(new Date(2016, 4, 1 + j*3));
-			for (int i = 0; i < 5; i++){
-				d.add(SGC);
-			}
-			this.insertDeclaration(d);
+		d = new Declaration(new Date(2016, 4, 1));
+		d.add(SGC);
+		this.insertDeclaration(d);
 
-			d = new Declaration(new Date(2016, 4,  1 + j*3 + 1));
-			for (int i = 0; i < 3; i++){
-				d.add(SGC);
-				d.add(FC);
-			}
-			this.insertDeclaration(d);
+		d = new Declaration(new Date(2016, 4, 2));
+		d.add(SGC);
+		d.add(FC);
+		this.insertDeclaration(d);
 
-			d = new Declaration(new Date(2016, 4, 1 + j*3 + 2));
-			for (int i = 0; i < 2; i++){
-				d.add(SGC);
-				d.add(GC);
-				d.add(FC);
-			}
-			this.insertDeclaration(d);
-		}
+		d = new Declaration(new Date(2016, 4, 3));
+		d.add(SGC);
+		d.add(FC);
+		d.add(GC);
+		this.insertDeclaration(d);
 
 		this.close();
 	}

@@ -12,7 +12,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Locale;
+
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.utils.CitizenshipRequest;
 import me.hypertesto.questeasy.utils.PlaceRequest;
@@ -29,6 +35,8 @@ public class PersonalDataFragment extends Fragment {
 	private RadioButton guest_sexMan;
 	private RadioButton guest_sexWoman;
 	private TextView guest_dateBirth;
+	private PlaceAutoCompleteAdapter birthPlaceAdapter;
+	private PlaceAutoCompleteAdapter citizenshipAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -63,7 +71,7 @@ public class PersonalDataFragment extends Fragment {
 		//Autocomplete luogo nascita
 		guestBirthPlace = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_luogoN_guest_form);
 		guestBirthPlace.setThreshold(1);
-		PlaceAutoCompleteAdapter birthPlaceAdapter = new PlaceAutoCompleteAdapter(getActivity(), new PlaceRequest());
+		birthPlaceAdapter = new PlaceAutoCompleteAdapter(getActivity(), new PlaceRequest());
 		guestBirthPlace.setAdapter(birthPlaceAdapter); // 'this' is Activity instance
 		guestBirthPlace.setLoadingIndicator(
 				(android.widget.ProgressBar) getView().findViewById(R.id.pb_loading_indicator_luogo));
@@ -78,7 +86,7 @@ public class PersonalDataFragment extends Fragment {
 		//Autocomplete cittadinanza
 		guest_citizenship = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_cittadinanza_guest_form);
 		guest_citizenship.setThreshold(1);
-		PlaceAutoCompleteAdapter citizenshipAdapter = new PlaceAutoCompleteAdapter(getActivity(), new CitizenshipRequest());
+		citizenshipAdapter = new PlaceAutoCompleteAdapter(getActivity(), new CitizenshipRequest());
 		guest_citizenship.setAdapter(citizenshipAdapter); // 'this' is Activity instance
 		guest_citizenship.setLoadingIndicator(
 				(android.widget.ProgressBar) getView().findViewById(R.id.pb_loading_indicator));
@@ -89,6 +97,54 @@ public class PersonalDataFragment extends Fragment {
 				guest_citizenship.setText(place);
 			}
 		});
+	}
+
+	public String getGuestName(){
+
+		return guest_name.getText().toString();
+
+	}
+
+	public String getSurname(){
+
+		return guest_surname.getText().toString();
+
+	}
+
+	public Date getDateofBirth() throws ParseException {
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+		return df.parse(guest_dateBirth.getText().toString());
+
+	}
+
+	public String getSex(){
+
+		if(guest_sexMan.isSelected()){
+			return "M";
+		} else if (guest_sexWoman.isSelected()){
+			return "F";
+		} else {
+			return "";
+		}
+
+	}
+
+	public Place getBirthPlace(){
+		if (birthPlaceAdapter.getCount() > 0) {
+			return birthPlaceAdapter.getItem(0);
+		} else {
+			return null; //TODO: should it return an initzialized empty place?
+		}
+
+	}
+
+	public Place getCittadinanza(){
+		if (citizenshipAdapter.getCount() > 0) {
+			return citizenshipAdapter.getItem(0);
+		} else {
+			return null; //TODO: null or Place?
+		}
+
 	}
 
 

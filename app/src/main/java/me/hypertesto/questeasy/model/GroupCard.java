@@ -24,7 +24,9 @@ public class GroupCard extends Card {
 
 	@Override
 	public boolean isComplete(){
-		if (!this.capoGruppo.isComplete()){
+		if (this.capoGruppo == null || !this.capoGruppo.isComplete()){
+			return false;
+		} else if (this.altri == null){
 			return false;
 		} else {
 			for (Guest gm : this.altri){
@@ -62,7 +64,7 @@ public class GroupCard extends Card {
 
 	@Override
 	public String getTitle(){
-		return "Nome comitiva";
+		return String.format("Gruppo %s", this.capoGruppo.getSurname());
 	}
 
 	@Override

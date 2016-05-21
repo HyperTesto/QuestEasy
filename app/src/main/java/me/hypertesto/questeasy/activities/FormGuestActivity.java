@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -16,12 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Date;
 
+import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
 import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
+import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
@@ -44,6 +49,11 @@ public class FormGuestActivity extends AppCompatActivity {
 
 	private final Intent resultIntent = new Intent();
 
+	private PermanenzaFragment fragmentPermanenza;
+	private PersonalDataFragment fragmentPersonal;
+	private DocumentDataFragment fragmentDocument;
+	private String guestType;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -59,82 +69,52 @@ public class FormGuestActivity extends AppCompatActivity {
 			//Guest esistente da editare; mostrare dati sul form
 		}
 
-		String guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
+		guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
 		System.out.println("*****Category" + guestType);
 		setTitle(guestType);
 
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		Fragment fragmentPermanenza = new PermanenzaFragment();
-		Fragment fragmentPersonal = new PersonalDataFragment();
-		Fragment fragmentDocument = new DocumentDataFragment();
+
+		fragmentPermanenza = new PermanenzaFragment();
+		fragmentPersonal = new PersonalDataFragment();
+		fragmentDocument = new DocumentDataFragment();
 
 		switch (guestType){
 			case Guest.type.SINGLE_GUEST:
-				SingleGuest sg = new SingleGuest();
-				sg.setName("Testo");
-				sg.setSurname("Lapo");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
-				System.out.println("wow");
-
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
-				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 5);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 			break;
 
 			case Guest.type.FAMILY_HEAD:
-				FamilyHeadGuest fhg = new FamilyHeadGuest();
-				fhg.setName("Kabobo");
-				fhg.setSurname("Mumingu");
-				fhg.setStatoDiNascita("Magreb"); //FIXME: use place class
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
-				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 7);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.FAMILY_MEMBER:
-				FamilyMemberGuest fmg = new FamilyMemberGuest();
-				fmg.setName("Kabunga");
-				fmg.setSurname("JungaLunga");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fmg);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.GROUP_HEAD:
-				GroupHeadGuest ghg = new GroupHeadGuest();
-				ghg.setName("Venerdì");
-				ghg.setSurname("Tonngabonga");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
-				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 9);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.GROUP_MEMBER:
-				GroupMemberGuest gmg = new GroupMemberGuest();
-				gmg.setName("Mokungo");
-				gmg.setSurname("Punto Ga");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			default:
@@ -170,6 +150,148 @@ public class FormGuestActivity extends AppCompatActivity {
 		int id = item.getItemId();
 
 		if (id == R.id.btnSaveForm){
+
+			Place p;
+			Documento d;
+
+			switch (guestType){
+				case Guest.type.SINGLE_GUEST:
+
+					SingleGuest sg = new SingleGuest();
+					sg.setName(fragmentPersonal.getGuestName());
+					sg.setSurname(fragmentPersonal.getSurname());
+
+					try {
+						sg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					sg.setSex(fragmentPersonal.getSex());
+					sg.setCittadinanza(fragmentPersonal.getCittadinanza());
+
+					p = fragmentPersonal.getBirthPlace();
+					sg.setPlaceOfBirth(p);
+
+					d = new Documento();
+					d.setDocType(fragmentDocument.getDocumentType());
+					d.setCodice(fragmentDocument.getDocumentNumber());
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
+					sg.setDocumento(d);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
+
+					break;
+
+				case Guest.type.FAMILY_HEAD:
+
+					FamilyHeadGuest fhg = new FamilyHeadGuest();
+					fhg.setName(fragmentPersonal.getGuestName());
+					fhg.setSurname(fragmentPersonal.getSurname());
+
+					try {
+						fhg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					fhg.setSex(fragmentPersonal.getSex());
+					fhg.setCittadinanza(fragmentPersonal.getCittadinanza());
+
+					p = fragmentPersonal.getBirthPlace();
+					fhg.setPlaceOfBirth(p);
+
+					d = new Documento();
+					d.setDocType(fragmentDocument.getDocumentType());
+					d.setCodice(fragmentDocument.getDocumentNumber());
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
+
+					fhg.setDocumento(d);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
+
+					break;
+
+				case Guest.type.FAMILY_MEMBER:
+
+					FamilyMemberGuest fmg = new FamilyMemberGuest();
+					fmg.setName(fragmentPersonal.getGuestName());
+					fmg.setSurname(fragmentPersonal.getGuestName());
+
+					try {
+						fmg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					fmg.setSex(fragmentPersonal.getSex());
+					fmg.setCittadinanza(fragmentPersonal.getCittadinanza());
+					p = fragmentPersonal.getBirthPlace();
+					fmg.setPlaceOfBirth(p);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fmg);
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
+
+					break;
+
+				case Guest.type.GROUP_HEAD:
+
+					GroupHeadGuest ghg = new GroupHeadGuest();
+					ghg.setName(fragmentPersonal.getGuestName());
+					ghg.setSurname(fragmentPersonal.getSurname());
+
+					try {
+						ghg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					ghg.setSex(fragmentPersonal.getSex());
+					ghg.setCittadinanza(fragmentPersonal.getCittadinanza());
+
+					p = fragmentPersonal.getBirthPlace();
+					ghg.setPlaceOfBirth(p);
+
+					d = new Documento();
+					d.setDocType(fragmentDocument.getDocumentType());
+					d.setCodice(fragmentDocument.getDocumentNumber());
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
+					ghg.setDocumento(d);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
+					break;
+
+				case Guest.type.GROUP_MEMBER:
+
+					GroupMemberGuest gmg = new GroupMemberGuest();
+					gmg.setName(fragmentPersonal.getGuestName());
+					gmg.setSurname(fragmentPersonal.getGuestName());
+
+					try {
+						gmg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					gmg.setSex(fragmentPersonal.getSex());
+					gmg.setCittadinanza(fragmentPersonal.getCittadinanza());
+					p = fragmentPersonal.getBirthPlace();
+					gmg.setPlaceOfBirth(p);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
+					break;
+
+				default:
+					throw new RuntimeException("Unhandled type of guest");
+			}
+
 			finish();
 		}
 

@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import me.hypertesto.questeasy.R;
 
@@ -36,6 +38,6 @@ public  class DatePickerFragment extends DialogFragment implements
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 			TextView dateBirth = (TextView)getActivity().findViewById
 					(R.id.editText_birthDate_guest_form);
-			dateBirth.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+			dateBirth.setText(String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear + 1, year));
 	}
 }

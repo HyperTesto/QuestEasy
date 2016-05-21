@@ -12,9 +12,9 @@ public abstract class MainGuest extends Guest {
 	public boolean isComplete() {
 		if (!super.isComplete()){
 			return false;
-		} else if (documento == null){
+		} else if (documento == null || !documento.isComplete()){
 				return false;
-			}
+		}
 
 		return true;
 	}

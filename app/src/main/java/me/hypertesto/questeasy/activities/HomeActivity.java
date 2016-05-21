@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
 						//menuItem.setChecked(true);
 						mDrawerLayout.closeDrawers();
 
-						switch(menuItem.getItemId()){
+						switch (menuItem.getItemId()) {
 							case R.id.nav_about:
 								// 1. Instantiate an AlertDialog.Builder with its constructor
 								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
@@ -88,17 +88,12 @@ public class HomeActivity extends AppCompatActivity {
 										});
 
 
-								/*View view = (View) LayoutInflater.from(HomeActivity.this).
-										inflate(R.layout.alert_dialog_home, null);
-
-								// 2. Chain together various setter methods to set the dialog characteristics
-								builder.setView(view);
-								*/
 								// 3. Get the AlertDialog from create()
 								AlertDialog dialog = builder.create();
 								dialog.show();
 								break;
-							default : break;
+							default:
+								break;
 						}
 						return true;
 					}
@@ -107,27 +102,8 @@ public class HomeActivity extends AppCompatActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
-		ArrayList<Declaration> items = new ArrayList<>();
-
-		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
-
-		fsd.clear();
-		fsd.populate();
-
-		fsd.open();
-
-		HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
-
-		for (Date k : decs.keySet()){
-			items.add(decs.get(k));
-		}
-
-		fsd.close();
 
 		lv = (ListView) findViewById(R.id.lvDichiarazioni);
-		adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
-		lv.setAdapter(adapter);
-
 		lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
 		lv.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -187,7 +163,8 @@ public class HomeActivity extends AppCompatActivity {
 					System.out.println(target.getDate());
 
 					Intent intent = new Intent(HomeActivity.this, EditDecActivity.class);
-					intent.putExtra(StaticGlobals.intentExtras.DECLARATION, target);
+					//intent.putExtra(StaticGlobals.intentExtras.DECLARATION, target);
+					intent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, target.getDate());
 
 					startActivity(intent);
 				}
@@ -196,19 +173,66 @@ public class HomeActivity extends AppCompatActivity {
 
 		lv.setTextFilterEnabled(true);
 
-		insertNewDcard = (FloatingActionButton)findViewById(R.id.fab);
-		insertNewDcard.setOnClickListener(new View.OnClickListener() {
+		insertNewDcard = (FloatingActionButton) findViewById(R.id.fab);
+
+		insertNewDcard.setOnClickListener(new View.OnClickListener(){
 			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this, EditDecActivity.class));
+			public void onClick(View v){
+				Intent newDecIntent = new Intent(HomeActivity.this, EditDecActivity.class);
+				Declaration newDec = new Declaration();
+				//TODO fare meglio: settare solo giorno/mese/anno o che ne so
+				Date date = new Date();
+
+				FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
+				fsd.open();
+				Declaration dec = fsd.getDeclarationByDate(date);
+
+				if (dec == null){
+					dec = new Declaration(date);
+				}
+
+				fsd.insertDeclaration(dec);
+
+				System.out.println(dec);
+
+				//newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION, dec);
+				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, dec.getDate());
+
+				startActivity(newDecIntent);
 			}
 		});
+
 		insertNewDcard.hide(false);
 
 		new FabAnimation(insertNewDcard, getApplicationContext());
 
 		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
+
+		fsd.clear();
+		fsd.populate();
+
+		fsd.open();
+
+		HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
+
+		ArrayList<Declaration> items = new ArrayList<>();
+
+		for (Date k : decs.keySet()){
+			items.add(decs.get(k));
+		}
+
+		fsd.close();
+
+		adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
+		lv.setAdapter(adapter);
 	}
 
 	@Override
