@@ -14,7 +14,7 @@ public abstract class MainGuest extends Guest {
 			return false;
 		} else if (documento == null){
 				return false;
-			}
+		}
 
 		return true;
 	}

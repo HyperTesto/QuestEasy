@@ -1,9 +1,13 @@
 package me.hypertesto.questeasy.model;
 
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
 /**
  * Created by rigel on 17/05/16.
  */
-public class Place implements Comparable<Place> {
+public class Place implements Comparable<Place>, Serializable {
 	private String id;
 	private String name;
 	private boolean state;
@@ -20,8 +24,18 @@ public class Place implements Comparable<Place> {
 		this.state = state;
 	}
 
+	public boolean isComplete(){
+		if (this.id == null || this.id.equals("")){
+			return false;
+		} else if (this.name == null || this.name.equals("")){
+			return false;
+		}
+
+		return true;
+	}
+
 	@Override
-	public int compareTo(Place another){
+	public int compareTo(@NonNull Place another){
 		return this.name.compareTo(another.getName());
 	}
 

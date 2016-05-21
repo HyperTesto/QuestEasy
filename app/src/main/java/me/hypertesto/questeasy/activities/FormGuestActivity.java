@@ -100,7 +100,6 @@ public class FormGuestActivity extends AppCompatActivity {
 				FamilyHeadGuest fhg = new FamilyHeadGuest();
 				fhg.setName("Kabobo");
 				fhg.setSurname("Mumingu");
-				fhg.setStatoDiNascita("Magreb"); //FIXME: use place class
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
@@ -197,7 +196,10 @@ public class FormGuestActivity extends AppCompatActivity {
 					sg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
 					Place p = fragmentPersonal.getBirthPlace();
 
+					sg.setPlaceOfBirth(p);
+
 					//FIXME: bad bad bad very bad...
+					/*
 					if (p.isState()){
 						//allog.comuneNascita.length()-3, allog.comuneNascita.length()-1)
 						sg.setStatoDiNascita(p.getName());
@@ -206,6 +208,7 @@ public class FormGuestActivity extends AppCompatActivity {
 						sg.setProvinciaDiNascita(p.getName().substring(p.getName().length()-3,p.getName().length()-1));
 						sg.setStatoDiNascita("ITALIA");
 					}
+					*/
 
 					Documento d = new Documento();
 					d.setTipo("");	//TODO: align with new wrapper class

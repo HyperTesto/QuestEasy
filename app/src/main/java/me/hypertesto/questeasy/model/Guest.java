@@ -15,9 +15,7 @@ public abstract class Guest implements Serializable{
 	protected String surname;
 	protected Date birthDate;
 	protected String sex;
-	protected String comuneDiNascita;
-	protected String provinciaDiNascita;
-	protected String statoDiNascita;
+	protected Place placeOfBirth;
 	protected String cittadinanza;
 
 	public static final class type {
@@ -37,11 +35,7 @@ public abstract class Guest implements Serializable{
 			return false;
 		} else if (this.sex == null || this.sex.equals("")){
 			return false;
-		} else if (this.comuneDiNascita == null || this.comuneDiNascita.equals("")){
-			return false;
-		} else if (this.provinciaDiNascita == null || this.provinciaDiNascita.equals("")){
-			return false;
-		} else if (this.statoDiNascita == null || this.statoDiNascita.equals("")){
+		} else if (!this.placeOfBirth.isComplete()){
 			return false;
 		} else if (this.cittadinanza == null || this.cittadinanza.equals("")){
 			return false;
@@ -82,28 +76,12 @@ public abstract class Guest implements Serializable{
 		this.sex = sex;
 	}
 
-	public String getComuneDiNascita() {
-		return comuneDiNascita;
+	public Place getPlaceOfBirth(){
+		return placeOfBirth;
 	}
 
-	public void setComuneDiNascita(String comuneDiNascita) {
-		this.comuneDiNascita = comuneDiNascita;
-	}
-
-	public String getProvinciaDiNascita() {
-		return provinciaDiNascita;
-	}
-
-	public void setProvinciaDiNascita(String provinciaDiNascita) {
-		this.provinciaDiNascita = provinciaDiNascita;
-	}
-
-	public String getStatoDiNascita() {
-		return statoDiNascita;
-	}
-
-	public void setStatoDiNascita(String statoDiNascita) {
-		this.statoDiNascita = statoDiNascita;
+	public void setPlaceOfBirth(Place placeOfBirth){
+		this.placeOfBirth = placeOfBirth;
 	}
 
 	public String getCittadinanza() {
