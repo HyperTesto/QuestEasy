@@ -133,7 +133,7 @@ public class PersonalDataFragment extends Fragment {
 		if (birthPlaceAdapter.getCount() > 0) {
 			return birthPlaceAdapter.getItem(0);
 		} else {
-			return null; //TODO: should it return an initzialized empty place?
+			return new Place(); //TODO: should it return an initzialized empty place?
 		}
 
 	}
@@ -142,7 +142,7 @@ public class PersonalDataFragment extends Fragment {
 		if (citizenshipAdapter.getCount() > 0) {
 			return citizenshipAdapter.getItem(0);
 		} else {
-			return null; //TODO: null or Place?
+			return new Place(); //TODO: null or Place?
 		}
 
 	}

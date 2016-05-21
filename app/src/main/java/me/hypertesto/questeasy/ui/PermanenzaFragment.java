@@ -40,6 +40,6 @@ public class PermanenzaFragment extends Fragment {
 	}
 
 	public int getPermanenza(){
-		return Integer.parseInt(permTextView.getText().toString());
+		return Integer.parseInt(permTextView.getText().toString()); //FIXME: crash when left empty in form
 	}
 }
