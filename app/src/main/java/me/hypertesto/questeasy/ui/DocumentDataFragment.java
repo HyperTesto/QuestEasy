@@ -87,10 +87,20 @@ public class DocumentDataFragment extends Fragment {
 	}
 
 	public DocumentType getDocumentType(){
-		return docTypeAdapter.getItem(0);
+		if (docTypeAdapter.getCount() > 0) {
+			return docTypeAdapter.getItem(0);
+		} else {
+			return null; //TODO
+		}
+
 	}
 
 	public Place getDocumentReleasePlace(){
-		return releasePlaceAdapter.getItem(0);
+		if (releasePlaceAdapter.getCount() > 0) {
+			return releasePlaceAdapter.getItem(0);
+		} else {
+			return null; //TODO
+		}
+
 	}
 }

@@ -130,11 +130,21 @@ public class PersonalDataFragment extends Fragment {
 	}
 
 	public Place getBirthPlace(){
-		return birthPlaceAdapter.getItem(0);
+		if (birthPlaceAdapter.getCount() > 0) {
+			return birthPlaceAdapter.getItem(0);
+		} else {
+			return null; //TODO: should it return an initzialized empty place?
+		}
+
 	}
 
 	public Place getCittadinanza(){
-		return citizenshipAdapter.getItem(0);
+		if (citizenshipAdapter.getCount() > 0) {
+			return citizenshipAdapter.getItem(0);
+		} else {
+			return null; //TODO: null or Place?
+		}
+
 	}
 
 
