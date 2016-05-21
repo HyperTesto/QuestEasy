@@ -81,69 +81,39 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		switch (guestType){
 			case Guest.type.SINGLE_GUEST:
-				SingleGuest sg = new SingleGuest();
-				sg.setName("Testo");
-				sg.setSurname("Lapo");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
-				System.out.println("wow");
-
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
-				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 5);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 			break;
 
 			case Guest.type.FAMILY_HEAD:
-				FamilyHeadGuest fhg = new FamilyHeadGuest();
-				fhg.setName("Kabobo");
-				fhg.setSurname("Mumingu");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
-				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 7);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.FAMILY_MEMBER:
-				FamilyMemberGuest fmg = new FamilyMemberGuest();
-				fmg.setName("Kabunga");
-				fmg.setSurname("JungaLunga");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fmg);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.GROUP_HEAD:
-				GroupHeadGuest ghg = new GroupHeadGuest();
-				ghg.setName("Venerdì");
-				ghg.setSurname("Tonngabonga");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
 
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
-				resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, 9);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			case Guest.type.GROUP_MEMBER:
-				GroupMemberGuest gmg = new GroupMemberGuest();
-				gmg.setName("Mokungo");
-				gmg.setSurname("Punto Ga");
 
 				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
 
-				resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
-				setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 				break;
 
 			default:
@@ -186,64 +156,140 @@ public class FormGuestActivity extends AppCompatActivity {
 					SingleGuest sg = new SingleGuest();
 					sg.setName(fragmentPersonal.getGuestName());
 					sg.setSurname(fragmentPersonal.getSurname());
+
 					try {
 						sg.setBirthDate(fragmentPersonal.getDateofBirth());
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
+
 					sg.setSex(fragmentPersonal.getSex());
 					//FIXME: change model to use place?
 					sg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
-					Place p = fragmentPersonal.getBirthPlace();
 
+					Place p = fragmentPersonal.getBirthPlace();
 					sg.setPlaceOfBirth(p);
 
-					//FIXME: bad bad bad very bad...
-					/*
-					if (p.isState()){
-						//allog.comuneNascita.length()-3, allog.comuneNascita.length()-1)
-						sg.setStatoDiNascita(p.getName());
-					} else {
-						sg.setComuneDiNascita(p.getName().substring(0,p.getName().length()-5).trim());
-						sg.setProvinciaDiNascita(p.getName().substring(p.getName().length()-3,p.getName().length()-1));
-						sg.setStatoDiNascita("ITALIA");
-					}
-					*/
-
 					Documento d = new Documento();
-
 					d.setDocType(fragmentDocument.getDocumentType());
 					d.setCodice(fragmentDocument.getDocumentNumber());
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
-
 					sg.setDocumento(d);
 
 					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
 					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
+
 					break;
 
 				case Guest.type.FAMILY_HEAD:
+
+					FamilyHeadGuest fhg = new FamilyHeadGuest();
+					fhg.setName(fragmentPersonal.getGuestName());
+					fhg.setSurname(fragmentPersonal.getSurname());
+
+					try {
+						fhg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					fhg.setSex(fragmentPersonal.getSex());
+					//FIXME: change model to use place?
+					fhg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+
+					Place p = fragmentPersonal.getBirthPlace();
+					fhg.setPlaceOfBirth(p);
+
+					Documento d = new Documento();
+					d.setDocType(fragmentDocument.getDocumentType());
+					d.setCodice(fragmentDocument.getDocumentNumber());
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
+
+					fhg.setDocumento(d);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 
 					break;
 
 				case Guest.type.FAMILY_MEMBER:
 
+					FamilyMemberGuest fmg = new FamilyMemberGuest();
+					fmg.setName(fragmentPersonal.getGuestName());
+					fmg.setSurname(fragmentPersonal.getGuestName());
+					try {
+						fmg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					fmg.setSex(fragmentPersonal.getSex());
+					//FIXME: change model to use place?
+					fmg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+					Place p = fragmentPersonal.getBirthPlace();
+					fmg.setPlaceOfBirth(p);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
+
 					break;
 
 				case Guest.type.GROUP_HEAD:
 
+					GroupHeadGuest ghg = new GroupHeadGuest();
+					ghg.setName(fragmentPersonal.getGuestName());
+					ghg.setSurname(fragmentPersonal.getSurname());
+
+					try {
+						ghg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					ghg.setSex(fragmentPersonal.getSex());
+					//FIXME: change model to use place?
+					ghg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+
+					Place p = fragmentPersonal.getBirthPlace();
+					ghg.setPlaceOfBirth(p);
+
+					Documento d = new Documento();
+					d.setDocType(fragmentDocument.getDocumentType());
+					d.setCodice(fragmentDocument.getDocumentNumber());
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
+					ghg.setDocumento(d);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 					break;
 
 				case Guest.type.GROUP_MEMBER:
 
+					FamilyMemberGuest gmg = new FamilyMemberGuest();
+					gmg.setName(fragmentPersonal.getGuestName());
+					gmg.setSurname(fragmentPersonal.getGuestName());
+
+					try {
+						gmg.setBirthDate(fragmentPersonal.getDateofBirth());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					gmg.setSex(fragmentPersonal.getSex());
+					//FIXME: change model to use place?
+					gmg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+					Place p = fragmentPersonal.getBirthPlace();
+					gmg.setPlaceOfBirth(p);
+
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
+					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 					break;
 
 				default:
 					throw new RuntimeException("Unhandled type of guest");
 			}
-			//FIXME bugged, it's called even with secondary mebers
-			//resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA,fragmentPermanenza.getPermanenza());
 
 			finish();
 		}
