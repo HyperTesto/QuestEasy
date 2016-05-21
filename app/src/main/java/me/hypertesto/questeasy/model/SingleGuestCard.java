@@ -23,6 +23,10 @@ public class SingleGuestCard extends Card {
 
 	@Override
 	public boolean isComplete() {
+		if (this.guest == null){
+			return false;
+		}
+
 		return this.guest.isComplete();
 	}
 

@@ -19,6 +19,18 @@ public class Documento implements Serializable{
 		this.luogoRilascio = luogoRilascio;
 	}
 
+	public boolean isComplete(){
+		if (this.docType == null || !this.docType.isComplete()){
+			return false;
+		} else if (this.codice == null || this.codice.equals("")){
+			return false;
+		} else if (this.luogoRilascio == null || this.luogoRilascio.equals("")){
+			return false;
+		}
+
+		return true;
+	}
+
 	public String getCodice() {
 		return codice;
 	}

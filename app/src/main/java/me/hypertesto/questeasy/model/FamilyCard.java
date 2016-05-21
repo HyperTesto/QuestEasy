@@ -24,7 +24,9 @@ public class FamilyCard extends Card {
 
 	@Override
 	public boolean isComplete(){
-		if (!this.capoFamiglia.isComplete()){
+		if (this.capoFamiglia == null || !this.capoFamiglia.isComplete()){
+			return false;
+		} else if (this.familiari == null){
 			return false;
 		} else {
 			for (Guest fm : this.familiari){
