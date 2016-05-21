@@ -35,7 +35,7 @@ public abstract class Guest implements Serializable{
 			return false;
 		} else if (this.sex == null || this.sex.equals("")){
 			return false;
-		} else if (!this.placeOfBirth.isComplete()){
+		} else if (this.placeOfBirth == null || !this.placeOfBirth.isComplete()){
 			return false;
 		} else if (this.cittadinanza == null || this.cittadinanza.equals("")){
 			return false;
