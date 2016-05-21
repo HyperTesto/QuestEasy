@@ -16,7 +16,7 @@ public abstract class Guest implements Serializable{
 	protected Date birthDate;
 	protected String sex;
 	protected Place placeOfBirth;
-	protected String cittadinanza;
+	protected Place cittadinanza;
 
 	public static final class type {
 		public static final String SINGLE_GUEST = "Ospite Singolo";
@@ -37,7 +37,7 @@ public abstract class Guest implements Serializable{
 			return false;
 		} else if (this.placeOfBirth == null || !this.placeOfBirth.isComplete()){
 			return false;
-		} else if (this.cittadinanza == null || this.cittadinanza.equals("")){
+		} else if (this.cittadinanza == null || !this.cittadinanza.isComplete()){
 			return false;
 		}
 
@@ -84,11 +84,11 @@ public abstract class Guest implements Serializable{
 		this.placeOfBirth = placeOfBirth;
 	}
 
-	public String getCittadinanza() {
+	public Place getCittadinanza() {
 		return cittadinanza;
 	}
 
-	public void setCittadinanza(String cittadinanza) {
+	public void setCittadinanza(Place cittadinanza) {
 		this.cittadinanza = cittadinanza;
 	}
 }

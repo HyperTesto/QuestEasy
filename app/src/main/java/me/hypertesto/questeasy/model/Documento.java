@@ -9,11 +9,11 @@ public class Documento implements Serializable{
 
 	private DocumentType docType;
 	private String codice;
-	private String luogoRilascio;
+	private Place luogoRilascio;
 
 	public Documento(){}
 
-	public Documento(DocumentType docType, String codice, String luogoRilascio) {
+	public Documento(DocumentType docType, String codice, Place luogoRilascio) {
 		this.docType = docType;
 		this.codice = codice;
 		this.luogoRilascio = luogoRilascio;
@@ -24,7 +24,7 @@ public class Documento implements Serializable{
 			return false;
 		} else if (this.codice == null || this.codice.equals("")){
 			return false;
-		} else if (this.luogoRilascio == null || this.luogoRilascio.equals("")){
+		} else if (this.luogoRilascio == null || !this.luogoRilascio.isComplete()){
 			return false;
 		}
 
@@ -39,11 +39,11 @@ public class Documento implements Serializable{
 		this.codice = codice;
 	}
 
-	public String getLuogoRilascio() {
+	public Place getLuogoRilascio() {
 		return luogoRilascio;
 	}
 
-	public void setLuogoRilascio(String luogoRilascio) {
+	public void setLuogoRilascio(Place luogoRilascio) {
 		this.luogoRilascio = luogoRilascio;
 	}
 
