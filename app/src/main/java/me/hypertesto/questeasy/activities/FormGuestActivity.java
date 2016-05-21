@@ -150,7 +150,6 @@ public class FormGuestActivity extends AppCompatActivity {
 		int id = item.getItemId();
 
 		if (id == R.id.btnSaveForm){
-			//TODO: get fragments data ad set class attributes
 
 			Place p;
 			Documento d;
@@ -169,8 +168,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					}
 
 					sg.setSex(fragmentPersonal.getSex());
-					//FIXME: change model to use place?
-					sg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+					sg.setCittadinanza(fragmentPersonal.getCittadinanza());
 
 					p = fragmentPersonal.getBirthPlace();
 					sg.setPlaceOfBirth(p);
@@ -178,7 +176,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					d = new Documento();
 					d.setDocType(fragmentDocument.getDocumentType());
 					d.setCodice(fragmentDocument.getDocumentNumber());
-					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
 					sg.setDocumento(d);
 
 					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
@@ -200,8 +198,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					}
 
 					fhg.setSex(fragmentPersonal.getSex());
-					//FIXME: change model to use place?
-					fhg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+					fhg.setCittadinanza(fragmentPersonal.getCittadinanza());
 
 					p = fragmentPersonal.getBirthPlace();
 					fhg.setPlaceOfBirth(p);
@@ -209,7 +206,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					d = new Documento();
 					d.setDocType(fragmentDocument.getDocumentType());
 					d.setCodice(fragmentDocument.getDocumentNumber());
-					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
 
 					fhg.setDocumento(d);
 
@@ -224,14 +221,15 @@ public class FormGuestActivity extends AppCompatActivity {
 					FamilyMemberGuest fmg = new FamilyMemberGuest();
 					fmg.setName(fragmentPersonal.getGuestName());
 					fmg.setSurname(fragmentPersonal.getGuestName());
+
 					try {
 						fmg.setBirthDate(fragmentPersonal.getDateofBirth());
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
+
 					fmg.setSex(fragmentPersonal.getSex());
-					//FIXME: change model to use place?
-					fmg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+					fmg.setCittadinanza(fragmentPersonal.getCittadinanza());
 					p = fragmentPersonal.getBirthPlace();
 					fmg.setPlaceOfBirth(p);
 
@@ -253,8 +251,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					}
 
 					ghg.setSex(fragmentPersonal.getSex());
-					//FIXME: change model to use place?
-					ghg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+					ghg.setCittadinanza(fragmentPersonal.getCittadinanza());
 
 					p = fragmentPersonal.getBirthPlace();
 					ghg.setPlaceOfBirth(p);
@@ -262,7 +259,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					d = new Documento();
 					d.setDocType(fragmentDocument.getDocumentType());
 					d.setCodice(fragmentDocument.getDocumentNumber());
-					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
+					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
 					ghg.setDocumento(d);
 
 					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
@@ -283,8 +280,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					}
 
 					gmg.setSex(fragmentPersonal.getSex());
-					//FIXME: change model to use place?
-					gmg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
+					gmg.setCittadinanza(fragmentPersonal.getCittadinanza());
 					p = fragmentPersonal.getBirthPlace();
 					gmg.setPlaceOfBirth(p);
 
