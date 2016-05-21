@@ -208,7 +208,8 @@ public class FormGuestActivity extends AppCompatActivity {
 					}
 
 					Documento d = new Documento();
-					d.setTipo("");	//TODO: align with new wrapper class
+
+					d.setDocType(fragmentDocument.getDocumentType());
 					d.setCodice(fragmentDocument.getDocumentNumber());
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
 
