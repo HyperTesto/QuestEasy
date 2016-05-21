@@ -30,4 +30,7 @@ public class DocumentType implements Comparable<DocumentType> {
 	public int compareTo(DocumentType another) {
 		return this.name.compareTo(another.getName());
 	}
+
+	@Override
+	public String toString() { return this.name; }
 }
