@@ -13,7 +13,7 @@ public class Documento implements Serializable{
 	private String codice;
 	private String luogoRilascio;
 
-	public Documento(){};
+	public Documento(){}
 
 	public Documento(String tipo, String codice, String luogoRilascio){
 		this.tipo = tipo;
