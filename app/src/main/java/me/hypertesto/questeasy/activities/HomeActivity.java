@@ -159,7 +159,7 @@ public class HomeActivity extends AppCompatActivity {
 					System.out.println(target.getDate());
 
 					Intent intent = new Intent(HomeActivity.this, EditDecActivity.class);
-					intent.putExtra(StaticGlobals.intentExtras.DECLARATION, target);
+					//intent.putExtra(StaticGlobals.intentExtras.DECLARATION, target);
 					intent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, target.getDate());
 
 					startActivity(intent);
@@ -191,7 +191,7 @@ public class HomeActivity extends AppCompatActivity {
 
 				System.out.println(dec);
 
-				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION, dec);
+				//newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION, dec);
 				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, dec.getDate());
 
 				startActivity(newDecIntent);

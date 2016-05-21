@@ -100,13 +100,17 @@ public class EditDecActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 
-		this.displayed = new Declaration();
+		//ArrayList<Card> d = (ArrayList<Card>) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
+		//this.displayed = new Declaration();
+		//this.displayed.setDate(date);
+		//this.displayed.addAll(d);
 
 		Date date = (Date) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION_DATE);
-		ArrayList<Card> d = (ArrayList<Card>) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
 
-		this.displayed.setDate(date);
-		this.displayed.addAll(d);
+		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
+		fsd.open();
+		this.displayed = fsd.getDeclarationByDate(date);
+		fsd.close();
 
 		this.updateList();
 
