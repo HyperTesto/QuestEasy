@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -150,6 +151,10 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		if (id == R.id.btnSaveForm){
 			//TODO: get fragments data ad set class attributes
+
+			Place p;
+			Documento d;
+
 			switch (guestType){
 				case Guest.type.SINGLE_GUEST:
 
@@ -167,10 +172,10 @@ public class FormGuestActivity extends AppCompatActivity {
 					//FIXME: change model to use place?
 					sg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
 
-					Place p = fragmentPersonal.getBirthPlace();
+					p = fragmentPersonal.getBirthPlace();
 					sg.setPlaceOfBirth(p);
 
-					Documento d = new Documento();
+					d = new Documento();
 					d.setDocType(fragmentDocument.getDocumentType());
 					d.setCodice(fragmentDocument.getDocumentNumber());
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
@@ -198,10 +203,10 @@ public class FormGuestActivity extends AppCompatActivity {
 					//FIXME: change model to use place?
 					fhg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
 
-					Place p = fragmentPersonal.getBirthPlace();
+					p = fragmentPersonal.getBirthPlace();
 					fhg.setPlaceOfBirth(p);
 
-					Documento d = new Documento();
+					d = new Documento();
 					d.setDocType(fragmentDocument.getDocumentType());
 					d.setCodice(fragmentDocument.getDocumentNumber());
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
@@ -227,10 +232,10 @@ public class FormGuestActivity extends AppCompatActivity {
 					fmg.setSex(fragmentPersonal.getSex());
 					//FIXME: change model to use place?
 					fmg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
-					Place p = fragmentPersonal.getBirthPlace();
+					p = fragmentPersonal.getBirthPlace();
 					fmg.setPlaceOfBirth(p);
 
-					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fmg);
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 
 					break;
@@ -251,10 +256,10 @@ public class FormGuestActivity extends AppCompatActivity {
 					//FIXME: change model to use place?
 					ghg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
 
-					Place p = fragmentPersonal.getBirthPlace();
+					p = fragmentPersonal.getBirthPlace();
 					ghg.setPlaceOfBirth(p);
 
-					Documento d = new Documento();
+					d = new Documento();
 					d.setDocType(fragmentDocument.getDocumentType());
 					d.setCodice(fragmentDocument.getDocumentNumber());
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace().getName()); //TODO: we should se a place
@@ -280,7 +285,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					gmg.setSex(fragmentPersonal.getSex());
 					//FIXME: change model to use place?
 					gmg.setCittadinanza(fragmentPersonal.getCittadinanza().getName());
-					Place p = fragmentPersonal.getBirthPlace();
+					p = fragmentPersonal.getBirthPlace();
 					gmg.setPlaceOfBirth(p);
 
 					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
