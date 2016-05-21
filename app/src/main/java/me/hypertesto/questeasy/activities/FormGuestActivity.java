@@ -272,7 +272,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 				case Guest.type.GROUP_MEMBER:
 
-					FamilyMemberGuest gmg = new FamilyMemberGuest();
+					GroupMemberGuest gmg = new GroupMemberGuest();
 					gmg.setName(fragmentPersonal.getGuestName());
 					gmg.setSurname(fragmentPersonal.getGuestName());
 
