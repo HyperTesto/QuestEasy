@@ -59,7 +59,7 @@ public class GroupListAdapter extends ArrayAdapter<Guest>{
 		ColorGenerator generator = ColorGenerator.MATERIAL;
 		int color = generator.getRandomColor();
 		TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getName().substring(0,1),
-				color, 100);
+				color, 100); //FIXME: and on empty name?
 		typeImg.setImageDrawable(drawable);
 
 
