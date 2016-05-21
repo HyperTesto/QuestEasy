@@ -105,18 +105,18 @@ public class FSDeclarationDao implements DeclarationDao {
 		g.setName("Paolo");
 		g.setSurname("Rossi");
 		g.setSex("MF");
-		g.setCittadinanza("Italia");
+		g.setCittadinanza(new Place("12","ITALIA",true));
 		g.setPlaceOfBirth(DAMBEL);
-		g.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "b", "c"));
+		g.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "b", new Place("Falcade (BL)", "4000000", false)));
 
 		FamilyHeadGuest g1 = new FamilyHeadGuest();
 		g1.setBirthDate(new Date());
 		g1.setName("Manilo");
 		g1.setSurname("Carlini");
 		g1.setSex("TF");
-		g1.setCittadinanza("Italia");
+		g1.setCittadinanza(new Place("12","ITALIA",true));
 		g1.setPlaceOfBirth(DAMBEL);
-		g1.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", "c"));
+		g1.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", new Place("Falcade (BL)", "4000000", false)));
 
 		ArrayList<FamilyMemberGuest> fmgs = new ArrayList<>();
 		FamilyMemberGuest g2 = new FamilyMemberGuest();
@@ -124,7 +124,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g2.setName("Carlo");
 		g2.setSurname("Carlini");
 		g2.setSex("TF");
-		g2.setCittadinanza("Italia");
+		g2.setCittadinanza(new Place("12","ITALIA",true));
 		g2.setPlaceOfBirth(DAMBEL);
 		fmgs.add(g2);
 
@@ -133,7 +133,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g2.setName("Rallo");
 		g2.setSurname("Lorlini");
 		g2.setSex("TF");
-		g2.setCittadinanza("Italia");
+		g2.setCittadinanza(new Place("12","ITALIA",true));
 		g2.setPlaceOfBirth(DAMBEL);
 		fmgs.add(g2);
 
@@ -142,9 +142,9 @@ public class FSDeclarationDao implements DeclarationDao {
 		g3.setName("Lapillo");
 		g3.setSurname("lupalini");
 		g3.setSex("TF");
-		g3.setCittadinanza("Italia");
+		g3.setCittadinanza(new Place("12","ITALIA",true));
 		g3.setPlaceOfBirth(DAMBEL);
-		g3.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", "c"));
+		g3.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", new Place("Falcade (BL)", "4000000", false)));
 
 		ArrayList<GroupMemberGuest> gmgs = new ArrayList<>();
 		GroupMemberGuest g4 = new GroupMemberGuest();
@@ -152,7 +152,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g4.setName("Marala");
 		g4.setSurname("Carlona");
 		g4.setSex("TF");
-		g4.setCittadinanza("Italia");
+		g4.setCittadinanza(new Place("12","ITALIA",true));
 		g4.setPlaceOfBirth(DAMBEL);
 		gmgs.add(g4);
 
@@ -161,7 +161,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		g4.setName("Trullo");
 		g4.setSurname("frolliani");
 		g4.setSex("TF");
-		g4.setCittadinanza("Italia");
+		g4.setCittadinanza(new Place("12","ITALIA",true));
 		g4.setPlaceOfBirth(DAMBEL);
 		gmgs.add(g4);
 
