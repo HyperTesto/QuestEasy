@@ -1,6 +1,7 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,11 +11,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -47,6 +53,11 @@ public class EditDecActivity extends AppCompatActivity {
 	private FloatingActionButton groupFab;
 	private FloatingActionButton familyFab;
 	private int mPreviousVisibleItem;
+	private RelativeLayout itemContainer;
+	private Animation flipAnim;
+	private Animation flipAnimReverse;
+	private ImageView letterImage;
+	private int previousColor;
 
 
 	@Override
@@ -97,6 +108,9 @@ public class EditDecActivity extends AppCompatActivity {
 		singlefab = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
 		groupFab = (FloatingActionButton) findViewById(R.id.categoryGuestGroupGo);
 		familyFab = (FloatingActionButton) findViewById(R.id.categoryGuestFamilyGo);
+		flipAnim = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
+		flipAnimReverse = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
+
 
 		ArrayList<Card> items = new ArrayList<>();
 
@@ -119,7 +133,55 @@ public class EditDecActivity extends AppCompatActivity {
 		fabMenu.hideMenuButton(false);
 
 		new FabAnimation(fabMenu, getApplicationContext());
+		flipAnim.setAnimationListener(new Animation.AnimationListener() {
 
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				TextDrawable textDrawable = (TextDrawable) letterImage.getDrawable();
+				previousColor = textDrawable.getPaint().getColor();
+				//TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
+				//color, 100);
+				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
+				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
+				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
+				textDrawable.setTint(getResources().getColor(R.color.background_bar));
+				letterImage.setImageDrawable(textDrawable);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
+
+		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				TextDrawable textDrawable = (TextDrawable) letterImage.getDrawable();
+				//TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
+				//color, 100);
+				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
+				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
+				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
+				textDrawable.setTint(previousColor);
+				letterImage.setImageDrawable(textDrawable);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
 
 		listView.setOnScrollListener(new ListScrollListener(fabMenu));
 
@@ -178,6 +240,15 @@ public class EditDecActivity extends AppCompatActivity {
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
+
+				itemContainer = (RelativeLayout)listView.getChildAt(position);
+				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);
+				if (checked){
+					letterImage.startAnimation(flipAnim);
+				}
+				else{
+					letterImage.startAnimation(flipAnimReverse);
+				}
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
