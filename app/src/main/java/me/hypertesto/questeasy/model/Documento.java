@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 /**
  * Created by rigel on 03/05/16.
+ * TODO: migrate tipo to docType
  */
 public class Documento implements Serializable{
+
+	private DocumentType docType;
 	private String tipo;
 	private String codice;
 	private String luogoRilascio;
@@ -40,5 +43,13 @@ public class Documento implements Serializable{
 
 	public void setLuogoRilascio(String luogoRilascio) {
 		this.luogoRilascio = luogoRilascio;
+	}
+
+	public DocumentType getDocType() {
+		return docType;
+	}
+
+	public void setDocType(DocumentType docType) {
+		this.docType = docType;
 	}
 }
