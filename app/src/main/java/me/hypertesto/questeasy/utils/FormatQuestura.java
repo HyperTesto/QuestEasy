@@ -12,13 +12,17 @@ import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.DocumentType;
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyCard;
+import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupCard;
+import me.hypertesto.questeasy.model.GroupHeadGuest;
+import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 
 /**
  * Created by hypertesto on 23/05/16.
+ * Static class that converts a Declaration into Questura specification
  */
 public class FormatQuestura {
 
@@ -93,7 +97,86 @@ public class FormatQuestura {
 		res += df.format(sg.getBirthDate());
 
 		//Setting luogo et other balles is a bit more 'na rottura
-		Place p = sg.getPlaceOfBirth();
+		res += formatPlaceOfBirth(sg.getPlaceOfBirth());
+
+		Place cita = sg.getCittadinanza(); //banana, box
+		res += cita.getId();
+
+		res += sg.getDocumento().getDocType().getCode();
+		res += padRight(sg.getDocumento().getCodice(),20);
+		res += sg.getDocumento().getLuogoRilascio().getId();
+		Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
+		res+= "\n";
+		return res;
+
+	}
+
+	private static String formatGroup(GroupCard gc) {
+		String res = "";
+
+		GroupHeadGuest ghg = gc.getCapoGruppo();
+		res += GroupHeadGuest.CODICE;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		res += df.format(gc.getDate());
+		res += String.format("%02d", gc.getPermanenza());
+		res += padRight(ghg.getSurname().trim().toUpperCase(),50);
+		res += padRight(ghg.getName().trim().toUpperCase(),30);
+		res += ghg.getSex().equals("M") ? 1 : 2;
+		res += df.format(ghg.getBirthDate());
+
+		//Setting luogo et other balles is a bit more 'na rottura
+		res += formatPlaceOfBirth(ghg.getPlaceOfBirth());
+
+		Place cita = ghg.getCittadinanza(); //banana, box
+		res += cita.getId();
+
+		res += ghg.getDocumento().getDocType().getCode();
+		res += padRight(ghg.getDocumento().getCodice(),20);
+		res += ghg.getDocumento().getLuogoRilascio().getId();
+		Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
+		res += "\n";
+
+
+		for (GroupMemberGuest gmg : gc.getAltri()){
+			res += formatGroupMember(gmg, gc.getDate(), gc.getPermanenza());
+			res += "\n";
+		}
+		return "";
+	}
+
+	private static String formatGroupMember(GroupMemberGuest gmg, Date arrivo, int permanenza) {
+		String res = "";
+
+		res += GroupMemberGuest.CODICE;
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		res += df.format(arrivo);
+		res += String.format("%02d", permanenza);
+		res += padRight(gmg.getSurname().trim().toUpperCase(),50);
+		res += padRight(gmg.getName().trim().toUpperCase(),30);
+		res += gmg.getSex().equals("M") ? 1 : 2;
+		res += df.format(gmg.getBirthDate());
+
+		//Setting luogo et other balles is a bit more 'na rottura
+		res += formatPlaceOfBirth(gmg.getPlaceOfBirth());
+
+		Place cita = gmg.getCittadinanza(); //banana, box
+		res += cita.getId();
+		res += "\n";
+
+		return res;
+	}
+
+	private static String formatFamily (FamilyCard fc) {
+		return "";
+	}
+
+	private static String formatFamilyMember (FamilyMemberGuest fmg) {
+		return "";
+	}
+
+	private static String formatPlaceOfBirth(Place p) {
+
+		String res = "";
 		if (p.isState()){
 			res += padRight("",9);
 			res += padRight("",2);
@@ -103,14 +186,6 @@ public class FormatQuestura {
 			res += p.getProvincia();
 			res += "100000100";
 		}
-
-		Place cita = sg.getCittadinanza(); //banana, box
-		res += cita.getId();
-
-		res += sg.getDocumento().getDocType().getCode();
-		res += padRight(sg.getDocumento().getCodice(),20);
-		res += sg.getDocumento().getLuogoRilascio().getId();
-		Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
 		return res;
 
 	}
