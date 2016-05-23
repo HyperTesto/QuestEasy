@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -105,20 +106,6 @@ public class EditCardActivity extends AppCompatActivity {
 						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
 						startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_GROUP_MEMBER);
 					}
-				}
-			});
-		}
-
-		Button btnSave = (Button) findViewById(R.id.btnSaveStub);
-
-		if (btnSave != null) {
-			btnSave.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent resultIntent = new Intent();
-					resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
-					setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
-					finish();
 				}
 			});
 		}
@@ -243,5 +230,20 @@ public class EditCardActivity extends AppCompatActivity {
 
 		inflater.inflate(R.menu.edit_card_bar, menu);
 		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+			case R.id.btnSaveGuestsCard:
+				Intent resultIntent = new Intent();
+				resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
+				setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+				finish();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 }
