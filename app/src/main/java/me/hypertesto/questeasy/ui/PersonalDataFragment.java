@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -34,6 +35,7 @@ public class PersonalDataFragment extends Fragment {
 	private EditText guest_surname;
 	private RadioButton guest_sexMan;
 	private RadioButton guest_sexWoman;
+	private RadioGroup guest_gender;
 	private TextView guest_dateBirth;
 	private PlaceAutoCompleteAdapter birthPlaceAdapter;
 	private PlaceAutoCompleteAdapter citizenshipAdapter;
@@ -65,6 +67,7 @@ public class PersonalDataFragment extends Fragment {
 		guest_name = (EditText)getView().findViewById(R.id.editText_name_guest_form);
 		guest_surname = (EditText)getView().findViewById(R.id.editText_surname_guest_form);
 		guest_dateBirth = (TextView)getView().findViewById(R.id.editText_birthDate_guest_form);
+		guest_gender = (RadioGroup) getView().findViewById(R.id.gender_group);
 		guest_sexMan = (RadioButton)getView().findViewById(R.id.sex_man);
 		guest_sexWoman = (RadioButton)getView().findViewById(R.id.sex_woman);
 
@@ -119,14 +122,14 @@ public class PersonalDataFragment extends Fragment {
 
 	public String getSex(){
 
-		if(guest_sexMan.isSelected()){
+		int selected = guest_gender.getCheckedRadioButtonId();
+		if (selected == R.id.sex_man){
 			return "M";
-		} else if (guest_sexWoman.isSelected()){
+		} else if (selected == R.id.sex_woman) {
 			return "F";
 		} else {
 			return "";
 		}
-
 	}
 
 	public Place getBirthPlace(){
