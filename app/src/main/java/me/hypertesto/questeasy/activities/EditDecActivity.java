@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.clans.fab.FloatingActionButton;
@@ -406,6 +407,7 @@ public class EditDecActivity extends AppCompatActivity {
 				setSingleChoiceItems(dialogItems, 0, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						Toast.makeText(EditDecActivity.this, dialogItems[which], Toast.LENGTH_SHORT).show();
 						//saveAlertDialog.dismiss();
 					}
 				}).
