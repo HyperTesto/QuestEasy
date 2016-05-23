@@ -1,5 +1,6 @@
 package me.hypertesto.questeasy.utils;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
@@ -55,6 +56,17 @@ public class FileUtils {
 			Log.e("[FILE_DBG]", "Directory not created");
 		}
 		return file;
+	}
+
+	/**
+	 * Get a file in app private directory (files here get deleted after app unistall)
+	 * We should use this method to save everything except generated compiled files.
+	 * @param ctx
+	 * @param fileName
+	 * @return
+	 */
+	public static File getAppFilesStorageDir (Context ctx, String fileName) {
+		return new File(ctx.getFilesDir(), fileName);
 	}
 
 }
