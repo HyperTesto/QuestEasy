@@ -66,6 +66,10 @@ public class FileUtils {
 	 * @return
 	 */
 	public static File getAppFilesStorageDir (Context ctx, String fileName) {
+		File f = new File(ctx.getFilesDir(), fileName);
+		if (!f.mkdirs()){
+			Log.e("[FILE_DBG]", "Directory not created");
+		}
 		return new File(ctx.getFilesDir(), fileName);
 	}
 
