@@ -30,6 +30,7 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 	private int layoutId;
 	private Context context;
 	private ArrayList<Card> items;
+	private ArrayList<Card> itemsSupport;
 	private SparseBooleanArray mSelectedItems;
 
 	//private ArrayList<Card> filterList;
@@ -41,6 +42,7 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		this.context = context;
 		this.layoutId = layoutId;
 		this.items = items;
+		this.itemsSupport = items;
 		this.mSelectedItems = new SparseBooleanArray();
 	}
 
@@ -79,6 +81,19 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		return view;
 	}
 
+
+	/*public void filter (ArrayList filterParameters){
+		items.clear();
+		if (filterParameters.size() == 0){
+			items.addAll(itemsSupport);
+		}
+		else{
+			for (Card c : itemsSupport){
+				if ()
+			}
+		}
+	}
+	*/
 /*
 	@Override
 	public Filter getFilter() {
