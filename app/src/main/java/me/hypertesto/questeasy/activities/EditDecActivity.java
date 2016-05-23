@@ -3,8 +3,13 @@ package me.hypertesto.questeasy.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -178,7 +183,14 @@ public class EditDecActivity extends AppCompatActivity {
 				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
 				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
 				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
-				textDrawable.setTint(getResources().getColor(R.color.background_bar));
+
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+					textDrawable.setTint(getResources().getColor(R.color.background_bar));
+				} else {
+					//Drawable wrappedDrawable = DrawableCompat.wrap(textDrawable);
+					//wrappedDrawable.setTintList(getResources().getColorStateList(R.color.background_bar));
+
+				}
 				letterImage.setImageDrawable(textDrawable);
 			}
 
@@ -433,5 +445,19 @@ public class EditDecActivity extends AppCompatActivity {
 		adapter = new CardListAdapter(this,R.layout.card_list_item,items);
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
+	}
+
+	@Override
+	public void onPause(){
+		super.onPause();
+		//fabMenu.close(false);
+		//System.out.println("RELAX");
+	}
+
+	@Override
+	public void onResume(){
+		fabMenu.close(false);
+		super.onResume();
+		//System.out.println("NO relax");
 	}
 }
