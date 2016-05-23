@@ -2,6 +2,7 @@ package me.hypertesto.questeasy.model.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 	private int layoutId;
 	private Context context;
 	private ArrayList<Card> items;
+	private SparseBooleanArray mSelectedItems;
+
 	//private ArrayList<Card> filterList;
 
 	//private ValueFilter valueFilter;
@@ -38,6 +41,7 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		this.context = context;
 		this.layoutId = layoutId;
 		this.items = items;
+		this.mSelectedItems = new SparseBooleanArray();
 	}
 
 	@Override
@@ -66,13 +70,17 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
 				color, 100);
 		typeImg.setImageDrawable(drawable);
+		 if(!mSelectedItems.valueAt(position)){
+			 //insert here code
+		 }
+
 
 
 		return view;
 	}
 
-
-	/*@Override
+/*
+	@Override
 	public Filter getFilter() {
 		if (valueFilter == null) {
 			valueFilter = new ValueFilter();
@@ -118,4 +126,31 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		}
 	}
 	*/
+
+
+	public void toggleSelection(int position){
+		selectView(position, !mSelectedItems.get(position));
+	}
+
+	public void removeSelection(){
+		mSelectedItems = new SparseBooleanArray();
+		notifyDataSetChanged();
+	}
+
+	public void selectView (int position, boolean value){
+		if (value){
+			mSelectedItems.put(position, value);
+		}
+		else{
+			mSelectedItems.delete(position);
+		}
+	}
+
+	public int getSelectedCount(){
+		return mSelectedItems.size();
+	}
+
+	public SparseBooleanArray getSelectedIds(){
+		return mSelectedItems;
+	}
 }

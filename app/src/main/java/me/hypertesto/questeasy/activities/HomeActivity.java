@@ -1,6 +1,7 @@
 package me.hypertesto.questeasy.activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -8,11 +9,9 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,7 +39,6 @@ public class HomeActivity extends AppCompatActivity {
 	private ListView lv;
 	private FloatingActionButton insertNewDcard;
 	private DeclarationListAdapter adapter;
-	private int mPreviousVisibleItem;
 	private NavigationView mNavigationView;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -58,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
 		setupDrawer();
-
 		mNavigationView.setNavigationItemSelectedListener(
 				new NavigationView.OnNavigationItemSelectedListener() {
 					@Override
@@ -77,12 +74,17 @@ public class HomeActivity extends AppCompatActivity {
 								// 1. Instantiate an AlertDialog.Builder with its constructor
 								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
+								builder.
+										setTitle(R.string.app_name).
+										setMessage(R.string.developInfo)
+										.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+											@Override
+											public void onClick(DialogInterface dialog, int which) {
+												dialog.cancel();
+											}
+										});
 
-								View view = (View) LayoutInflater.from(HomeActivity.this).
-										inflate(R.layout.alert_dialog_home, null);
 
-								// 2. Chain together various setter methods to set the dialog characteristics
-								builder.setView(view);
 								// 3. Get the AlertDialog from create()
 								AlertDialog dialog = builder.create();
 								dialog.show();
@@ -105,8 +107,7 @@ public class HomeActivity extends AppCompatActivity {
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = lv.getCheckedItemCount();
-				mode.setTitle(checkedCount + " Selected");
-				SparseBooleanArray selected = adapter.getSelectedIds();
+				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
 			}
@@ -292,4 +293,11 @@ public class HomeActivity extends AppCompatActivity {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle icicle) {
+		super.onSaveInstanceState(icicle);
+
+	}
+
 }

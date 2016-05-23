@@ -8,7 +8,9 @@
 				android:layout_marginRight="10dp"
 				android:layout_marginEnd="10dp"
 				android:paddingTop="5dp"
-				android:paddingBottom="5dp">
+				android:paddingBottom="5dp"
+				android:background="?android:attr/activatedBackgroundIndicator"
+    >
 
     <ImageView
         android:id="@+id/cardTypeImg"
@@ -39,7 +41,6 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="5dp"
         android:layout_alignTop="@id/cardTypeImg"
-
         android:text="Pinco Panco"
         android:textColor="#000000"
         android:textSize="18sp"/>
