@@ -40,6 +40,17 @@ public class PermanenzaFragment extends Fragment {
 	}
 
 	public int getPermanenza(){
-		return Integer.parseInt(permTextView.getText().toString());
+
+		int i;
+
+		try {
+			i  = Integer.parseInt(permTextView.getText().toString());
+		} catch (Exception e){
+			e.printStackTrace();
+			i = -1;
+		}
+
+		return i;
+
 	}
 }

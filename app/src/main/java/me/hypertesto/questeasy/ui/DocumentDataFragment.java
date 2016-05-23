@@ -90,7 +90,7 @@ public class DocumentDataFragment extends Fragment {
 		if (docTypeAdapter.getCount() > 0) {
 			return docTypeAdapter.getItem(0);
 		} else {
-			return null; //TODO
+			return new DocumentType(); //TODO
 		}
 
 	}
@@ -99,7 +99,7 @@ public class DocumentDataFragment extends Fragment {
 		if (releasePlaceAdapter.getCount() > 0) {
 			return releasePlaceAdapter.getItem(0);
 		} else {
-			return null; //TODO
+			return new Place(); //TODO
 		}
 
 	}
