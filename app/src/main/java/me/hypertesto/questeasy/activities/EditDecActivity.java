@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -79,6 +80,11 @@ public class EditDecActivity extends AppCompatActivity {
 	private final CharSequence [] dialogItems = {"Memoria interna", "Dropbox", "Invia per mail"};
 	private AlertDialog saveAlertDialog;
 
+	private AlertDialog.Builder filterDialogBuilder;
+	private final CharSequence [] dialogItemsFilter = {"Ospite singolo", "Famiglia", "Gruppo"};
+	private AlertDialog filterAlertDialog;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -127,6 +133,9 @@ public class EditDecActivity extends AppCompatActivity {
 			case R.id.action_saveDec:
 				saveAlertDialog.show();
 				return true;
+			case R.id.action_filterDec:
+				filterAlertDialog.show();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -145,6 +154,7 @@ public class EditDecActivity extends AppCompatActivity {
 		flipAnimReverse = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
 
 		createSaveDialog();
+		createFilterDialog();
 
 		Intent intent = getIntent();
 
@@ -436,6 +446,35 @@ public class EditDecActivity extends AppCompatActivity {
 					}
 				});
 		saveAlertDialog = saveDialogBuilder.create();
+
+	}
+
+	public void createFilterDialog(){
+		ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.AppTheme);
+		filterDialogBuilder = new AlertDialog.Builder(ctw);
+		filterDialogBuilder.setTitle(R.string.filterDialotTitle).
+				setMultiChoiceItems(dialogItemsFilter, null, new DialogInterface.OnMultiChoiceClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+						//filterAlertDialog.dismiss();
+					}
+				}).
+				setPositiveButton(R.string.okButton, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						filterAlertDialog.dismiss();
+					}
+				}).
+				setNegativeButton(R.string.cancelButton, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						filterAlertDialog.dismiss();
+					}
+				});
+
+
+		filterAlertDialog = filterDialogBuilder.create();
+
 
 	}
 

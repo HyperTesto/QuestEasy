@@ -79,8 +79,8 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		return view;
 	}
 
-
-	/*@Override
+/*
+	@Override
 	public Filter getFilter() {
 		if (valueFilter == null) {
 			valueFilter = new ValueFilter();

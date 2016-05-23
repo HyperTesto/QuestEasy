@@ -38,5 +38,6 @@
     <string name = "saveDialogTitle">Salva su</string>
     <string name = "okButton">OK</string>
     <string name = "cancelButton">CANCELLA</string>
+    <string name = "filterDialotTitle">Filtra per</string>
 
 </resources>
