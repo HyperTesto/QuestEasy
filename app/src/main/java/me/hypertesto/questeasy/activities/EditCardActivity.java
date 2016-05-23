@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -89,6 +88,10 @@ public class EditCardActivity extends AppCompatActivity {
 		}
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_edit_card);
+
+			if ((card instanceof  FamilyCard) || (card instanceof GroupCard)){
+			fab.setImageResource(R.drawable.button_add_member);
+		}
 
 		if (fab != null) {
 			fab.setOnClickListener(new View.OnClickListener() {
