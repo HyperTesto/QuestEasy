@@ -42,7 +42,8 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		this.context = context;
 		this.layoutId = layoutId;
 		this.items = items;
-		this.itemsSupport = items;
+		this.itemsSupport = new ArrayList<Card>();
+		this.itemsSupport.addAll(items);
 		this.mSelectedItems = new SparseBooleanArray();
 	}
 
@@ -82,18 +83,35 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 	}
 
 
-	/*public void filter (ArrayList filterParameters){
+	public void filter (ArrayList filterParameters){
 		items.clear();
 		if (filterParameters.size() == 0){
 			items.addAll(itemsSupport);
+			System.out.println("SONO QUI ");
 		}
 		else{
+			boolean singolo = filterParameters.contains("OSPITE SINGOLO");
+			System.out.println("OSPITE SINGOLO "+singolo);
+			boolean gruppo = filterParameters.contains("GRUPPO");
+			System.out.println("GRUPPO "+gruppo);
+			boolean famiglia = filterParameters.contains("FAMIGLIA");
+			System.out.println("FAMIGLIA "+famiglia);
 			for (Card c : itemsSupport){
-				if ()
+				if ((c instanceof SingleGuestCard)&&(singolo)){
+					items.add(c);
+				}
+				if ((c instanceof FamilyCard)&&(famiglia)){
+					items.add(c);
+				}
+				if ((c instanceof GroupCard)&&(gruppo)){
+					items.add(c);
+				}
 			}
 		}
+		notifyDataSetChanged();
 	}
-	*/
+
+
 /*
 	@Override
 	public Filter getFilter() {

@@ -81,7 +81,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private AlertDialog saveAlertDialog;
 
 	private AlertDialog.Builder filterDialogBuilder;
-	private ArrayList selectedItemDialogFilter;
+	private ArrayList<String> selectedItemDialogFilter;
 	private final CharSequence [] dialogItemsFilter = {"Ospite singolo", "Famiglia", "Gruppo"};
 	private AlertDialog filterAlertDialog;
 
@@ -195,13 +195,13 @@ public class EditDecActivity extends AppCompatActivity {
 				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
 				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
 
-				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+				//if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 					textDrawable.setTint(getResources().getColor(R.color.background_bar));
-				} else {
+				//} else {
 					//Drawable wrappedDrawable = DrawableCompat.wrap(textDrawable);
 					//wrappedDrawable.setTintList(getResources().getColorStateList(R.color.background_bar));
 
-				}
+				//}
 				letterImage.setImageDrawable(textDrawable);
 			}
 
@@ -460,9 +460,11 @@ public class EditDecActivity extends AppCompatActivity {
 					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 						//filterAlertDialog.dismiss();
 						if (isChecked){
-							selectedItemDialogFilter.add(dialogItemsFilter[which]);
-						} else if (selectedItemDialogFilter.contains(dialogItemsFilter[which])){
-							selectedItemDialogFilter.remove(Integer.valueOf(which));
+							selectedItemDialogFilter.add(dialogItemsFilter[which].toString().
+									toUpperCase());
+						} else if (selectedItemDialogFilter.contains(dialogItemsFilter[which].
+								toString().toUpperCase())){
+							selectedItemDialogFilter.remove(which);
 						}
 					}
 				}).
@@ -472,6 +474,7 @@ public class EditDecActivity extends AppCompatActivity {
 						for (int i = 0; i < selectedItemDialogFilter.size(); i++){
 							System.out.println("val "+selectedItemDialogFilter.get(i));
 						}
+						adapter.filter(selectedItemDialogFilter);
 						filterAlertDialog.dismiss();
 					}
 				}).
