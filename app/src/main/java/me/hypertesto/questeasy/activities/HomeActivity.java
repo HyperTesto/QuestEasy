@@ -31,6 +31,7 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -176,7 +177,9 @@ public class HomeActivity extends AppCompatActivity {
 			public void onClick(View v){
 				Intent newDecIntent = new Intent(HomeActivity.this, EditDecActivity.class);
 				//TODO fare meglio: settare solo giorno/mese/anno o che ne so
-				Date date = new Date();
+				//Date date = new Date();
+
+				Date date = DateUtils.today();
 
 				FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
 				fsd.open();
