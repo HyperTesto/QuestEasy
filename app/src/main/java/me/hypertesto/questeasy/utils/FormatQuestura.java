@@ -66,10 +66,13 @@ public class FormatQuestura {
 		if (p.isState()){
 			res += padRight("",9);
 			res += padRight("",2);
+			res += p.getId();
 		} else {
 			res += padRight(p.getId(),9);
-			//res += padRight(p.getName().su)
+			res += p.getProvincia();
+			res += "100000100";
 		}
+
 
 		return res;
 

@@ -67,4 +67,8 @@ public class Place implements Comparable<Place>, Serializable {
 	public void setState(boolean state) {
 		this.state = state;
 	}
+
+	public String getProvincia () {
+		return this.name.substring(name.length()-3, name.length()-1); //TODO: check if correct
+	}
 }
