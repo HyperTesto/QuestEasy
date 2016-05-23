@@ -175,7 +175,6 @@ public class HomeActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v){
 				Intent newDecIntent = new Intent(HomeActivity.this, EditDecActivity.class);
-				Declaration newDec = new Declaration();
 				//TODO fare meglio: settare solo giorno/mese/anno o che ne so
 				Date date = new Date();
 
@@ -188,6 +187,7 @@ public class HomeActivity extends AppCompatActivity {
 				}
 
 				fsd.insertDeclaration(dec);
+				fsd.close();
 
 				System.out.println(dec);
 
@@ -212,8 +212,8 @@ public class HomeActivity extends AppCompatActivity {
 
 		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
 
-		fsd.clear();
-		fsd.populate();
+		//fsd.clear();
+		//fsd.populate();
 
 		fsd.open();
 
