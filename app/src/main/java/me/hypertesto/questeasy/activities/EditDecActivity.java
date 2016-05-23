@@ -1,5 +1,7 @@
 package me.hypertesto.questeasy.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -66,6 +68,11 @@ public class EditDecActivity extends AppCompatActivity {
 	private Declaration displayed;
 	private int indexClicked;
 
+	private AlertDialog.Builder saveDialogBuilder;
+	private ArrayList selectedItemDialog;
+	private final CharSequence [] dialogItems = {"Memoria interna", "Dropbox", "Invia per mail"};
+	private AlertDialog saveAlertDialog;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,6 +114,20 @@ public class EditDecActivity extends AppCompatActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+			case R.id.action_saveDec:
+				saveAlertDialog.show();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+
+
 	private void defineSettings() {
 		frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
 		fabMenu = (FloatingActionMenu) findViewById
@@ -117,6 +138,7 @@ public class EditDecActivity extends AppCompatActivity {
 		flipAnim = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
 		flipAnimReverse = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
 
+		createSaveDialog();
 
 		Intent intent = getIntent();
 
@@ -374,6 +396,33 @@ public class EditDecActivity extends AppCompatActivity {
 				break;
 
 		}
+	}
+
+	public void createSaveDialog (){
+		saveDialogBuilder = new AlertDialog.Builder(EditDecActivity.this);
+
+
+		saveDialogBuilder.setTitle(R.string.saveDialogTitle).
+				setSingleChoiceItems(dialogItems, 0, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//saveAlertDialog.dismiss();
+					}
+				}).
+				setPositiveButton(R.string.okButton, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						saveAlertDialog.dismiss();
+					}
+				}).
+				setNegativeButton(R.string.cancelButton, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						saveAlertDialog.dismiss();
+					}
+				});
+		saveAlertDialog = saveDialogBuilder.create();
+
 	}
 
 	private void updateList(){

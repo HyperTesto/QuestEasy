@@ -35,4 +35,8 @@
 		\n\t\t\tSimone Calciolari \n\t\t\tGianluca Apriceno\n</string>
 	<string name = "saveGuestCard">salva ospiti</string>
 	<string name = "cardTitleBar">ospiti</string>
+    <string name = "saveDialogTitle">Salva su</string>
+    <string name = "okButton">OK</string>
+    <string name = "cancelButton">CANCELLA</string>
+
 </resources>
