@@ -207,7 +207,7 @@ public class EditDecActivity extends AppCompatActivity {
 				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
 
 				//if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-					textDrawable.setTint(getResources().getColor(R.color.background_bar));
+					DrawableCompat.setTint(textDrawable,getResources().getColor(R.color.background_bar));
 				//} else {
 					//Drawable wrappedDrawable = DrawableCompat.wrap(textDrawable);
 					//wrappedDrawable.setTintList(getResources().getColorStateList(R.color.background_bar));
@@ -236,7 +236,7 @@ public class EditDecActivity extends AppCompatActivity {
 				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
 				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
 				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
-				textDrawable.setTint(previousColor);
+				DrawableCompat.setTint(textDrawable,previousColor);
 				letterImage.setImageDrawable(textDrawable);
 			}
 
