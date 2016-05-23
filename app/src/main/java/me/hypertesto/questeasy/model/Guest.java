@@ -44,6 +44,31 @@ public abstract class Guest implements Serializable{
 		return true;
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if (o != null){
+			if (o instanceof Guest){
+				Guest go = (Guest) o;
+
+				if (this.name.equals(go.getName())){
+					if (this.surname.equals(go.getSurname())){
+						if (this.birthDate.equals(go.getBirthDate())){
+							if (this.sex.equals(go.getSex())){
+								if (this.placeOfBirth.equals(go.getPlaceOfBirth())){
+									if (this.cittadinanza.equals(go.getCittadinanza())){
+										return this.getClass().equals(go.getClass());
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public String getName() {
 		return name;
 	}

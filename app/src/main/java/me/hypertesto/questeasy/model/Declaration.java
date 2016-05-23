@@ -32,6 +32,23 @@ public class Declaration extends ArrayList<Card> implements Serializable {
 		return true;
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if (o != null){
+			if (o instanceof Declaration){
+				Declaration dco = (Declaration) o;
+
+				if (this.containsAll(dco)){
+					if (dco.containsAll(this)){
+						return this.date.equals(dco.getDate());
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public void setDate(Date date){
 		this.date = date;
 	}

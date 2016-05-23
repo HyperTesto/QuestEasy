@@ -35,6 +35,18 @@ public class Place implements Comparable<Place>, Serializable {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (o != null){
+			if (o instanceof Place){
+				Place po = (Place) o;
+				return this.id.equals(po.getId());
+			}
+		}
+
+		return false;
+	}
+
+	@Override
 	public int compareTo(@NonNull Place another){
 		return this.name.compareTo(another.getName());
 	}

@@ -39,6 +39,24 @@ public class FamilyCard extends Card {
 		return true;
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if (o != null){
+			if (o instanceof FamilyCard){
+				FamilyCard fco = (FamilyCard) o;
+
+				if (this.familiari.containsAll(fco.getFamiliari())){
+					if (fco.getFamiliari().containsAll(this.familiari)){
+						return (this.capoFamiglia.equals(fco.getCapoFamiglia()) &&
+								this.permanenza == fco.getPermanenza());
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public void addFamilyMember(FamilyMemberGuest guest){
 		if (this.familiari == null){
 			this.familiari = new ArrayList<>();

@@ -47,8 +47,8 @@ public class FSDeclarationDao implements DeclarationDao {
 	public boolean insertDeclaration(Declaration declaration){
 		try {
 			if (cache.get(declaration.getDate()) == null){
-				this.cache.put(declaration.getDate(), declaration);
 				fos.writeObject(declaration);
+				this.cache.put(declaration.getDate(), declaration);
 			} else {
 				this.updateDeclaration(declaration);
 			}
