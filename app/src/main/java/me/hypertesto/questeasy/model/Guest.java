@@ -47,16 +47,16 @@ public abstract class Guest implements Serializable{
 	@Override
 	public boolean equals(Object o){
 		if (o != null){
-			if (o instanceof SecondaryGuest){
-				SecondaryGuest sgo = (SecondaryGuest) o;
+			if (o instanceof Guest){
+				Guest go = (Guest) o;
 
-				if (this.name.equals(sgo.getName())){
-					if (this.surname.equals(sgo.getSurname())){
-						if (this.birthDate.equals(sgo.getBirthDate())){
-							if (this.sex.equals(sgo.getSex())){
-								if (this.placeOfBirth.equals(sgo.getPlaceOfBirth())){
-									if (this.cittadinanza.equals(sgo.getCittadinanza())){
-										return this.getClass().equals(sgo.getClass());
+				if (this.name.equals(go.getName())){
+					if (this.surname.equals(go.getSurname())){
+						if (this.birthDate.equals(go.getBirthDate())){
+							if (this.sex.equals(go.getSex())){
+								if (this.placeOfBirth.equals(go.getPlaceOfBirth())){
+									if (this.cittadinanza.equals(go.getCittadinanza())){
+										return this.getClass().equals(go.getClass());
 									}
 								}
 							}
