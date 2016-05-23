@@ -33,6 +33,11 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -50,6 +55,7 @@ import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.utils.FabAnimation;
+import me.hypertesto.questeasy.utils.FileUtils;
 import me.hypertesto.questeasy.utils.FormatQuestura;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -445,8 +451,30 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onClick(DialogInterface dialog, int which) {
 				String selected = dialogItems[indexClickedSavePopUp].toString();
 				switch (selected) {
+
 					case StaticGlobals.saveDialogOptions.SAVE_DISK:
+						//try to write the file
+						//TODO: test me
 						System.out.println(FormatQuestura.convert(displayed));
+						File f = FileUtils.getFileQuesturaStorageDir("test");
+						OutputStream out = null;
+
+						try {
+							//TODO: handle special cases (card errors...)
+							out = new BufferedOutputStream(new FileOutputStream(f));
+							out.write(FormatQuestura.convert(displayed).getBytes());
+						} catch (Exception e) {
+							e.printStackTrace();
+						} finally {
+							if (out != null) {
+								try {
+									out.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+
+						}
 						break;
 					case StaticGlobals.saveDialogOptions.SAVE_DROPBOX:
 
