@@ -50,6 +50,7 @@ import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.utils.FabAnimation;
+import me.hypertesto.questeasy.utils.FormatQuestura;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 
@@ -74,10 +75,14 @@ public class EditDecActivity extends AppCompatActivity {
 
 	private Declaration displayed;
 	private int indexClicked;
+	private int indexClickedSavePopUp;
 
 	private AlertDialog.Builder saveDialogBuilder;
 
-	private final CharSequence [] dialogItems = {"Memoria interna", "Dropbox", "Invia per mail"};
+	private final CharSequence [] dialogItems = {StaticGlobals.saveDialogOptions.SAVE_DISK,
+			StaticGlobals.saveDialogOptions.SAVE_DROPBOX,
+			StaticGlobals.saveDialogOptions.SEND_MAIL};
+
 	private AlertDialog saveAlertDialog;
 
 	private AlertDialog.Builder filterDialogBuilder;
@@ -425,27 +430,41 @@ public class EditDecActivity extends AppCompatActivity {
 	public void createSaveDialog (){
 		saveDialogBuilder = new AlertDialog.Builder(EditDecActivity.this);
 
+		int index;
+		saveDialogBuilder.setTitle(R.string.saveDialogTitle);
+		saveDialogBuilder.setSingleChoiceItems(dialogItems, 0, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Toast.makeText(EditDecActivity.this, dialogItems[which], Toast.LENGTH_SHORT).show();
+				//saveAlertDialog.dismiss();
+				indexClickedSavePopUp = which;
+			}
+		});
+		saveDialogBuilder.setPositiveButton(R.string.okButton, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				String selected = dialogItems[indexClickedSavePopUp].toString();
+				switch (selected) {
+					case StaticGlobals.saveDialogOptions.SAVE_DISK:
+						System.out.println(FormatQuestura.convert(displayed));
+						break;
+					case StaticGlobals.saveDialogOptions.SAVE_DROPBOX:
 
-		saveDialogBuilder.setTitle(R.string.saveDialogTitle).
-				setSingleChoiceItems(dialogItems, 0, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Toast.makeText(EditDecActivity.this, dialogItems[which], Toast.LENGTH_SHORT).show();
-						//saveAlertDialog.dismiss();
-					}
-				}).
-				setPositiveButton(R.string.okButton, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						saveAlertDialog.dismiss();
-					}
-				}).
-				setNegativeButton(R.string.cancelButton, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						saveAlertDialog.dismiss();
-					}
-				});
+						break;
+					case StaticGlobals.saveDialogOptions.SEND_MAIL:
+
+						break;
+					default:
+				}
+				saveAlertDialog.dismiss();
+			}
+		});
+		saveDialogBuilder.setNegativeButton(R.string.cancelButton, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				saveAlertDialog.dismiss();
+			}
+		});
 		saveAlertDialog = saveDialogBuilder.create();
 
 	}
