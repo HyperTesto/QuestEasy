@@ -1,7 +1,5 @@
 package me.hypertesto.questeasy.utils;
 
-import junit.framework.Assert;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,12 +46,12 @@ public class FormatQuestura {
 		d.add(c);
 
 
-		System.out.println(formatSingleGuest(c));
+		System.out.print(convert(d));
 
 
 	}
 
-	public String convert (Declaration dec) {
+	public static String convert (Declaration dec) {
 
 		String result = "";
 
@@ -77,7 +75,6 @@ public class FormatQuestura {
 					new RuntimeException("Card not recognized");
 				}
 
-				//FIXME: remove last \n
 			}
 
 		} else {
@@ -85,7 +82,7 @@ public class FormatQuestura {
 			//TODO: should we rise an error?
 
 		}
-		return result;
+		return result.substring(0, result.length()-1);
 	}
 
 	private static String formatSingleGuest(SingleGuestCard sgc) {
@@ -111,7 +108,7 @@ public class FormatQuestura {
 		res += sg.getDocumento().getDocType().getCode();
 		res += padRight(sg.getDocumento().getCodice(),20);
 		res += sg.getDocumento().getLuogoRilascio().getId();
-		Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
+		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
 		res+= "\n";
 		return res;
 
@@ -139,7 +136,7 @@ public class FormatQuestura {
 		res += ghg.getDocumento().getDocType().getCode();
 		res += padRight(ghg.getDocumento().getCodice(),20);
 		res += ghg.getDocumento().getLuogoRilascio().getId();
-		Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
+		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
 		res += "\n";
 
 		for (GroupMemberGuest gmg : gc.getAltri()){
@@ -166,7 +163,7 @@ public class FormatQuestura {
 
 		Place cita = gmg.getCittadinanza(); //banana, box
 		res += cita.getId();
-		Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
+		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
 		res += "\n";
 
 		return res;
@@ -194,7 +191,7 @@ public class FormatQuestura {
 		res += fhg.getDocumento().getDocType().getCode();
 		res += padRight(fhg.getDocumento().getCodice(),20);
 		res += fhg.getDocumento().getLuogoRilascio().getId();
-		Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
+		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
 		res += "\n";
 
 		for (FamilyMemberGuest fmg : fc.getFamiliari()){
@@ -222,7 +219,7 @@ public class FormatQuestura {
 
 		Place cita = fmg.getCittadinanza(); //banana, box
 		res += cita.getId();
-		Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
+		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
 		res += "\n";
 
 		return res;
