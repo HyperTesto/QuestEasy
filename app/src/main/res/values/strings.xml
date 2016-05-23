@@ -26,10 +26,18 @@
     <string name = "permanenzaGiorni">Giorni di permanenza</string>
 	<string name = "numberDocumentoGuest">Numero documento</string>
 	<string name = "placeDocumentoGuest">Luogo di rilascio</string>
-    <string name="speech_prompt">&#8230;</string>
-    <string name="speech_not_supported">Il dispositivo non supporta questa funzione</string>
-    <string name="categoryNameSingle">Singolo</string>
-	<string name="categoryNameGroup">Capogruppo</string>
-	<string name="categoryNameFamily">Capofamiglia</string>
-    <string name  = "developInfo">Questa applicazione è stata sviluppata da:\n  Enrico Testori\n  Simone Calciolari\n  Gianluca Apriceno\n</string>
+    <string name = "speech_prompt">&#8230;</string>
+    <string name = "speech_not_supported">Il dispositivo non supporta questa funzione</string>
+    <string name = "categoryNameSingle">Singolo</string>
+	<string name = "categoryNameGroup">Capogruppo</string>
+	<string name = "categoryNameFamily">Capofamiglia</string>
+    <string name = "developInfo">Questa applicazione è stata sviluppata da:  \n\n\t\t\tEnrico Testori
+		\n\t\t\tSimone Calciolari \n\t\t\tGianluca Apriceno\n</string>
+	<string name = "saveGuestCard">salva ospiti</string>
+	<string name = "cardTitleBar">ospiti</string>
+    <string name = "saveDialogTitle">Salva su</string>
+    <string name = "okButton">OK</string>
+    <string name = "cancelButton">CANCELLA</string>
+    <string name = "filterDialotTitle">Filtra per</string>
+
 </resources>

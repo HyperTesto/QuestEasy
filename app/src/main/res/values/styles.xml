@@ -5,6 +5,7 @@
 		<!-- Customize your theme here. -->
 		<item name="android:activatedBackgroundIndicator">@drawable/list_activated_background</item>
 		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="android:actionModeBackground">@color/background_bar</item>
 		<!--
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>-->

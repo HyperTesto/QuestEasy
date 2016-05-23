@@ -1,16 +1,35 @@
 package me.hypertesto.questeasy.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -45,9 +64,26 @@ public class EditDecActivity extends AppCompatActivity {
 	private FloatingActionButton groupFab;
 	private FloatingActionButton familyFab;
 	private int mPreviousVisibleItem;
+	private RelativeLayout itemContainer;
+	private Animation flipAnim;
+	private Animation flipAnimReverse;
+	private ImageView letterImage;
+	private TextDrawable textDrawable;
+	CardListAdapter adapter;
+	private int previousColor;
 
 	private Declaration displayed;
 	private int indexClicked;
+
+	private AlertDialog.Builder saveDialogBuilder;
+	private ArrayList selectedItemDialog;
+	private final CharSequence [] dialogItems = {"Memoria interna", "Dropbox", "Invia per mail"};
+	private AlertDialog saveAlertDialog;
+
+	private AlertDialog.Builder filterDialogBuilder;
+	private final CharSequence [] dialogItemsFilter = {"Ospite singolo", "Famiglia", "Gruppo"};
+	private AlertDialog filterAlertDialog;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +126,23 @@ public class EditDecActivity extends AppCompatActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+			case R.id.action_saveDec:
+				saveAlertDialog.show();
+				return true;
+			case R.id.action_filterDec:
+				filterAlertDialog.show();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+
+
 	private void defineSettings() {
 		frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
 		fabMenu = (FloatingActionMenu) findViewById
@@ -97,8 +150,14 @@ public class EditDecActivity extends AppCompatActivity {
 		singlefab = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
 		groupFab = (FloatingActionButton) findViewById(R.id.categoryGuestGroupGo);
 		familyFab = (FloatingActionButton) findViewById(R.id.categoryGuestFamilyGo);
+		flipAnim = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
+		flipAnimReverse = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
+
+		createSaveDialog();
+		createFilterDialog();
 
 		Intent intent = getIntent();
+
 
 		//ArrayList<Card> d = (ArrayList<Card>) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
 		//this.displayed = new Declaration();
@@ -114,10 +173,66 @@ public class EditDecActivity extends AppCompatActivity {
 
 		this.updateList();
 
+
 		fabMenu.hideMenuButton(false);
 
 		new FabAnimation(fabMenu, getApplicationContext());
+		flipAnim.setAnimationListener(new Animation.AnimationListener() {
 
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				textDrawable = (TextDrawable) letterImage.getDrawable();
+				previousColor = textDrawable.getPaint().getColor();
+				//TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
+				//color, 100);
+				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
+				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
+				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
+
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+					textDrawable.setTint(getResources().getColor(R.color.background_bar));
+				} else {
+					//Drawable wrappedDrawable = DrawableCompat.wrap(textDrawable);
+					//wrappedDrawable.setTintList(getResources().getColorStateList(R.color.background_bar));
+
+				}
+				letterImage.setImageDrawable(textDrawable);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
+
+		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				textDrawable = (TextDrawable) letterImage.getDrawable();
+				//TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
+				//color, 100);
+				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
+				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
+				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
+				textDrawable.setTint(previousColor);
+				letterImage.setImageDrawable(textDrawable);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
 
 		listView.setOnScrollListener(new ListScrollListener(fabMenu));
 
@@ -152,13 +267,13 @@ public class EditDecActivity extends AppCompatActivity {
 				Object o = parent.getItemAtPosition(position);
 				indexClicked = position;
 
-				if (o instanceof SingleGuestCard){
+				if (o instanceof SingleGuestCard) {
 					SingleGuestCard sgc = (SingleGuestCard) o;
 					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, sgc);
-				} else if (o instanceof FamilyCard){
+				} else if (o instanceof FamilyCard) {
 					FamilyCard fc = (FamilyCard) o;
 					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, fc);
-				} else if (o instanceof GroupCard){
+				} else if (o instanceof GroupCard) {
 					GroupCard gc = (GroupCard) o;
 					intentToEditCard.putExtra(StaticGlobals.intentExtras.CARD, gc);
 				} else {
@@ -166,6 +281,64 @@ public class EditDecActivity extends AppCompatActivity {
 				}
 
 				startActivityForResult(intentToEditCard, StaticGlobals.requestCodes.EDIT_CARD);
+			}
+		});
+
+		//This is setted to enable multi selection on items
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+		//Methods to manage item's selection
+		listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+				final int checkedCount = listView.getCheckedItemCount();
+
+				itemContainer = (RelativeLayout)listView.getChildAt(position);
+				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);
+				if (checked){
+					letterImage.startAnimation(flipAnim);
+				}
+				else{
+					letterImage.startAnimation(flipAnimReverse);
+				}
+				mode.setTitle(checkedCount + " Selezionati");
+				adapter.toggleSelection(position);
+
+			}
+
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				mode.getMenuInflater().inflate(R.menu.delete_item_ba2v2, menu);
+				return true;
+			}
+
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				return false;
+			}
+
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				switch (item.getItemId()) {
+					case R.id.delete:
+						SparseBooleanArray selected = adapter.getSelectedIds();
+						Log.e("selected", String.valueOf(selected));
+						for (int i = (selected.size() - 1); i >= 0; i--) {
+							if (selected.valueAt(i)) {
+								Card selectedItem = adapter.getItem(selected.keyAt(i));
+								adapter.remove(selectedItem);
+							}
+						}
+						mode.finish();
+						return true;
+					default:
+						return false;
+				}
+			}
+
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+				adapter.removeSelection();
 			}
 		});
 	}
@@ -189,7 +362,7 @@ public class EditDecActivity extends AppCompatActivity {
 		formFab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (fabMenu.isOpened()){
+				if (fabMenu.isOpened()) {
 					fabMenu.close(false);
 				}
 
@@ -248,11 +421,82 @@ public class EditDecActivity extends AppCompatActivity {
 		}
 	}
 
+	public void createSaveDialog (){
+		saveDialogBuilder = new AlertDialog.Builder(EditDecActivity.this);
+
+
+		saveDialogBuilder.setTitle(R.string.saveDialogTitle).
+				setSingleChoiceItems(dialogItems, 0, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Toast.makeText(EditDecActivity.this, dialogItems[which], Toast.LENGTH_SHORT).show();
+						//saveAlertDialog.dismiss();
+					}
+				}).
+				setPositiveButton(R.string.okButton, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						saveAlertDialog.dismiss();
+					}
+				}).
+				setNegativeButton(R.string.cancelButton, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						saveAlertDialog.dismiss();
+					}
+				});
+		saveAlertDialog = saveDialogBuilder.create();
+
+	}
+
+	public void createFilterDialog(){
+		ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.AppTheme);
+		filterDialogBuilder = new AlertDialog.Builder(ctw);
+		filterDialogBuilder.setTitle(R.string.filterDialotTitle).
+				setMultiChoiceItems(dialogItemsFilter, null, new DialogInterface.OnMultiChoiceClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+						//filterAlertDialog.dismiss();
+					}
+				}).
+				setPositiveButton(R.string.okButton, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						filterAlertDialog.dismiss();
+					}
+				}).
+				setNegativeButton(R.string.cancelButton, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						filterAlertDialog.dismiss();
+					}
+				});
+
+
+		filterAlertDialog = filterDialogBuilder.create();
+
+
+	}
+
 	private void updateList(){
 		ArrayList<Card> items = new ArrayList<>();
 		items.addAll(displayed);
-		CardListAdapter adapter = new CardListAdapter(this,R.layout.card_list_item,items);
+		adapter = new CardListAdapter(this,R.layout.card_list_item,items);
 		listView = (ListView)findViewById(R.id.cardlistView);
 		listView.setAdapter(adapter);
+	}
+
+	@Override
+	public void onPause(){
+		super.onPause();
+		//fabMenu.close(false);
+		//System.out.println("RELAX");
+	}
+
+	@Override
+	public void onResume(){
+		fabMenu.close(false);
+		super.onResume();
+		//System.out.println("NO relax");
 	}
 }
