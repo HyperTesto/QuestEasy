@@ -9,7 +9,7 @@ import java.util.Date;
  * Potrebbe ritornare qualche sorta di nome/titolo + descrizione.
  * Created by rigel on 02/05/16.
  */
-public abstract class Card implements Serializable{
+public abstract class Card implements Serializable {
 	protected Date date;
 	protected int permanenza;
 
