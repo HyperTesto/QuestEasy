@@ -63,16 +63,21 @@ public class FormatQuestura {
 
 				if ( c instanceof SingleGuestCard) {
 
-					String tmp = String.format("%s");
+					result = formatSingleGuest((SingleGuestCard) c);
 
 				} else if ( c instanceof FamilyCard) {
 
+					result = formatFamily((FamilyCard) c);
+
 				} else if ( c instanceof GroupCard) {
+
+					result = formatGroup((GroupCard) c);
 
 				} else {
 					new RuntimeException("Card not recognized");
 				}
 
+				//FIXME: remove last \n
 			}
 
 		} else {
