@@ -76,11 +76,12 @@ public class EditDecActivity extends AppCompatActivity {
 	private int indexClicked;
 
 	private AlertDialog.Builder saveDialogBuilder;
-	private ArrayList selectedItemDialog;
+
 	private final CharSequence [] dialogItems = {"Memoria interna", "Dropbox", "Invia per mail"};
 	private AlertDialog saveAlertDialog;
 
 	private AlertDialog.Builder filterDialogBuilder;
+	private ArrayList selectedItemDialogFilter;
 	private final CharSequence [] dialogItemsFilter = {"Ospite singolo", "Famiglia", "Gruppo"};
 	private AlertDialog filterAlertDialog;
 
@@ -450,6 +451,7 @@ public class EditDecActivity extends AppCompatActivity {
 	}
 
 	public void createFilterDialog(){
+		selectedItemDialogFilter = new ArrayList();
 		ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.AppTheme);
 		filterDialogBuilder = new AlertDialog.Builder(ctw);
 		filterDialogBuilder.setTitle(R.string.filterDialotTitle).
@@ -457,11 +459,19 @@ public class EditDecActivity extends AppCompatActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 						//filterAlertDialog.dismiss();
+						if (isChecked){
+							selectedItemDialogFilter.add(dialogItemsFilter[which]);
+						} else if (selectedItemDialogFilter.contains(dialogItemsFilter[which])){
+							selectedItemDialogFilter.remove(Integer.valueOf(which));
+						}
 					}
 				}).
 				setPositiveButton(R.string.okButton, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						for (int i = 0; i < selectedItemDialogFilter.size(); i++){
+							System.out.println("val "+selectedItemDialogFilter.get(i));
+						}
 						filterAlertDialog.dismiss();
 					}
 				}).
