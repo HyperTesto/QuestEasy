@@ -39,6 +39,24 @@ public class GroupCard extends Card {
 		return true;
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if (o != null){
+			if (o instanceof GroupCard){
+				GroupCard gco = (GroupCard) o;
+
+				if (this.altri.containsAll(gco.getAltri())){
+					if (gco.getAltri().containsAll(this.altri)){
+						return (this.capoGruppo.equals(gco.getCapoGruppo()) &&
+								this.permanenza == gco.getPermanenza());
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public void addGroupMember(GroupMemberGuest guest){
 		if (this.altri == null){
 			this.altri = new ArrayList<>();

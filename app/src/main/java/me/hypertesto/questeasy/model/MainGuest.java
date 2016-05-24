@@ -19,6 +19,19 @@ public abstract class MainGuest extends Guest {
 		return true;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o != null){
+			if (o instanceof MainGuest){
+				MainGuest mgo = (MainGuest) o;
+				return (this.documento.equals(mgo.getDocumento()) &&
+								this.getClass().equals(mgo.getClass()));
+			}
+		}
+
+		return false;
+	}
+
 	public Documento getDocumento() {
 		return documento;
 	}

@@ -50,7 +50,17 @@ public class GroupListAdapter extends ArrayAdapter<Guest>{
 		}
 
 		TextView txtName = (TextView) view.findViewById(R.id.guestNameAndSurname);
-		txtName.setText(String.format("%s %s", item.getName(), item.getSurname()));
+
+		/*
+		 * Better handling of name/surname empty
+		 */
+		String guestName, guestSurname;
+		guestName = item.getName();
+		guestSurname = item.getSurname();
+
+		txtName.setText(String.format("%s %s", 	guestName.equals("") ? "Ospite" : guestName,
+												guestSurname.equals("") ? "Sconosciuto" : guestSurname));
+
 		TextView placeOfBirth = (TextView) view.findViewById(R.id.guestBirthPlace);
 		placeOfBirth.setText(item.getPlaceOfBirth().getName()); //FIXME: use new Place class
 
@@ -58,7 +68,18 @@ public class GroupListAdapter extends ArrayAdapter<Guest>{
 
 		ColorGenerator generator = ColorGenerator.MATERIAL;
 		int color = generator.getRandomColor();
-		TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getName().substring(0,1),
+
+		/*
+		 * We ensure to set at least a dummy name and initial letter if name is unset
+		 */
+		String initialLetter = "";
+		if (item.getSurname().length() != 0)
+			initialLetter = item.getName().substring(0,1);
+		if (initialLetter.equals("")) {
+			initialLetter = "S";
+		}
+
+		TextDrawable drawable = TextDrawable.builder().buildRoundRect(initialLetter,
 				color, 100); //FIXME: and on empty name?
 		typeImg.setImageDrawable(drawable);
 

@@ -17,10 +17,6 @@ public class SingleGuestCard extends Card {
 		this.permanenza = permanenza;
 	}
 
-	public void setGuest(SingleGuest guest) {
-		this.guest = guest;
-	}
-
 	@Override
 	public boolean isComplete() {
 		if (this.guest == null){
@@ -30,17 +26,39 @@ public class SingleGuestCard extends Card {
 		return this.guest.isComplete();
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if (o != null){
+			if (o instanceof SingleGuestCard){
+				SingleGuestCard sgco = (SingleGuestCard) o;
+				return (this.guest.equals(sgco.getGuest()) &&
+								this.permanenza == sgco.getPermanenza());
+			}
+		}
+
+		return false;
+	}
+
+	public void setGuest(SingleGuest guest) {
+		this.guest = guest;
+	}
+
 	public SingleGuest getGuest() {
 		return guest;
 	}
 
 	@Override
 	public String getTitle(){
-		return String.format("%s %s", this.guest.getName(), this.guest.getSurname());
+		if (guest.getName().length() > 0 || guest.getSurname().length() > 0)
+			return String.format("%s %s", this.guest.getName(), this.guest.getSurname());
+		else
+			return "Ospite Sconosciuto";
 	}
 
 	@Override
 	public String getInitialLetter() {
-		return guest.getName().substring(0,1);
+		if (guest.getName().length() > 0)
+			return guest.getName().substring(0,1);
+		return "";
 	}
 }

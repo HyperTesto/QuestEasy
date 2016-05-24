@@ -49,5 +49,19 @@ public class DocumentType implements Comparable<DocumentType>, Serializable {
 	}
 
 	@Override
-	public String toString() { return this.name; }
+	public String toString() {
+		return this.name;
+	}
+
+	@Override
+	public boolean equals(Object o){
+		if (o != null){
+			if (o instanceof DocumentType){
+				DocumentType dto = (DocumentType) o;
+				return this.code.equals(dto.getCode());
+			}
+		}
+
+		return false;
+	}
 }

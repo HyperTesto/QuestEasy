@@ -36,4 +36,10 @@ public class StaticGlobals {
 		public static final String GUEST_TO_EDIT = "me.hypertesto.questeasy.activities.GUEST_TO_EDIT";
 	}
 
+	public static final class saveDialogOptions {
+		public static final String SAVE_DISK = "Memoria interna";
+		public static final String SAVE_DROPBOX = "Dropbox";
+		public static final String SEND_MAIL = "Invia tramite mail";
+	}
+
 }

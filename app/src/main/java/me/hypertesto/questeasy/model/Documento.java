@@ -31,6 +31,18 @@ public class Documento implements Serializable{
 		return true;
 	}
 
+	@Override
+	public boolean equals(Object o){
+		if (o != null){
+			if (o instanceof Documento){
+				Documento dco = (Documento) o;
+				return (this.codice.equals(dco.getCodice()) && this.docType.equals(dco.getDocType()));
+			}
+		}
+
+		return false;
+	}
+
 	public String getCodice() {
 		return codice;
 	}

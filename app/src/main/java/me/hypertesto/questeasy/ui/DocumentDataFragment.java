@@ -83,14 +83,14 @@ public class DocumentDataFragment extends Fragment {
 	}
 
 	public String getDocumentNumber(){
-		return guest_documentNumber.toString();
+		return guest_documentNumber.getText().toString();
 	}
 
 	public DocumentType getDocumentType(){
 		if (docTypeAdapter.getCount() > 0) {
 			return docTypeAdapter.getItem(0);
 		} else {
-			return new DocumentType(); //TODO
+			return new DocumentType("", ""); //TODO: test if this fix don't cause other drawbacks
 		}
 
 	}
