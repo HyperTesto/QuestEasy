@@ -49,7 +49,10 @@ public class SingleGuestCard extends Card {
 
 	@Override
 	public String getTitle(){
-		return String.format("%s %s", this.guest.getName(), this.guest.getSurname());
+		if (guest.getName().length() > 0 || guest.getSurname().length() > 0)
+			return String.format("%s %s", this.guest.getName(), this.guest.getSurname());
+		else
+			return "Ospite Sconosciuto";
 	}
 
 	@Override
