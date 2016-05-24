@@ -83,7 +83,7 @@ public class DocumentDataFragment extends Fragment {
 	}
 
 	public String getDocumentNumber(){
-		return guest_documentNumber.toString();
+		return guest_documentNumber.getText().toString();
 	}
 
 	public DocumentType getDocumentType(){
