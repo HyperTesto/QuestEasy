@@ -30,8 +30,9 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 	private int layoutId;
 	private Context context;
 	private ArrayList<Card> items;
-	private ArrayList<Card> itemsSupport;
+	//private ArrayList<Card> itemsFiltered;
 	private SparseBooleanArray mSelectedItems;
+	//CardFilter mCardFilter;
 
 	//private ArrayList<Card> filterList;
 
@@ -42,8 +43,8 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		this.context = context;
 		this.layoutId = layoutId;
 		this.items = items;
-		this.itemsSupport = new ArrayList<Card>();
-		this.itemsSupport.addAll(items);
+		//this.itemsFiltered = new ArrayList<Card>();
+		//this.itemsFiltered.addAll(items);
 		this.mSelectedItems = new SparseBooleanArray();
 	}
 
@@ -83,84 +84,42 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 	}
 
 
-	public void filter (ArrayList filterParameters){
-		items.clear();
-		if (filterParameters.size() == 0){
-			items.addAll(itemsSupport);
-			System.out.println("SONO QUI ");
-		}
-		else{
-			boolean singolo = filterParameters.contains("OSPITE SINGOLO");
-			System.out.println("OSPITE SINGOLO "+singolo);
-			boolean gruppo = filterParameters.contains("GRUPPO");
-			System.out.println("GRUPPO "+gruppo);
-			boolean famiglia = filterParameters.contains("FAMIGLIA");
-			System.out.println("FAMIGLIA "+famiglia);
-			for (Card c : itemsSupport){
-				if ((c instanceof SingleGuestCard)&&(singolo)){
-					items.add(c);
-				}
-				if ((c instanceof FamilyCard)&&(famiglia)){
-					items.add(c);
-				}
-				if ((c instanceof GroupCard)&&(gruppo)){
-					items.add(c);
-				}
-			}
-		}
-		notifyDataSetChanged();
-	}
-
-
-/*
-	@Override
-	public Filter getFilter() {
-		if (valueFilter == null) {
-			valueFilter = new ValueFilter();
-		}
-		return valueFilter;
-	}
-
-	private class ValueFilter extends Filter {
+	/*private  class CardFilter extends Filter{
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
 			FilterResults results = new FilterResults();
 
-			if (constraint != null && constraint.length() > 0) {
-				ArrayList<Card> filterList = new ArrayList<Card>();
-				for (int i = 0; i < filterList.size(); i++) {
-					if ( (filterList.get(i).getTitle().toUpperCase() )
-							.contains(constraint.toString().toUpperCase())) {
-						Card card;
-						card.set(filterList.get(i).);
-						Card country = new Card(filterList.get(i)
-								.getName() ,  mStringFilterList.get(i)
-								.getIso_code() ,  mStringFilterList.get(i)
-								.getFlag());
-
-						filterList.add(country);
-					}
+			if (constraint == null || constraint.length() == 0){
+				results.values = items;
+				results.count = items.size();
+			}
+			else{
+				ArrayList<Card> filteredCard = new ArrayList<Card>();
+				for (Card c : filteredCard){
+					filteredCard.add(c);
 				}
-				results.count = filterList.size();
-				results.values = filterList;
-			} else {
-				results.count = mStringFilterList.size();
-				results.values = mStringFilterList;
+
+				results.values = filteredCard;
+				results.count = filteredCard.size();
 			}
 			return results;
-
 		}
 
 		@Override
-		protected void publishResults(CharSequence constraint,
-									  FilterResults results) {
-			countrylist = (ArrayList<Country>) results.values;
-			notifyDataSetChanged();
+		protected void publishResults(CharSequence constraint, FilterResults results) {
+				itemsFiltered = (ArrayList<Card>) results.values;
+				notifyDataSetChanged();
 		}
 	}
-	*/
 
+	public Filter getFilter(){
+		if (mCardFilter == null){
+			mCardFilter = new CardFilter();
+		}
+		return mCardFilter;
+	}
 
+*/
 	public void toggleSelection(int position){
 		selectView(position, !mSelectedItems.get(position));
 	}

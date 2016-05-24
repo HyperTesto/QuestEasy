@@ -474,7 +474,7 @@ public class EditDecActivity extends AppCompatActivity {
 						for (int i = 0; i < selectedItemDialogFilter.size(); i++){
 							System.out.println("val "+selectedItemDialogFilter.get(i));
 						}
-						adapter.filter(selectedItemDialogFilter);
+						adapter.getFilter().filter();
 						filterAlertDialog.dismiss();
 					}
 				}).
