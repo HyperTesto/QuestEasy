@@ -216,8 +216,8 @@ public class HomeActivity extends AppCompatActivity {
 
 		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
 
-		//fsd.clear();
-		//fsd.populate();
+		fsd.clear();
+		fsd.populate();
 
 		fsd.open();
 

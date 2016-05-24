@@ -22,6 +22,7 @@ import me.hypertesto.questeasy.model.Card;
 import me.hypertesto.questeasy.model.FamilyCard;
 import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.SingleGuestCard;
+import me.hypertesto.questeasy.utils.StaticGlobals;
 
 /**
  * Created by rigel on 03/05/16.
@@ -30,9 +31,9 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 	private int layoutId;
 	private Context context;
 	private ArrayList<Card> items;
-	//private ArrayList<Card> itemsFiltered;
+	private ArrayList<Card> itemsFiltered;
 	private SparseBooleanArray mSelectedItems;
-	//CardFilter mCardFilter;
+	CardFilter mCardFilter;
 
 	//private ArrayList<Card> filterList;
 
@@ -42,9 +43,10 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		super(context, layoutId, items);
 		this.context = context;
 		this.layoutId = layoutId;
-		this.items = items;
-		//this.itemsFiltered = new ArrayList<Card>();
-		//this.itemsFiltered.addAll(items);
+		this.items = new ArrayList<Card>();
+		this.items.addAll(items);
+		this.itemsFiltered = new ArrayList<Card>();
+		this.itemsFiltered.addAll(items);
 		this.mSelectedItems = new SparseBooleanArray();
 	}
 
@@ -53,7 +55,7 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		LayoutInflater vi = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 		view = vi.inflate(this.layoutId, null);
 
-		Card item = this.items.get(position);
+		Card item = this.itemsFiltered.get(position);
 
 		ImageView img = (ImageView) view.findViewById(R.id.cardWarningImg);
 		if (item.isComplete()){
@@ -94,31 +96,54 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 	}
 
 
-	/*private  class CardFilter extends Filter{
+	private  class CardFilter extends Filter{
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
 			FilterResults results = new FilterResults();
 
-			if (constraint == null || constraint.length() == 0){
+
+			if (constraint == null || constraint.length()-2 == 0){
+
 				results.values = items;
 				results.count = items.size();
+
 			}
 			else{
-				ArrayList<Card> filteredCard = new ArrayList<Card>();
-				for (Card c : filteredCard){
-					filteredCard.add(c);
-				}
+				String costraintFilter = constraint.toString();
+				boolean singolo = costraintFilter.contains(StaticGlobals.filterDialogOptions.FILTER_SINGLE);
+				boolean gruppo = costraintFilter.contains(StaticGlobals.filterDialogOptions.FILTER_GROUP);
+				boolean famiglia = costraintFilter.toString().contains(StaticGlobals.filterDialogOptions.FILTER_FAMILY);
 
+
+				ArrayList<Card> filteredCard = new ArrayList<Card>();
+
+				for (Card c : items){
+					if (c instanceof SingleGuestCard && singolo) {
+						filteredCard.add(c);
+					}
+					if (c instanceof FamilyCard && famiglia) {
+						filteredCard.add(c);
+					}
+					if (c instanceof GroupCard && gruppo) {
+						filteredCard.add(c);
+					}
+				}
 				results.values = filteredCard;
 				results.count = filteredCard.size();
+
 			}
 			return results;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		protected void publishResults(CharSequence constraint, FilterResults results) {
 				itemsFiltered = (ArrayList<Card>) results.values;
 				notifyDataSetChanged();
+				clear();
+				for (int i = 0, l = itemsFiltered.size(); i < l; i++)
+					add(itemsFiltered.get(i));
+
 		}
 	}
 
@@ -129,7 +154,7 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		return mCardFilter;
 	}
 
-*/
+
 	public void toggleSelection(int position){
 		selectView(position, !mSelectedItems.get(position));
 	}

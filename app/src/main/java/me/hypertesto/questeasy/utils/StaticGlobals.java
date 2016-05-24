@@ -42,4 +42,9 @@ public class StaticGlobals {
 		public static final String SEND_MAIL = "Invia tramite mail";
 	}
 
+	public static final class filterDialogOptions {
+		public static final String FILTER_SINGLE  = "Ospite singolo";
+		public static final String FILTER_FAMILY = "Famiglia";
+		public static final String FILTER_GROUP = "Gruppo";
+	}
 }

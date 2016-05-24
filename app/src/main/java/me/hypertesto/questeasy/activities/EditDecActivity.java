@@ -93,7 +93,9 @@ public class EditDecActivity extends AppCompatActivity {
 
 	private AlertDialog.Builder filterDialogBuilder;
 	private ArrayList<String> selectedItemDialogFilter;
-	private final CharSequence [] dialogItemsFilter = {"Ospite singolo", "Famiglia", "Gruppo"};
+	private final CharSequence [] dialogItemsFilter = {StaticGlobals.filterDialogOptions.FILTER_SINGLE,
+			StaticGlobals.filterDialogOptions.FILTER_FAMILY,
+			StaticGlobals.filterDialogOptions.FILTER_GROUP};
 	private AlertDialog filterAlertDialog;
 
 
@@ -456,12 +458,12 @@ public class EditDecActivity extends AppCompatActivity {
 						//try to write the file
 						//TODO: test me
 						System.out.println(FormatQuestura.convert(displayed));
-						File f = FileUtils.getFileQuesturaStorageDir("test");
+						//File f = FileUtils.getFileQuesturaStorageDir("test");
 						OutputStream out = null;
 
 						try {
 							//TODO: handle special cases (card errors...)
-							out = new BufferedOutputStream(new FileOutputStream(f));
+							//out = new BufferedOutputStream(new FileOutputStream(f));
 							out.write(FormatQuestura.convert(displayed).getBytes());
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -507,21 +509,19 @@ public class EditDecActivity extends AppCompatActivity {
 					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 						//filterAlertDialog.dismiss();
 						if (isChecked){
-							selectedItemDialogFilter.add(dialogItemsFilter[which].toString().
-									toUpperCase());
+							selectedItemDialogFilter.add(dialogItemsFilter[which].toString());
 						} else if (selectedItemDialogFilter.contains(dialogItemsFilter[which].
-								toString().toUpperCase())){
-							selectedItemDialogFilter.remove(which);
+								toString())){
+							selectedItemDialogFilter.remove(dialogItemsFilter[which].toString());
 						}
 					}
 				}).
 				setPositiveButton(R.string.okButton, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						for (int i = 0; i < selectedItemDialogFilter.size(); i++){
-							System.out.println("val "+selectedItemDialogFilter.get(i));
-						}
-						adapter.getFilter().filter();
+
+
+						adapter.getFilter().filter(selectedItemDialogFilter.toString());
 						filterAlertDialog.dismiss();
 					}
 				}).
