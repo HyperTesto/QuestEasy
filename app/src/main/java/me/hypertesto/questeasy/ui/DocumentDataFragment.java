@@ -90,7 +90,7 @@ public class DocumentDataFragment extends Fragment {
 		if (docTypeAdapter.getCount() > 0) {
 			return docTypeAdapter.getItem(0);
 		} else {
-			return new DocumentType(); //TODO
+			return new DocumentType("", ""); //TODO: test if this fix don't cause other drawbacks
 		}
 
 	}
