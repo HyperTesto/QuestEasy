@@ -67,6 +67,7 @@ public class GroupListAdapter extends ArrayAdapter<Guest>{
 		ImageView typeImg = (ImageView) view.findViewById(R.id.guestTypeImg);
 
 		ColorGenerator generator = ColorGenerator.MATERIAL;
+		int color = generator.getRandomColor();
 
 		/*
 		 * We ensure to set at least a dummy name and initial letter if name is unset
