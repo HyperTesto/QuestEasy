@@ -2,6 +2,7 @@ package me.hypertesto.questeasy.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -55,5 +56,42 @@ public class Declaration extends ArrayList<Card> implements Serializable {
 
 	public Date getDate(){
 		return this.date;
+	}
+
+
+	@Override
+	public boolean add(Card card){
+		card.setDate(this.date);
+		return super.add(card);
+	}
+
+	@Override
+	public void add(int index, Card card){
+		card.setDate(this.date);
+		super.add(index, card);
+	}
+
+	@Override
+	public boolean addAll(Collection<? extends Card> cards){
+		for (Card c : cards){
+			c.setDate(this.date);
+		}
+
+		return super.addAll(cards);
+	}
+
+	@Override
+	public boolean addAll(int index, Collection<? extends Card> cards) {
+		for (Card c : cards){
+			c.setDate(this.date);
+		}
+
+		return super.addAll(index, cards);
+	}
+
+	@Override
+	public Card set(int index, Card card){
+		card.setDate(this.date);
+		return super.set(index, card);
 	}
 }
