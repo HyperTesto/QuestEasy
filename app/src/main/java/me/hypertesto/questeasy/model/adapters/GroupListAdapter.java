@@ -72,8 +72,10 @@ public class GroupListAdapter extends ArrayAdapter<Guest>{
 		/*
 		 * We ensure to set at least a dummy name and initial letter if name is unset
 		 */
-		String initialLetter = item.getName().substring(0,1);
-		if (initialLetter == null || initialLetter.equals("")) {
+		String initialLetter = "";
+		if (item.getSurname().length() != 0)
+			initialLetter = item.getName().substring(0,1);
+		if (initialLetter.equals("")) {
 			initialLetter = "S";
 		}
 

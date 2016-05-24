@@ -54,6 +54,8 @@ public class SingleGuestCard extends Card {
 
 	@Override
 	public String getInitialLetter() {
-		return guest.getName().substring(0,1);
+		if (guest.getName().length() > 0)
+			return guest.getName().substring(0,1);
+		return "";
 	}
 }

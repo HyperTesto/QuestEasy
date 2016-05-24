@@ -74,10 +74,13 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		/*
 		 * We ensure to set at least a dummy name and initial letter if name is unset
 		 */
-		String initialLetter = item.getInitialLetter();
-		if (initialLetter == null || initialLetter.equals("")) {
+		String initialLetter = "";
+		if (item.getInitialLetter().length() != 0)
+			initialLetter = item.getInitialLetter();
+		if (initialLetter.equals("")) {
 			initialLetter = "S";
 		}
+
 
 		TextDrawable drawable = TextDrawable.builder().buildRoundRect(initialLetter,
 				color, 100);
