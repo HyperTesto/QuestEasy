@@ -450,13 +450,19 @@ public class EditDecActivity extends AppCompatActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String selected = dialogItems[indexClickedSavePopUp].toString();
+
 				switch (selected) {
 
 					case StaticGlobals.saveDialogOptions.SAVE_DISK:
 						//try to write the file
 						//TODO: test me
 						System.out.println(FormatQuestura.convert(displayed));
-						File f = FileUtils.getFileQuesturaStorageDir("test");
+						File f = null;
+						try {
+							f = FileUtils.getFileQuesturaStorageDir("lol123.txt");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 						OutputStream out = null;
 
 						try {
