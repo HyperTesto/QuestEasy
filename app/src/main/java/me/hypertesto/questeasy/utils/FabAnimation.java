@@ -12,6 +12,8 @@ import com.github.clans.fab.FloatingActionMenu;
 import me.hypertesto.questeasy.R;
 
 /**
+ * Perform custom hide/show animations on a View.
+ * In this case we use it for fab animations.
  * Created by hypertesto on 13/05/16.
  */
 public class FabAnimation extends Handler {
