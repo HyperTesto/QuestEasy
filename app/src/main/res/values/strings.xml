@@ -32,7 +32,16 @@
 	<string name = "categoryNameGroup">Capogruppo</string>
 	<string name = "categoryNameFamily">Capofamiglia</string>
     <string name = "developInfo">Questa applicazione è stata sviluppata da:  \n\n\t\t\tEnrico Testori
-		\n\t\t\tSimone Calciolari \n\t\t\tGianluca Apriceno\n</string>
+		\n\t\t\tSimone Calciolari \n\t\t\tGianluca Apriceno\n
+        \n\nICONE :
+		\n\tIcona disegnata da <a href="http://www.freepik.com/">Freepik</a> from\n\t<a href="http://google.com/">
+			www.flaticon.com
+		</a>
+		\n\tIcona disegnata da <a href="http://www.flaticon.com/authors/sarfraz-shoukat">Sarfraz
+			Shoukat\n\t</a>from<a href="http://google.com/">
+			www.flaticon.com
+		</a>
+    </string>
 	<string name = "saveGuestCard">salva ospiti</string>
 	<string name = "cardTitleBar">ospiti</string>
     <string name = "saveDialogTitle">Salva su</string>

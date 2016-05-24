@@ -9,6 +9,9 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -19,6 +22,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 
@@ -75,9 +79,15 @@ public class HomeActivity extends AppCompatActivity {
 								// 1. Instantiate an AlertDialog.Builder with its constructor
 								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
+								final TextView messagge = new TextView(HomeActivity.this);
+								final SpannableString s = new SpannableString(getApplicationContext().
+										getText(R.string.developInfo));
+								Linkify.addLinks(s,Linkify.WEB_URLS);
+								messagge.setText(s);
+								messagge.setMovementMethod(LinkMovementMethod.getInstance());
 								builder.
 										setTitle(R.string.app_name).
-										setMessage(R.string.developInfo)
+										setView(messagge)
 										.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
