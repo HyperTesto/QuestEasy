@@ -38,6 +38,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -54,6 +56,7 @@ import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.FileUtils;
 import me.hypertesto.questeasy.utils.FormatQuestura;
@@ -436,7 +439,6 @@ public class EditDecActivity extends AppCompatActivity {
 	public void createSaveDialog (){
 		saveDialogBuilder = new AlertDialog.Builder(EditDecActivity.this);
 
-		int index;
 		saveDialogBuilder.setTitle(R.string.saveDialogTitle);
 		saveDialogBuilder.setSingleChoiceItems(dialogItems, 0, new DialogInterface.OnClickListener() {
 			@Override
@@ -458,8 +460,11 @@ public class EditDecActivity extends AppCompatActivity {
 						//TODO: test me
 						System.out.println(FormatQuestura.convert(displayed));
 						File f = null;
+						DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+						String fileName = "export_" + df.format(DateUtils.today()); //FIXME: better naming
 						try {
-							f = FileUtils.getFileQuesturaStorageDir("lol123.txt");
+							f = FileUtils.getFileQuesturaStorageDir(fileName);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
