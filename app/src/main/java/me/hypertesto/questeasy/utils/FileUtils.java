@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by hypertesto on 23/05/16.
@@ -43,7 +44,7 @@ public class FileUtils {
 	 * @param fileName
 	 * @return
 	 */
-	public static File getFileQuesturaStorageDir(String fileName) {
+	public static File getFileQuesturaStorageDir(String fileName) throws IOException {
 
 		File file = null;
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
@@ -52,7 +53,8 @@ public class FileUtils {
 		} else {
 			file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
 		}
-		if (!file.mkdirs()) {
+		//file.createNewFile();
+		if (!file.getParentFile().mkdirs()) {
 			Log.e("[FILE_DBG]", "Directory not created");
 		}
 		return file;
@@ -67,7 +69,7 @@ public class FileUtils {
 	 */
 	public static File getAppFilesStorageDir (Context ctx, String fileName) {
 		File f = new File(ctx.getFilesDir(), fileName);
-		if (!f.mkdirs()){
+		if (!f.getParentFile().mkdirs()){
 			Log.e("[FILE_DBG]", "Directory not created");
 		}
 		return new File(ctx.getFilesDir(), fileName);
