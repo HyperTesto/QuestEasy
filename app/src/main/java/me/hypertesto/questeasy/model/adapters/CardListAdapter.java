@@ -70,14 +70,21 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 
 		ColorGenerator generator = ColorGenerator.MATERIAL;
 		int color = generator.getRandomColor();
-		TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
+
+		/*
+		 * We ensure to set at least a dummy name and initial letter if name is unset
+		 */
+		String initialLetter = item.getInitialLetter();
+		if (initialLetter == null || initialLetter.equals("")) {
+			initialLetter = "S";
+		}
+
+		TextDrawable drawable = TextDrawable.builder().buildRoundRect(initialLetter,
 				color, 100);
 		typeImg.setImageDrawable(drawable);
 		 if(!mSelectedItems.valueAt(position)){
 			 //insert here code
 		 }
-
-
 
 		return view;
 	}
