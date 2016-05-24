@@ -96,6 +96,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private final CharSequence [] dialogItemsFilter = {StaticGlobals.filterDialogOptions.FILTER_SINGLE,
 			StaticGlobals.filterDialogOptions.FILTER_FAMILY,
 			StaticGlobals.filterDialogOptions.FILTER_GROUP};
+	private boolean[] selectedCheckedItems ={false, false, false};
 	private AlertDialog filterAlertDialog;
 
 
@@ -148,6 +149,11 @@ public class EditDecActivity extends AppCompatActivity {
 				saveAlertDialog.show();
 				return true;
 			case R.id.action_filterDec:
+				/*ListView lw = filterAlertDialog.getListView();
+				for (int i = 0; i < lw.getCount(); i++){
+					System.out.println("ITEM "+ lw.getCheckedItemCount());
+				}
+				*/
 				filterAlertDialog.show();
 				return true;
 			default:
@@ -504,15 +510,18 @@ public class EditDecActivity extends AppCompatActivity {
 		ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.AppTheme);
 		filterDialogBuilder = new AlertDialog.Builder(ctw);
 		filterDialogBuilder.setTitle(R.string.filterDialotTitle).
-				setMultiChoiceItems(dialogItemsFilter, null, new DialogInterface.OnMultiChoiceClickListener() {
+				setMultiChoiceItems(dialogItemsFilter, selectedCheckedItems , new DialogInterface.OnMultiChoiceClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 						//filterAlertDialog.dismiss();
+
 						if (isChecked){
+							selectedCheckedItems[which] = true;
 							selectedItemDialogFilter.add(dialogItemsFilter[which].toString());
 						} else if (selectedItemDialogFilter.contains(dialogItemsFilter[which].
 								toString())){
 							selectedItemDialogFilter.remove(dialogItemsFilter[which].toString());
+							selectedCheckedItems[which] = false;
 						}
 					}
 				}).
@@ -529,6 +538,7 @@ public class EditDecActivity extends AppCompatActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						filterAlertDialog.dismiss();
+
 					}
 				});
 
