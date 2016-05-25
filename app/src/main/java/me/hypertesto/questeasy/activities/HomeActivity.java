@@ -97,6 +97,10 @@ public class HomeActivity extends AppCompatActivity {
 								AlertDialog dialog = builder.create();
 								dialog.show();
 								break;
+							case R.id.nav_exam_mod:
+								FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
+								fsd.clear();
+								fsd.populate();
 							default:
 								break;
 						}
@@ -223,8 +227,8 @@ public class HomeActivity extends AppCompatActivity {
 
 		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
 
-		fsd.clear();
-		fsd.populate();
+		//fsd.clear();
+		//fsd.populate();
 
 		fsd.open();
 
