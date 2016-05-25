@@ -3,11 +3,6 @@ package me.hypertesto.questeasy.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,26 +12,29 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import me.hypertesto.questeasy.model.DocumentType;
-import me.hypertesto.questeasy.model.Place;
 
 /**
+ * Class used to handle DocType remote request
+ * server returns a JSON list that we map to DocType class
  * Created by hypertesto on 21/05/16.
  */
 public class DocumentTypeRequest {
 
 	private String remoteAPI = "https://questura.hypertesto.me/api/v1/documenti/";
 
+	/**
+	 * Returns a list of DocType that starts with the string str
+	 * @param context
+	 * @param str
+	 * @return
+	 */
 	public List<DocumentType> find(Context context, String str){
 
-		RequestQueue queue = Volley.newRequestQueue(context);
-		String url = remoteAPI + str;
 		List<DocumentType> filteredPlaces = new ArrayList<>();
-		RequestFuture<JSONObject> future = RequestFuture.newFuture();
-		JsonObjectRequest request = new JsonObjectRequest(url, null, future, future);
-		queue.add(request);
 
 		try {
-			JSONObject response = future.get(); // this will block (forever)
+
+			JSONObject response = VolleySyncRequest.get(context, remoteAPI + str); // this will block (forever)
 			JSONArray jArray = response.getJSONArray("documenti");
 			System.out.println(jArray);
 			for (int i=0; i < jArray.length(); i++) {

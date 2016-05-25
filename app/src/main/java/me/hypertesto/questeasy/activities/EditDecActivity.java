@@ -7,8 +7,10 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -38,6 +40,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -54,6 +58,7 @@ import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.FileUtils;
 import me.hypertesto.questeasy.utils.FormatQuestura;
@@ -444,7 +449,6 @@ public class EditDecActivity extends AppCompatActivity {
 	public void createSaveDialog (){
 		saveDialogBuilder = new AlertDialog.Builder(EditDecActivity.this);
 
-		int index;
 		saveDialogBuilder.setTitle(R.string.saveDialogTitle);
 		saveDialogBuilder.setSingleChoiceItems(dialogItems, 0, new DialogInterface.OnClickListener() {
 			@Override
@@ -458,19 +462,32 @@ public class EditDecActivity extends AppCompatActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String selected = dialogItems[indexClickedSavePopUp].toString();
+				String exportQuestura = FormatQuestura.convert(displayed);
 				switch (selected) {
 
 					case StaticGlobals.saveDialogOptions.SAVE_DISK:
 						//try to write the file
 						//TODO: test me
 						System.out.println(FormatQuestura.convert(displayed));
-						//File f = FileUtils.getFileQuesturaStorageDir("test");
+
+						File f = null;
+						DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+						String fileName = "export_" + df.format(DateUtils.today()); //FIXME: better naming
+						try {
+							f = FileUtils.getFileQuesturaStorageDir(fileName);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+
 						OutputStream out = null;
 
 						try {
 							//TODO: handle special cases (card errors...)
-							//out = new BufferedOutputStream(new FileOutputStream(f));
-							out.write(FormatQuestura.convert(displayed).getBytes());
+
+
+							out = new BufferedOutputStream(new FileOutputStream(f));
+							out.write(exportQuestura.getBytes());
 						} catch (Exception e) {
 							e.printStackTrace();
 						} finally {
@@ -487,7 +504,48 @@ public class EditDecActivity extends AppCompatActivity {
 					case StaticGlobals.saveDialogOptions.SAVE_DROPBOX:
 
 						break;
-					case StaticGlobals.saveDialogOptions.SEND_MAIL:
+					case StaticGlobals.saveDialogOptions.SEND_MAIL: //FIXME: clean bad code
+
+						Log.d("MAIN", "sending email...");
+						Intent intent = new Intent(Intent.ACTION_SEND);
+						intent.setType("text/plain");
+						//intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"email@example.com"});
+						intent.putExtra(Intent.EXTRA_SUBJECT, "File questura");
+						intent.putExtra(Intent.EXTRA_TEXT, "In allegato il file della questura pronto per l'invio");
+						File file = null;
+						df = new SimpleDateFormat("dd-MM-yyyy");
+						try {
+							file = FileUtils.getFileQuesturaStorageDir( "export_"+ df.format(DateUtils.today())+ ".txt");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						/*if (file != null && (!file.exists() || !file.canRead())) {
+							//Toast.makeText(this, "Attachment Error", Toast.LENGTH_SHORT).show();
+							Log.e("[SEND_MAIL]", "Cannot open temp file");
+							finish();
+							return;
+						}*/
+						OutputStream out2 = null;
+
+						try {
+							//TODO: handle special cases (card errors...)
+							out2 = new BufferedOutputStream(new FileOutputStream(file));
+							out2.write(exportQuestura.getBytes());
+						} catch (Exception e) {
+							e.printStackTrace();
+						} finally {
+							if (out2 != null) {
+								try {
+									out2.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+
+						}
+						Uri uri = Uri.fromFile(file);
+						intent.putExtra(Intent.EXTRA_STREAM, uri);
+						startActivity(Intent.createChooser(intent, "Send email..."));
 
 						break;
 					default:

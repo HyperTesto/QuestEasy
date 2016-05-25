@@ -3,11 +3,6 @@ package me.hypertesto.questeasy.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 import me.hypertesto.questeasy.model.Place;
 
 /**
+ * Class that handle generic Place api request (states + minicipalities)
  * Created by hypertesto on 10/05/16.
  */
 public class PlaceRequest implements AutoCompleteRequest {
@@ -27,15 +23,12 @@ public class PlaceRequest implements AutoCompleteRequest {
 
 	@Override
 	public List<Place> find(Context context, String str) {
-		RequestQueue queue = Volley.newRequestQueue(context);
-		String url = remoteAPI + str;
+
 		List<Place> filteredPlaces = new ArrayList<>();
-		RequestFuture<JSONObject> future = RequestFuture.newFuture();
-		JsonObjectRequest request = new JsonObjectRequest(url, null, future, future);
-		queue.add(request);
 
 		try {
-			JSONObject response = future.get(); // this will block (forever)
+
+			JSONObject response = VolleySyncRequest.get(context, remoteAPI + str); // this will block (forever)
 			JSONArray jArray = response.getJSONArray("comuni");
 			System.out.println(jArray);
 			for (int i=0; i < jArray.length(); i++) {

@@ -25,6 +25,11 @@ import me.hypertesto.questeasy.model.SingleGuestCard;
  */
 public class FormatQuestura {
 
+	/**
+	 * Just a main for testing purposes
+	 * @param args
+	 * @throws ParseException
+	 */
 	public static void main (String args[]) throws ParseException {
 
 		Declaration d = new Declaration();
@@ -51,6 +56,12 @@ public class FormatQuestura {
 
 	}
 
+	/**
+	 * Main method invoked to convert a declaration, it returns a String contanining all the
+	 * various Cards converted to questura specification.
+	 * @param dec
+	 * @return
+	 */
 	public static String convert (Declaration dec) {
 
 		String result = "";
@@ -85,6 +96,11 @@ public class FormatQuestura {
 		return result.substring(0, result.length()-1);
 	}
 
+	/**
+	 * Returns a formatted SingleGuestCard
+	 * @param sgc
+	 * @return
+	 */
 	private static String formatSingleGuest(SingleGuestCard sgc) {
 
 		String res = "";
@@ -114,6 +130,11 @@ public class FormatQuestura {
 
 	}
 
+	/**
+	 * Returns a formatted GroupCard
+	 * @param gc
+	 * @return
+	 */
 	private static String formatGroup(GroupCard gc) {
 		String res = "";
 
@@ -146,6 +167,14 @@ public class FormatQuestura {
 		return res;
 	}
 
+	/**
+	 * Return a formatted group member
+	 * Arrivo and permanenza are gotten from the parent card
+	 * @param gmg
+	 * @param arrivo
+	 * @param permanenza
+	 * @return
+	 */
 	private static String formatGroupMember(GroupMemberGuest gmg, Date arrivo, int permanenza) {
 		String res = "";
 
@@ -169,6 +198,11 @@ public class FormatQuestura {
 		return res;
 	}
 
+	/**
+	 * Returns a formatted FamilyCard
+	 * @param fc
+	 * @return
+	 */
 	private static String formatFamily (FamilyCard fc) {
 		String res = "";
 
@@ -202,6 +236,14 @@ public class FormatQuestura {
 		return res;
 	}
 
+	/**
+	 * Returns a formatted family member
+	 * arrivo and permamenza are gotten from parent FamilyCard
+	 * @param fmg
+	 * @param arrivo
+	 * @param permanenza
+	 * @return
+	 */
 	private static String formatFamilyMember (FamilyMemberGuest fmg, Date arrivo, int permanenza) {
 		String res = "";
 
@@ -225,6 +267,13 @@ public class FormatQuestura {
 		return res;
 	}
 
+	/**
+	 * Extra method that format place of birth.
+	 * Since we got an unified api for both states and municipalities we have to
+	 * discriminate here and set fields as specifications.
+	 * @param p
+	 * @return
+	 */
 	private static String formatPlaceOfBirth(Place p) {
 
 		String res = "";
@@ -241,6 +290,12 @@ public class FormatQuestura {
 
 	}
 
+	/**
+	 * Helper method that pad a String with n spaces on the right.
+	 * @param s
+	 * @param n
+	 * @return
+	 */
 	public static String padRight(String s, int n) {
 		return String.format("%1$-" + n + "s", s);
 	}

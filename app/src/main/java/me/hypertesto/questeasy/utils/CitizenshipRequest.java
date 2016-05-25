@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 import me.hypertesto.questeasy.model.Place;
 
 /**
+ * Class that handle API request for citizenship
  * Created by hypertesto on 10/05/16.
  */
 public class CitizenshipRequest implements AutoCompleteRequest{
@@ -28,15 +29,11 @@ public class CitizenshipRequest implements AutoCompleteRequest{
 	@Override
 	public List<Place> find(Context context, String str) {
 
-		RequestQueue queue = Volley.newRequestQueue(context);
-		String url = remoteAPI + str;
 		List<Place> filteredPlaces = new ArrayList<>();
-		RequestFuture<JSONObject> future = RequestFuture.newFuture();
-		JsonObjectRequest request = new JsonObjectRequest(url, null, future, future);
-		queue.add(request);
 
 		try {
-			JSONObject response = future.get(); // this will block (forever)
+
+			JSONObject response = VolleySyncRequest.get(context, remoteAPI + str); // this will block (forever)
 			JSONArray jArray = response.getJSONArray("stati");
 			System.out.println(jArray);
 			for (int i=0; i < jArray.length(); i++) {

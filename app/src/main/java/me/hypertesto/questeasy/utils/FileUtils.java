@@ -46,17 +46,23 @@ public class FileUtils {
 	 */
 	public static File getFileQuesturaStorageDir(String fileName) throws IOException {
 
-		File file = null;
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-			file = new File(Environment.getExternalStoragePublicDirectory(
-					Environment.DIRECTORY_DOCUMENTS), fileName);
-		} else {
-			file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
-		}
-		//file.createNewFile();
-		if (!file.getParentFile().mkdirs()) {
+		File file = null, dir = null, sdCard = null;
+		sdCard = Environment.getExternalStorageDirectory();
+		dir = new File(sdCard.getAbsolutePath() + "/questura");
+
+		Log.e("[FILE_DBG]", "R: " + isExternalStorageReadable());
+		Log.e("[FILE_DBG]", "W: " + isExternalStorageWritable());
+		Log.e("[FILE_DBG]", "mkdirs(): " + dir.mkdirs());
+		Log.e("[FILE_DBG]", "isDir(): " + dir.isDirectory());
+		Log.e("[FILE_DBG]", "sdCard: " + sdCard.getAbsolutePath());
+		Log.e("[FILE_DBG]", "sdCard: " + sdCard.isDirectory());
+
+		/*if (!dir.mkdirs() || !dir.isDirectory()) {
 			Log.e("[FILE_DBG]", "Directory not created");
-		}
+		}*/
+
+		file = new File (dir, fileName);
+		Log.e("[FILE_DBG]", "file: " + file.getAbsolutePath());
 		return file;
 	}
 
