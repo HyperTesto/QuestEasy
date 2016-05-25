@@ -38,8 +38,7 @@ public class StaticGlobals {
 
 	public static final class saveDialogOptions {
 		public static final String SAVE_DISK = "Memoria interna";
-		public static final String SAVE_DROPBOX = "Dropbox";
-		public static final String SEND_MAIL = "Invia tramite mail";
+		public static final String SHARE = "Condividi";
 	}
 
 	public static final class filterDialogOptions {

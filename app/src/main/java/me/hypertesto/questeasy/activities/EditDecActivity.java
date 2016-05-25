@@ -91,8 +91,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private AlertDialog.Builder saveDialogBuilder;
 
 	private final CharSequence [] dialogItems = {StaticGlobals.saveDialogOptions.SAVE_DISK,
-			StaticGlobals.saveDialogOptions.SAVE_DROPBOX,
-			StaticGlobals.saveDialogOptions.SEND_MAIL};
+			StaticGlobals.saveDialogOptions.SHARE};
 
 	private AlertDialog saveAlertDialog;
 
@@ -501,10 +500,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 						}
 						break;
-					case StaticGlobals.saveDialogOptions.SAVE_DROPBOX:
-
-						break;
-					case StaticGlobals.saveDialogOptions.SEND_MAIL: //FIXME: clean bad code
+					case StaticGlobals.saveDialogOptions.SHARE: //FIXME: clean bad code
 
 						Log.d("MAIN", "sending email...");
 						Intent intent = new Intent(Intent.ACTION_SEND);
