@@ -80,10 +80,7 @@ public class HomeActivity extends AppCompatActivity {
 								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
 								final TextView messagge = new TextView(HomeActivity.this);
-								final SpannableString s = new SpannableString(getApplicationContext().
-										getText(R.string.developInfo));
-								Linkify.addLinks(s,Linkify.WEB_URLS);
-								messagge.setText(s);
+								messagge.setText(R.string.developInfo);
 								messagge.setMovementMethod(LinkMovementMethod.getInstance());
 								builder.
 										setTitle(R.string.app_name).
