@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -61,7 +62,8 @@ public class FormGuestActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_form_guest);
 
 
-		mBottomBar = BottomBar.attach(this,savedInstanceState);
+		mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.formCordinator),
+				findViewById(R.id.myScrollingContent), savedInstanceState);
 		mBottomBar.setItemsFromMenu(R.menu.bottom_bar, new OnMenuTabClickListener() {
 			@Override
 			public void onMenuTabSelected(int menuItemId) {
@@ -73,6 +75,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 			}
 		});
+		//mBottomBar.noTopOffset();
 		//TODO STUB STUPIDO
 		Intent intent = getIntent();
 		Serializable ser = intent.getSerializableExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT);
