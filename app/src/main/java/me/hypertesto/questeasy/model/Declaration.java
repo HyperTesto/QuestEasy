@@ -12,6 +12,7 @@ import java.util.Date;
  * Created by rigel on 02/05/16.
  */
 public class Declaration extends ArrayList<Card> implements Serializable {
+	private User owner;
 	private Date date;
 
 	public Declaration(){
@@ -21,6 +22,13 @@ public class Declaration extends ArrayList<Card> implements Serializable {
 	public Declaration(Date date){
 		super();
 		this.date = date;
+		this.owner = null;
+	}
+
+	public Declaration(Date date, User owner){
+		super();
+		this.date = date;
+		this.owner = owner;
 	}
 
 	public boolean isComplete(){
@@ -58,6 +66,13 @@ public class Declaration extends ArrayList<Card> implements Serializable {
 		return this.date;
 	}
 
+	public void setOwner(User owner){
+		this.owner = owner;
+	}
+
+	public User getOwner(){
+		return owner;
+	}
 
 	@Override
 	public boolean add(Card card){
