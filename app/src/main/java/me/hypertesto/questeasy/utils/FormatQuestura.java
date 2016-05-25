@@ -72,15 +72,15 @@ public class FormatQuestura {
 
 				if ( c instanceof SingleGuestCard) {
 
-					result = formatSingleGuest((SingleGuestCard) c);
+					result += formatSingleGuest((SingleGuestCard) c);
 
 				} else if ( c instanceof FamilyCard) {
 
-					result = formatFamily((FamilyCard) c);
+					result += formatFamily((FamilyCard) c);
 
 				} else if ( c instanceof GroupCard) {
 
-					result = formatGroup((GroupCard) c);
+					result += formatGroup((GroupCard) c);
 
 				} else {
 					new RuntimeException("Card not recognized");
@@ -162,7 +162,7 @@ public class FormatQuestura {
 
 		for (GroupMemberGuest gmg : gc.getAltri()){
 			res += formatGroupMember(gmg, gc.getDate(), gc.getPermanenza());
-			res += "\n";
+			//res += "\n";
 		}
 		return res;
 	}
@@ -230,7 +230,7 @@ public class FormatQuestura {
 
 		for (FamilyMemberGuest fmg : fc.getFamiliari()){
 			res += formatFamilyMember(fmg, fc.getDate(), fc.getPermanenza());
-			res += "\n";
+			//res += "\n";
 		}
 
 		return res;
