@@ -102,17 +102,11 @@ public class HomeActivity extends AppCompatActivity {
 								fsd.populate();
 								fsd.open();
 
-								HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
-
-								ArrayList<Declaration> items = new ArrayList<>();
-
-								for (Date k : decs.keySet()){
-									items.add(decs.get(k));
-								}
+								ArrayList<Declaration> decs = fsd.getAllDeclarations();
 
 								fsd.close();
 
-								adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, items);
+								adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, decs);
 								lv.setAdapter(adapter);
 							default:
 								break;
