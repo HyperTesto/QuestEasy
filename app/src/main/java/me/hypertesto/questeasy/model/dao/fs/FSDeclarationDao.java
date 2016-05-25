@@ -12,20 +12,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import me.hypertesto.questeasy.model.Declaration;
-import me.hypertesto.questeasy.model.DocumentType;
-import me.hypertesto.questeasy.model.Documento;
-import me.hypertesto.questeasy.model.FamilyCard;
-import me.hypertesto.questeasy.model.FamilyHeadGuest;
-import me.hypertesto.questeasy.model.FamilyMemberGuest;
-import me.hypertesto.questeasy.model.GroupCard;
-import me.hypertesto.questeasy.model.GroupHeadGuest;
-import me.hypertesto.questeasy.model.GroupMemberGuest;
-import me.hypertesto.questeasy.model.Place;
-import me.hypertesto.questeasy.model.SingleGuest;
-import me.hypertesto.questeasy.model.SingleGuestCard;
+import me.hypertesto.questeasy.model.*;
 import me.hypertesto.questeasy.model.dao.DeclarationDao;
 import me.hypertesto.questeasy.model.other.AppendingObjectOutputStream;
+import me.hypertesto.questeasy.utils.DateUtils;
 
 /**
  * Created by rigel on 04/05/16.
@@ -98,96 +88,292 @@ public class FSDeclarationDao implements DeclarationDao {
 	}
 
 	public void populate(){
-		Place DAMBEL = new Place("12", "Dambel (TN)", false);
+		Place DAMBEL = new Place("404022071", "DAMBEL (TN)", false);
+		Place ITA = new Place("100000100", "ITALIA", true);
+		DocumentType DT = new DocumentType("CARTA DI IDENTITA'", "IDENT");
 
-		SingleGuest g = new SingleGuest();
-		g.setBirthDate(new Date());
-		g.setName("Paolo");
-		g.setSurname("Rossi");
-		g.setSex("MF");
-		g.setCittadinanza(new Place("12","ITALIA",true));
-		g.setPlaceOfBirth(DAMBEL);
-		g.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "b", new Place("Falcade (BL)", "4000000", false)));
+		SingleGuest sg1 = new SingleGuest();
+		sg1.setName("Paolo");
+		sg1.setSurname("Rossi");
+		sg1.setSex("M");
+		sg1.setBirthDate(DateUtils.getDateInstance(1, 1, 1978));
+		sg1.setPlaceOfBirth(DAMBEL);
+		sg1.setCittadinanza(ITA);
+		sg1.setDocumento(new Documento(DT, "AK474747", DAMBEL));
+		SingleGuestCard SGC1 = new SingleGuestCard();
+		SGC1.setPermanenza(4);
+		SGC1.setGuest(sg1);
 
-		FamilyHeadGuest g1 = new FamilyHeadGuest();
-		g1.setBirthDate(new Date());
-		g1.setName("Manilo");
-		g1.setSurname("Carlini");
-		g1.setSex("TF");
-		g1.setCittadinanza(new Place("12","ITALIA",true));
-		g1.setPlaceOfBirth(DAMBEL);
-		g1.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", new Place("Falcade (BL)", "4000000", false)));
+		SingleGuest sg2 = new SingleGuest();
+		sg2.setName("Carlo");
+		sg2.setSurname("Puggu");
+		sg2.setSex("M");
+		sg2.setBirthDate(DateUtils.getDateInstance(15, 7, 1881));
+		sg2.setPlaceOfBirth(DAMBEL);
+		sg2.setCittadinanza(ITA);
+		sg2.setDocumento(new Documento(DT, "AR101101", DAMBEL));
+		SingleGuestCard SGC2 = new SingleGuestCard();
+		SGC2.setPermanenza(2);
+		SGC2.setGuest(sg2);
 
-		ArrayList<FamilyMemberGuest> fmgs = new ArrayList<>();
-		FamilyMemberGuest g2 = new FamilyMemberGuest();
-		g2.setBirthDate(new Date());
-		g2.setName("Carlo");
-		g2.setSurname("Carlini");
-		g2.setSex("TF");
-		g2.setCittadinanza(new Place("12","ITALIA",true));
-		g2.setPlaceOfBirth(DAMBEL);
-		fmgs.add(g2);
+		SingleGuest sg3 = new SingleGuest();
+		sg3.setName("Galio");
+		sg3.setSurname("Mangiula");
+		sg3.setSex("M");
+		sg3.setBirthDate(DateUtils.getDateInstance(17, 3, 1962));
+		sg3.setPlaceOfBirth(DAMBEL);
+		sg3.setCittadinanza(ITA);
+		sg3.setDocumento(new Documento(DT, "AR001100", DAMBEL));
+		SingleGuestCard SGC3 = new SingleGuestCard();
+		SGC3.setPermanenza(2);
+		SGC3.setGuest(sg3);
 
-		g2 = new FamilyMemberGuest();
-		g2.setBirthDate(new Date());
-		g2.setName("Rallo");
-		g2.setSurname("Lorlini");
-		g2.setSex("TF");
-		g2.setCittadinanza(new Place("12","ITALIA",true));
-		g2.setPlaceOfBirth(DAMBEL);
-		fmgs.add(g2);
+		SingleGuest sg4 = new SingleGuest();
+		sg4.setName("Anna");
+		sg4.setSurname("Bianchi");
+		sg4.setSex("F");
+		sg4.setBirthDate(DateUtils.getDateInstance(16, 8, 1992));
+		sg4.setPlaceOfBirth(DAMBEL);
+		sg4.setCittadinanza(ITA);
+		sg4.setDocumento(new Documento(DT, "AR011110", DAMBEL));
+		SingleGuestCard SGC4 = new SingleGuestCard();
+		SGC4.setPermanenza(5);
+		SGC4.setGuest(sg4);
 
-		GroupHeadGuest g3 = new GroupHeadGuest();
-		g3.setBirthDate(new Date());
-		g3.setName("Lapillo");
-		g3.setSurname("lupalini");
-		g3.setSex("TF");
-		g3.setCittadinanza(new Place("12","ITALIA",true));
-		g3.setPlaceOfBirth(DAMBEL);
-		g3.setDocumento(new Documento(new DocumentType("carta ident", "100000"), "d", new Place("Falcade (BL)", "4000000", false)));
 
-		ArrayList<GroupMemberGuest> gmgs = new ArrayList<>();
-		GroupMemberGuest g4 = new GroupMemberGuest();
-		g4.setBirthDate(new Date());
-		g4.setName("Marala");
-		g4.setSurname("Carlona");
-		g4.setSex("TF");
-		g4.setCittadinanza(new Place("12","ITALIA",true));
-		g4.setPlaceOfBirth(DAMBEL);
-		gmgs.add(g4);
+		FamilyHeadGuest fhg1 = new FamilyHeadGuest();
+		fhg1.setName("Peter");
+		fhg1.setSurname("Griffin");
+		fhg1.setSex("M");
+		fhg1.setBirthDate(DateUtils.getDateInstance(12, 4, 1958));
+		fhg1.setPlaceOfBirth(DAMBEL);
+		fhg1.setCittadinanza(ITA);
+		fhg1.setDocumento(new Documento(DT, "MK123456", DAMBEL));
 
-		g4 = new GroupMemberGuest();
-		g4.setBirthDate(new Date());
-		g4.setName("Trullo");
-		g4.setSurname("frolliani");
-		g4.setSex("TF");
-		g4.setCittadinanza(new Place("12","ITALIA",true));
-		g4.setPlaceOfBirth(DAMBEL);
-		gmgs.add(g4);
+		FamilyMemberGuest fmg11 = new FamilyMemberGuest();
+		fmg11.setName("Lois");
+		fmg11.setSurname("Griffin");
+		fmg11.setSex("F");
+		fmg11.setBirthDate(DateUtils.getDateInstance(1, 1, 1960));
+		fmg11.setPlaceOfBirth(DAMBEL);
+		fmg11.setCittadinanza(ITA);
 
-		SingleGuestCard SGC = new SingleGuestCard(g, new Date(), 5);
-		FamilyCard FC = new FamilyCard(g1, fmgs, new Date(), 12);
-		GroupCard GC = new GroupCard(g3, gmgs, new Date(), 3);
+		FamilyMemberGuest fmg12 = new FamilyMemberGuest();
+		fmg12.setName("Chris");
+		fmg12.setSurname("Griffin");
+		fmg12.setSex("M");
+		fmg12.setBirthDate(DateUtils.getDateInstance(1, 1, 1986));
+		fmg12.setPlaceOfBirth(DAMBEL);
+		fmg12.setCittadinanza(ITA);
 
+		FamilyMemberGuest fmg13 = new FamilyMemberGuest();
+		fmg13.setName("Megatron");
+		fmg13.setSurname("Griffin");
+		fmg13.setSex("F");
+		fmg13.setBirthDate(DateUtils.getDateInstance(1, 1, 1984));
+		fmg13.setPlaceOfBirth(DAMBEL);
+		fmg13.setCittadinanza(ITA);
+
+		FamilyMemberGuest fmg14 = new FamilyMemberGuest();
+		fmg14.setName("Stewie");
+		fmg14.setSurname("Griffin");
+		fmg14.setSex("M");
+		fmg14.setBirthDate(DateUtils.getDateInstance(1, 1, 1998));
+		fmg14.setPlaceOfBirth(DAMBEL);
+		fmg14.setCittadinanza(ITA);
+
+		FamilyMemberGuest fmg15 = new FamilyMemberGuest();
+		fmg15.setName("Brian");
+		fmg15.setSurname("Griffin");
+		fmg15.setSex("M");
+		fmg15.setBirthDate(DateUtils.getDateInstance(1, 1, 1993));
+		fmg15.setPlaceOfBirth(DAMBEL);
+		fmg15.setCittadinanza(ITA);
+
+		FamilyCard GRIFFIN = new FamilyCard();
+		GRIFFIN.setPermanenza(16);
+		GRIFFIN.setCapoFamiglia(fhg1);
+		GRIFFIN.addFamilyMember(fmg11);
+		GRIFFIN.addFamilyMember(fmg12);
+		GRIFFIN.addFamilyMember(fmg13);
+		GRIFFIN.addFamilyMember(fmg14);
+		GRIFFIN.addFamilyMember(fmg15);
+
+
+		FamilyHeadGuest fhg2 = new FamilyHeadGuest();
+		fhg2.setName("Cleveland");
+		fhg2.setSurname("Brown");
+		fhg2.setSex("M");
+		fhg2.setBirthDate(DateUtils.getDateInstance(12, 4, 1958));
+		fhg2.setPlaceOfBirth(DAMBEL);
+		fhg2.setCittadinanza(ITA);
+		fhg2.setDocumento(new Documento(DT, "US987654", DAMBEL));
+
+		FamilyMemberGuest fmg21 = new FamilyMemberGuest();
+		fmg21.setName("Donna");
+		fmg21.setSurname("Tubbs");
+		fmg21.setSex("F");
+		fmg21.setBirthDate(DateUtils.getDateInstance(1, 1, 1960));
+		fmg21.setPlaceOfBirth(DAMBEL);
+		fmg21.setCittadinanza(ITA);
+
+		FamilyMemberGuest fmg22 = new FamilyMemberGuest();
+		fmg22.setName("Jr");
+		fmg22.setSurname("Brown");
+		fmg22.setSex("M");
+		fmg22.setBirthDate(DateUtils.getDateInstance(1, 1, 1990));
+		fmg22.setPlaceOfBirth(DAMBEL);
+		fmg22.setCittadinanza(ITA);
+
+		FamilyMemberGuest fmg23 = new FamilyMemberGuest();
+		fmg23.setName("Roberta");
+		fmg23.setSurname("Tubbs");
+		fmg23.setSex("F");
+		fmg23.setBirthDate(DateUtils.getDateInstance(1, 1, 1985));
+		fmg23.setPlaceOfBirth(DAMBEL);
+		fmg23.setCittadinanza(ITA);
+
+		FamilyMemberGuest fmg24 = new FamilyMemberGuest();
+		fmg24.setName("Rallo");
+		fmg24.setSurname("Tubbs");
+		fmg24.setSex("M");
+		fmg24.setBirthDate(DateUtils.getDateInstance(1, 1, 2000));
+		fmg24.setPlaceOfBirth(DAMBEL);
+		fmg24.setCittadinanza(ITA);
+
+		FamilyCard BROWN = new FamilyCard();
+		BROWN.setPermanenza(11);
+		BROWN.setCapoFamiglia(fhg2);
+		BROWN.addFamilyMember(fmg21);
+		BROWN.addFamilyMember(fmg22);
+		BROWN.addFamilyMember(fmg23);
+		BROWN.addFamilyMember(fmg24);
+
+
+		GroupHeadGuest ghg1 = new GroupHeadGuest();
+		ghg1.setName("Mokungo");
+		ghg1.setSurname("Punto Ga");
+		ghg1.setSex("M");
+		ghg1.setBirthDate(DateUtils.getDateInstance(12, 4, 1980));
+		ghg1.setPlaceOfBirth(DAMBEL);
+		ghg1.setCittadinanza(ITA);
+		ghg1.setDocumento(new Documento(DT, "GA666666", DAMBEL));
+
+		GroupMemberGuest gmg11 = new GroupMemberGuest();
+		gmg11.setName("Tizio");
+		gmg11.setSurname("Tiziolini");
+		gmg11.setSex("M");
+		gmg11.setBirthDate(DateUtils.getDateInstance(1, 1, 1980));
+		gmg11.setPlaceOfBirth(DAMBEL);
+		gmg11.setCittadinanza(ITA);
+
+		GroupMemberGuest gmg12 = new GroupMemberGuest();
+		gmg12.setName("Caia");
+		gmg12.setSurname("Caioli");
+		gmg12.setSex("F");
+		gmg12.setBirthDate(DateUtils.getDateInstance(1, 1, 1980));
+		gmg12.setPlaceOfBirth(DAMBEL);
+		gmg12.setCittadinanza(ITA);
+
+		GroupMemberGuest gmg13 = new GroupMemberGuest();
+		gmg13.setName("Sempronio");
+		gmg13.setSurname("Sempi");
+		gmg13.setSex("M");
+		gmg13.setBirthDate(DateUtils.getDateInstance(1, 1, 1980));
+		gmg13.setPlaceOfBirth(DAMBEL);
+		gmg13.setCittadinanza(ITA);
+
+		GroupCard GRUPPO1 = new GroupCard();
+		GRUPPO1.setPermanenza(9);
+		GRUPPO1.setCapoGruppo(ghg1);
+		GRUPPO1.addGroupMember(gmg11);
+		GRUPPO1.addGroupMember(gmg12);
+		GRUPPO1.addGroupMember(gmg13);
+
+
+		GroupHeadGuest ghg2 = new GroupHeadGuest();
+		ghg2.setName("Alice");
+		ghg2.setSurname("Info");
+		ghg2.setSex("F");
+		ghg2.setBirthDate(DateUtils.getDateInstance(12, 4, 1980));
+		ghg2.setPlaceOfBirth(DAMBEL);
+		ghg2.setCittadinanza(ITA);
+		ghg2.setDocumento(new Documento(DT, "IT198237", DAMBEL));
+
+		GroupMemberGuest gmg21 = new GroupMemberGuest();
+		gmg21.setName("Bob");
+		gmg21.setSurname("Info");
+		gmg21.setSex("M");
+		gmg21.setBirthDate(DateUtils.getDateInstance(1, 1, 1980));
+		gmg21.setPlaceOfBirth(DAMBEL);
+		gmg21.setCittadinanza(ITA);
+
+		GroupMemberGuest gmg22 = new GroupMemberGuest();
+		gmg22.setName("Charlie");
+		gmg22.setSurname("Malvagio");
+		gmg22.setSex("M");
+		gmg22.setBirthDate(DateUtils.getDateInstance(1, 1, 1980));
+		gmg22.setPlaceOfBirth(DAMBEL);
+		gmg22.setCittadinanza(ITA);
+
+		GroupMemberGuest gmg23 = new GroupMemberGuest();
+		gmg23.setName("Mallory");
+		gmg23.setSurname("Malvagia");
+		gmg23.setSex("F");
+		gmg23.setBirthDate(DateUtils.getDateInstance(1, 1, 1980));
+		gmg23.setPlaceOfBirth(DAMBEL);
+		gmg23.setCittadinanza(ITA);
+
+		GroupCard GRUPPO2 = new GroupCard();
+		GRUPPO2.setPermanenza(7);
+		GRUPPO2.setCapoGruppo(ghg2);
+		GRUPPO2.addGroupMember(gmg21);
+		GRUPPO2.addGroupMember(gmg22);
+		GRUPPO2.addGroupMember(gmg23);
+
+		Declaration declaration = new Declaration();
 
 		this.open();
 
-		Declaration d;
+		declaration.setDate(DateUtils.getDateInstance(12, 6, 2015));
+		declaration.add(SGC1);
+		declaration.add(SGC2);
+		declaration.add(GRUPPO2);
+		this.insertDeclaration(declaration);
 
-		d = new Declaration(new Date(2016, 4, 1));
-		d.add(SGC);
-		this.insertDeclaration(d);
+		declaration = new Declaration(DateUtils.getDateInstance(15, 7, 2015));
+		declaration.add(SGC3);
+		declaration.add(SGC4);
+		declaration.add(GRUPPO1);
+		this.insertDeclaration(declaration);
 
-		d = new Declaration(new Date(2016, 4, 2));
-		d.add(SGC);
-		d.add(FC);
-		this.insertDeclaration(d);
+		declaration = new Declaration(DateUtils.getDateInstance(16, 7, 2015));
+		declaration.add(GRIFFIN);
+		declaration.add(BROWN);
+		this.insertDeclaration(declaration);
 
-		d = new Declaration(new Date(2016, 4, 3));
-		d.add(SGC);
-		d.add(FC);
-		d.add(GC);
-		this.insertDeclaration(d);
+		declaration = new Declaration(DateUtils.getDateInstance(20, 7, 2015));
+		declaration.add(GRUPPO1);
+		declaration.add(GRUPPO2);
+		this.insertDeclaration(declaration);
+
+		declaration = new Declaration(DateUtils.getDateInstance(1, 8, 2015));
+		declaration.add(SGC1);
+		declaration.add(SGC2);
+		declaration.add(SGC3);
+		declaration.add(SGC4);
+		this.insertDeclaration(declaration);
+
+		declaration = new Declaration(DateUtils.today());
+		declaration.add(SGC1);
+		declaration.add(SGC2);
+		declaration.add(SGC3);
+		declaration.add(SGC4);
+		declaration.add(GRIFFIN);
+		declaration.add(BROWN);
+		declaration.add(GRUPPO1);
+		declaration.add(GRUPPO2);
+		this.insertDeclaration(declaration);
 
 		this.close();
 	}
