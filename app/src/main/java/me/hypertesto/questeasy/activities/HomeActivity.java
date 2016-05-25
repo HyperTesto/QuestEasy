@@ -101,6 +101,20 @@ public class HomeActivity extends AppCompatActivity {
 								FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
 								fsd.clear();
 								fsd.populate();
+								fsd.open();
+
+								HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
+
+								ArrayList<Declaration> items = new ArrayList<>();
+
+								for (Date k : decs.keySet()){
+									items.add(decs.get(k));
+								}
+
+								fsd.close();
+
+								adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, items);
+								lv.setAdapter(adapter);
 							default:
 								break;
 						}
