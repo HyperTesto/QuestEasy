@@ -3,14 +3,8 @@ package me.hypertesto.questeasy.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -49,12 +43,8 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Card;
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.FamilyCard;
-import me.hypertesto.questeasy.model.FamilyHeadGuest;
-import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupCard;
-import me.hypertesto.questeasy.model.GroupHeadGuest;
-import me.hypertesto.questeasy.model.GroupMemberGuest;
-import me.hypertesto.questeasy.model.SingleGuest;
+import me.hypertesto.questeasy.model.User;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
@@ -189,10 +179,11 @@ public class EditDecActivity extends AppCompatActivity {
 		//this.displayed.addAll(d);
 
 		Date date = (Date) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION_DATE);
+		User owner = (User) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION_OWNER);
 
 		FSDeclarationDao fsd = new FSDeclarationDao(this.getApplicationContext());
 		fsd.open();
-		this.displayed = fsd.getDeclarationByDate(date);
+		this.displayed = fsd.getDeclarationByOwnerDate(owner, date);
 		fsd.close();
 
 		this.updateList();

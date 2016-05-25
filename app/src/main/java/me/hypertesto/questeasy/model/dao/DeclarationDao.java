@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import me.hypertesto.questeasy.model.Declaration;
+import me.hypertesto.questeasy.model.User;
 
 /**
  * Created by rigel on 04/05/16.
@@ -15,8 +16,8 @@ public interface DeclarationDao {
 
 	boolean insertDeclaration(Declaration declaration);
 	boolean updateDeclaration(Declaration declaration);
-	Declaration getDeclarationByDate(Date date);
+	Declaration getDeclarationByOwnerDate(User owner, Date date);
 	void deleteDeclaration(Declaration declaration);
 	void clear();
-	HashMap<Date, Declaration> getAllDeclarations();
+	ArrayList<Declaration> getAllDeclarations();
 }

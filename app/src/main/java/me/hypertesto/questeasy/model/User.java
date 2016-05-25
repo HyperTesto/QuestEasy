@@ -16,4 +16,40 @@ public class User implements Serializable {
 		this.name = name;
 		this.email = email;
 	}
+
+	@Override
+	public boolean equals(Object o){
+		if (o != null){
+			if (o instanceof User){
+				User u = (User) o;
+				return (this.name.equals(u.getName()) && this.email.equals(u.getEmail()));
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode(){
+		int res = this.name.hashCode();
+		res = res * 31;
+		res = res + this.email.hashCode();
+		return res;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public void setName(String name){
+		this.name = name;
+	}
+
+	public String getEmail(){
+		return email;
+	}
+
+	public void setEmail(String email){
+		this.email = email;
+	}
 }
