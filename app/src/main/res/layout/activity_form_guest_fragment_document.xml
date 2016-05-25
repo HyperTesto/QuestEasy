@@ -24,7 +24,7 @@
 		android:layout_marginLeft="5dp"
 		android:layout_marginTop="20dp"
 		android:layout_below="@id/person_document_Title"
-		android:src="@drawable/icon_identification_card_form_guest"
+		android:src="@drawable/ic_action_creditcard"
 		/>
 
 	<!--<EditText

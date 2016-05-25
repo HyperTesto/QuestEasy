@@ -20,7 +20,7 @@
 		android:layout_marginLeft="5dp"
 		android:layout_marginTop="20dp"
 		android:layout_below="@id/person_data_Title"
-		android:src="@drawable/icon_person_form_guest"
+		android:src="@drawable/ic_person"
 		/>
 	<EditText
 		android:id="@+id/editText_name_guest_form"
@@ -90,7 +90,7 @@
 		android:layout_marginLeft="5dp"
 		android:layout_marginTop="15dp"
 		android:layout_below="@id/gender_group"
-		android:src="@drawable/icon_date_form_guest"
+		android:src="@drawable/ic_action_calendar_month"
 		/>
 
 	<TextView
@@ -120,7 +120,7 @@
 		android:layout_marginTop="20dp"
 		android:layout_marginLeft="5dp"
 		android:layout_below="@id/person_dateBirth_imageView"
-		android:src="@drawable/icon_placeholder_form_guest"
+		android:src="@drawable/ic_pin_drop"
 		/>
 	<FrameLayout
 		android:layout_width="match_parent"
@@ -160,7 +160,7 @@
 		android:layout_marginTop="20dp"
 		android:layout_marginLeft="5dp"
 		android:layout_below="@id/person_place_imageView"
-		android:src="@drawable/icon_waving_flag_form_guest"
+		android:src="@drawable/ic_flag"
 		/>
 	<FrameLayout
 		android:layout_width="match_parent"
