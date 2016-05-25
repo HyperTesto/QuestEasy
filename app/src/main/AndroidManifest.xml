@@ -55,6 +55,7 @@
 			android:name=".activities.FormGuestActivity"
 			android:configChanges="orientation|screenSize"
 			android:label="@string/formTitleBar"
+			android:launchMode="singleTop"
 			android:parentActivityName=".activities.EditDecActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
@@ -64,7 +65,13 @@
 			android:name=".activities.EditCardActivity"
 			android:label="@string/cardTitleBar">
 		</activity>
-		<activity android:name=".activities.ActivityGallery">
+		<activity android:name=".activities.ActivityGallery"
+				  android:label="@string/bottomGallery"
+				  android:parentActivityName=".activities.FormGuestActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".activities.FormGuestActivity"/>
+			>
 		</activity>
 	</application>
 
