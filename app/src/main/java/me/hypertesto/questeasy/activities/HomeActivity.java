@@ -25,6 +25,8 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -103,6 +105,7 @@ public class HomeActivity extends AppCompatActivity {
 								fsd.open();
 
 								ArrayList<Declaration> decs = fsd.getAllDeclarations();
+								Collections.sort(decs);
 
 								fsd.close();
 
@@ -249,6 +252,7 @@ public class HomeActivity extends AppCompatActivity {
 
 		//TODO replace with getDeclarationsByOwner();
 		ArrayList<Declaration> decs = fsd.getAllDeclarations();
+		Collections.sort(decs);
 
 		fsd.close();
 

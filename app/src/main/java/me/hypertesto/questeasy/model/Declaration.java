@@ -1,5 +1,7 @@
 package me.hypertesto.questeasy.model;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,7 +13,7 @@ import java.util.Date;
  * Contiene una lista di schede e la data.
  * Created by rigel on 02/05/16.
  */
-public class Declaration extends ArrayList<Card> implements Serializable {
+public class Declaration extends ArrayList<Card> implements Serializable, Comparable<Declaration> {
 	private User owner;
 	private Date date;
 
@@ -56,6 +58,11 @@ public class Declaration extends ArrayList<Card> implements Serializable {
 		}
 
 		return false;
+	}
+
+	@Override
+	public int compareTo(@NonNull Declaration another) {
+		return -this.date.compareTo(another.getDate());
 	}
 
 	public void setDate(Date date){
