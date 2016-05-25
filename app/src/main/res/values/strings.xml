@@ -50,5 +50,8 @@
     <string name = "okButton">OK</string>
     <string name = "cancelButton">CANCELLA</string>
     <string name = "filterDialotTitle">Filtra per</string>
+	<string name = "bottomPhoto">Scatta</string>
+	<string name = "bottomVoice">Parla</string>
+
 
 </resources>

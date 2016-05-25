@@ -2,13 +2,11 @@ package me.hypertesto.questeasy.activities;
 
 
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -16,9 +14,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabClickListener;
+
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.Date;
 
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
@@ -52,6 +52,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	private PermanenzaFragment fragmentPermanenza;
 	private PersonalDataFragment fragmentPersonal;
 	private DocumentDataFragment fragmentDocument;
+	private BottomBar mBottomBar;
 	private String guestType;
 
 	@Override
@@ -59,10 +60,22 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
 
+
+		mBottomBar = BottomBar.attach(this,savedInstanceState);
+		mBottomBar.setItemsFromMenu(R.menu.bottom_bar, new OnMenuTabClickListener() {
+			@Override
+			public void onMenuTabSelected(int menuItemId) {
+
+			}
+
+			@Override
+			public void onMenuTabReSelected(int menuItemId) {
+
+			}
+		});
 		//TODO STUB STUPIDO
 		Intent intent = getIntent();
 		Serializable ser = intent.getSerializableExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT);
-
 		if (ser == null){
 			//Nuovo guest, non mostrare dati sul form
 		} else {
@@ -79,6 +92,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		fragmentPermanenza = new PermanenzaFragment();
 		fragmentPersonal = new PersonalDataFragment();
 		fragmentDocument = new DocumentDataFragment();
+
 
 		switch (guestType){
 			case Guest.type.SINGLE_GUEST:
@@ -119,6 +133,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 			default:
 				throw new RuntimeException("Cacca");
+
 		}
 
 		fragmentTransaction.commit();
