@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.io.EOFException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,7 +25,7 @@ public class FSDeclarationDao implements DeclarationDao {
 	private Context context;
 	private static final String FILENAME = "declarations.ser";
 
-	private HashMap<Date, Declaration> cache;
+	private HashMap<User, HashMap<Date, Declaration>> cache;
 
 	public FSDeclarationDao(Context context){
 		this.context = context;
@@ -36,9 +35,20 @@ public class FSDeclarationDao implements DeclarationDao {
 	@Override
 	public boolean insertDeclaration(Declaration declaration){
 		try {
-			if (cache.get(declaration.getDate()) == null){
+			Date date = declaration.getDate();
+			User owner = declaration.getOwner();
+
+			if (date == null || owner == null){
+				throw new RuntimeException("Declarations must have an owner and a date");
+			}
+
+			if (this.cache.get(owner) == null){
+				this.cache.put(owner, new HashMap<Date, Declaration>());
+			}
+
+			if (this.cache.get(owner).get(date) == null){
 				fos.writeObject(declaration);
-				this.cache.put(declaration.getDate(), declaration);
+				this.cache.get(owner).put(declaration.getDate(), declaration);
 			} else {
 				this.updateDeclaration(declaration);
 			}
@@ -56,28 +66,55 @@ public class FSDeclarationDao implements DeclarationDao {
 	}
 
 	@Override
-	public HashMap<Date, Declaration> getAllDeclarations(){
-		HashMap<Date, Declaration> res = new HashMap<>();
+	public ArrayList<Declaration> getAllDeclarations(){
+		ArrayList<Declaration> res = new ArrayList<>();
+
+		for (User owner : this.cache.keySet()){
+			res.addAll(this.cache.get(owner).values());
+		}
+
+		return res;
+	}
+
+	public HashMap<User, HashMap<Date, Declaration>> getAllDeclarationsAsMap(){
+		HashMap<User, HashMap<Date, Declaration>> res = new HashMap<>();
 		res.putAll(this.cache);
 		return res;
 	}
 
 	@Override
-	public Declaration getDeclarationByDate(Date date){
-		return this.cache.get(date);
+	public Declaration getDeclarationByOwnerDate(User owner, Date date){
+		if (this.cache.get(owner) == null){
+			return null;
+		} else {
+			return this.cache.get(owner).get(date);
+		}
+	}
+
+	public HashMap<Date, Declaration> getDeclarationsByOwner(User owner){
+		HashMap<Date, Declaration> res = new HashMap<>();
+		res.putAll(this.cache.get(owner));
+		return res;
 	}
 
 	@Override
 	public void deleteDeclaration(Declaration declaration){
-		HashMap<Date, Declaration> decs = this.getAllDeclarations();
-		decs.remove(declaration.getDate());
+		Date date = declaration.getDate();
+		User owner = declaration.getOwner();
+		HashMap<User, HashMap<Date, Declaration>> decs = this.getAllDeclarationsAsMap();
+
+		if (decs.get(owner) != null){
+			decs.get(owner).remove(date);
+		}
 
 		this.close();
 		this.clear();
 		this.open();
 
-		for (Date d : decs.keySet()){
-			this.insertDeclaration(decs.get(d));
+		for (User u : decs.keySet()){
+			for (Declaration d : decs.get(u).values()){
+				this.insertDeclaration(d);
+			}
 		}
 	}
 
@@ -87,7 +124,8 @@ public class FSDeclarationDao implements DeclarationDao {
 		this.cache = null;
 	}
 
-	public void populate(){
+	public void populate() {
+		User TESTO = new User("Testo", "fuffa");
 		Place DAMBEL = new Place("404022071", "DAMBEL (TN)", false);
 		Place ITA = new Place("100000100", "ITALIA", true);
 		DocumentType DT = new DocumentType("CARTA DI IDENTITA'", "IDENT");
@@ -336,28 +374,33 @@ public class FSDeclarationDao implements DeclarationDao {
 		this.open();
 
 		declaration.setDate(DateUtils.getDateInstance(12, 6, 2015));
+		declaration.setOwner(TESTO);
 		declaration.add(SGC1);
 		declaration.add(SGC2);
 		declaration.add(GRUPPO2);
 		this.insertDeclaration(declaration);
 
 		declaration = new Declaration(DateUtils.getDateInstance(15, 7, 2015));
+		declaration.setOwner(TESTO);
 		declaration.add(SGC3);
 		declaration.add(SGC4);
 		declaration.add(GRUPPO1);
 		this.insertDeclaration(declaration);
 
 		declaration = new Declaration(DateUtils.getDateInstance(16, 7, 2015));
+		declaration.setOwner(TESTO);
 		declaration.add(GRIFFIN);
 		declaration.add(BROWN);
 		this.insertDeclaration(declaration);
 
 		declaration = new Declaration(DateUtils.getDateInstance(20, 7, 2015));
+		declaration.setOwner(TESTO);
 		declaration.add(GRUPPO1);
 		declaration.add(GRUPPO2);
 		this.insertDeclaration(declaration);
 
 		declaration = new Declaration(DateUtils.getDateInstance(1, 8, 2015));
+		declaration.setOwner(TESTO);
 		declaration.add(SGC1);
 		declaration.add(SGC2);
 		declaration.add(SGC3);
@@ -365,6 +408,7 @@ public class FSDeclarationDao implements DeclarationDao {
 		this.insertDeclaration(declaration);
 
 		declaration = new Declaration(DateUtils.today());
+		declaration.setOwner(TESTO);
 		declaration.add(SGC1);
 		declaration.add(SGC2);
 		declaration.add(SGC3);
@@ -396,11 +440,20 @@ public class FSDeclarationDao implements DeclarationDao {
 				if (o instanceof Declaration){
 					dec = (Declaration) o;
 					Date date = dec.getDate();
+					User owner = dec.getOwner();
 
-					if (this.cache.get(date) != null){
-						this.cache.get(date).addAll(dec);
+					if (owner == null || date == null){
+						throw new RuntimeException("Declarations must have an owner and a date");
+					}
+
+					if (this.cache.get(owner) == null){
+						this.cache.put(owner, new HashMap<Date, Declaration>());
+					}
+
+					if (this.cache.get(owner).get(date) != null){
+						this.cache.get(owner).get(date).addAll(dec);
 					} else {
-						this.cache.put(date, dec);
+						this.cache.get(owner).put(date, dec);
 					}
 				} else {
 					throw new RuntimeException("WTF??");
@@ -430,10 +483,8 @@ public class FSDeclarationDao implements DeclarationDao {
 			}
 
 			this.updateCache();
-		} catch (FileNotFoundException e){
-			e.printStackTrace();
 		} catch (IOException e){
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -442,10 +493,8 @@ public class FSDeclarationDao implements DeclarationDao {
 		try {
 			this.cache = null;
 			this.fos.close();
-		} catch (FileNotFoundException e){
-			e.printStackTrace();
 		} catch (IOException e){
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 }

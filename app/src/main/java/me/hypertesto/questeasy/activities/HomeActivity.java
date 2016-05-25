@@ -9,9 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -32,6 +30,7 @@ import java.util.HashMap;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
+import me.hypertesto.questeasy.model.User;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.utils.DateUtils;
@@ -103,17 +102,11 @@ public class HomeActivity extends AppCompatActivity {
 								fsd.populate();
 								fsd.open();
 
-								HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
-
-								ArrayList<Declaration> items = new ArrayList<>();
-
-								for (Date k : decs.keySet()){
-									items.add(decs.get(k));
-								}
+								ArrayList<Declaration> decs = fsd.getAllDeclarations();
 
 								fsd.close();
 
-								adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, items);
+								adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, decs);
 								lv.setAdapter(adapter);
 							default:
 								break;
@@ -158,6 +151,11 @@ public class HomeActivity extends AppCompatActivity {
 						for (int i = (selected.size() - 1); i >= 0; i--) {
 							if (selected.valueAt(i)) {
 								Declaration selectedItem = adapter.getItem(selected.keyAt(i));
+								FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
+								fsd.open();
+								fsd.deleteDeclaration(selectedItem);
+								fsd.close();
+
 								adapter.remove(selectedItem);
 							}
 						}
@@ -188,6 +186,7 @@ public class HomeActivity extends AppCompatActivity {
 					Intent intent = new Intent(HomeActivity.this, EditDecActivity.class);
 					//intent.putExtra(StaticGlobals.intentExtras.DECLARATION, target);
 					intent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, target.getDate());
+					intent.putExtra(StaticGlobals.intentExtras.DECLARATION_OWNER, target.getOwner());
 
 					startActivity(intent);
 				}
@@ -202,17 +201,18 @@ public class HomeActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v){
 				Intent newDecIntent = new Intent(HomeActivity.this, EditDecActivity.class);
-				//TODO fare meglio: settare solo giorno/mese/anno o che ne so
-				//Date date = new Date();
 
 				Date date = DateUtils.today();
 
 				FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
 				fsd.open();
-				Declaration dec = fsd.getDeclarationByDate(date);
+
+				//TODO replace with actual user
+				User currentUser = new User("Current", "User");
+				Declaration dec = fsd.getDeclarationByOwnerDate(currentUser, date);
 
 				if (dec == null){
-					dec = new Declaration(date);
+					dec = new Declaration(date, currentUser);
 				}
 
 				fsd.insertDeclaration(dec);
@@ -222,6 +222,7 @@ public class HomeActivity extends AppCompatActivity {
 
 				//newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION, dec);
 				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, dec.getDate());
+				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_OWNER, dec.getOwner());
 
 				startActivity(newDecIntent);
 			}
@@ -246,17 +247,12 @@ public class HomeActivity extends AppCompatActivity {
 
 		fsd.open();
 
-		HashMap<Date, Declaration> decs = fsd.getAllDeclarations();
-
-		ArrayList<Declaration> items = new ArrayList<>();
-
-		for (Date k : decs.keySet()){
-			items.add(decs.get(k));
-		}
+		//TODO replace with getDeclarationsByOwner();
+		ArrayList<Declaration> decs = fsd.getAllDeclarations();
 
 		fsd.close();
 
-		adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, items);
+		adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, decs);
 		lv.setAdapter(adapter);
 	}
 
