@@ -101,16 +101,20 @@ public class FSDeclarationDao implements DeclarationDao {
 	public void deleteDeclaration(Declaration declaration){
 		Date date = declaration.getDate();
 		User owner = declaration.getOwner();
-		HashMap<Date, Declaration> decs = this.getDeclarationsByOwner(owner);
+		HashMap<User, HashMap<Date, Declaration>> decs = this.getAllDeclarationsAsMap();
 
-		decs.remove(date);
+		if (decs.get(owner) != null){
+			decs.get(owner).remove(date);
+		}
 
 		this.close();
 		this.clear();
 		this.open();
 
-		for (Date d : decs.keySet()){
-			this.insertDeclaration(decs.get(d));
+		for (User u : decs.keySet()){
+			for (Declaration d : decs.get(u).values()){
+				this.insertDeclaration(d);
+			}
 		}
 	}
 

@@ -151,6 +151,11 @@ public class HomeActivity extends AppCompatActivity {
 						for (int i = (selected.size() - 1); i >= 0; i--) {
 							if (selected.valueAt(i)) {
 								Declaration selectedItem = adapter.getItem(selected.keyAt(i));
+								FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
+								fsd.open();
+								fsd.deleteDeclaration(selectedItem);
+								fsd.close();
+
 								adapter.remove(selectedItem);
 							}
 						}
