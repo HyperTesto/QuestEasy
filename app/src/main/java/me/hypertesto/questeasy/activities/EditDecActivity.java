@@ -461,7 +461,9 @@ public class EditDecActivity extends AppCompatActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String selected = dialogItems[indexClickedSavePopUp].toString();
+				System.out.println(displayed);
 				String exportQuestura = FormatQuestura.convert(displayed);
+
 				switch (selected) {
 
 					case StaticGlobals.saveDialogOptions.SAVE_DISK:
@@ -486,7 +488,11 @@ public class EditDecActivity extends AppCompatActivity {
 
 
 							out = new BufferedOutputStream(new FileOutputStream(f));
-							out.write(exportQuestura.getBytes());
+							byte[] bytes = exportQuestura.getBytes();
+							for (int i = 0; i < bytes.length - 3; i++){
+								out.write(bytes[i]);
+							}
+							//out.write(exportQuestura.getBytes());
 						} catch (Exception e) {
 							e.printStackTrace();
 						} finally {
@@ -526,7 +532,10 @@ public class EditDecActivity extends AppCompatActivity {
 						try {
 							//TODO: handle special cases (card errors...)
 							out2 = new BufferedOutputStream(new FileOutputStream(file));
-							out2.write(exportQuestura.getBytes());
+							byte[] bytes2 = exportQuestura.getBytes();
+							for (int i = 0; i < bytes2.length - 2; i++){
+								out2.write(bytes2[i]);
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						} finally {
