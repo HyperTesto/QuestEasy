@@ -50,5 +50,5 @@
     <string name = "okButton">OK</string>
     <string name = "cancelButton">CANCELLA</string>
     <string name = "filterDialotTitle">Filtra per</string>
-
+	<string name = "modExam">Modalità esame</string>
 </resources>
