@@ -99,7 +99,7 @@ public class FormatQuestura {
 	}
 
 	/**
-	 * Returns a formatted SingleGuestCard
+	 * Returns a formatted SingleGuestCardgi
 	 * @param sgc
 	 * @return
 	 */
@@ -109,13 +109,12 @@ public class FormatQuestura {
 		SingleGuest sg = sgc.getGuest();
 
 		res += SingleGuest.CODICE;
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		res += df.format(sgc.getDate());
+		res += DateUtils.format(sgc.getDate());
 		res += String.format("%02d", sgc.getPermanenza());
 		res += padRight(sg.getSurname().trim().toUpperCase(),50);
 		res += padRight(sg.getName().trim().toUpperCase(),30);
 		res += sg.getSex().equals("M") ? 1 : 2;
-		res += df.format(sg.getBirthDate());
+		res += DateUtils.format(sg.getBirthDate());
 
 		//Setting luogo et other balles is a bit more 'na rottura
 		res += formatPlaceOfBirth(sg.getPlaceOfBirth());
@@ -142,13 +141,12 @@ public class FormatQuestura {
 
 		GroupHeadGuest ghg = gc.getCapoGruppo();
 		res += GroupHeadGuest.CODICE;
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		res += df.format(gc.getDate());
+		res += DateUtils.format(gc.getDate());
 		res += String.format("%02d", gc.getPermanenza());
 		res += padRight(ghg.getSurname().trim().toUpperCase(),50);
 		res += padRight(ghg.getName().trim().toUpperCase(),30);
 		res += ghg.getSex().equals("M") ? 1 : 2;
-		res += df.format(ghg.getBirthDate());
+		res += DateUtils.format(ghg.getBirthDate());
 
 		//Setting luogo et other balles is a bit more 'na rottura
 		res += formatPlaceOfBirth(ghg.getPlaceOfBirth());
@@ -181,13 +179,12 @@ public class FormatQuestura {
 		String res = "";
 
 		res += GroupMemberGuest.CODICE;
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		res += df.format(arrivo);
+		res += DateUtils.format(arrivo);
 		res += String.format("%02d", permanenza);
 		res += padRight(gmg.getSurname().trim().toUpperCase(),50);
 		res += padRight(gmg.getName().trim().toUpperCase(),30);
 		res += gmg.getSex().equals("M") ? 1 : 2;
-		res += df.format(gmg.getBirthDate());
+		res += DateUtils.format(gmg.getBirthDate());
 
 		//Setting luogo et other balles is a bit more 'na rottura
 		res += formatPlaceOfBirth(gmg.getPlaceOfBirth());
@@ -211,13 +208,12 @@ public class FormatQuestura {
 
 		FamilyHeadGuest fhg = fc.getCapoFamiglia();
 		res += FamilyHeadGuest.CODICE;
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		res += df.format(fc.getDate());
+		res += DateUtils.format(fc.getDate());
 		res += String.format("%02d", fc.getPermanenza());
 		res += padRight(fhg.getSurname().trim().toUpperCase(),50);
 		res += padRight(fhg.getName().trim().toUpperCase(),30);
 		res += fhg.getSex().equals("M") ? 1 : 2;
-		res += df.format(fhg.getBirthDate());
+		res += DateUtils.format(fhg.getBirthDate());
 
 		//Setting luogo et other balles is a bit more 'na rottura
 		res += formatPlaceOfBirth(fhg.getPlaceOfBirth());
@@ -251,13 +247,12 @@ public class FormatQuestura {
 		String res = "";
 
 		res += FamilyMemberGuest.CODICE;
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		res += df.format(arrivo);
+		res += DateUtils.format(arrivo);
 		res += String.format("%02d", permanenza);
 		res += padRight(fmg.getSurname().trim().toUpperCase(),50);
 		res += padRight(fmg.getName().trim().toUpperCase(),30);
 		res += fmg.getSex().equals("M") ? 1 : 2;
-		res += df.format(fmg.getBirthDate());
+		res += DateUtils.format(fmg.getBirthDate());
 
 		//Setting luogo et other balles is a bit more 'na rottura
 		res += formatPlaceOfBirth(fmg.getPlaceOfBirth());
