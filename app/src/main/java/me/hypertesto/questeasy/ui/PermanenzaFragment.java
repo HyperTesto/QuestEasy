@@ -60,6 +60,6 @@ public class PermanenzaFragment extends Fragment {
 	 */
 	public void setPermanenza(int p) {
 		if (p > 0)
-			permTextView.setText(p);
+			permTextView.setText(String.valueOf(p));
 	}
 }

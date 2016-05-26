@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -23,15 +24,20 @@ import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
+import me.hypertesto.questeasy.model.MainGuest;
+import me.hypertesto.questeasy.model.SecondaryGuest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.GroupListAdapter;
 import me.hypertesto.questeasy.utils.StaticGlobals;
+import me.hypertesto.questeasy.utils.UnknownGuestTypeException;
 
 public class EditCardActivity extends AppCompatActivity {
 	private Card card;
 	private ListView listView;
 	private GroupListAdapter adapter;
+
+	private int indexClicked;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +118,55 @@ public class EditCardActivity extends AppCompatActivity {
 				}
 			});
 		}
+
+		this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Object o = parent.getItemAtPosition(position);
+				indexClicked = position;
+				Intent editGuestIntent = new Intent(EditCardActivity.this, FormGuestActivity.class);
+
+				if (o instanceof SingleGuest){
+					SingleGuest sg = (SingleGuest) o;
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, sg);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
+					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_SINGLE_GUEST);
+
+				} else if (o instanceof FamilyHeadGuest){
+					FamilyHeadGuest fhg = (FamilyHeadGuest) o;
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, fhg);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.FAMILY_HEAD);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
+					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_FAMILY_HEAD);
+
+				} else if (o instanceof FamilyMemberGuest){
+					FamilyMemberGuest fmg = (FamilyMemberGuest) o;
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, fmg);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.FAMILY_MEMBER);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
+					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_FAMILY_MEMBER);
+
+				} else if (o instanceof GroupHeadGuest){
+					GroupHeadGuest ghg = (GroupHeadGuest) o;
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, ghg);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.GROUP_HEAD);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
+					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_GROUP_HEAD);
+
+				} else if (o instanceof GroupMemberGuest){
+					GroupMemberGuest gmg = (GroupMemberGuest) o;
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, gmg);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.GROUP_MEMBER);
+					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
+					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_GROUP_MEMBER);
+
+				} else {
+					throw new UnknownGuestTypeException();
+				}
+
+			}
+		});
 
 	}
 

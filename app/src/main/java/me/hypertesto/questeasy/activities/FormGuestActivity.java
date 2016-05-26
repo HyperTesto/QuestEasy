@@ -26,6 +26,7 @@ import me.hypertesto.questeasy.model.FamilyMemberGuest;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
+import me.hypertesto.questeasy.model.MainGuest;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
@@ -34,6 +35,7 @@ import me.hypertesto.questeasy.ui.DocumentDataFragment;
 import me.hypertesto.questeasy.ui.PermanenzaFragment;
 import me.hypertesto.questeasy.ui.PersonalDataFragment;
 import me.hypertesto.questeasy.utils.StaticGlobals;
+import me.hypertesto.questeasy.utils.UnknownGuestTypeException;
 
 public class FormGuestActivity extends AppCompatActivity {
 	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 200;
@@ -52,7 +54,10 @@ public class FormGuestActivity extends AppCompatActivity {
 	private PermanenzaFragment fragmentPermanenza;
 	private PersonalDataFragment fragmentPersonal;
 	private DocumentDataFragment fragmentDocument;
+
+	private Serializable ser;
 	private String guestType;
+	private int permanenza;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -61,15 +66,9 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		//TODO STUB STUPIDO
 		Intent intent = getIntent();
-		Serializable ser = intent.getSerializableExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT);
-
-		if (ser == null){
-			//Nuovo guest, non mostrare dati sul form
-		} else {
-			//Guest esistente da editare; mostrare dati sul form
-		}
-
-		guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
+		this.ser = intent.getSerializableExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT);
+		this.permanenza = intent.getIntExtra(StaticGlobals.intentExtras.PERMANENZA, -1);
+		this.guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
 		System.out.println("*****Category" + guestType);
 		setTitle(guestType);
 
@@ -118,31 +117,39 @@ public class FormGuestActivity extends AppCompatActivity {
 				break;
 
 			default:
-				throw new RuntimeException("Cacca");
+				throw new UnknownGuestTypeException();
 		}
 
 		fragmentTransaction.commit();
+	}
 
-		//dateFomatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
+	@Override
+	protected void onResume() {
+		super.onResume();
 
+		if (this.ser == null){
+			//Nuovo guest, non mostrare dati sul form
+		} else {
+			switch (this.guestType){
+				case Guest.type.SINGLE_GUEST:
+				case Guest.type.FAMILY_HEAD:
+				case Guest.type.FAMILY_MEMBER:
+					MainGuest mg = (MainGuest) ser;
 
+					fragmentDocument.setDocument(mg.getDocumento());
+					fragmentPermanenza.setPermanenza(this.permanenza);
+					break;
 
-		/*button_photo.setOnClickListener(new
-												View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// capture picture
-				captureImage();
+				case Guest.type.GROUP_HEAD:
+					break;
+
+				case Guest.type.GROUP_MEMBER:
+					break;
+
+				default:
+					throw new UnknownGuestTypeException();
 			}
-		});
-		button_voice_form.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				promptSpeechInput();
-			}
-		});
-		*/
-
+		}
 	}
 
 	@Override
