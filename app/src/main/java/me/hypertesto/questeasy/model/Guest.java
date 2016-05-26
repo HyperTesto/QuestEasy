@@ -26,6 +26,8 @@ public abstract class Guest implements Serializable{
 		public static final String GROUP_MEMBER = "Membro";
 	}
 
+	public abstract int getColor();
+
 	public boolean isComplete(){
 		if (this.name == null || this.name.equals("")){
 			return false;
