@@ -1,5 +1,7 @@
 package me.hypertesto.questeasy.utils;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,7 +95,7 @@ public class FormatQuestura {
 			//TODO: should we rise an error?
 
 		}
-		return result.substring(0, result.length()-1);
+		return result;
 	}
 
 	/**
@@ -125,7 +127,7 @@ public class FormatQuestura {
 		res += padRight(sg.getDocumento().getCodice(),20);
 		res += sg.getDocumento().getLuogoRilascio().getId();
 		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
-		res+= "\n";
+		res+= "\r\n";
 		return res;
 
 	}
@@ -158,11 +160,11 @@ public class FormatQuestura {
 		res += padRight(ghg.getDocumento().getCodice(),20);
 		res += ghg.getDocumento().getLuogoRilascio().getId();
 		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
-		res += "\n";
+		res += "\r\n";
 
 		for (GroupMemberGuest gmg : gc.getAltri()){
 			res += formatGroupMember(gmg, gc.getDate(), gc.getPermanenza());
-			//res += "\n";
+			//res += "\r\n";
 		}
 		return res;
 	}
@@ -192,8 +194,9 @@ public class FormatQuestura {
 
 		Place cita = gmg.getCittadinanza(); //banana, box
 		res += cita.getId();
+		res += padRight("", 34);
 		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
-		res += "\n";
+		res += "\r\n";
 
 		return res;
 	}
@@ -226,11 +229,11 @@ public class FormatQuestura {
 		res += padRight(fhg.getDocumento().getCodice(),20);
 		res += fhg.getDocumento().getLuogoRilascio().getId();
 		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
-		res += "\n";
+		res += "\r\n";
 
 		for (FamilyMemberGuest fmg : fc.getFamiliari()){
 			res += formatFamilyMember(fmg, fc.getDate(), fc.getPermanenza());
-			//res += "\n";
+			//res += "\r\n";
 		}
 
 		return res;
@@ -262,7 +265,8 @@ public class FormatQuestura {
 		Place cita = fmg.getCittadinanza(); //banana, box
 		res += cita.getId();
 		//Assert.assertEquals(168,res.length()); //if string lenght is 168 we are ok
-		res += "\n";
+		res += padRight("", 34);
+		res += "\r\n";
 
 		return res;
 	}

@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.DocumentType;
+import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.adapters.DocumentTypeAdapter;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
@@ -100,6 +101,34 @@ public class DocumentDataFragment extends Fragment {
 			return releasePlaceAdapter.getItem(0);
 		} else {
 			return new Place(); //TODO
+		}
+
+	}
+
+	/**
+	 * Set the document in the data field
+	 * this should align the underlying adapter data structure
+	 * @param doc
+	 */
+	public void setDocument (Documento doc) {
+
+		if (doc != null) {
+
+			DocumentType dt = doc.getDocType();
+			if ( dt !=null && !dt.getName().equals("")){
+				//TODO: test if this align the data structure in the adapter
+				guest_documentType.setText(dt.getName());
+			}
+
+			if (doc.getCodice() != null && !doc.getCodice().equals("")) {
+				guest_documentNumber.setText(doc.getCodice());
+			}
+
+			Place p = doc.getLuogoRilascio();
+			if ( p != null && !p.getName().equals("")){
+				//TODO: test if this align with underlying adapter
+				guest_documentPlace.setText(p.getName());
+			}
 		}
 
 	}
