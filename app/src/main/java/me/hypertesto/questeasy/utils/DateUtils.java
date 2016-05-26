@@ -1,5 +1,6 @@
 package me.hypertesto.questeasy.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,6 +9,8 @@ import java.util.Date;
  * Created by rigel on 23/05/16.
  */
 public class DateUtils {
+
+	public static final	SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
 
 	public static Date today(){
 		return DateUtils.trimDate(new Date());
@@ -34,5 +37,17 @@ public class DateUtils {
 		c.clear();
 		c.set(year, month, day, 0, 0, 0);
 		return c.getTime();
+	}
+
+	public static String format(Date date){
+		return SDF.format(date);
+	}
+
+	public static Date parse(String input){
+		try {
+			return SDF.parse(input);
+		} catch (ParseException e){
+			throw new RuntimeException(e);
+		}
 	}
 }
