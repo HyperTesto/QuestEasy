@@ -458,44 +458,16 @@ public class EditDecActivity extends AppCompatActivity {
 				switch (selected) {
 
 					case StaticGlobals.saveDialogOptions.SAVE_DISK:
-						//try to write the file
-						//TODO: test me
-						System.out.println(FormatQuestura.convert(displayed));
 
-						File f = null;
-						DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-
-						String fileName = "export_" + df.format(DateUtils.today()); //FIXME: better naming
+						String fileName = "export_" + DateUtils.format(DateUtils.today()); //FIXME: better naming
+						File file = null;
 						try {
-							f = FileUtils.getFileQuesturaStorageDir(fileName);
+							file = FileUtils.getFileQuesturaStorageDir(fileName);
+							FormatQuestura.writeFile(exportQuestura, file);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 
-						OutputStream out = null;
-
-						try {
-							//TODO: handle special cases (card errors...)
-
-
-							out = new BufferedOutputStream(new FileOutputStream(f));
-							byte[] bytes = exportQuestura.getBytes();
-							for (int i = 0; i < bytes.length - 3; i++){
-								out.write(bytes[i]);
-							}
-							//out.write(exportQuestura.getBytes());
-						} catch (Exception e) {
-							e.printStackTrace();
-						} finally {
-							if (out != null) {
-								try {
-									out.close();
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-
-						}
 						break;
 					case StaticGlobals.saveDialogOptions.SHARE: //FIXME: clean bad code
 

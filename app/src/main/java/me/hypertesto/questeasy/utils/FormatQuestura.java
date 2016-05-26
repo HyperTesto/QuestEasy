@@ -2,6 +2,11 @@ package me.hypertesto.questeasy.utils;
 
 import android.util.Log;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -297,5 +302,45 @@ public class FormatQuestura {
 	 */
 	public static String padRight(String s, int n) {
 		return String.format("%1$-" + n + "s", s);
+	}
+
+
+
+	/**
+	 * Auxiliary method to keep activity code more clear
+	 * It takes the string of formatted guests and writes it to a file copying byte per byte
+	 * in order to avoid an annoying bug with the website who parse it (blame questura for this).
+	 * @param formattedGuests
+	 * @param file
+	 * @throws IOException
+	 */
+	public static void writeFile(String formattedGuests, File file) throws IOException {
+
+		OutputStream out = null;
+
+		try {
+
+			out = new BufferedOutputStream(new FileOutputStream(file));
+			byte[] bytes = formattedGuests.getBytes();
+
+			//to avoid the annoying bug with the last two CR + LF we write bytes one
+			for (int i = 0; i < bytes.length - 3; i++){
+				out.write(bytes[i]);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			//Ugly to read but needed to ensure the file is correctly closed after an IOError
+			if (out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
 	}
 }
