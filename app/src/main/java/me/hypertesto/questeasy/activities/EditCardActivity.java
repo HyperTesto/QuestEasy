@@ -24,8 +24,6 @@ import me.hypertesto.questeasy.model.GroupCard;
 import me.hypertesto.questeasy.model.GroupHeadGuest;
 import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
-import me.hypertesto.questeasy.model.MainGuest;
-import me.hypertesto.questeasy.model.SecondaryGuest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.GroupListAdapter;
@@ -176,8 +174,9 @@ public class EditCardActivity extends AppCompatActivity {
 
 		switch (requestCode){
 			case StaticGlobals.requestCodes.NEW_SINGLE_GUEST:
+			case StaticGlobals.requestCodes.EDIT_SINGLE_GUEST:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
-					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
 
 					if (s instanceof SingleGuest){
 						SingleGuest sg = (SingleGuest) s;
@@ -192,13 +191,14 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_HEAD:
+				((FamilyCard) card).setFamiliari(new ArrayList<FamilyMemberGuest>());
+			case StaticGlobals.requestCodes.EDIT_FAMILY_HEAD:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
-					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
 
 					if (s instanceof FamilyHeadGuest){
 						FamilyHeadGuest fhg = (FamilyHeadGuest) s;
 						((FamilyCard) card).setCapoFamiglia(fhg);
-						((FamilyCard) card).setFamiliari(new ArrayList<FamilyMemberGuest>());
 						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
 
 						System.out.println(((FamilyCard) card).getCapoFamiglia().getName());
@@ -210,7 +210,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_MEMBER:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
-					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
 
 					if (s instanceof FamilyMemberGuest){
 						FamilyMemberGuest fmg = (FamilyMemberGuest) s;
@@ -222,13 +222,14 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 
 			case StaticGlobals.requestCodes.NEW_GROUP_HEAD:
+				((GroupCard) card).setAltri(new ArrayList<GroupMemberGuest>());
+			case StaticGlobals.requestCodes.EDIT_GROUP_HEAD:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
-					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
 
 					if (s instanceof GroupHeadGuest){
 						GroupHeadGuest ghg = (GroupHeadGuest) s;
 						((GroupCard) card).setCapoGruppo(ghg);
-						((GroupCard) card).setAltri(new ArrayList<GroupMemberGuest>());
 						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
 
 						System.out.println(((GroupCard) card).getCapoGruppo().getName());
@@ -240,11 +241,37 @@ public class EditCardActivity extends AppCompatActivity {
 
 			case StaticGlobals.requestCodes.NEW_GROUP_MEMBER:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
-					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.CREATED_GUEST);
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
 
 					if (s instanceof GroupMemberGuest){
 						GroupMemberGuest gmg = (GroupMemberGuest) s;
 						((GroupCard) card).addGroupMember(gmg);
+					}
+				}
+
+				this.updateListView();
+				break;
+
+			case StaticGlobals.requestCodes.EDIT_FAMILY_MEMBER:
+				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
+
+					if (s instanceof FamilyMemberGuest){
+						FamilyMemberGuest fmg = (FamilyMemberGuest) s;
+						//((FamilyCard) card).addFamilyMember(fmg);
+					}
+				}
+
+				this.updateListView();
+				break;
+
+			case StaticGlobals.requestCodes.EDIT_GROUP_MEMBER:
+				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
+					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
+
+					if (s instanceof GroupMemberGuest){
+						GroupMemberGuest gmg = (GroupMemberGuest) s;
+						//((GroupCard) card).addGroupMember(gmg);
 					}
 				}
 

@@ -32,7 +32,7 @@ public class StaticGlobals {
 		public static final String DECLARATION_DATE = "me.hypertesto.questeasy.activities.DECLARATION_DATE";
 		public static final String DECLARATION_OWNER = "me.hypertesto.questeasy.activities.DECLARATION_OWNER";
 		public static final String CARD = "me.hypertesto.questeasy.activities.CARD";
-		public static final String CREATED_GUEST = "me.hypertesto.questeasy.activities.CREATED_GUEST";
+		public static final String FORM_OUTPUT_GUEST = "me.hypertesto.questeasy.activities.FORM_OUTPUT_GUEST";
 		public static final String PERMANENZA = "me.hypertesto.questeasy.activities.PERMANENZA";
 		public static final String GUEST_TO_EDIT = "me.hypertesto.questeasy.activities.GUEST_TO_EDIT";
 	}

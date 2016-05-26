@@ -2,13 +2,11 @@ package me.hypertesto.questeasy.activities;
 
 
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,7 +16,6 @@ import android.view.View;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.Date;
 
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
@@ -184,7 +181,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
 					sg.setDocumento(d);
 
-					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, sg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, sg);
 					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 
@@ -215,7 +212,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 					fhg.setDocumento(d);
 
-					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fhg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, fhg);
 					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 
@@ -238,7 +235,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					p = fragmentPersonal.getBirthPlace();
 					fmg.setPlaceOfBirth(p);
 
-					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, fmg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, fmg);
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 
 					break;
@@ -267,7 +264,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
 					ghg.setDocumento(d);
 
-					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, ghg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, ghg);
 					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 					break;
@@ -289,7 +286,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					p = fragmentPersonal.getBirthPlace();
 					gmg.setPlaceOfBirth(p);
 
-					resultIntent.putExtra(StaticGlobals.intentExtras.CREATED_GUEST, gmg);
+					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, gmg);
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 					break;
 
