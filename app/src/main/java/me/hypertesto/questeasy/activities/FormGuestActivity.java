@@ -133,17 +133,15 @@ public class FormGuestActivity extends AppCompatActivity {
 			switch (this.guestType){
 				case Guest.type.SINGLE_GUEST:
 				case Guest.type.FAMILY_HEAD:
-				case Guest.type.FAMILY_MEMBER:
+				case Guest.type.GROUP_HEAD:
 					MainGuest mg = (MainGuest) ser;
-
 					fragmentDocument.setDocument(mg.getDocumento());
 					fragmentPermanenza.setPermanenza(this.permanenza);
-					break;
 
-				case Guest.type.GROUP_HEAD:
-					break;
-
+				case Guest.type.FAMILY_MEMBER:
 				case Guest.type.GROUP_MEMBER:
+					Guest g = (Guest) ser;
+					fragmentPersonal.setGuest(g);
 					break;
 
 				default:
