@@ -79,7 +79,7 @@ public class NotificationIntentService extends IntentService {
 				existsNotComplete = true;
 			}
 
-			if (d.isSent()){
+			if (!d.isSent()){
 				existsNotSent = true;
 			}
 		}
