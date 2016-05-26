@@ -72,7 +72,8 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		ImageView typeImg = (ImageView) view.findViewById(R.id.cardTypeImg);
 
 		ColorGenerator generator = ColorGenerator.MATERIAL;
-		int color = generator.getRandomColor();
+		//int color = generator.getRandomColor();
+		int color = item.getMainGuest().getColor();
 
 		/*
 		 * We ensure to set at least a dummy name and initial letter if name is unset
