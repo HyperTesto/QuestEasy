@@ -117,42 +117,42 @@ public class EditCardActivity extends AppCompatActivity {
 			});
 		}
 
-		this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+		this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Object o = parent.getItemAtPosition(position);
 				indexClicked = position;
 				Intent editGuestIntent = new Intent(EditCardActivity.this, FormGuestActivity.class);
 
-				if (o instanceof SingleGuest){
+				if (o instanceof SingleGuest) {
 					SingleGuest sg = (SingleGuest) o;
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, sg);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
 					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_SINGLE_GUEST);
 
-				} else if (o instanceof FamilyHeadGuest){
+				} else if (o instanceof FamilyHeadGuest) {
 					FamilyHeadGuest fhg = (FamilyHeadGuest) o;
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, fhg);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.FAMILY_HEAD);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
 					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_FAMILY_HEAD);
 
-				} else if (o instanceof FamilyMemberGuest){
+				} else if (o instanceof FamilyMemberGuest) {
 					FamilyMemberGuest fmg = (FamilyMemberGuest) o;
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, fmg);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.FAMILY_MEMBER);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
 					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_FAMILY_MEMBER);
 
-				} else if (o instanceof GroupHeadGuest){
+				} else if (o instanceof GroupHeadGuest) {
 					GroupHeadGuest ghg = (GroupHeadGuest) o;
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, ghg);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.GROUP_HEAD);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, card.getPermanenza());
 					startActivityForResult(editGuestIntent, StaticGlobals.requestCodes.EDIT_GROUP_HEAD);
 
-				} else if (o instanceof GroupMemberGuest){
+				} else if (o instanceof GroupMemberGuest) {
 					GroupMemberGuest gmg = (GroupMemberGuest) o;
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, gmg);
 					editGuestIntent.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.GROUP_MEMBER);
@@ -258,7 +258,14 @@ public class EditCardActivity extends AppCompatActivity {
 
 					if (s instanceof FamilyMemberGuest){
 						FamilyMemberGuest fmg = (FamilyMemberGuest) s;
-						//((FamilyCard) card).addFamilyMember(fmg);
+						ArrayList<FamilyMemberGuest> fmgs = ((FamilyCard) card).getFamiliari();
+						((FamilyCard) card).setFamiliari(new ArrayList<FamilyMemberGuest>());
+						fmgs.remove(indexClicked - 1);
+						fmgs.add(fmg);
+
+						for (FamilyMemberGuest g : fmgs){
+							((FamilyCard) card).addFamilyMember(g);
+						}
 					}
 				}
 
@@ -271,7 +278,14 @@ public class EditCardActivity extends AppCompatActivity {
 
 					if (s instanceof GroupMemberGuest){
 						GroupMemberGuest gmg = (GroupMemberGuest) s;
-						//((GroupCard) card).addGroupMember(gmg);
+						ArrayList<GroupMemberGuest> gmgs = ((GroupCard) card).getAltri();
+						((GroupCard) card).setAltri(new ArrayList<GroupMemberGuest>());
+						gmgs.remove(indexClicked - 1);
+						gmgs.add(gmg);
+
+						for (GroupMemberGuest g : gmgs){
+							((GroupCard) card).addGroupMember(g);
+						}
 					}
 				}
 
