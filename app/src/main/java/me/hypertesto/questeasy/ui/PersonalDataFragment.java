@@ -165,7 +165,8 @@ public class PersonalDataFragment extends Fragment {
 
 			Date d = guest.getBirthDate();
 			if( d != null ){
-				//TODO
+				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+				guest_dateBirth.setText(df.format(d));
 			}
 
 			if (guest.getSex().equals("M")){
