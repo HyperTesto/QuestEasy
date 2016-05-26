@@ -53,4 +53,13 @@ public class PermanenzaFragment extends Fragment {
 		return i;
 
 	}
+
+	/**
+	 * Set field permanenza if is valid
+	 * @param p
+	 */
+	public void setPermanenza(int p) {
+		if (p > 0)
+			permTextView.setText(p);
+	}
 }
