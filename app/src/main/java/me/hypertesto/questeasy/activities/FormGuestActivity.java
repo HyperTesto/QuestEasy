@@ -222,7 +222,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 					FamilyMemberGuest fmg = new FamilyMemberGuest();
 					fmg.setName(fragmentPersonal.getGuestName());
-					fmg.setSurname(fragmentPersonal.getGuestName());
+					fmg.setSurname(fragmentPersonal.getSurname());
 
 					try {
 						fmg.setBirthDate(fragmentPersonal.getDateofBirth());
@@ -273,7 +273,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 					GroupMemberGuest gmg = new GroupMemberGuest();
 					gmg.setName(fragmentPersonal.getGuestName());
-					gmg.setSurname(fragmentPersonal.getGuestName());
+					gmg.setSurname(fragmentPersonal.getSurname());
 
 					try {
 						gmg.setBirthDate(fragmentPersonal.getDateofBirth());
