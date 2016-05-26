@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.List;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.model.DocumentType;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.utils.AutoCompleteRequest;
 
@@ -97,7 +96,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 	 * whose name is substring of another Place)
 	 * @param p
 	 */
-	public void setDocType (Place p) {
+	public void setPlaceEdit (Place p) {
 
 		resultList.clear();
 		resultList.add(p);
