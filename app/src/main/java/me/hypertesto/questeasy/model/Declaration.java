@@ -16,21 +16,25 @@ import java.util.Date;
 public class Declaration extends ArrayList<Card> implements Serializable, Comparable<Declaration> {
 	private User owner;
 	private Date date;
+	private boolean sent;
 
 	public Declaration(){
 		super();
+		sent = false;
 	}
 
 	public Declaration(Date date){
 		super();
 		this.date = date;
 		this.owner = null;
+		this.sent = false;
 	}
 
 	public Declaration(Date date, User owner){
 		super();
 		this.date = date;
 		this.owner = owner;
+		this.sent = false;
 	}
 
 	public boolean isComplete(){
@@ -79,6 +83,14 @@ public class Declaration extends ArrayList<Card> implements Serializable, Compar
 
 	public User getOwner(){
 		return owner;
+	}
+
+	public boolean isSent(){
+		return sent;
+	}
+
+	public void setSent(boolean sent) {
+		this.sent = sent;
 	}
 
 	@Override

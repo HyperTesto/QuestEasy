@@ -46,8 +46,14 @@ public class DeclarationListAdapter extends ArrayAdapter<Declaration> {
 
 		ImageView img = (ImageView) view.findViewById(R.id.decWarningImg);
 		if (item.isComplete()){
-			//Remove warning sign
-			img.setVisibility(View.GONE);
+
+			if (item.isSent()){
+				//TODO migliorare
+				img.setImageDrawable(context.getResources().getDrawable(R.drawable.checked));
+			} else {
+				//Remove warning sign
+				img.setVisibility(View.GONE);
+			}
 		}
 
 		TextView txtDate = (TextView) view.findViewById(R.id.decDate);
