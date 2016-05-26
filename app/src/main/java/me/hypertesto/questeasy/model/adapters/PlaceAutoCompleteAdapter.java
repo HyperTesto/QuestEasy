@@ -95,7 +95,7 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 	 * to make sure the underlying data structure is aligned whit the view. (We already return
 	 * the first object in list when asked but this can cause misbehaviour if we have a Place
 	 * whose name is substring of another Place)
-	 * @param dt
+	 * @param p
 	 */
 	public void setDocType (Place p) {
 
