@@ -18,6 +18,11 @@ public class SingleGuestCard extends Card {
 	}
 
 	@Override
+	public Guest getMainGuest(){
+		return this.guest;
+	}
+
+	@Override
 	public boolean isComplete() {
 		if (this.guest == null){
 			return false;

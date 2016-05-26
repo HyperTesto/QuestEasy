@@ -21,6 +21,8 @@ public abstract class Card implements Serializable {
 
 	public abstract boolean isComplete();
 
+	public abstract Guest getMainGuest();
+
 	public void setDate(Date date) {
 		this.date = date;
 	}

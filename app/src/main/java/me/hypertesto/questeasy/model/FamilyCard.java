@@ -23,6 +23,11 @@ public class FamilyCard extends Card {
 	}
 
 	@Override
+	public Guest getMainGuest(){
+		return this.capoFamiglia;
+	}
+
+	@Override
 	public boolean isComplete(){
 		if (this.capoFamiglia == null || !this.capoFamiglia.isComplete()){
 			return false;

@@ -23,6 +23,11 @@ public class GroupCard extends Card {
 	}
 
 	@Override
+	public Guest getMainGuest() {
+		return this.capoGruppo;
+	}
+
+	@Override
 	public boolean isComplete(){
 		if (this.capoGruppo == null || !this.capoGruppo.isComplete()){
 			return false;
