@@ -35,6 +35,7 @@ import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.User;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.notifications.NotificationEventReceiver;
 import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
+		NotificationEventReceiver.setUpAlarm(this.getApplicationContext());
 
 		mNavigationView = (NavigationView)findViewById(R.id.nav_view_main);
 		mDrawerLayout = (DrawerLayout)findViewById(R.id.nav_drawer_layout);
