@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.utils.CitizenshipRequest;
@@ -150,5 +151,42 @@ public class PersonalDataFragment extends Fragment {
 
 	}
 
+	public void setGuest (Guest guest) {
+
+		if (guest != null) {
+
+			if (!guest.getName().equals("")){
+				guest_name.setText(guest.getName());
+			}
+
+			if (!guest.getSurname().equals("")){
+				guest_surname.setText(guest.getSurname());
+			}
+
+			Date d = guest.getBirthDate();
+			if( d != null ){
+				//TODO
+			}
+
+			if (guest.getSex().equals("M")){
+				guest_gender.check(R.id.sex_man);
+			} else if (guest.getSex().equals("F")){
+				guest_gender.check(R.id.sex_woman);
+			}
+
+			Place placeOfBirth = guest.getPlaceOfBirth();
+			if( placeOfBirth != null && !placeOfBirth.getName().equals("")){
+				//TODO test if align with adapter
+				guestBirthPlace.setText(placeOfBirth.getName());
+			}
+
+			Place citizenship = guest.getCittadinanza();
+			if (citizenship != null && !citizenship.getName().equals("")){
+				//TODO: test if align with adapter
+				guest_citizenship.setText(citizenship.getName());
+			}
+		}
+
+	}
 
 }

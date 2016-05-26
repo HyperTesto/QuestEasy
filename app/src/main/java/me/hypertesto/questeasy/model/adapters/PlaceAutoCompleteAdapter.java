@@ -87,5 +87,20 @@ public class PlaceAutoCompleteAdapter extends BaseAdapter implements Filterable 
 		};
 		return filter;
 	}
+
+	/**
+	 * Clear the curret objects in this adaper and sets dt.
+	 * This method should be called when we enter in edit mode of a guest, and it is needed
+	 * to make sure the underlying data structure is aligned whit the view. (We already return
+	 * the first object in list when asked but this can cause misbehaviour if we have a Place
+	 * whose name is substring of another Place)
+	 * @param p
+	 */
+	public void setPlaceEdit (Place p) {
+
+		resultList.clear();
+		resultList.add(p);
+
+	}
 }
 
