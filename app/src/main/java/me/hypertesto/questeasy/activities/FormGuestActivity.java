@@ -421,15 +421,14 @@ public class FormGuestActivity extends AppCompatActivity {
 						case Guest.type.GROUP_HEAD:
 							fragmentPermanenza.setPermanenza(rec.parsePermanenza(guestSpeechData.get(0)));
 							fragmentDocument.setDocument(rec.parseDocumentInfo(guestSpeechData.get(0)));
-							//TODO: add personal data
 							break;
 
 						case Guest.type.FAMILY_MEMBER:
 						case Guest.type.GROUP_MEMBER:
-							//TODO: add personal data
 							break;
 
 						default:
+							fragmentPersonal.setGuest(rec.parsePersonalInfo(guestSpeechData.get(0),guestType));
 					}
 				}
 
