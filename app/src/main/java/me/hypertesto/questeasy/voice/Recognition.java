@@ -42,13 +42,16 @@ public class Recognition {
 	public Documento parseDocumentInfo (String text){
 
 		DocumentType dt = new DocumentType();
+		Place release = new Place();
 		Documento res = new Documento();
-		Pattern docType = Pattern.compile("");
+
+		Pattern docType = Pattern.compile(".*(carta\\sdi\\sidentità|passaporto).*"); //right now we only support this 2
 		Pattern docNumber = Pattern.compile(".*numero\\s([a-zA-Z-0-9]+).*");
 		Pattern docRelease = Pattern.compile(".*rilasciat(o|a)\\s(a|in)\\s([a-zA-Z]+).*");
 
 		Matcher m1 = docNumber.matcher(text);
 		Matcher m2 = docRelease.matcher(text);
+		Matcher m3 = docType.matcher(text);
 
 		//TODO: add documentType support
 
@@ -56,12 +59,15 @@ public class Recognition {
 			res.setCodice(m1.group(1));
 		}
 
-		Place release = new Place();
 		if (m2.matches()){
 			release.setName(m2.group(3));	//we need just the name to set the texView (API request is done automatically)
 		}
 		res.setLuogoRilascio(release);
 
+		if (m3.matches()) {
+			dt.setName(m3.group(1));
+		}
+		res.setDocType(dt);
 
 		return res;
 	}

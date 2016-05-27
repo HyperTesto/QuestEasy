@@ -39,10 +39,14 @@ public class ExampleUnitTest {
 		testList.add("numero 123456787");
 		testList.add("rilasciato a falcade");
 		testList.add("garbage");
+		testList.add("carta di identità");
+		testList.add("passaporto");
 		assertEquals("Should match first case number", "AK12345", r.parseDocumentInfo(testList.get(0)).getCodice());
 		assertEquals("Should match first case release", "italia", r.parseDocumentInfo(testList.get(0)).getLuogoRilascio().getName());
 		assertEquals("Should match number", "123456787", r.parseDocumentInfo(testList.get(1)).getCodice());
 		assertEquals("Should match release", "falcade", r.parseDocumentInfo(testList.get(2)).getLuogoRilascio().getName());
+		assertEquals("Should match c.ident", "carta di identità", r.parseDocumentInfo(testList.get(4)).getDocType().getName());
+		assertEquals("Should match passaporto", "passaporto",  r.parseDocumentInfo(testList.get(5)).getDocType().getName());
 
 	}
 }
