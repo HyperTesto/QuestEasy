@@ -36,7 +36,6 @@ import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
-import me.hypertesto.questeasy.model.adapters.SwitchImageAdapter;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.ui.DocumentDataFragment;
@@ -82,7 +81,7 @@ public class FormGuestActivity extends AppCompatActivity {
 						captureImage();
 						break;
 					case R.id.galleryButton:
-						startActivity(new Intent(FormGuestActivity.this, ActivityGallery.class));
+						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
 						break;
 					default:break;
 				}
@@ -95,7 +94,7 @@ public class FormGuestActivity extends AppCompatActivity {
 						captureImage();
 						break;
 					case R.id.galleryButton:
-						startActivity(new Intent(FormGuestActivity.this, ActivityGallery.class));
+						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
 						break;
 					default:break;
 				}
