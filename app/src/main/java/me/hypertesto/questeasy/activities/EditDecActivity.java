@@ -454,13 +454,14 @@ public class EditDecActivity extends AppCompatActivity {
 				String selected = dialogItems[indexClickedSavePopUp].toString();
 				System.out.println(displayed);
 				String exportQuestura = FormatQuestura.convert(displayed);
+				File file = null;
 
 				switch (selected) {
 
 					case StaticGlobals.saveDialogOptions.SAVE_DISK:
 
 						String fileName = "export_" + DateUtils.format(DateUtils.today()); //FIXME: better naming
-						File file = null;
+
 						try {
 							file = FileUtils.getFileQuesturaStorageDir(fileName);
 							FormatQuestura.writeFile(exportQuestura, file);
@@ -477,39 +478,11 @@ public class EditDecActivity extends AppCompatActivity {
 						//intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"email@example.com"});
 						intent.putExtra(Intent.EXTRA_SUBJECT, "File questura");
 						intent.putExtra(Intent.EXTRA_TEXT, "In allegato il file della questura pronto per l'invio");
-						File file = null;
-						df = new SimpleDateFormat("dd-MM-yyyy");
 						try {
-							file = FileUtils.getFileQuesturaStorageDir( "export_"+ df.format(DateUtils.today())+ ".txt");
+							file = FileUtils.getFileQuesturaStorageDir( "export_"+ DateUtils.format(DateUtils.today())+ ".txt");
+							FormatQuestura.writeFile(exportQuestura, file);
 						} catch (IOException e) {
 							e.printStackTrace();
-						}
-						/*if (file != null && (!file.exists() || !file.canRead())) {
-							//Toast.makeText(this, "Attachment Error", Toast.LENGTH_SHORT).show();
-							Log.e("[SEND_MAIL]", "Cannot open temp file");
-							finish();
-							return;
-						}*/
-						OutputStream out2 = null;
-
-						try {
-							//TODO: handle special cases (card errors...)
-							out2 = new BufferedOutputStream(new FileOutputStream(file));
-							byte[] bytes2 = exportQuestura.getBytes();
-							for (int i = 0; i < bytes2.length - 2; i++){
-								out2.write(bytes2[i]);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						} finally {
-							if (out2 != null) {
-								try {
-									out2.close();
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-
 						}
 						Uri uri = Uri.fromFile(file);
 						intent.putExtra(Intent.EXTRA_STREAM, uri);
