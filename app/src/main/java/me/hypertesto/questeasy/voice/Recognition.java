@@ -41,7 +41,7 @@ public class Recognition {
 	 */
 	public Documento parseDocumentInfo (String text){
 
-		DocumentType dt = new DocumentType();
+		DocumentType dt = new DocumentType("","");
 		Place release = new Place();
 		Documento res = new Documento();
 
