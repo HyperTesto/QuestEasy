@@ -3,6 +3,7 @@ package me.hypertesto.questeasy.voice;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,14 +62,13 @@ public class Recognition {
 				res.setSex("F");
 			}
 			res.setName(m1.group(2));
-			res.setName(m1.group(3));
+			res.setSurname(m1.group(3));
 		}
 
 		Place birth = new Place();
 		if (m2.matches()) {
 			birth.setName(m2.group(2));
-			convertMonths(text); //convert months to number
-			String birthDate = String.format("%s/%s/%s", m2.group(4), m2.group(5), m2.group(6));
+			String birthDate = String.format("%s/%s/%s", m2.group(4), String.valueOf(getMonthNumber(m2.group(5))), m2.group(6));
 			res.setBirthDate(DateUtils.parse(birthDate));
 		}
 		res.setPlaceOfBirth(birth);
@@ -173,18 +173,21 @@ public class Recognition {
 	}
 
 	/**
-	 * Auxiliary method that replace every month in a give string with his respective number
+	 * Auxiliary method that return a month number
 	 * @param text
 	 */
-	private void convertMonths(String text){
+	private int getMonthNumber(String text){
 
 		//FIXME: bad implementation
 		String[] months = {"gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio",
 							"agosto", "settembre", "ottobre", "novembre", "dicembre"};
 		for (int i = 0; i < months.length; i++){
-			text = text.replace(months[i], String.valueOf(i));
+			if (text.equals(months[i])){
+				return i+1;
+			}
 		}
 
+		return -1;
 
 	}
 }

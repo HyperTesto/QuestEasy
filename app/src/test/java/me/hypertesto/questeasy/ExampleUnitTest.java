@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.hypertesto.questeasy.model.Guest;
+import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.voice.Recognition;
 
 import static org.junit.Assert.*;
@@ -47,6 +49,21 @@ public class ExampleUnitTest {
 		assertEquals("Should match release", "falcade", r.parseDocumentInfo(testList.get(2)).getLuogoRilascio().getName());
 		assertEquals("Should match c.ident", "carta di identità", r.parseDocumentInfo(testList.get(4)).getDocType().getName());
 		assertEquals("Should match passaporto", "passaporto",  r.parseDocumentInfo(testList.get(5)).getDocType().getName());
+
+	}
+
+	@Test
+	public void guest_recognition_isCorrect() throws Exception {
+
+		Recognition r = new Recognition();
+
+		Guest test = r.parsePersonalInfo("signor zanfo zanfagni nato a roma il 26 gennaio 1994, cittadinanza francia", Guest.type.SINGLE_GUEST);
+		assertEquals("Should match name", "zanfo", test.getName());
+		assertEquals("Should match surname", "zanfagni", test.getSurname());
+		assertEquals("Should match sex", "M", test.getSex());
+		assertEquals("Should match bithPlace", "roma", test.getPlaceOfBirth().getName());
+		assertEquals("Should match date", "26/01/1994", DateUtils.format(test.getBirthDate()));
+		assertEquals("Should match citizenship", "francia", test.getCittadinanza().getName());
 
 	}
 }
