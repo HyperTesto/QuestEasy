@@ -1,9 +1,5 @@
 package me.hypertesto.questeasy.voice;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,9 +12,7 @@ import me.hypertesto.questeasy.model.GroupMemberGuest;
 import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
-import me.hypertesto.questeasy.model.adapters.DocumentTypeAdapter;
 import me.hypertesto.questeasy.utils.DateUtils;
-import me.hypertesto.questeasy.utils.StaticGlobals;
 
 /**
  * Class used to parse results from google speech recognition
