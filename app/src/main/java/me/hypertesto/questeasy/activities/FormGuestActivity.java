@@ -131,7 +131,12 @@ public class FormGuestActivity extends AppCompatActivity {
 					case R.id.voiceButton:
 
 						Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-						i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "it-IT");
+						i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+						i.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"it-IT");
+						i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla ora");
+						i.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 1000);
+						i.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 2000);
+						i.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
 						try {
 							Log.d("DBG", "starting speech intent");
 							startActivityForResult(i, StaticGlobals.requestCodes.SPEECH);
