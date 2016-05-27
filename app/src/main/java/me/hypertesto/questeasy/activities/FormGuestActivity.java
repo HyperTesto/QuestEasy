@@ -435,8 +435,9 @@ public class FormGuestActivity extends AppCompatActivity {
 							break;
 
 						default:
-							fragmentPersonal.setGuest(rec.parsePersonalInfo(guestSpeechData.get(0),guestType));
+
 					}
+					fragmentPersonal.setGuest(rec.parsePersonalInfo(guestSpeechData.get(0),guestType));
 					progress.dismiss();
 				}
 				break;

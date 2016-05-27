@@ -44,6 +44,10 @@ public class Recognition {
 
 		text = text.toLowerCase();
 		Guest res = initGuestByType(type);
+		res.setName("");
+		res.setSurname("");
+		res.setSex("");
+
 		//												(1)				(2)				(3)
 		Pattern personalInfo = Pattern.compile(".*(signor|signora)\\s([a-zA-Z]+)\\s([a-zA-Z]+).*");
 		//												(1)			(2)				(3)			(4)			(5)				(6)
@@ -66,7 +70,7 @@ public class Recognition {
 			res.setSurname(m1.group(3));
 		}
 
-		Place birth = new Place();
+		Place birth = new Place("","", true);
 		if (m2.matches()) {
 			birth.setName(m2.group(2));
 			String birthDate = String.format("%s/%s/%s", m2.group(4), String.valueOf(getMonthNumber(m2.group(5))), m2.group(6));
@@ -74,7 +78,7 @@ public class Recognition {
 		}
 		res.setPlaceOfBirth(birth);
 
-		Place citizen = new Place();
+		Place citizen = new Place("", "", true);
 		if (m3.matches()){
 			citizen.setName(m3.group(1));
 		}
