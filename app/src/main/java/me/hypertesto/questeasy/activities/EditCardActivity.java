@@ -94,7 +94,7 @@ public class EditCardActivity extends AppCompatActivity {
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_edit_card);
 
 		if ((card instanceof  FamilyCard) || (card instanceof GroupCard)){
-			fab.setImageResource(R.drawable.button_add_member);
+			fab.setImageResource(R.drawable.ic_person_add);
 		}
 
 		if (fab != null) {

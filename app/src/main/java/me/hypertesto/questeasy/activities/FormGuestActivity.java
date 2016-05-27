@@ -7,15 +7,30 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.design.widget.CoordinatorLayout;
+
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabClickListener;
+
+import java.io.File;
 import java.io.Serializable;
 import java.text.ParseException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
@@ -38,8 +53,9 @@ public class FormGuestActivity extends AppCompatActivity {
 	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 200;
 	public static final int MEDIA_TYPE_IMAGE = 1;
 
+
 	// directory name to store captured images and videos
-	private static final String IMAGE_DIRECTORY_NAME = "QuestEasy";
+	public static final String IMAGE_DIRECTORY_NAME = "QuestEasy";
 	private Uri fileUri; // file url to store image/video
 
 
@@ -52,7 +68,11 @@ public class FormGuestActivity extends AppCompatActivity {
 	private PersonalDataFragment fragmentPersonal;
 	private DocumentDataFragment fragmentDocument;
 
+
 	private Serializable ser;
+
+	private BottomBar mBottomBar;
+
 	private String guestType;
 	private int permanenza;
 
@@ -61,11 +81,45 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
 
+
+		mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.formCordinator),
+				findViewById(R.id.myScrollingContent), savedInstanceState);
+		mBottomBar.setDefaultTabPosition(2);
+		mBottomBar.setItemsFromMenu(R.menu.bottom_bar, new OnMenuTabClickListener() {
+			@Override
+			public void onMenuTabSelected(int menuItemId) {
+				switch (menuItemId){
+					case R.id.photoButton :
+						captureImage();
+						break;
+					case R.id.galleryButton:
+						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
+						break;
+					default:break;
+				}
+			}
+
+			@Override
+			public void onMenuTabReSelected(int menuItemId) {
+				switch (menuItemId){
+					case R.id.photoButton :
+						captureImage();
+						break;
+					case R.id.galleryButton:
+						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
+						break;
+					default:break;
+				}
+			}
+		});
+		//mBottomBar.noTopOffset();
 		//TODO STUB STUPIDO
 		Intent intent = getIntent();
+
 		this.ser = intent.getSerializableExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT);
 		this.permanenza = intent.getIntExtra(StaticGlobals.intentExtras.PERMANENZA, -1);
 		this.guestType = intent.getStringExtra(StaticGlobals.intentExtras.GUEST_TYPE);
+
 		System.out.println("*****Category" + guestType);
 		setTitle(guestType);
 
@@ -75,6 +129,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		fragmentPermanenza = new PermanenzaFragment();
 		fragmentPersonal = new PersonalDataFragment();
 		fragmentDocument = new DocumentDataFragment();
+
 
 		switch (guestType){
 			case Guest.type.SINGLE_GUEST:
@@ -115,6 +170,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 			default:
 				throw new UnknownGuestTypeException();
+
 		}
 
 		fragmentTransaction.commit();
@@ -343,7 +399,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	/*
  	 Launch the camera
  	*/
-	/*
+
 	private void captureImage() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -354,47 +410,23 @@ public class FormGuestActivity extends AppCompatActivity {
 		// start the image capture Intent
 		startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
 	}
-	*/
-	/*
-     * Display image from a path to ImageView
-     */
-	/*private void previewCapturedImage() {
-		try {
-
-			photo_guest1.setVisibility(View.VISIBLE);
 
 
-			// bimatp factory
-			BitmapFactory.Options options = new BitmapFactory.Options();
-
-			// downsizing image as it throws OutOfMemory Exception for larger
-			// images
-			options.inSampleSize = 16;
-
-
-			final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath());
-			Bitmap circle = getCircleBitmap(bitmap);
-			photo_guest1.setImageBitmap(circle);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
-	}
-	*/
 
 	/**
 	 * Creating file uri to store image/video
 	 */
-	/*
+
 	public Uri getOutputMediaFileUri(int type) {
 		return Uri.fromFile(getOutputMediaFile(type));
 	}
-	*/
+
 
 	/*
 	 * returning image / video
 	 */
 
-	/*
+
 	private static File getOutputMediaFile(int type) {
 
 		// External sdcard location
@@ -426,7 +458,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		return mediaFile;
 	}
-	*/
+
 	//manage data voice insertion
 
 	/**

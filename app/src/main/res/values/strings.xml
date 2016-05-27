@@ -1,37 +1,37 @@
 <resources>
-    <string name="app_name">QuestEasy</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="insertDcard">dichiarazione</string>
-    <string name="formTitleBar">ospite</string>
-    <string name="settingsNav">impostazioni</string>
-    <string name="aboutNav">info</string>
-    <string name="categoryS">singolo</string>
-    <string name="categoryF">famiglia</string>
-    <string name="categoryG">gruppo</string>
-    <string name="saveDecMenuItem">salva</string>
-    <string name="confirmGuestForm">conferma ospite</string>
-	<string name = "personalDataGuest">Dati personali</string>
-	<string name = "permanenzaHint">30</string>
-    <string name = "nameGuest">Nome</string>
-    <string name = "surnameGuest">Cognome</string>
-    <string name = "sexGuest">Sesso</string>
-	<string name = "sexMen">Uomo</string>
-	<string name = "sexWoman">Donna</string>
-    <string name="dateBirthGuest">Data di nascita</string>
-	<string name = "cittadinanzaGuest">Cittadinanza</string>
-    <string name = "luogoGuest">Luogo di nascita</string>
-	<string name = "documentoGuest">Documento</string>
-	<string name = "codeDocumentoGuest">Codice</string>
-    <string name = "permanenzaGiorni">Giorni di permanenza</string>
-	<string name = "numberDocumentoGuest">Numero documento</string>
-	<string name = "placeDocumentoGuest">Luogo di rilascio</string>
-    <string name = "speech_prompt">&#8230;</string>
-    <string name = "speech_not_supported">Il dispositivo non supporta questa funzione</string>
-    <string name = "categoryNameSingle">Singolo</string>
-	<string name = "categoryNameGroup">Capogruppo</string>
-	<string name = "categoryNameFamily">Capofamiglia</string>
-    <string name = "developInfo">\n\t\t\t\tQuesta applicazione è stata sviluppata da:
+	<string name="app_name">QuestEasy</string>
+	<string name="action_settings">Settings</string>
+	<string name="title_activity_home">HomeActivity</string>
+	<string name="insertDcard">dichiarazione</string>
+	<string name="formTitleBar">ospite</string>
+	<string name="settingsNav">impostazioni</string>
+	<string name="aboutNav">info</string>
+	<string name="categoryS">singolo</string>
+	<string name="categoryF">famiglia</string>
+	<string name="categoryG">gruppo</string>
+	<string name="saveDecMenuItem">salva</string>
+	<string name="confirmGuestForm">conferma ospite</string>
+	<string name="personalDataGuest">Dati personali</string>
+	<string name="permanenzaHint">30</string>
+	<string name="nameGuest">Nome</string>
+	<string name="surnameGuest">Cognome</string>
+	<string name="sexGuest">Sesso</string>
+	<string name="sexMen">Uomo</string>
+	<string name="sexWoman">Donna</string>
+	<string name="dateBirthGuest">Data di nascita</string>
+	<string name="cittadinanzaGuest">Cittadinanza</string>
+	<string name="luogoGuest">Luogo di nascita</string>
+	<string name="documentoGuest">Documento</string>
+	<string name="codeDocumentoGuest">Codice</string>
+	<string name="permanenzaGiorni">Giorni di permanenza</string>
+	<string name="numberDocumentoGuest">Numero documento</string>
+	<string name="placeDocumentoGuest">Luogo di rilascio</string>
+	<string name="speech_prompt">&#8230;</string>
+	<string name="speech_not_supported">Il dispositivo non supporta questa funzione</string>
+	<string name="categoryNameSingle">Singolo</string>
+	<string name="categoryNameGroup">Capogruppo</string>
+	<string name="categoryNameFamily">Capofamiglia</string>
+    <string name="developInfo">\n\t\t\t\tQuesta applicazione è stata sviluppata da:
         \n\n\t\t\t\tEnrico Testori
 		\n\t\t\t\tSimone Calciolari \n\t\t\t\tGianluca Apriceno\n
         \n\n\t\t\t\tICONE :
@@ -44,11 +44,16 @@
 			www.flaticon.com
 		</a>
     </string>
-	<string name = "saveGuestCard">salva ospiti</string>
-	<string name = "cardTitleBar">ospiti</string>
-    <string name = "saveDialogTitle">Salva su</string>
-    <string name = "okButton">OK</string>
-    <string name = "cancelButton">CANCELLA</string>
-    <string name = "filterDialotTitle">Filtra per</string>
+
 	<string name = "modExam">Modalità esame</string>
+	<string name="saveGuestCard">salva ospiti</string>
+	<string name="cardTitleBar">ospiti</string>
+	<string name="saveDialogTitle">Salva su</string>
+	<string name="okButton">OK</string>
+	<string name="cancelButton">CANCELLA</string>
+	<string name="filterDialotTitle">Filtra per</string>
+	<string name="bottomPhoto">Scatta foto</string>
+	<string name="bottomVoice">Parla</string>
+	<string name="bottomGallery">Galleria</string>
+
 </resources>

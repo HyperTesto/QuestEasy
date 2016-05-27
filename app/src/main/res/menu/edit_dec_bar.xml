@@ -7,7 +7,7 @@
 		android:id="@+id/action_filterDec"
 		android:orderInCategory="100"
 		app:showAsAction="ifRoom"
-		android:icon="@drawable/filter"
+		android:icon="@drawable/ic_action_filter"
 		android:title="@string/saveDecMenuItem"/>
 	<item
 		android:id="@+id/action_saveDec"
