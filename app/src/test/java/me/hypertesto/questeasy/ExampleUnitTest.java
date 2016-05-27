@@ -43,7 +43,7 @@ public class ExampleUnitTest {
 		testList.add("garbage");
 		testList.add("carta di identità");
 		testList.add("passaporto");
-		assertEquals("Should match first case number", "AK12345", r.parseDocumentInfo(testList.get(0)).getCodice());
+		assertEquals("Should match first case number", "ak12345", r.parseDocumentInfo(testList.get(0)).getCodice());
 		assertEquals("Should match first case release", "italia", r.parseDocumentInfo(testList.get(0)).getLuogoRilascio().getName());
 		assertEquals("Should match number", "123456787", r.parseDocumentInfo(testList.get(1)).getCodice());
 		assertEquals("Should match release", "falcade", r.parseDocumentInfo(testList.get(2)).getLuogoRilascio().getName());
@@ -57,7 +57,7 @@ public class ExampleUnitTest {
 
 		Recognition r = new Recognition();
 
-		Guest test = r.parsePersonalInfo("signor zanfo zanfagni nato a roma il 26 gennaio 1994, cittadinanza francia", Guest.type.SINGLE_GUEST);
+		Guest test = r.parsePersonalInfo("signor Zanfo zanfagni nato a roma il 26 gennaio 1994, cittadinanza francia", Guest.type.SINGLE_GUEST);
 		assertEquals("Should match name", "zanfo", test.getName());
 		assertEquals("Should match surname", "zanfagni", test.getSurname());
 		assertEquals("Should match sex", "M", test.getSex());

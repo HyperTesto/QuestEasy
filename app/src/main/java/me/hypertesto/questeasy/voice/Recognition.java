@@ -42,6 +42,7 @@ public class Recognition {
 	 */
 	public Guest parsePersonalInfo (String text, String type){
 
+		text = text.toLowerCase();
 		Guest res = initGuestByType(type);
 		//												(1)				(2)				(3)
 		Pattern personalInfo = Pattern.compile(".*(signor|signora)\\s([a-zA-Z]+)\\s([a-zA-Z]+).*");
@@ -90,6 +91,7 @@ public class Recognition {
 	 */
 	public Documento parseDocumentInfo (String text){
 
+		text = text.toLowerCase();
 		DocumentType dt = new DocumentType("","");
 		Place release = new Place();
 		Documento res = new Documento();
@@ -128,6 +130,7 @@ public class Recognition {
 	 */
 	public int parsePermanenza (String text) {
 
+		text = text.toLowerCase();
 		Pattern p1 = Pattern.compile(".*permanenza\\s([0-9]+)\\sgiorni.*");
 		Pattern p2 = Pattern.compile(".*\\s([0-9]+)\\sgiorni\\sdi\\spermanenza.*");
 		Matcher m1 = p1.matcher(text);
