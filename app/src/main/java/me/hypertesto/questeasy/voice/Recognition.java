@@ -1,6 +1,8 @@
 package me.hypertesto.questeasy.voice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,6 +67,7 @@ public class Recognition {
 		Place birth = new Place();
 		if (m2.matches()) {
 			birth.setName(m2.group(2));
+			convertMonths(text); //convert months to number
 			String birthDate = String.format("%s/%s/%s", m2.group(4), m2.group(5), m2.group(6));
 			res.setBirthDate(DateUtils.parse(birthDate));
 		}
@@ -167,5 +170,21 @@ public class Recognition {
 				break;
 		}
 		return res;
+	}
+
+	/**
+	 * Auxiliary method that replace every month in a give string with his respective number
+	 * @param text
+	 */
+	private void convertMonths(String text){
+
+		//FIXME: bad implementation
+		String[] months = {"gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio",
+							"agosto", "settembre", "ottobre", "novembre", "dicembre"};
+		for (int i = 0; i < months.length; i++){
+			text = text.replace(months[i], String.valueOf(i));
+		}
+
+
 	}
 }
