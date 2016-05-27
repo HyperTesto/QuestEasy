@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import me.hypertesto.questeasy.model.DocumentType;
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.Guest;
+import me.hypertesto.questeasy.model.Place;
+import me.hypertesto.questeasy.model.adapters.DocumentTypeAdapter;
 
 /**
  * Class used to parse results from google speech recognition
@@ -37,7 +40,30 @@ public class Recognition {
 	 * @return
 	 */
 	public Documento parseDocumentInfo (String text){
-		return null;
+
+		DocumentType dt = new DocumentType();
+		Documento res = new Documento();
+		Pattern docType = Pattern.compile("");
+		Pattern docNumber = Pattern.compile(".*numero\\s([a-zA-Z-0-9]+).*");
+		Pattern docRelease = Pattern.compile(".*rilasciat(o|a)\\s(a|in)\\s([a-zA-Z]+).*");
+
+		Matcher m1 = docNumber.matcher(text);
+		Matcher m2 = docRelease.matcher(text);
+
+		//TODO: add documentType support
+
+		if (m1.matches()){
+			res.setCodice(m1.group(1));
+		}
+
+		Place release = new Place();
+		if (m2.matches()){
+			release.setName(m2.group(3));	//we need just the name to set the texView (API request is done automatically)
+		}
+		res.setLuogoRilascio(release);
+
+
+		return res;
 	}
 
 	/**

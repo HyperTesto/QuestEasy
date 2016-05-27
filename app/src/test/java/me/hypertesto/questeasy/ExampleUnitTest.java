@@ -29,4 +29,20 @@ public class ExampleUnitTest {
 		assertEquals("Should match second case", 12, r.parsePermanenza(testList.get(1)));
 		assertEquals("Shoud return -1", -1, r.parsePermanenza(testList.get(2)));
     }
+
+	@Test
+	public void document_recognition_isCorrect() throws Exception {
+
+		Recognition r = new Recognition();
+		List<String> testList = new ArrayList<>();
+		testList.add("carta di identità numero AK12345 rilasciata in italia");
+		testList.add("numero 123456787");
+		testList.add("rilasciato a falcade");
+		testList.add("garbage");
+		assertEquals("Should match first case number", "AK12345", r.parseDocumentInfo(testList.get(0)).getCodice());
+		assertEquals("Should match first case release", "italia", r.parseDocumentInfo(testList.get(0)).getLuogoRilascio().getName());
+		assertEquals("Should match number", "123456787", r.parseDocumentInfo(testList.get(1)).getCodice());
+		assertEquals("Should match release", "falcade", r.parseDocumentInfo(testList.get(2)).getLuogoRilascio().getName());
+
+	}
 }
