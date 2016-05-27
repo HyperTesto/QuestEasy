@@ -15,7 +15,6 @@
 		android:required="false"/>
 
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
@@ -65,7 +64,7 @@
 			android:name=".activities.EditCardActivity"
 			android:label="@string/cardTitleBar">
 		</activity>
-		<activity android:name=".activities.ActivityGallery"
+		<activity android:name=".activities.ActivityGalleryV2"
 				  android:label="@string/bottomGallery"
 				  android:parentActivityName=".activities.FormGuestActivity">
 			<meta-data
