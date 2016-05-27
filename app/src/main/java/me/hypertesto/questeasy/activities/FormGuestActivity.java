@@ -4,6 +4,7 @@ package me.hypertesto.questeasy.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -407,6 +408,12 @@ public class FormGuestActivity extends AppCompatActivity {
 
 				if (resultCode == RESULT_OK){
 
+					ProgressDialog progress = new ProgressDialog(this);
+					progress.setTitle("Caricamento");
+					progress.setMessage("Attendi mentre analizzo i dati...");
+					progress.show();
+					// To dismiss the dialog
+
 					Log.d("DBG", "Parsing detected voice...");
 					ArrayList<String> guestSpeechData = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
@@ -430,9 +437,10 @@ public class FormGuestActivity extends AppCompatActivity {
 						default:
 							fragmentPersonal.setGuest(rec.parsePersonalInfo(guestSpeechData.get(0),guestType));
 					}
+					progress.dismiss();
 				}
-
 				break;
+
 			default:
 
 		}
