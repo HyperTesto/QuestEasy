@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.CoordinatorLayout;
 
 import android.support.v4.app.DialogFragment;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
@@ -28,6 +30,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -48,6 +51,7 @@ import me.hypertesto.questeasy.ui.PermanenzaFragment;
 import me.hypertesto.questeasy.ui.PersonalDataFragment;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 import me.hypertesto.questeasy.utils.UnknownGuestTypeException;
+import me.hypertesto.questeasy.voice.Recognition;
 
 public class FormGuestActivity extends AppCompatActivity {
 	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 200;
@@ -92,10 +96,23 @@ public class FormGuestActivity extends AppCompatActivity {
 					case R.id.photoButton :
 						captureImage();
 						break;
+
 					case R.id.galleryButton:
 						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
 						break;
-					default:break;
+
+					/*case R.id.voiceButton:
+
+						Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+						i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "it-IT");
+						try {
+							startActivityForResult(i, StaticGlobals.requestCodes.SPEECH);
+						} catch (Exception e) {
+							Toast.makeText(getApplicationContext(), "Error initializing speech to text engine.", Toast.LENGTH_LONG).show();
+						}
+						break;*/
+					default:
+
 				}
 			}
 
@@ -105,10 +122,25 @@ public class FormGuestActivity extends AppCompatActivity {
 					case R.id.photoButton :
 						captureImage();
 						break;
+
 					case R.id.galleryButton:
 						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
 						break;
-					default:break;
+
+					case R.id.voiceButton:
+
+						Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+						i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "it-IT");
+						try {
+							Log.d("DBG", "starting speech intent");
+							startActivityForResult(i, StaticGlobals.requestCodes.SPEECH);
+						} catch (Exception e) {
+							Toast.makeText(getApplicationContext(), "Error initializing speech to text engine.", Toast.LENGTH_LONG).show();
+						}
+						break;
+
+					default:
+
 				}
 			}
 		});
@@ -365,6 +397,48 @@ public class FormGuestActivity extends AppCompatActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		switch (requestCode){
+			case StaticGlobals.requestCodes.SPEECH:
+
+				if (resultCode == RESULT_OK){
+
+					Log.d("DBG", "Parsing detected voice...");
+					ArrayList<String> guestSpeechData = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+					Log.d("DBG", guestSpeechData.get(0));
+
+					Recognition rec = new Recognition();
+
+					switch (guestType){
+
+						case Guest.type.SINGLE_GUEST:
+						case Guest.type.FAMILY_HEAD:
+						case Guest.type.GROUP_HEAD:
+							fragmentPermanenza.setPermanenza(rec.parsePermanenza(guestSpeechData.get(0)));
+							fragmentDocument.setDocument(rec.parseDocumentInfo(guestSpeechData.get(0)));
+							//TODO: add personal data
+							break;
+
+						case Guest.type.FAMILY_MEMBER:
+						case Guest.type.GROUP_MEMBER:
+							//TODO: add personal data
+							break;
+
+						default:
+					}
+				}
+
+				break;
+			default:
+
+		}
+
+	}
 
 	//showing date
 	public void showDatePickerDialog(View v){

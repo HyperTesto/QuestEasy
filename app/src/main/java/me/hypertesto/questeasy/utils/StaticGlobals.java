@@ -19,6 +19,8 @@ public class StaticGlobals {
 
 		public static final int NEW_CARD = 11;
 		public static final int EDIT_CARD = 12;
+
+		public static final int SPEECH = 20;
 	}
 
 	public static final	class resultCodes {
