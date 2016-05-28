@@ -85,7 +85,7 @@ public class ImageAdapter extends PagerAdapter {
 		final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
 
 		//convert image path to Uri
-		String UriS = Uri.fromFile(new File(filePaths.get(position))).toString();
+		String UriS = FileUtils.getImagePathUriToString(filePaths.get(position));
 
 		//load image
 		imageLoader2.displayImage(UriS,imageView,options,new SimpleImageLoadingListener(){

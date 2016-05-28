@@ -105,6 +105,14 @@ public class FileUtils {
 		return Uri.fromFile(getOutputMediaFile(type));
 	}
 
+	/**
+	 * Convert teh given image's path to a Uri String
+	 * @param pathImage
+	 */
+
+	public static String getImagePathUriToString(String pathImage) {
+		return Uri.fromFile(new File(pathImage)).toString();
+	}
 
 	/**
 	 * Returning image
