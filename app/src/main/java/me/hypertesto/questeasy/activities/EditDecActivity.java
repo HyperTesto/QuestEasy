@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -71,6 +73,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private Animation flipAnimReverse;
 	private ImageView letterImage;
 	private TextDrawable textDrawable;
+	private int colorSelected;
 	CardListAdapter adapter;
 
 
@@ -195,7 +198,14 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onAnimationEnd(Animation animation) {
 
 				textDrawable = (TextDrawable) letterImage.getDrawable();
-				DrawableCompat.setTint(textDrawable,getResources().getColor(R.color.background_bar));
+
+				if (Build.VERSION.SDK_INT >= 23) {
+					colorSelected = ContextCompat.getColor(EditDecActivity.this,R.color.background_bar );
+				} else {
+					colorSelected = getResources().getColor(R.color.background_bar);
+				}
+
+				DrawableCompat.setTint(textDrawable,colorSelected);
 				letterImage.setImageDrawable(textDrawable);
 
 			}
