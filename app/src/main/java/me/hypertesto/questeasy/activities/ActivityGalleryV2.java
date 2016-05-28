@@ -1,16 +1,10 @@
 package me.hypertesto.questeasy.activities;
 
-import android.os.Environment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
-import java.io.File;
-import java.util.ArrayList;
+import com.github.clans.fab.FloatingActionButton;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.ui.ImagePagerFragment;
@@ -23,9 +17,12 @@ This activity manages fragment's replacement
 
 public class ActivityGalleryV2 extends AppCompatActivity {
 
+	FloatingActionButton fab;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_gallery);
 
 		Fragment fr = null;
 		String tag = ImagePagerFragment.class.getSimpleName();
@@ -35,7 +32,9 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 		}
 
 
-		getSupportFragmentManager().beginTransaction().replace(android.R.id.content, fr, tag).commit();
+		getSupportFragmentManager().beginTransaction().add(R.id.gallery_container, fr).commit();
+		fab = (FloatingActionButton) findViewById(R.id.fab_gallery);
+
 	}
 
 
