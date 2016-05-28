@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.activities.FormGuestActivity;
+import me.hypertesto.questeasy.utils.FileUtils;
 
 /**
  * Created by gianluke on 27/05/16.
@@ -146,7 +147,7 @@ public class ImageAdapter extends PagerAdapter {
 	public ArrayList<String> getFilePaths (ArrayList<String> pathsPhoto){
 		File directory = new File(Environment
 				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+
-				File.separator+ FormGuestActivity.IMAGE_DIRECTORY_NAME);
+				File.separator+ FileUtils.IMAGE_DIRECTORY_NAME);
 
 		//check for directory
 		if (directory.isDirectory()){
