@@ -139,17 +139,15 @@ public class EditDecActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
+
 			case R.id.action_saveDec:
 				saveAlertDialog.show();
 				return true;
+
 			case R.id.action_filterDec:
-				/*ListView lw = filterAlertDialog.getListView();
-				for (int i = 0; i < lw.getCount(); i++){
-					System.out.println("ITEM "+ lw.getCheckedItemCount());
-				}
-				*/
 				filterAlertDialog.show();
 				return true;
+
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -171,12 +169,6 @@ public class EditDecActivity extends AppCompatActivity {
 		createFilterDialog();
 
 		Intent intent = getIntent();
-
-
-		//ArrayList<Card> d = (ArrayList<Card>) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION);
-		//this.displayed = new Declaration();
-		//this.displayed.setDate(date);
-		//this.displayed.addAll(d);
 
 		Date date = (Date) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION_DATE);
 		User owner = (User) intent.getSerializableExtra(StaticGlobals.intentExtras.DECLARATION_OWNER);
@@ -201,22 +193,12 @@ public class EditDecActivity extends AppCompatActivity {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
+
 				textDrawable = (TextDrawable) letterImage.getDrawable();
 				previousColor = textDrawable.getPaint().getColor();
-				//TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
-				//color, 100);
-				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
-				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
-				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
-
-				//if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-					DrawableCompat.setTint(textDrawable,getResources().getColor(R.color.background_bar));
-				//} else {
-					//Drawable wrappedDrawable = DrawableCompat.wrap(textDrawable);
-					//wrappedDrawable.setTintList(getResources().getColorStateList(R.color.background_bar));
-
-				//}
+				DrawableCompat.setTint(textDrawable,getResources().getColor(R.color.background_bar));
 				letterImage.setImageDrawable(textDrawable);
+
 			}
 
 			@Override
@@ -233,14 +215,11 @@ public class EditDecActivity extends AppCompatActivity {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
+
 				textDrawable = (TextDrawable) letterImage.getDrawable();
-				//TextDrawable drawable = TextDrawable.builder().buildRoundRect(item.getInitialLetter(),
-				//color, 100);
-				//textDrawable.setTint(getResources().getColor(R.color.background_bar));
-				//textDrawable.setColorFilter(R.color.background_bar, PorterDuff.Mode.MULTIPLY);
-				//textDrawable.getPaint().setColor(getResources().getColor(R.color.background_bar));
 				DrawableCompat.setTint(textDrawable,previousColor);
 				letterImage.setImageDrawable(textDrawable);
+
 			}
 
 			@Override
@@ -258,18 +237,6 @@ public class EditDecActivity extends AppCompatActivity {
 			Log.e("ERROR", "error null field");
 		}
 
-		/*Intent intentForm = new Intent();
-		singlefab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (fabMenu.isOpened()){
-					fabMenu.close(false);
-				}
-				startActivity(new Intent(EditDecActivity.this, FormGuestActivity.class));
-			}
-
-		});
-		*/
 		sendFormRequest(singlefab,0);
 		sendFormRequest(groupFab, 1);
 		sendFormRequest(familyFab, 2);
