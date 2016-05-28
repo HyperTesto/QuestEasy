@@ -10,12 +10,12 @@ import android.widget.EditText;
 import me.hypertesto.questeasy.R;
 
 /**
+ * Fragment that contains the form part to set staying (HeadGuests only)
  * Created by gianluke on 17/05/16.
  */
 public class PermanenzaFragment extends Fragment {
 
 	EditText permTextView;
-
 
 	@Override
 	public void onCreate (Bundle savedInstanceState){
@@ -39,6 +39,11 @@ public class PermanenzaFragment extends Fragment {
 		permTextView = (EditText) getView().findViewById(R.id.input_permanenza);
 	}
 
+	/**
+	 * Return and int representing guest days of staying.
+	 * If Parsing cause errors or field left empty we return -1
+	 * @return
+	 */
 	public int getPermanenza(){
 
 		int i;
@@ -55,7 +60,7 @@ public class PermanenzaFragment extends Fragment {
 	}
 
 	/**
-	 * Set field permanenza if is valid
+	 * Set field permanenza if is valid, if not, skip
 	 * @param p
 	 */
 	public void setPermanenza(int p) {

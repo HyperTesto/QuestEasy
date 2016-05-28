@@ -1,6 +1,5 @@
 package me.hypertesto.questeasy.ui;
 
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +19,9 @@ import me.hypertesto.questeasy.utils.DocumentTypeRequest;
 import me.hypertesto.questeasy.utils.PlaceRequest;
 
 /**
+ * Fragment that contains document fields (HeadGuests only)
  * Created by gianluke on 16/05/16.
+ * @edited by hypertesto
  */
 public class DocumentDataFragment extends Fragment {
 
@@ -50,7 +51,6 @@ public class DocumentDataFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		//guest_documentCode = (EditText)getView().findViewById(R.id.editText_documentoCodice_guest_form);
 		guest_documentType = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_documentoCodice_guest_form);
 		guest_documentType.setThreshold(1);
 		docTypeAdapter = new DocumentTypeAdapter(getActivity(), new DocumentTypeRequest());
@@ -66,7 +66,6 @@ public class DocumentDataFragment extends Fragment {
 		});
 
 		guest_documentNumber = (EditText)getView().findViewById(R.id.editText_documentoNumber_guest_form);
-		//guest_documentPlace = (EditText)getView().findViewById(R.id.editText_documentoPlace_guest_form);
 
 		guest_documentPlace = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_documentoPlace_guest_form);
 		guest_documentPlace.setThreshold(1);
@@ -83,31 +82,46 @@ public class DocumentDataFragment extends Fragment {
 		});
 	}
 
+	/**
+	 * Return documen number (aka code or id)
+	 * @return
+	 */
 	public String getDocumentNumber(){
 		return guest_documentNumber.getText().toString();
 	}
 
+	/**
+	 * Return a correcly formatted document type
+	 * If documentType was not filled in the form an empty one is returned to prevent null pointers
+	 * @return
+	 */
 	public DocumentType getDocumentType(){
 		if (docTypeAdapter.getCount() > 0) {
 			return docTypeAdapter.getItem(0);
 		} else {
-			return new DocumentType("", ""); //TODO: test if this fix don't cause other drawbacks
-		}
-
-	}
-
-	public Place getDocumentReleasePlace(){
-		if (releasePlaceAdapter.getCount() > 0) {
-			return releasePlaceAdapter.getItem(0);
-		} else {
-			return new Place(); //TODO
+			return new DocumentType("", "");
 		}
 
 	}
 
 	/**
-	 * Set the document in the data field
-	 * this should align the underlying adapter data structure
+	 * Retun document release Place. If Not set an empy one is returned.
+	 * NOTE: it returns the item at position 0 in the adapter. This cover 99% of the cases.
+	 * 		If a Place is substring of another this could cause misbehaviour
+	 * @return
+	 */
+	public Place getDocumentReleasePlace(){
+		if (releasePlaceAdapter.getCount() > 0) {
+			return releasePlaceAdapter.getItem(0);
+		} else {
+			return new Place();
+		}
+
+	}
+
+	/**
+	 * Set the document provided in the data fields
+	 * Empty fields are skipped
 	 * @param doc
 	 */
 	public void setDocument (Documento doc) {
@@ -116,7 +130,6 @@ public class DocumentDataFragment extends Fragment {
 
 			DocumentType dt = doc.getDocType();
 			if ( dt !=null && !dt.getName().equals("")){
-				//TODO: test if this align the data structure in the adapter
 				guest_documentType.setText(dt.getName());
 			}
 
@@ -126,7 +139,6 @@ public class DocumentDataFragment extends Fragment {
 
 			Place p = doc.getLuogoRilascio();
 			if ( p != null && !p.getName().equals("")){
-				//TODO: test if this align with underlying adapter
 				guest_documentPlace.setText(p.getName());
 			}
 		}
