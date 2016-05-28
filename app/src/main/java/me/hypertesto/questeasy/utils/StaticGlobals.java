@@ -26,6 +26,7 @@ public class StaticGlobals {
 	public static final	class resultCodes {
 		public static final int GUEST_FORM_SUCCESS = 1;
 		public static final int EDIT_CARD_SUCCESS = 2;
+		public static final int CAMERA_CAPTURE_IMAGE_SUCCESS = 3;
 	}
 
 	public static final class intentExtras {
@@ -54,5 +55,9 @@ public class StaticGlobals {
 		public static final String DEBUG = "DEBUG";
 		public static final String FILE_DEBUG = "FILE_DEBUG";
 		public static final String VOICE_DEBUG = "VOICE_DEBUG";
+	}
+
+	public static final class image {
+		public static final int MEDIA_TYPE_IMAGE = 1;
 	}
 }
