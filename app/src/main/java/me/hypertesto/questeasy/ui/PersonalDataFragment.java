@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
@@ -22,11 +21,14 @@ import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.utils.CitizenshipRequest;
+import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.PlaceRequest;
 import me.hypertesto.questeasy.utils.WordsCapitalizer;
 
 /**
+ * Fragment that contains the form of personal data (needed by every type of guests)
  * Created by gianluke on 16/05/16.
+ * @edited by hypertesto
  */
 public class PersonalDataFragment extends Fragment {
 
@@ -99,24 +101,41 @@ public class PersonalDataFragment extends Fragment {
 		});
 	}
 
+	/**
+	 * Return a correctly capitalized guest name
+	 * @return
+	 */
 	public String getGuestName(){
 
 		return WordsCapitalizer.capitalizeEveryWord(guest_name.getText().toString(),Locale.ITALY);
 
 	}
 
+	/**
+	 * Return a correctly capitalized guest surname
+	 * @return
+	 */
 	public String getSurname(){
 
 		return WordsCapitalizer.capitalizeEveryWord(guest_surname.getText().toString(),Locale.ITALY);
 
 	}
 
+	/**
+	 * Return the date of birth parsed from the form
+	 * @return
+	 * @throws ParseException
+	 */
 	public Date getDateofBirth() throws ParseException {
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-		return df.parse(guest_dateBirth.getText().toString());
+		return DateUtils.parse(guest_dateBirth.getText().toString());
 
 	}
 
+	/**
+	 * Return the string representing sex from the radioGroup
+	 * If for some bug radioGroup is unset we return an empty string to avoid conflicts.
+	 * @return
+	 */
 	public String getSex(){
 
 		int selected = guest_gender.getCheckedRadioButtonId();
@@ -129,6 +148,13 @@ public class PersonalDataFragment extends Fragment {
 		}
 	}
 
+	/**
+	 * Returns the birthPlace is was set in the form, otherwise we return a new empty place in
+	 * order to avoid null pointers.
+	 * NOTE: this always return the Place at position 0 in the adapter, this cover 99% of the cases
+	 * but it could cause misbehaviour if we have place whom name is substring of another.
+	 * @return
+	 */
 	public Place getBirthPlace(){
 		if (birthPlaceAdapter.getCount() > 0) {
 			return birthPlaceAdapter.getItem(0);
@@ -138,15 +164,27 @@ public class PersonalDataFragment extends Fragment {
 
 	}
 
+	/**
+	 * Returns the citizenship is was set in the form, otherwise we return a new empty place in
+	 * order to avoid null pointers.
+	 * NOTE: this always return the Place at position 0 in the adapter, this cover 99% of the cases
+	 * but it could cause misbehaviour if we have place whom name is substring of another.
+	 * @return
+	 */
 	public Place getCittadinanza(){
 		if (citizenshipAdapter.getCount() > 0) {
 			return citizenshipAdapter.getItem(0);
 		} else {
-			return new Place(); //TODO: null or Place?
+			return new Place();
 		}
 
 	}
 
+	/**
+	 * Method that automatically fills the form data for the guest provided
+	 * NOTE: null or empty fields are skipped.
+	 * @param guest
+	 */
 	public void setGuest (Guest guest) {
 
 		if (guest != null) {
@@ -161,10 +199,10 @@ public class PersonalDataFragment extends Fragment {
 
 			Date d = guest.getBirthDate();
 			if( d != null ){
-				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-				guest_dateBirth.setText(df.format(d));
+				guest_dateBirth.setText(DateUtils.format(d));
 			}
 
+			//If no sex, "M" is the default one defined by layout
 			if (guest.getSex().equals("M")){
 				guest_gender.check(R.id.sex_man);
 			} else if (guest.getSex().equals("F")){
@@ -173,13 +211,11 @@ public class PersonalDataFragment extends Fragment {
 
 			Place placeOfBirth = guest.getPlaceOfBirth();
 			if( placeOfBirth != null && !placeOfBirth.getName().equals("")){
-				//TODO test if align with adapter
 				guestBirthPlace.setText(placeOfBirth.getName());
 			}
 
 			Place citizenship = guest.getCittadinanza();
 			if (citizenship != null && !citizenship.getName().equals("")){
-				//TODO: test if align with adapter
 				guest_citizenship.setText(citizenship.getName());
 			}
 		}
