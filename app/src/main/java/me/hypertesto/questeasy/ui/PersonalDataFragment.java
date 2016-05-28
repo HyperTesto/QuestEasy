@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -24,6 +23,7 @@ import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.adapters.PlaceAutoCompleteAdapter;
 import me.hypertesto.questeasy.utils.CitizenshipRequest;
 import me.hypertesto.questeasy.utils.PlaceRequest;
+import me.hypertesto.questeasy.utils.WordsCapitalizer;
 
 /**
  * Created by gianluke on 16/05/16.
@@ -34,8 +34,6 @@ public class PersonalDataFragment extends Fragment {
 	private DelayAutoCompleteTextView guest_citizenship;
 	private EditText guest_name;
 	private EditText guest_surname;
-	private RadioButton guest_sexMan;
-	private RadioButton guest_sexWoman;
 	private RadioGroup guest_gender;
 	private TextView guest_dateBirth;
 	private PlaceAutoCompleteAdapter birthPlaceAdapter;
@@ -69,8 +67,6 @@ public class PersonalDataFragment extends Fragment {
 		guest_surname = (EditText)getView().findViewById(R.id.editText_surname_guest_form);
 		guest_dateBirth = (TextView)getView().findViewById(R.id.editText_birthDate_guest_form);
 		guest_gender = (RadioGroup) getView().findViewById(R.id.gender_group);
-		guest_sexMan = (RadioButton)getView().findViewById(R.id.sex_man);
-		guest_sexWoman = (RadioButton)getView().findViewById(R.id.sex_woman);
 
 		//Autocomplete luogo nascita
 		guestBirthPlace = (DelayAutoCompleteTextView) getView().findViewById(R.id.editText_luogoN_guest_form);
@@ -105,13 +101,13 @@ public class PersonalDataFragment extends Fragment {
 
 	public String getGuestName(){
 
-		return guest_name.getText().toString();
+		return WordsCapitalizer.capitalizeEveryWord(guest_name.getText().toString(),Locale.ITALY);
 
 	}
 
 	public String getSurname(){
 
-		return guest_surname.getText().toString();
+		return WordsCapitalizer.capitalizeEveryWord(guest_surname.getText().toString(),Locale.ITALY);
 
 	}
 
@@ -156,11 +152,11 @@ public class PersonalDataFragment extends Fragment {
 		if (guest != null) {
 
 			if (!guest.getName().equals("")){
-				guest_name.setText(guest.getName());
+				guest_name.setText(WordsCapitalizer.capitalizeEveryWord(guest.getName(),Locale.ITALY));
 			}
 
 			if (!guest.getSurname().equals("")){
-				guest_surname.setText(guest.getSurname());
+				guest_surname.setText(WordsCapitalizer.capitalizeEveryWord(guest.getSurname(),Locale.ITALY));
 			}
 
 			Date d = guest.getBirthDate();
