@@ -72,7 +72,7 @@ public class EditDecActivity extends AppCompatActivity {
 	private ImageView letterImage;
 	private TextDrawable textDrawable;
 	CardListAdapter adapter;
-	private int previousColor;
+
 
 	private Declaration displayed;
 	private int indexClicked;
@@ -195,7 +195,6 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onAnimationEnd(Animation animation) {
 
 				textDrawable = (TextDrawable) letterImage.getDrawable();
-				//previousColor = textDrawable.getPaint().getColor();
 				DrawableCompat.setTint(textDrawable,getResources().getColor(R.color.background_bar));
 				letterImage.setImageDrawable(textDrawable);
 
@@ -526,13 +525,13 @@ public class EditDecActivity extends AppCompatActivity {
 	public void onPause(){
 		super.onPause();
 		//fabMenu.close(false);
-		//System.out.println("RELAX");
+
 	}
 
 	@Override
 	public void onResume(){
 		fabMenu.close(false);
 		super.onResume();
-		//System.out.println("NO relax");
+
 	}
 }
