@@ -82,12 +82,10 @@ public class HomeActivity extends AppCompatActivity {
 								// 1. Instantiate an AlertDialog.Builder with its constructor
 								AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
-								final TextView messagge = new TextView(HomeActivity.this);
-								messagge.setText(R.string.developInfo);
-								messagge.setMovementMethod(LinkMovementMethod.getInstance());
+
 								builder.
 										setTitle(R.string.app_name).
-										setView(messagge)
+										setMessage(R.string.developInfo)
 										.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 											@Override
 											public void onClick(DialogInterface dialog, int which) {

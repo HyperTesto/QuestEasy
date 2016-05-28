@@ -31,18 +31,9 @@
 	<string name="categoryNameSingle">Singolo</string>
 	<string name="categoryNameGroup">Capogruppo</string>
 	<string name="categoryNameFamily">Capofamiglia</string>
-    <string name="developInfo">\n\t\t\t\tQuesta applicazione è stata sviluppata da:
+    <string name="developInfo">Questa applicazione è stata sviluppata da:
         \n\n\t\t\t\tEnrico Testori
 		\n\t\t\t\tSimone Calciolari \n\t\t\t\tGianluca Apriceno\n
-        \n\n\t\t\t\tICONE :
-		\n\n\t\t\t\tIcona disegnata da <a href="http://www.freepik.com/">Freepik</a> from\n\t\t\t\t\t
-		<a href="http://www.flaticon.com/">
-			www.flaticon.com
-		</a>
-		\n\t\t\t\tIcona disegnata da <a href="http://www.flaticon.com/authors/sarfraz-shoukat">Sarfraz
-			Shoukat\n\t\t\t\t\t</a>from<a href="http://www.flaticon.com/">
-			www.flaticon.com
-		</a>
     </string>
 
 	<string name = "modExam">Modalità esame</string>
