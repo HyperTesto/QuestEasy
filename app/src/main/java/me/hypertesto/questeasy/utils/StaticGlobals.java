@@ -49,4 +49,10 @@ public class StaticGlobals {
 		public static final String FILTER_FAMILY = "Famiglia";
 		public static final String FILTER_GROUP = "Gruppo";
 	}
+
+	public static final class logTags {
+		public static final String DEBUG = "DEBUG";
+		public static final String FILE_DEBUG = "FILE_DEBUG";
+		public static final String VOICE_DEBUG = "VOICE_DEBUG";
+	}
 }

@@ -98,7 +98,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 					case R.id.voiceButton:
 
-						Log.d("DBG", "Not firng event the first time we open activity");
+						Log.d(StaticGlobals.logTags.DEBUG, "Not firng event the first time we open activity");
 						break;
 					default:
 
@@ -126,7 +126,7 @@ public class FormGuestActivity extends AppCompatActivity {
 						i.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 2000);
 						i.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
 						try {
-							Log.d("DBG", "starting speech intent");
+							Log.d(StaticGlobals.logTags.DEBUG, "starting speech intent");
 							startActivityForResult(i, StaticGlobals.requestCodes.SPEECH);
 						} catch (Exception e) {
 							Toast.makeText(getApplicationContext(), "Error initializing speech to text engine.", Toast.LENGTH_LONG).show();
@@ -407,10 +407,10 @@ public class FormGuestActivity extends AppCompatActivity {
 					progress.show();
 					// To dismiss the dialog
 
-					Log.d("DBG", "Parsing detected voice...");
+					Log.d(StaticGlobals.logTags.DEBUG, "Parsing detected voice...");
 					ArrayList<String> guestSpeechData = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-					Log.d("DBG", guestSpeechData.get(0));
+					Log.d(StaticGlobals.logTags.VOICE_DEBUG, guestSpeechData.get(0));
 
 					Recognition rec = new Recognition();
 

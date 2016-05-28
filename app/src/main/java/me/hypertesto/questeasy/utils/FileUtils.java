@@ -13,6 +13,8 @@ import java.io.IOException;
  */
 public class FileUtils {
 
+	private static String QUESTURA_SUB_PATH = "/questura";
+
 	/**
 	 * Check if external storage is writable
 	 * @return
@@ -48,21 +50,23 @@ public class FileUtils {
 
 		File file = null, dir = null, sdCard = null;
 		sdCard = Environment.getExternalStorageDirectory();
-		dir = new File(sdCard.getAbsolutePath() + "/questura");
+		dir = new File(sdCard.getAbsolutePath() + QUESTURA_SUB_PATH);
 
-		Log.e("[FILE_DBG]", "R: " + isExternalStorageReadable());
-		Log.e("[FILE_DBG]", "W: " + isExternalStorageWritable());
-		Log.e("[FILE_DBG]", "mkdirs(): " + dir.mkdirs());
-		Log.e("[FILE_DBG]", "isDir(): " + dir.isDirectory());
-		Log.e("[FILE_DBG]", "sdCard: " + sdCard.getAbsolutePath());
-		Log.e("[FILE_DBG]", "sdCard: " + sdCard.isDirectory());
+		boolean mkdirs = dir.mkdirs();
+
+		Log.d(StaticGlobals.logTags.FILE_DEBUG, "R: " + isExternalStorageReadable());
+		Log.d(StaticGlobals.logTags.FILE_DEBUG, "W: " + isExternalStorageWritable());
+		Log.d(StaticGlobals.logTags.FILE_DEBUG, "mkdirs(): " + mkdirs);	//This way to prevent bug if debug not activated
+		Log.d(StaticGlobals.logTags.FILE_DEBUG, "isDir(): " + dir.isDirectory());
+		Log.d(StaticGlobals.logTags.FILE_DEBUG, "sdCard: " + sdCard.getAbsolutePath());
+		Log.d(StaticGlobals.logTags.FILE_DEBUG, "sdCard: " + sdCard.isDirectory());
 
 		/*if (!dir.mkdirs() || !dir.isDirectory()) {
 			Log.e("[FILE_DBG]", "Directory not created");
 		}*/
 
 		file = new File (dir, fileName);
-		Log.e("[FILE_DBG]", "file: " + file.getAbsolutePath());
+		Log.d(StaticGlobals.logTags.FILE_DEBUG, "file: " + file.getAbsolutePath());
 		return file;
 	}
 
@@ -76,7 +80,7 @@ public class FileUtils {
 	public static File getAppFilesStorageDir (Context ctx, String fileName) {
 		File f = new File(ctx.getFilesDir(), fileName);
 		if (!f.getParentFile().mkdirs()){
-			Log.e("[FILE_DBG]", "Directory not created");
+			Log.d(StaticGlobals.logTags.FILE_DEBUG, "Directory not created");
 		}
 		return new File(ctx.getFilesDir(), fileName);
 	}
