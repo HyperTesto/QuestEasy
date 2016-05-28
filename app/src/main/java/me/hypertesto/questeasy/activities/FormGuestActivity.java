@@ -77,6 +77,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.formCordinator),
 				findViewById(R.id.myScrollingContent), savedInstanceState);
@@ -374,6 +375,10 @@ public class FormGuestActivity extends AppCompatActivity {
 			}
 
 			finish();
+		}
+		else if (id == android.R.id.home){
+			finish();
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);

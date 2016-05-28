@@ -63,10 +63,7 @@
 			android:configChanges="orientation|screenSize"
 			android:label="@string/formTitleBar"
 			android:launchMode="singleTop"
-			android:parentActivityName=".activities.EditDecActivity">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value=".activities.EditDecActivity"/>
+			>
 		</activity>
 		<activity
 			android:name=".activities.EditCardActivity"
