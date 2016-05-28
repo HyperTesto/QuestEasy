@@ -45,7 +45,9 @@
 			android:layout_below="@id/decDate"
 			android:layout_toLeftOf="@id/decWarningImg"
 			android:layout_toStartOf="@id/decWarningImg"
+			android:textColor="@android:color/tertiary_text_light"
 			android:text="fkdjfjsfasfhafkjsaflahsdfkjjasdfjaskldfjl"
-			android:textSize="20sp"/>
+			android:textSize="20sp"
+		/>
 
 </RelativeLayout>
