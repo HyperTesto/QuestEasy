@@ -8,6 +8,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -140,6 +141,39 @@ public class FileUtils {
 		}
 
 		return mediaFile;
+	}
+
+	/**Method to get all images' path
+	 *
+	 *@param pathsPhoto
+	 */
+	public static ArrayList<String> getFilePaths (ArrayList<String> pathsPhoto){
+		File directory = new File(Environment
+				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+
+				File.separator+ FileUtils.IMAGE_DIRECTORY_NAME);
+
+		//check for directory
+		if (directory.isDirectory()){
+
+			//getting the list of file paths
+			File [] listFiles = directory.listFiles();
+
+
+			//Check for count
+			if (listFiles.length > 0){
+				for (int i = 0; i < listFiles.length; i++){
+
+					String filePath = listFiles[i].getAbsolutePath();
+
+					pathsPhoto.add(filePath);
+				}
+
+			}
+			else{
+
+			}
+		}
+		return pathsPhoto;
 	}
 
 }
