@@ -48,18 +48,15 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.ui.DocumentDataFragment;
 import me.hypertesto.questeasy.ui.PermanenzaFragment;
 import me.hypertesto.questeasy.ui.PersonalDataFragment;
+import me.hypertesto.questeasy.utils.FileUtils;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 import me.hypertesto.questeasy.utils.UnknownGuestTypeException;
 import me.hypertesto.questeasy.voice.Recognition;
 
 public class FormGuestActivity extends AppCompatActivity {
-	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 200;
-	public static final int MEDIA_TYPE_IMAGE = 1;
 
 
-	// directory name to store captured images and videos
-	public static final String IMAGE_DIRECTORY_NAME = "QuestEasy";
-	private Uri fileUri; // file url to store image/video
+	private Uri fileUri; // file url to store image
 
 	private final Intent resultIntent = new Intent();
 
@@ -454,57 +451,12 @@ public class FormGuestActivity extends AppCompatActivity {
 	private void captureImage() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+		fileUri = FileUtils.getOutputMediaFileUri(StaticGlobals.image.MEDIA_TYPE_IMAGE);
 
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
 		// start the image capture Intent
-		startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+		startActivityForResult(intent, StaticGlobals.resultCodes.CAMERA_CAPTURE_IMAGE_SUCCESS);
 	}
 
-
-	/**
-	 * Creating file uri to store image/video
-	 */
-
-	public Uri getOutputMediaFileUri(int type) {
-		return Uri.fromFile(getOutputMediaFile(type));
-	}
-
-
-	/*
-	 * returning image / video
-	 */
-
-
-	private static File getOutputMediaFile(int type) {
-
-		// External sdcard location
-		File mediaStorageDir = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-				IMAGE_DIRECTORY_NAME);
-
-		// Create the storage directory if it does not exist
-		if (!mediaStorageDir.exists()) {
-			if (!mediaStorageDir.mkdirs()) {
-				Log.e(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
-						+ IMAGE_DIRECTORY_NAME + " directory");
-				return null;
-			}
-		}
-
-		// Create a media file name
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-				Locale.getDefault()).format(new Date());
-		File mediaFile;
-		if (type == MEDIA_TYPE_IMAGE) {
-			mediaFile = new File(mediaStorageDir.getPath() + File.separator
-					+ "IMG_" + timeStamp + ".jpg");
-		} else {
-			return null;
-		}
-
-		return mediaFile;
-	}
 }

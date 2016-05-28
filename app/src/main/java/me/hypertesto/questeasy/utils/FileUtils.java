@@ -1,17 +1,26 @@
 package me.hypertesto.questeasy.utils;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import me.hypertesto.questeasy.activities.FormGuestActivity;
 
 /**
  * Created by hypertesto on 23/05/16.
  * An extra class with some useful method to handle file storage
  */
 public class FileUtils {
+
+	// directory name to store captured images
+	public static final String IMAGE_DIRECTORY_NAME = "QuestEasy";
 
 	private static String QUESTURA_SUB_PATH = "/questura";
 
@@ -83,6 +92,54 @@ public class FileUtils {
 			Log.d(StaticGlobals.logTags.FILE_DEBUG, "Directory not created");
 		}
 		return new File(ctx.getFilesDir(), fileName);
+	}
+
+
+	/**
+	 * Creating file uri to store image
+	 * @param type
+	 */
+
+	public static Uri getOutputMediaFileUri(int type) {
+		return Uri.fromFile(getOutputMediaFile(type));
+	}
+
+
+	/**
+	 * Returning image
+	 * @param type
+	 */
+
+
+	private static File getOutputMediaFile(int type) {
+
+		// External sdcard location
+		File mediaStorageDir = new File(
+				Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				IMAGE_DIRECTORY_NAME);
+
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				Log.e(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
+						+ IMAGE_DIRECTORY_NAME + " directory");
+				return null;
+			}
+		}
+
+		// Create a media file name
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+				Locale.getDefault()).format(new Date());
+		File mediaFile;
+		if (type == StaticGlobals.image.MEDIA_TYPE_IMAGE) {
+			mediaFile = new File(mediaStorageDir.getPath() + File.separator
+					+ "IMG_" + timeStamp + ".jpg");
+		} else {
+			return null;
+		}
+
+		return mediaFile;
 	}
 
 }
