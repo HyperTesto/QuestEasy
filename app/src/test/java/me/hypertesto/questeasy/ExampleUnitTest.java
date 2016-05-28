@@ -2,11 +2,20 @@ package me.hypertesto.questeasy;
 
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.hypertesto.questeasy.model.Declaration;
+import me.hypertesto.questeasy.model.DocumentType;
+import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.Guest;
+import me.hypertesto.questeasy.model.Place;
+import me.hypertesto.questeasy.model.SingleGuest;
+import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.utils.DateUtils;
+import me.hypertesto.questeasy.utils.FormatQuestura;
 import me.hypertesto.questeasy.voice.Recognition;
 
 import static org.junit.Assert.*;
@@ -65,5 +74,30 @@ public class ExampleUnitTest {
 		assertEquals("Should match date", "26/01/1994", DateUtils.format(test.getBirthDate()));
 		assertEquals("Should match citizenship", "francia", test.getCittadinanza().getName());
 
+	}
+
+	@Test
+	public void file_conversion_isCorrect() throws Exception {
+		Declaration d = new Declaration();
+		d.setDate(DateUtils.today());
+		SingleGuestCard c = new SingleGuestCard();
+		c.setDate(DateUtils.parse("12/12/2016"));
+		c.setPermanenza(4);
+		SingleGuest g = new SingleGuest();
+		g.setName("Gianluca");
+		g.setSurname("Apriceno");
+		g.setSex("M");
+		g.setBirthDate(DateUtils.parse("15/06/1994"));
+		g.setPlaceOfBirth(new Place("405025006", "BELLUNO (BL)", false));
+		g.setCittadinanza(new Place("100000100", "ITALIA", true));
+
+		Documento doc = new Documento(new DocumentType("Carta identità", "IDENT"), "AR1789342", new Place("405025006", "BELLUNO (BL)", false));
+		g.setDocumento(doc);
+		c.setGuest(g);
+		d.add(c);
+
+		String test = FormatQuestura.convert(d);
+		assertEquals("Should be final file size + 2 extra chars", 170, test.length());
+		//TODO: add other tests
 	}
 }

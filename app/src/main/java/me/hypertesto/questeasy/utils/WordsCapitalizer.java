@@ -14,26 +14,29 @@ public class WordsCapitalizer {
 
 	/**
 	 * Wrapper for capitalizeEveryWord(source,null,null);
+	 *
 	 * @param source
 	 * @return
 	 */
 	public static String capitalizeEveryWord(String source) {
-		return capitalizeEveryWord(source,null,null);
+		return capitalizeEveryWord(source, null, null);
 	}
 
 	/**
 	 * Wrapper for capitalizeEveryWord(source,null,locale);
+	 *
 	 * @param source
 	 * @param locale
 	 * @return
 	 */
 	public static String capitalizeEveryWord(String source, Locale locale) {
-		return capitalizeEveryWord(source,null,locale);
+		return capitalizeEveryWord(source, null, locale);
 	}
 
 	/**
 	 * Perform capitalize given a list of delimiters and a Locale.
 	 * First word will always be capitalized.
+	 *
 	 * @param source
 	 * @param delimiters
 	 * @param locale
@@ -46,31 +49,29 @@ public class WordsCapitalizer {
 			delimiters = getDefaultDelimiters();
 
 		// If Locale specified, i18n toLowerCase is executed, to handle specific behaviors (eg. Turkish dotted and dotless 'i')
-		if (locale!=null)
+		if (locale != null)
 			chars = source.toLowerCase(locale).toCharArray();
 		else
 			chars = source.toLowerCase().toCharArray();
 
 		// First character ALWAYS capitalized, if it is a Letter.
-		if (chars.length>0 && Character.isLetter(chars[0]) && !isSurrogate(chars[0])){
+		if (chars.length > 0 && Character.isLetter(chars[0]) && !isSurrogate(chars[0])) {
 			chars[0] = Character.toUpperCase(chars[0]);
 		}
 
 		for (int i = 0; i < chars.length; i++) {
 			if (!isSurrogate(chars[i]) && !Character.isLetter(chars[i])) {
 				// Current char is not a Letter; gonna check if it is a delimitrer.
-				for (Delimiter delimiter : delimiters){
-					if (delimiter.getDelimiter()==chars[i]){
+				for (Delimiter delimiter : delimiters) {
+					if (delimiter.getDelimiter() == chars[i]) {
 						// Delimiter found, applying rules...
-						if (delimiter.capitalizeBefore() && i>0
-								&& Character.isLetter(chars[i-1]) && !isSurrogate(chars[i-1]))
-						{   // previous character is a Letter and I have to capitalize it
-							chars[i-1] = Character.toUpperCase(chars[i-1]);
+						if (delimiter.capitalizeBefore() && i > 0
+								&& Character.isLetter(chars[i - 1]) && !isSurrogate(chars[i - 1])) {   // previous character is a Letter and I have to capitalize it
+							chars[i - 1] = Character.toUpperCase(chars[i - 1]);
 						}
-						if (delimiter.capitalizeAfter() && i<chars.length-1
-								&& Character.isLetter(chars[i+1]) && !isSurrogate(chars[i+1]))
-						{   // next character is a Letter and I have to capitalize it
-							chars[i+1] = Character.toUpperCase(chars[i+1]);
+						if (delimiter.capitalizeAfter() && i < chars.length - 1
+								&& Character.isLetter(chars[i + 1]) && !isSurrogate(chars[i + 1])) {   // next character is a Letter and I have to capitalize it
+							chars[i + 1] = Character.toUpperCase(chars[i + 1]);
 						}
 						break;
 					}
@@ -84,18 +85,20 @@ public class WordsCapitalizer {
 	/**
 	 * Check if the current character is part of an UTF-16 Surrogate Pair.
 	 * Note: not validating the pair, just used to bypass (any found part of) it.
+	 *
 	 * @param chr
 	 * @return
 	 */
-	private static boolean isSurrogate(char chr){
+	private static boolean isSurrogate(char chr) {
 		return (Character.isHighSurrogate(chr) || Character.isLowSurrogate(chr));
 	}
 
 	/**
 	 * If no delimiter specified, "Capitalize after space" rule is set by default.
+	 *
 	 * @return
 	 */
-	private static List<Delimiter> getDefaultDelimiters(){
+	private static List<Delimiter> getDefaultDelimiters() {
 		List<Delimiter> delimiters = new ArrayList<Delimiter>();
 		delimiters.add(new Delimiter(Behavior.CAPITALIZE_AFTER_MARKER, ' '));
 		return delimiters;
@@ -114,12 +117,12 @@ public class WordsCapitalizer {
 			this.delimiter = delimiter;
 		}
 
-		public boolean capitalizeBefore(){
+		public boolean capitalizeBefore() {
 			return (behavior.equals(Behavior.CAPITALIZE_BEFORE_MARKER)
 					|| behavior.equals(Behavior.CAPITALIZE_BEFORE_AND_AFTER_MARKER));
 		}
 
-		public boolean capitalizeAfter(){
+		public boolean capitalizeAfter() {
 			return (behavior.equals(Behavior.CAPITALIZE_AFTER_MARKER)
 					|| behavior.equals(Behavior.CAPITALIZE_BEFORE_AND_AFTER_MARKER));
 		}
@@ -144,3 +147,4 @@ public class WordsCapitalizer {
 			return value;
 		}
 	}
+}
