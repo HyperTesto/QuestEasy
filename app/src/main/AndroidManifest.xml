@@ -70,7 +70,12 @@
 		</activity>
 		<activity
 			android:name=".activities.EditCardActivity"
-			android:label="@string/cardTitleBar">
+			android:label="@string/cardTitleBar"
+			android:parentActivityName=".activities.EditDecActivity"
+			>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".activities.EditDecActivity"/>
 		</activity>
 		<activity android:name=".activities.ActivityGalleryV2"
 				  android:label="@string/bottomGallery"
