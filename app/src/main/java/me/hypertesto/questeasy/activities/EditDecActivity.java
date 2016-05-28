@@ -195,7 +195,7 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onAnimationEnd(Animation animation) {
 
 				textDrawable = (TextDrawable) letterImage.getDrawable();
-				previousColor = textDrawable.getPaint().getColor();
+				//previousColor = textDrawable.getPaint().getColor();
 				DrawableCompat.setTint(textDrawable,getResources().getColor(R.color.background_bar));
 				letterImage.setImageDrawable(textDrawable);
 
@@ -217,7 +217,7 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onAnimationEnd(Animation animation) {
 
 				textDrawable = (TextDrawable) letterImage.getDrawable();
-				DrawableCompat.setTint(textDrawable,previousColor);
+				DrawableCompat.setTint(textDrawable,textDrawable.getPaint().getColor());
 				letterImage.setImageDrawable(textDrawable);
 
 			}
