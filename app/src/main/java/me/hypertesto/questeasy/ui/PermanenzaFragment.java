@@ -41,25 +41,31 @@ public class PermanenzaFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		permTextView = (EditText) getView().findViewById(R.id.input_permanenza);
 
-		/*permTextView.addTextChangedListener(new TextWatcher() {
+		permTextView.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
 			}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if (permTextView.getText().length() == 2){
+					String permanenzaString = permTextView.getText().toString();
+					int number = Integer.parseInt(permanenzaString);
+					if (number > 30) {
+						Toast.makeText(getActivity(), R.string.errorPermanenza, Toast.LENGTH_LONG).show();
+						StringBuilder sb = new StringBuilder(permanenzaString);
+						permTextView.setText(sb.deleteCharAt(1).toString());
+						permTextView.setSelection(1);
+					}
 
+				}
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				if (Integer.parseInt(s.toString())>30){
-					Toast.makeText(getActivity(), R.string.errorPermanenza, Toast.LENGTH_LONG);
-				}
 			}
 		});
-		*/
+
 
 		restorePreviousValues(savedInstanceState);
 	}
