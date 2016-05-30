@@ -1,15 +1,27 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.io.Serializable;
@@ -34,6 +46,12 @@ public class EditCardActivity extends AppCompatActivity {
 	private Card card;
 	private ListView listView;
 	private GroupListAdapter adapter;
+	private RelativeLayout itemContainer;
+	private ImageView letterImage;
+	private Animation flipAnim;
+	private Animation flipAnimReverse;
+	private TextDrawable textDrawable;
+	private int colorSelected;
 
 	private int indexClicked;
 
@@ -42,6 +60,58 @@ public class EditCardActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_card);
 		this.listView = (ListView) findViewById(R.id.lvMembers);
+		flipAnim = AnimationUtils.loadAnimation(EditCardActivity.this, R.anim.flip_anim);
+		flipAnimReverse = AnimationUtils.loadAnimation(EditCardActivity.this,R.anim.flip_anim);
+
+		flipAnim.setAnimationListener(new Animation.AnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+
+				textDrawable = (TextDrawable) letterImage.getDrawable();
+
+				if (Build.VERSION.SDK_INT >= 23) {
+					colorSelected = ContextCompat.getColor(EditCardActivity.this, R.color.background_bar);
+				} else {
+					colorSelected = getResources().getColor(R.color.background_bar);
+				}
+
+				DrawableCompat.setTint(textDrawable, colorSelected);
+				letterImage.setImageDrawable(textDrawable);
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
+
+		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+
+				textDrawable = (TextDrawable) letterImage.getDrawable();
+				DrawableCompat.setTint(textDrawable,textDrawable.getPaint().getColor());
+				letterImage.setImageDrawable(textDrawable);
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
 
 		Intent intent = getIntent();
 
@@ -321,6 +391,63 @@ public class EditCardActivity extends AppCompatActivity {
 
 		adapter = new GroupListAdapter(this, R.layout.guest_list_item, guests);
 		listView.setAdapter(adapter);
+
+		//This is setted to enable multi selection on items
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+		//Methods to manage item's selection
+		listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+				final int checkedCount = listView.getCheckedItemCount();
+
+				itemContainer = (RelativeLayout) listView.getChildAt(position);
+				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
+				if (checked) {
+					letterImage.startAnimation(flipAnim);
+				} else {
+					letterImage.startAnimation(flipAnimReverse);
+				}
+				mode.setTitle(checkedCount + " Selezionati");
+				adapter.toggleSelection(position);
+
+			}
+
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				mode.getMenuInflater().inflate(R.menu.delete_item_ba2v2, menu);
+				return true;
+			}
+
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				return false;
+			}
+
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				switch (item.getItemId()) {
+					case R.id.delete:
+						SparseBooleanArray selected = adapter.getSelectedIds();
+						Log.e("selected", String.valueOf(selected));
+						for (int i = (selected.size() - 1); i >= 0; i--) {
+							if (selected.valueAt(i)) {
+								Guest selectedItem = adapter.getItem(selected.keyAt(i));
+								adapter.remove(selectedItem);
+							}
+						}
+						mode.finish();
+						return true;
+					default:
+						return false;
+				}
+			}
+
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+				adapter.removeSelection();
+			}
+		});
 	}
 
 	@Override
