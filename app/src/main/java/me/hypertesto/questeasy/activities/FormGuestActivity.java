@@ -93,7 +93,10 @@ public class FormGuestActivity extends AppCompatActivity {
 						break;
 
 					case R.id.galleryButton:
-						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
+
+						Intent galleryIntent = new Intent(FormGuestActivity.this, ActivityGalleryV2.class);
+						startActivityForResult(galleryIntent,StaticGlobals.requestCodes.GALLERY);
+						//startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
 						break;
 
 					case R.id.voiceButton:
@@ -418,10 +421,39 @@ public class FormGuestActivity extends AppCompatActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
+		Recognition rec = new Recognition();
+
 		switch (requestCode) {
+			case StaticGlobals.requestCodes.GALLERY:
+				if ( resultCode == StaticGlobals.resultCodes.VOICE_FROM_GALLEY_SUCCESS ){
+					Log.i(StaticGlobals.logTags.VOICE_REC, "Parsing data from gallery");
+
+					String matches = data.getStringExtra(StaticGlobals.intentExtras.MATCHES_FROM_GALLEY);
+					Log.d(StaticGlobals.logTags.VOICE_DEBUG, "Matches from gallery:" + matches);
+
+					switch (guestType) {
+
+						case Guest.type.SINGLE_GUEST:
+						case Guest.type.FAMILY_HEAD:
+						case Guest.type.GROUP_HEAD:
+							fragmentPermanenza.setPermanenza(rec.parsePermanenza(matches));
+							fragmentDocument.setDocument(rec.parseDocumentInfo(matches));
+							break;
+
+						case Guest.type.FAMILY_MEMBER:
+						case Guest.type.GROUP_MEMBER:
+							break;
+
+						default:
+
+					}
+					fragmentPersonal.setGuest(rec.parsePersonalInfo(matches, guestType));
+
+				}
+				break;
 			case StaticGlobals.requestCodes.SPEECH:
 
-				if (resultCode == RESULT_OK) {
+				if (resultCode == RESULT_OK ) {
 
 					ProgressDialog progress = new ProgressDialog(this);
 					progress.setTitle("Caricamento");
@@ -433,8 +465,6 @@ public class FormGuestActivity extends AppCompatActivity {
 					ArrayList<String> guestSpeechData = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
 					Log.d(StaticGlobals.logTags.VOICE_DEBUG, guestSpeechData.get(0));
-
-					Recognition rec = new Recognition();
 
 					switch (guestType) {
 
