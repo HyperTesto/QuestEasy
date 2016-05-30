@@ -99,6 +99,8 @@ public class PersonalDataFragment extends Fragment {
 				guest_citizenship.setText(place);
 			}
 		});
+
+		restorePreviousValues(savedInstanceState);
 	}
 
 	/**
@@ -117,7 +119,7 @@ public class PersonalDataFragment extends Fragment {
 	 */
 	public String getSurname(){
 
-		return WordsCapitalizer.capitalizeEveryWord(guest_surname.getText().toString(),Locale.ITALY);
+		return WordsCapitalizer.capitalizeEveryWord(guest_surname.getText().toString(), Locale.ITALY);
 
 	}
 
@@ -220,6 +222,29 @@ public class PersonalDataFragment extends Fragment {
 			}
 		}
 
+	}
+
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("guestName", guest_name.getText().toString());
+		outState.putString("guestSurname", guest_surname.getText().toString());
+		outState.putInt("guestGender", guest_gender.getCheckedRadioButtonId());
+		outState.putString("guestDateBirth", guest_dateBirth.getText().toString());
+		outState.putString("guestBirthPlace", guestBirthPlace.getText().toString());
+		outState.putString("guestCitizenship", guest_citizenship.getText().toString());
+	}
+
+	public void restorePreviousValues(Bundle savedInstanceState){
+		if (savedInstanceState != null) {
+			guest_name.setText(savedInstanceState.getString("guestName"));
+			guest_surname.setText(savedInstanceState.getString("guestSurname"));
+			guest_gender.check(savedInstanceState.getInt("guestGender"));
+			guest_dateBirth.setText(savedInstanceState.getString("guestDateBirth"));
+			guestBirthPlace.setText(savedInstanceState.getString("guestBirthPlace"));
+			guest_citizenship.setText(savedInstanceState.getString("guestCitizenship"));
+		}
 	}
 
 }
