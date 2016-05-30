@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
@@ -15,6 +17,7 @@ import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.activities.HomeActivity;
 import me.hypertesto.questeasy.model.Declaration;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.utils.StaticGlobals;
 
 /**
  * Created by rigel on 26/05/16.
@@ -24,6 +27,7 @@ public class NotificationIntentService extends IntentService {
 	private static final int NOTIFICATION_ID = 1;
 	private static final String ACTION_START = "ACTION_START";
 	private static final String ACTION_DELETE = "ACTION_DELETE";
+	private SharedPreferences sharedPref;
 
 	public NotificationIntentService() {
 		super(NotificationIntentService.class.getSimpleName());
@@ -88,7 +92,10 @@ public class NotificationIntentService extends IntentService {
 
 		String title = "QuestEasy Reminder";
 		String message;
-		boolean disable = false;
+
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		boolean disable = sharedPref.getBoolean("pref_notify", false);
+		Log.d(StaticGlobals.logTags.DEBUG, "Disable is " + disable);
 
 		if (existsNotComplete){
 			message = "Ci sono dichiarazioni incomplete";
@@ -117,6 +124,8 @@ public class NotificationIntentService extends IntentService {
 
 		if (!disable){
 			manager.notify(NOTIFICATION_ID, builder.build());
+		} else {
+			Log.i(getClass().getSimpleName(),"Skipping notification");
 		}
 	}
 }
