@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory
+		android:title="Info utente"
+		android:key="pref_key_storage_settings">
+		<SwitchPreference
+			android:key="pref_sync"
+			android:title="Attiva notifiche"
+			android:summary="Abilita notifiche di reminder invio o compilazione di dichiarazioni incomplete"
+			android:defaultValue="true" />
+		/>
+	</PreferenceCategory>
 
 </PreferenceScreen>

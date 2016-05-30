@@ -82,6 +82,13 @@
 				android:value=".activities.FormGuestActivity"/>
 			>
 		</activity>
+		<activity android:name=".activities.SettingsActivity"
+				  android:label="Impostazioni"
+				  android:parentActivityName=".activities.HomeActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".activities.HomeActivity"/>
+		</activity>
 	</application>
 
 </manifest>

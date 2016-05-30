@@ -111,6 +111,10 @@ public class HomeActivity extends AppCompatActivity {
 
 								adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, decs);
 								lv.setAdapter(adapter);
+								break;
+							case R.id.nav_settings:
+								startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+								break;
 							default:
 								break;
 						}
