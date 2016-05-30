@@ -468,6 +468,12 @@ public class EditCardActivity extends AppCompatActivity {
 				setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
 				finish();
 				return true;
+			case android.R.id.home :
+				Intent resultIntent2 = new Intent();
+				resultIntent2.putExtra(StaticGlobals.intentExtras.CARD, card);
+				setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent2);
+				finish();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
