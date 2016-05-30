@@ -47,4 +47,6 @@
 	<string name="bottomVoice">Parla</string>
 	<string name="bottomGallery">Galleria</string>
 
+	<string name="errorPermanenza">Permanenza inserita non valida</string>
+
 </resources>
