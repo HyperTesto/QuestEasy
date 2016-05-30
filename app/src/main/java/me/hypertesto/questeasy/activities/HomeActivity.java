@@ -1,13 +1,17 @@
 package me.hypertesto.questeasy.activities;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -59,6 +63,38 @@ public class HomeActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
+		int readStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+		int writeStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		int internet = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+
+		if ( readStorage != PackageManager.PERMISSION_GRANTED
+			|| writeStorage != PackageManager.PERMISSION_GRANTED
+			|| internet != PackageManager.PERMISSION_GRANTED) {
+
+			/*// Should we show an explanation?
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+					Manifest.permission.READ_CONTACTS)) {
+
+				// Show an expanation to the user *asynchronously* -- don't block
+				// this thread waiting for the user's response! After the user
+				// sees the explanation, try again to request the permission.
+
+			} else {
+			*/
+				// No explanation needed, we can request the permission.
+
+				ActivityCompat.requestPermissions(this,
+						new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+									Manifest.permission.WRITE_EXTERNAL_STORAGE,
+									Manifest.permission.INTERNET},
+						StaticGlobals.permissions.REQUEST_MANDATORY);
+
+				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+				// app-defined int constant. The callback method gets the
+				// result of the request.
+			//}
+		}
 
 		NotificationEventReceiver.setUpAlarm(this.getApplicationContext());
 
@@ -343,6 +379,32 @@ public class HomeActivity extends AppCompatActivity {
 	protected void onSaveInstanceState(Bundle icicle) {
 		super.onSaveInstanceState(icicle);
 
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode,
+										   String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case StaticGlobals.permissions.REQUEST_MANDATORY: {
+				// If request is cancelled, the result arrays are empty.
+				if (grantResults.length > 0
+						&& grantResults[0] == PackageManager.PERMISSION_GRANTED
+						&& grantResults[1] == PackageManager.PERMISSION_GRANTED
+						&& grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+
+					// permission was granted, yay! Do the
+					// contacts-related task you need to do.
+
+				} else {
+
+					Log.i("INFO", "l'applicazione ha bisogno almeno di questi permessi per funzionare correttamente!");
+				}
+				return;
+			}
+
+			// other 'case' lines to check for other
+			// permissions this app might request
+		}
 	}
 
 }
