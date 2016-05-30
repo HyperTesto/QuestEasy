@@ -334,7 +334,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					fmg.setCittadinanza(fragmentPersonal.getCittadinanza());
 					p = fragmentPersonal.getBirthPlace();
 					fmg.setPlaceOfBirth(p);
-					//System.out.println("******CITTADINANZA " + fragmentPersonal.getCittadinanza());
+
 					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, fmg);
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 
