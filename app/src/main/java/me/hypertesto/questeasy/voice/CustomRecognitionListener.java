@@ -22,9 +22,9 @@ public class CustomRecognitionListener implements RecognitionListener {
 	private Context context;
 	private String match;
 
-	public CustomRecognitionListener(Context context, String match){
+	public CustomRecognitionListener(Context context){
 		this.context = context;
-		this.match= match;
+		this.match = "";
 	}
 
 	@Override
@@ -71,7 +71,8 @@ public class CustomRecognitionListener implements RecognitionListener {
 	public void onResults(Bundle results) {
 		Log.i(StaticGlobals.logTags.VOICE_REC, "onResults");
 		ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-		match += matches != null ? matches.get(0) : "";
+		match += matches != null ? matches.get(0) + " " : "";
+		Log.d(StaticGlobals.logTags.VOICE_DEBUG, match);
 		CharSequence text = "Dati analizzati con successo!";
 		int duration = Toast.LENGTH_SHORT;
 		Toast toast = Toast.makeText(context, text, duration);
@@ -124,5 +125,9 @@ public class CustomRecognitionListener implements RecognitionListener {
 				break;
 		}
 		return message;
+	}
+
+	public String getMatch(){
+		return this.match;
 	}
 }

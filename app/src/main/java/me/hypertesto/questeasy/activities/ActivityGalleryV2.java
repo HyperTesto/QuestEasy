@@ -2,12 +2,12 @@ package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -29,15 +29,15 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 	FloatingActionButton fab;
 	private SpeechRecognizer speech = null;
 	private Intent recognizerIntent;
-	private CustomRecognitionListener recognizerListener;
-	private String matchedText = "";
+	private final Intent resultIntent = new Intent();
+	CustomRecognitionListener recognizerListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gallery);
 
-		Fragment fr = null;
+		Fragment fr;
 		String tag = ImagePagerFragment.class.getSimpleName();
 		fr = getSupportFragmentManager().findFragmentByTag(tag);
 		if (fr == null) {
@@ -46,7 +46,7 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 
 		getSupportFragmentManager().beginTransaction().add(R.id.gallery_container, fr).commit();
 
-		recognizerListener = new CustomRecognitionListener(getApplicationContext(), matchedText);
+		recognizerListener = new CustomRecognitionListener(getApplicationContext());
 
 		speech = SpeechRecognizer.createSpeechRecognizer(this);
 		speech.setRecognitionListener(recognizerListener);
@@ -75,6 +75,28 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 		});
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (speech != null) {
+			speech.destroy();
+			Log.i(StaticGlobals.logTags.VOICE_REC, "destroy");
+		}
 
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+
+		if (id == android.R.id.home){
+			Log.d(StaticGlobals.logTags.VOICE_DEBUG, "TEXT: " + recognizerListener.getMatch());
+			resultIntent.putExtra(StaticGlobals.intentExtras.MATCHES_FROM_GALLEY, recognizerListener.getMatch());
+			setResult(StaticGlobals.resultCodes.VOICE_FROM_GALLEY_SUCCESS, resultIntent);
+			finish();
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
 }
