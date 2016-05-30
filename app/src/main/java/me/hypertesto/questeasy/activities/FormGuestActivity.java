@@ -1,5 +1,6 @@
 package me.hypertesto.questeasy.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -71,6 +72,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 	private String guestType;
 	private int permanenza;
+	private boolean done = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -148,56 +150,70 @@ public class FormGuestActivity extends AppCompatActivity {
 		setTitle(guestType);
 
 		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		if (savedInstanceState == null) {
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-		fragmentPermanenza = new PermanenzaFragment();
-		fragmentPersonal = new PersonalDataFragment();
-		fragmentDocument = new DocumentDataFragment();
+			fragmentPermanenza = new PermanenzaFragment();
+			fragmentPersonal = new PersonalDataFragment();
+			fragmentDocument = new DocumentDataFragment();
 
 
-		switch (guestType) {
-			case Guest.type.SINGLE_GUEST:
+			switch (guestType) {
+				case Guest.type.SINGLE_GUEST:
 
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza, PermanenzaFragment.class.getSimpleName());
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal, PersonalDataFragment.class.getSimpleName());
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument, DocumentDataFragment.class.getSimpleName());
 
-				break;
+					break;
 
-			case Guest.type.FAMILY_HEAD:
+				case Guest.type.FAMILY_HEAD:
 
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza, PermanenzaFragment.class.getSimpleName());
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal, PersonalDataFragment.class.getSimpleName());
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument, DocumentDataFragment.class.getSimpleName());
 
-				break;
+					break;
 
-			case Guest.type.FAMILY_MEMBER:
+				case Guest.type.FAMILY_MEMBER:
 
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal,  PersonalDataFragment.class.getSimpleName());
 
-				break;
+					break;
 
-			case Guest.type.GROUP_HEAD:
+				case Guest.type.GROUP_HEAD:
 
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza);
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument);
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentPermanenza, PermanenzaFragment.class.getSimpleName());
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal,  PersonalDataFragment.class.getSimpleName());
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentDocument, DocumentDataFragment.class.getSimpleName());
 
-				break;
+					break;
 
-			case Guest.type.GROUP_MEMBER:
+				case Guest.type.GROUP_MEMBER:
 
-				fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal);
+					fragmentTransaction.add(R.id.fragment_guest_container, fragmentPersonal,  PersonalDataFragment.class.getSimpleName());
 
-				break;
+					break;
 
-			default:
-				throw new UnknownGuestTypeException();
+				default:
+					throw new UnknownGuestTypeException();
+
+			}
+
+			fragmentTransaction.commit();
+		}
+		else{
+			fragmentPersonal = (PersonalDataFragment)fragmentManager.findFragmentByTag(PersonalDataFragment.class.getSimpleName());
+			fragmentPermanenza = (PermanenzaFragment)fragmentManager.findFragmentByTag(PermanenzaFragment.class.getSimpleName());
+			fragmentDocument = (DocumentDataFragment)fragmentManager.findFragmentByTag(DocumentDataFragment.class.getSimpleName());
+			done = savedInstanceState.getBoolean("done");
+			/*if (PersonFragment != null){
+				PersonFragment.getRetainInstance();
+			*/
+
 
 		}
 
-		fragmentTransaction.commit();
 	}
 
 	@Override
@@ -207,25 +223,29 @@ public class FormGuestActivity extends AppCompatActivity {
 		if (this.ser == null) {
 			//Nuovo guest, non mostrare dati sul form
 		} else {
-			switch (this.guestType) {
-				case Guest.type.SINGLE_GUEST:
-				case Guest.type.FAMILY_HEAD:
-				case Guest.type.GROUP_HEAD:
-					MainGuest mg = (MainGuest) ser;
-					fragmentDocument.setDocument(mg.getDocumento());
-					fragmentPermanenza.setPermanenza(this.permanenza);
+			if (!done) {
+				switch (this.guestType) {
+					case Guest.type.SINGLE_GUEST:
+					case Guest.type.FAMILY_HEAD:
+					case Guest.type.GROUP_HEAD:
+						MainGuest mg = (MainGuest) ser;
+						fragmentDocument.setDocument(mg.getDocumento());
+						fragmentPermanenza.setPermanenza(this.permanenza);
 
-				case Guest.type.FAMILY_MEMBER:
-				case Guest.type.GROUP_MEMBER:
-					Guest g = (Guest) ser;
-					fragmentPersonal.setGuest(g);
-					break;
+					case Guest.type.FAMILY_MEMBER:
+					case Guest.type.GROUP_MEMBER:
+						Guest g = (Guest) ser;
+						fragmentPersonal.setGuest(g);
+						break;
 
-				default:
-					throw new UnknownGuestTypeException();
+					default:
+						throw new UnknownGuestTypeException();
+				}
+				done = true;
 			}
 		}
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -314,7 +334,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					fmg.setCittadinanza(fragmentPersonal.getCittadinanza());
 					p = fragmentPersonal.getBirthPlace();
 					fmg.setPlaceOfBirth(p);
-
+					//System.out.println("******CITTADINANZA " + fragmentPersonal.getCittadinanza());
 					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, fmg);
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 
@@ -462,6 +482,17 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		// start the image capture Intent
 		startActivityForResult(intent, StaticGlobals.resultCodes.CAMERA_CAPTURE_IMAGE_SUCCESS);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
+		// Necessary to restore the BottomBar's state, otherwise we would
+		// lose the current tab on orientation change.
+		mBottomBar.onSaveInstanceState(outState);
+		outState.putBoolean("done", done);
+
 	}
 
 }
