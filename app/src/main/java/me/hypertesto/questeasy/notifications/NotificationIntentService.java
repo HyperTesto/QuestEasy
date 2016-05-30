@@ -94,7 +94,8 @@ public class NotificationIntentService extends IntentService {
 		String message;
 
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		boolean disable = sharedPref.getBoolean("pref_notify", false);
+		boolean disable = false;
+		boolean allowNotify = sharedPref.getBoolean("pref_notify", false);
 		Log.d(StaticGlobals.logTags.DEBUG, "Disable is " + disable);
 
 		if (existsNotComplete){
@@ -122,7 +123,7 @@ public class NotificationIntentService extends IntentService {
 
 		final NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		if (!disable){
+		if (!disable && allowNotify){
 			manager.notify(NOTIFICATION_ID, builder.build());
 		} else {
 			Log.i(getClass().getSimpleName(),"Skipping notification");
