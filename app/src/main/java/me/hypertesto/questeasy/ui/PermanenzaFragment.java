@@ -2,10 +2,13 @@ package me.hypertesto.questeasy.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import me.hypertesto.questeasy.R;
 
@@ -37,6 +40,28 @@ public class PermanenzaFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		permTextView = (EditText) getView().findViewById(R.id.input_permanenza);
+
+		/*permTextView.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (Integer.parseInt(s.toString())>30){
+					Toast.makeText(getActivity(), R.string.errorPermanenza, Toast.LENGTH_LONG);
+				}
+			}
+		});
+		*/
+
+		restorePreviousValues(savedInstanceState);
 	}
 
 	/**
@@ -66,5 +91,24 @@ public class PermanenzaFragment extends Fragment {
 	public void setPermanenza(int p) {
 		if (p > 0)
 			permTextView.setText(String.valueOf(p));
+	}
+
+	/*
+		Save values of the PermanenzaFragment's fields
+	 */
+	@Override
+	public void onSaveInstanceState (Bundle instanceSaveState){
+		super.onSaveInstanceState(instanceSaveState);
+
+		instanceSaveState.putString("guestPermanenza", permTextView.getText().toString());
+	}
+
+	/*
+		Restore values of the PermanenzaFragment's fields
+	 */
+	public void restorePreviousValues(Bundle savedInstanceState){
+		if (savedInstanceState != null) {
+			permTextView.setText(savedInstanceState.getString("guestPermanenza"));
+		}
 	}
 }
