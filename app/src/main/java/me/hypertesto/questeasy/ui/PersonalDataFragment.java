@@ -127,8 +127,11 @@ public class PersonalDataFragment extends Fragment {
 	 * @throws ParseException
 	 */
 	public Date getDateofBirth() throws ParseException {
-		return DateUtils.parse(guest_dateBirth.getText().toString());
-
+		if (!guest_dateBirth.getText().toString().equals("")){
+			return DateUtils.parse(guest_dateBirth.getText().toString());
+		}else{
+			return null;
+		}
 	}
 
 	/**
