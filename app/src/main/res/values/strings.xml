@@ -47,6 +47,6 @@
 	<string name="bottomVoice">Parla</string>
 	<string name="bottomGallery">Galleria</string>
 
-	<string name="errorPermanenza">Permanenza inserita non valida</string>
+	<string name="errorPermanenza">Inserire permanenza minore di 31 giorni</string>
 
 </resources>
