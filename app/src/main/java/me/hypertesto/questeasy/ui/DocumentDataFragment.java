@@ -80,6 +80,8 @@ public class DocumentDataFragment extends Fragment {
 				guest_documentPlace.setText(place);
 			}
 		});
+
+		restorePreviousValues(savedInstanceState);
 	}
 
 	/**
@@ -143,5 +145,28 @@ public class DocumentDataFragment extends Fragment {
 			}
 		}
 
+	}
+
+	/*
+		Save values of the DocumentDataFragment's fields
+	 */
+	@Override
+	public void onSaveInstanceState (Bundle instanceSaveState){
+		super.onSaveInstanceState(instanceSaveState);
+
+		instanceSaveState.putString("guestDocumentType", guest_documentType.getText().toString());
+		instanceSaveState.putString("guestDocumentNumber", guest_documentNumber.getText().toString());
+		instanceSaveState.putString("guestDocumentPlace", guest_documentPlace.getText().toString());
+	}
+
+	/*
+		Restore values of the DocumentDataFragment's fields
+	 */
+	public void restorePreviousValues(Bundle savedInstanceState){
+		if (savedInstanceState != null) {
+			guest_documentType.setText(savedInstanceState.getString("guestDocumentType"));
+			guest_documentNumber.setText(savedInstanceState.getString("guestDocumentNumber"));
+			guest_documentPlace.setText(savedInstanceState.getString("guestDocumentPlace"));
+		}
 	}
 }
