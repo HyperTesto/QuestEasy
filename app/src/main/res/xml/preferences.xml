@@ -3,10 +3,25 @@
 	<PreferenceCategory
 		android:title="Info utente"
 		android:key="pref_key_storage_settings">
+		<EditTextPreference
+			android:key="pref_user"
+			android:title="Nome utente" />
 		<SwitchPreference
-			android:key="pref_sync"
+			android:key="pref_notify"
 			android:title="Attiva notifiche"
-			android:summary="Abilita notifiche di reminder invio o compilazione di dichiarazioni incomplete"
+			android:summary="Abilita notifiche di invio o compilazione di dichiarazioni incomplete"
+			android:defaultValue="true" />
+
+		<SwitchPreference
+			android:key="pref_stats"
+			android:title="Statistiche"
+			android:summary="Invia statistiche anonime sull'utilizzo"
+			android:defaultValue="true" />
+		/>
+		<SwitchPreference
+			android:key="pref_crash_report"
+			android:title="Crash"
+			android:summary="Invia report di crash"
 			android:defaultValue="true" />
 		/>
 	</PreferenceCategory>

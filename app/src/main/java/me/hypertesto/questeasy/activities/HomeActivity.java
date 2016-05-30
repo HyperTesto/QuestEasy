@@ -3,8 +3,10 @@ package me.hypertesto.questeasy.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -40,6 +42,7 @@ import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
+import me.hypertesto.questeasy.utils.WordsCapitalizer;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -64,6 +67,16 @@ public class HomeActivity extends AppCompatActivity {
 
 
 		setupDrawer();
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		//String syncConnPref = sharedPref.getString(SettingsActivity.KEY_PREF_SYNC_CONN, "");
+
+		Log.d(StaticGlobals.logTags.DEBUG, "pref_user" + sharedPref.getString("pref_user", ""));
+
+		View temp = mNavigationView.getHeaderView(0);
+		TextView userName = (TextView)temp.findViewById(R.id.subInfo);
+
+		userName.setText(WordsCapitalizer.capitalizeEveryWord(sharedPref.getString("pref_user", "Utente")));
+
 		mNavigationView.setNavigationItemSelectedListener(
 				new NavigationView.OnNavigationItemSelectedListener() {
 					@Override
