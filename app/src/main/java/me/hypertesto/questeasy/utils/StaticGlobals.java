@@ -55,6 +55,7 @@ public class StaticGlobals {
 		public static final String DEBUG = "DEBUG";
 		public static final String FILE_DEBUG = "FILE_DEBUG";
 		public static final String VOICE_DEBUG = "VOICE_DEBUG";
+		public static final String VOICE_REC = "VOICE_RECOGNITION";
 	}
 
 	public static final class image {
