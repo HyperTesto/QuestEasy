@@ -11,6 +11,7 @@ import java.util.Date;
 public class DateUtils {
 
 	public static final	SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
+	public static final SimpleDateFormat SDF_ALT = new SimpleDateFormat("dd-MM-yyyy");
 
 	public static Date today(){
 		return DateUtils.trimDate(new Date());
@@ -42,6 +43,8 @@ public class DateUtils {
 	public static String format(Date date){
 		return SDF.format(date);
 	}
+
+	public static String formatForFileName(Date date) { return SDF_ALT.format(date); }
 
 	public static Date parse(String input){
 		try {
