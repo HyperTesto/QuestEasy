@@ -79,7 +79,7 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 	protected void onPause() {
 		super.onPause();
 		if (speech != null) {
-			speech.destroy();
+			speech.destroy();	//needed to avoid exception if activity is resumed
 			Log.i(StaticGlobals.logTags.VOICE_REC, "destroy");
 		}
 
