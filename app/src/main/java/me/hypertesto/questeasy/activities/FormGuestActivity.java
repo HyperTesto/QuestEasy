@@ -274,7 +274,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 
-		if (id == R.id.btnSaveForm) {
+		if (id == android.R.id.home) {
 
 			Place p;
 			Documento d;
@@ -420,8 +420,9 @@ public class FormGuestActivity extends AppCompatActivity {
 			finish();
 		}
 		else if (id == android.R.id.home){
-			finish();
+			/*finish();
 			return true;
+			*/
 		}
 
 		return super.onOptionsItemSelected(item);
