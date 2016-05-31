@@ -1,6 +1,5 @@
 package me.hypertesto.questeasy.activities;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,14 +23,10 @@ import android.widget.Toast;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
-import java.io.File;
 import java.io.Serializable;
 import java.text.ParseException;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 
 import me.hypertesto.questeasy.model.Documento;
@@ -67,7 +61,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 	private Serializable ser;
 
-	private ArrayList<Uri> pictureUris = new ArrayList<>();
+	private ArrayList<String> pictureUris = new ArrayList<>();
 
 	private BottomBar mBottomBar;
 
@@ -96,9 +90,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					case R.id.galleryButton:
 
 						ArrayList<String>  stringUris = new ArrayList<String>();
-						for (Uri uri : pictureUris){
-							stringUris.add(uri.toString());
-						}
+						stringUris.addAll(pictureUris);
 
 						Intent galleryIntent = new Intent(FormGuestActivity.this, ActivityGalleryV2.class);
 						galleryIntent.putExtra(StaticGlobals.intentExtras.URI_S_TO_GALLERY, stringUris);
@@ -527,7 +519,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		fileUri = FileUtils.getOutputMediaFileUri(StaticGlobals.image.MEDIA_TYPE_IMAGE);
-		this.pictureUris.add(fileUri);
+		this.pictureUris.add(fileUri.toString());
 
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 

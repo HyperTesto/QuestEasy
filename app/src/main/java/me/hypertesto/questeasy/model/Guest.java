@@ -1,11 +1,8 @@
 package me.hypertesto.questeasy.model;
 
-import android.net.Uri;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -23,7 +20,7 @@ public abstract class Guest implements Serializable{
 	protected Place placeOfBirth;
 	protected Place cittadinanza;
 
-	protected ArrayList<Uri> pictures;
+	protected ArrayList<String> pictures;
 
 	public static final class type {
 		public static final String SINGLE_GUEST = "Ospite Singolo";
@@ -33,17 +30,17 @@ public abstract class Guest implements Serializable{
 		public static final String GROUP_MEMBER = "Membro";
 	}
 
-	public ArrayList<Uri> getPictureUris(){
-		ArrayList<Uri> res = new ArrayList<>();
+	public ArrayList<String> getPictureUris(){
+		ArrayList<String> res = new ArrayList<>();
 		res.addAll(this.pictures);
 		return res;
 	}
 
-	public void addPictureUri(Uri uri){
+	public void addPictureUri(String uri){
 		this.pictures.add(uri);
 	}
 
-	public void addPictureUris(Collection<Uri> uris){
+	public void addPictureUris(Collection<? extends String> uris){
 		this.pictures.addAll(uris);
 	}
 
