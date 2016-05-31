@@ -4,6 +4,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,6 +26,10 @@ import android.widget.Toast;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 
@@ -61,7 +68,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 	private Serializable ser;
 
-	private ArrayList<String> pictureUris = new ArrayList<>();
+	private ArrayList<String> pictureUris;
 
 	private BottomBar mBottomBar;
 
@@ -74,6 +81,14 @@ public class FormGuestActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
+
+		/*if (savedInstanceState != null && savedInstanceState.getStringArrayList("pictureUris") != null){
+			System.out.println("Getting images from saved instance...");
+			pictureUris  = savedInstanceState.getStringArrayList("pictureUris");
+		}else {
+			System.out.println("new pictureUri");
+			pictureUris = new ArrayList<>();
+		}*/
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -441,8 +456,17 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		Recognition rec = new Recognition();
-
+		//System.out.println("INTENT: " + data.getStringExtra(MediaStore.EXTRA_OUTPUT));
 		switch (requestCode) {
+			case StaticGlobals.resultCodes.CAMERA_CAPTURE_IMAGE_SUCCESS:
+				if (resultCode == RESULT_OK){
+
+					//System.out.println("IMAGE_PATH:" + "file:///"+ imagePath);
+					System.out.println("fileUri: " + fileUri);
+					this.pictureUris.add(fileUri.toString());
+				}
+				break;
+
 			case StaticGlobals.requestCodes.GALLERY:
 				if ( resultCode == StaticGlobals.resultCodes.VOICE_FROM_GALLEY_SUCCESS ){
 					Log.i(StaticGlobals.logTags.VOICE_REC, "Parsing data from gallery");
@@ -526,7 +550,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		fileUri = FileUtils.getOutputMediaFileUri(StaticGlobals.image.MEDIA_TYPE_IMAGE);
-		this.pictureUris.add(fileUri.toString());
+
 
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
@@ -540,8 +564,10 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		// Necessary to restore the BottomBar's state, otherwise we would
 		// lose the current tab on orientation change.
+		System.out.println("HERE");
 		mBottomBar.onSaveInstanceState(outState);
 		outState.putBoolean("done", done);
+		outState.putStringArrayList("pictureUris", pictureUris);
 
 	}
 
