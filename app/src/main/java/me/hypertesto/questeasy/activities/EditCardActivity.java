@@ -466,32 +466,18 @@ public class EditCardActivity extends AppCompatActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.edit_card_bar, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
-		switch (item.getItemId()) {
-			case R.id.btnSaveGuestsCard:
-				Intent resultIntent = new Intent();
-				resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
-				setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
-				finish();
-				return true;
-			case android.R.id.home :
-				/*Intent resultIntent2 = new Intent();
-				resultIntent2.putExtra(StaticGlobals.intentExtras.CARD, card);
-				setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent2);
-				finish();
-				return true;
-				*/
-			default:
-				return super.onOptionsItemSelected(item);
+		int id = item.getItemId();
+		if (id == android.R.id.home){
+			Intent resultIntent = new Intent();
+			resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
+			setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+			finish();
+			return true;
+		}
+		else{
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
