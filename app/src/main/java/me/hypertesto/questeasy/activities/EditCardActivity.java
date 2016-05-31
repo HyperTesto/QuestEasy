@@ -401,7 +401,7 @@ public class EditCardActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				itemContainer = (RelativeLayout)getViewByPosition(position, listView);
+				itemContainer = (RelativeLayout) getViewByPosition(position, listView);
 				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
 				if (checked) {
 					letterImage.startAnimation(flipAnim);
@@ -465,20 +465,33 @@ public class EditCardActivity extends AppCompatActivity {
 		}
 	}
 
+
+	public void saveCard(){
+		// Write your code here
+		Intent resultIntent = new Intent();
+		resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
+		setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		int id = item.getItemId();
 		if (id == android.R.id.home){
-			Intent resultIntent = new Intent();
-			resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
-			setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+			saveCard();
 			finish();
 			return true;
 		}
 		else{
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+
+	@Override
+	public void onBackPressed() {
+		saveCard();
+		super.onBackPressed();
 	}
 
 }
