@@ -92,6 +92,10 @@ public class GroupCard extends Card {
 
 	@Override
 	public String getInitialLetter() {
-		return capoGruppo.getName().substring(0,1);
+		if (this.capoGruppo.getName() == null || this.capoGruppo.getName().equals("")){
+			return "X";
+		} else {
+			return this.capoGruppo.getName().substring(0,1);
+		}
 	}
 }

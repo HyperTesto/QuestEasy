@@ -92,6 +92,10 @@ public class FamilyCard extends Card {
 
 	@Override
 	public String getInitialLetter() {
-		return capoFamiglia.getName().substring(0,1);
+		if (this.capoFamiglia.getName() == null || this.capoFamiglia.getName().equals("")){
+			return "X";
+		} else {
+			return capoFamiglia.getName().substring(0,1);
+		}
 	}
 }

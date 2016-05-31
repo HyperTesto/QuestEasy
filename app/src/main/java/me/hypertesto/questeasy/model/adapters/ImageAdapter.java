@@ -50,7 +50,11 @@ public class ImageAdapter extends PagerAdapter {
 		inflater = LayoutInflater.from(context);
 		this.imageLoader2 = imageLoader;
 
-		this.pictureUriStrings = uris;
+		if (uris == null){
+			this.pictureUriStrings = new ArrayList<>();
+		} else {
+			this.pictureUriStrings = uris;
+		}
 
 		//load images' paths
 		this.filePaths = FileUtils.getFilePaths(this.filePaths);

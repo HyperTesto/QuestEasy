@@ -181,7 +181,6 @@ public class HomeActivity extends AppCompatActivity {
 				final int checkedCount = lv.getCheckedItemCount();
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
-
 			}
 
 			@Override

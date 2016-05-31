@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.clans.fab.FloatingActionButton;
@@ -236,6 +237,83 @@ public class EditCardActivity extends AppCompatActivity {
 			}
 		});
 
+
+		//This is setted to enable multi selection on items
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+		//Methods to manage item's selection
+		listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+				final int checkedCount = listView.getCheckedItemCount();
+
+				itemContainer = (RelativeLayout) getViewByPosition(position, listView);
+				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
+				if (checked) {
+					letterImage.startAnimation(flipAnim);
+				} else {
+					letterImage.startAnimation(flipAnimReverse);
+				}
+				mode.setTitle(checkedCount + " Selezionati");
+				adapter.toggleSelection(position);
+
+			}
+
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				mode.getMenuInflater().inflate(R.menu.delete_item_ba2v2, menu);
+				return true;
+			}
+
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				return false;
+			}
+
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				switch (item.getItemId()) {
+					case R.id.delete:
+						SparseBooleanArray selected = adapter.getSelectedIds();
+						Log.e("selected", String.valueOf(selected));
+						for (int i = (selected.size() - 1); i >= 0; i--) {
+							if (selected.valueAt(i)) {
+								Guest selectedItem = adapter.getItem(selected.keyAt(i));
+
+								if (card instanceof FamilyCard){
+									if (selectedItem instanceof FamilyMemberGuest){
+										FamilyCard fc = (FamilyCard) card;
+										fc.getFamiliari().remove(selectedItem);
+										adapter.remove(selectedItem);
+									} else {
+										Toast.makeText(getApplicationContext(), "Cannot delete Family Head Guest", Toast.LENGTH_LONG).show();
+									}
+
+								} else if (card instanceof GroupCard){
+									if (selectedItem instanceof GroupMemberGuest){
+										GroupCard gc = (GroupCard) card;
+										gc.getAltri().remove(selectedItem);
+										adapter.remove(selectedItem);
+									} else {
+										Toast.makeText(getApplicationContext(), "Cannot delete Group Head Guest", Toast.LENGTH_LONG).show();
+									}
+								} else {
+									Toast.makeText(getApplicationContext(), "Cannot delete Single Guest", Toast.LENGTH_LONG).show();
+								}
+							}
+						}
+						mode.finish();
+						return true;
+					default:
+						return false;
+				}
+			}
+
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+				adapter.removeSelection();
+			}
+		});
 	}
 
 	@Override
@@ -392,62 +470,6 @@ public class EditCardActivity extends AppCompatActivity {
 		adapter = new GroupListAdapter(this, R.layout.guest_list_item, guests);
 		listView.setAdapter(adapter);
 
-		//This is setted to enable multi selection on items
-		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
-		//Methods to manage item's selection
-		listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-			@Override
-			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-				final int checkedCount = listView.getCheckedItemCount();
-
-				itemContainer = (RelativeLayout) getViewByPosition(position, listView);
-				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
-				if (checked) {
-					letterImage.startAnimation(flipAnim);
-				} else {
-					letterImage.startAnimation(flipAnimReverse);
-				}
-				mode.setTitle(checkedCount + " Selezionati");
-				adapter.toggleSelection(position);
-
-			}
-
-			@Override
-			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				mode.getMenuInflater().inflate(R.menu.delete_item_ba2v2, menu);
-				return true;
-			}
-
-			@Override
-			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-				return false;
-			}
-
-			@Override
-			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				switch (item.getItemId()) {
-					case R.id.delete:
-						SparseBooleanArray selected = adapter.getSelectedIds();
-						Log.e("selected", String.valueOf(selected));
-						for (int i = (selected.size() - 1); i >= 0; i--) {
-							if (selected.valueAt(i)) {
-								Guest selectedItem = adapter.getItem(selected.keyAt(i));
-								adapter.remove(selectedItem);
-							}
-						}
-						mode.finish();
-						return true;
-					default:
-						return false;
-				}
-			}
-
-			@Override
-			public void onDestroyActionMode(ActionMode mode) {
-				adapter.removeSelection();
-			}
-		});
 	}
 
 	/*

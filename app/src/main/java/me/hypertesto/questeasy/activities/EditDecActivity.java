@@ -156,8 +156,6 @@ public class EditDecActivity extends AppCompatActivity {
 		}
 	}
 
-
-
 	private void defineSettings() {
 		frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
 		fabMenu = (FloatingActionMenu) findViewById
@@ -321,6 +319,13 @@ public class EditDecActivity extends AppCompatActivity {
 						for (int i = (selected.size() - 1); i >= 0; i--) {
 							if (selected.valueAt(i)) {
 								Card selectedItem = adapter.getItem(selected.keyAt(i));
+								displayed.remove(selectedItem);
+
+								FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
+								fsd.open();
+								fsd.updateDeclaration(displayed);
+								fsd.close();
+
 								adapter.remove(selectedItem);
 							}
 						}
