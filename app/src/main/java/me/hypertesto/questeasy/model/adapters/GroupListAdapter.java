@@ -1,6 +1,7 @@
 package me.hypertesto.questeasy.model.adapters;
 
 import android.content.Context;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +28,15 @@ public class GroupListAdapter extends ArrayAdapter<Guest>{
 	private int resource;
 	private Context context;
 	private ArrayList<Guest> items;
+	private SparseBooleanArray mSelectedItems;
+
 
 	public GroupListAdapter(Context context, int resource, ArrayList<Guest> objects) {
 		super(context, resource, objects);
 		this.context = context;
 		this.resource = resource;
 		this.items = objects;
+		this.mSelectedItems = new SparseBooleanArray();
 
 	}
 
@@ -86,6 +90,34 @@ public class GroupListAdapter extends ArrayAdapter<Guest>{
 
 
 		return view;
+	}
+
+
+
+	public void toggleSelection(int position){
+		selectView(position, !mSelectedItems.get(position));
+	}
+
+	public void removeSelection(){
+		mSelectedItems = new SparseBooleanArray();
+		notifyDataSetChanged();
+	}
+
+	public void selectView (int position, boolean value){
+		if (value){
+			mSelectedItems.put(position, value);
+		}
+		else{
+			mSelectedItems.delete(position);
+		}
+	}
+
+	public int getSelectedCount(){
+		return mSelectedItems.size();
+	}
+
+	public SparseBooleanArray getSelectedIds(){
+		return mSelectedItems;
 	}
 
 

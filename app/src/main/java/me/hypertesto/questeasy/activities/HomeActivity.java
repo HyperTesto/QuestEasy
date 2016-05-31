@@ -207,7 +207,6 @@ public class HomeActivity extends AppCompatActivity {
 								fsd.open();
 								fsd.deleteDeclaration(selectedItem);
 								fsd.close();
-
 								adapter.remove(selectedItem);
 							}
 						}

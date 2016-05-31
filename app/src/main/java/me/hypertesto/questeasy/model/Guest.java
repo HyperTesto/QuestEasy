@@ -25,7 +25,7 @@ public abstract class Guest implements Serializable{
 	public static final class type {
 		public static final String SINGLE_GUEST = "Ospite Singolo";
 		public static final String FAMILY_HEAD = "Capofamiglia";
-		public static final String FAMILY_MEMBER = "Failiare";
+		public static final String FAMILY_MEMBER = "Familiare";
 		public static final String GROUP_HEAD = "Capogruppo";
 		public static final String GROUP_MEMBER = "Membro";
 	}

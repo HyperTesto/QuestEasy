@@ -68,6 +68,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	private String guestType;
 	private int permanenza;
 	private boolean done = false;
+	private boolean firsTimeVoice = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.formCordinator),
 				findViewById(R.id.myScrollingContent), savedInstanceState);
 		mBottomBar.setDefaultTabPosition(2);
+		//mBottomBar.getChildAt(3).setVisibility(View.GONE);
 		mBottomBar.setItemsFromMenu(R.menu.bottom_bar, new OnMenuTabClickListener() {
 			@Override
 			public void onMenuTabSelected(int menuItemId) {
@@ -99,8 +101,26 @@ public class FormGuestActivity extends AppCompatActivity {
 						break;
 
 					case R.id.voiceButton:
+						if(!firsTimeVoice){
+							firsTimeVoice = true;
+						}else{
+							Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+							i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+							i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT");
+							i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla ora");
+							i.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 1000);
+							i.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 2000);
+							i.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+							try {
+								Log.d(StaticGlobals.logTags.DEBUG, "starting speech intent");
+								startActivityForResult(i, StaticGlobals.requestCodes.SPEECH);
+							} catch (Exception e) {
+								Toast.makeText(getApplicationContext(), "Error initializing speech to text engine.", Toast.LENGTH_LONG).show();
+							}
 
-						Log.d(StaticGlobals.logTags.DEBUG, "Not firng event the first time we open activity");
+						}
+
+						//Log.d(StaticGlobals.logTags.DEBUG, "Not firng event the first time we open activity");
 						break;
 					default:
 
@@ -257,7 +277,7 @@ public class FormGuestActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 
-		if (id == R.id.btnSaveForm) {
+		if (id == android.R.id.home) {
 
 			Place p;
 			Documento d;
@@ -411,23 +431,10 @@ public class FormGuestActivity extends AppCompatActivity {
 			}
 
 			finish();
-		}	else if (id == android.R.id.home){
-			finish();
-			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.form_bar, menu);
-
-		return super.onCreateOptionsMenu(menu);
-	}
-
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
