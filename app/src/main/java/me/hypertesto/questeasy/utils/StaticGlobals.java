@@ -41,6 +41,11 @@ public class StaticGlobals {
 		public static final String PERMANENZA = "me.hypertesto.questeasy.activities.PERMANENZA";
 		public static final String GUEST_TO_EDIT = "me.hypertesto.questeasy.activities.GUEST_TO_EDIT";
 		public static final String MATCHES_FROM_GALLEY = "me.hypertesto.questeasy.activities.MATCHES_FROM_GALLERY";
+		public static final String URI_S_TO_GALLERY = "me.hypertesto.questeasy.activities.URI_S_TO_GALLERY";
+	}
+
+	public static final class bundleArgs {
+		public static final String STRING_URIS = "me.hypertesto.questeasy.activities.STRING_URIS";
 	}
 
 	public static final class saveDialogOptions {
