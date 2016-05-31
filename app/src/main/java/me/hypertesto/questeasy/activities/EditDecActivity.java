@@ -455,7 +455,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 					case StaticGlobals.saveDialogOptions.SAVE_DISK:
 
-						String fileName = "export_" + DateUtils.format(DateUtils.today()); //FIXME: better naming
+						String fileName = "export_" + DateUtils.formatForFileName(DateUtils.today()) + ".txt"; //FIXME: better naming
 
 						try {
 							file = FileUtils.getFileQuesturaStorageDir(fileName);
@@ -474,7 +474,7 @@ public class EditDecActivity extends AppCompatActivity {
 						intent.putExtra(Intent.EXTRA_SUBJECT, "File questura");
 						intent.putExtra(Intent.EXTRA_TEXT, "In allegato il file della questura pronto per l'invio");
 						try {
-							file = FileUtils.getFileQuesturaStorageDir( "export_"+ DateUtils.format(DateUtils.today())+ ".txt");
+							file = FileUtils.getFileQuesturaStorageDir( "export_"+ DateUtils.formatForFileName(DateUtils.today())+ ".txt");
 							FormatQuestura.writeFile(exportQuestura, file);
 						} catch (IOException e) {
 							e.printStackTrace();

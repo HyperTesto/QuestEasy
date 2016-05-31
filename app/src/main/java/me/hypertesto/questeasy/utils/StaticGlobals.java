@@ -64,4 +64,8 @@ public class StaticGlobals {
 	public static final class image {
 		public static final int MEDIA_TYPE_IMAGE = 1;
 	}
+
+	public static final class permissions {
+		public static final int REQUEST_MANDATORY = 1;
+	}
 }
