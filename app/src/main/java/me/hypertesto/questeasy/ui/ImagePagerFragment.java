@@ -47,19 +47,33 @@ import java.util.ArrayList;
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.activities.FormGuestActivity;
 import me.hypertesto.questeasy.model.adapters.ImageAdapter;
+import me.hypertesto.questeasy.utils.StaticGlobals;
 
 
 public class ImagePagerFragment extends Fragment {
 
-
 	private ImageLoader imageLoader;
+	private ArrayList<String> uriStrings;
 
+	public ImagePagerFragment(){
+		super();
+	}
+
+	@Override
+	public void setArguments(Bundle args) {
+		super.setArguments(args);
+		ArrayList<String> arg = args.getStringArrayList(StaticGlobals.bundleArgs.STRING_URIS);
+		if (arg != null){
+			this.uriStrings = arg;
+		} else {
+			this.uriStrings = new ArrayList<>();
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fr_image_pager, container, false);
 		ViewPager pager = (ViewPager) rootView.findViewById(R.id.pagerV2);
-
 
 		//Default settings for imageLoader
 		imageLoader = ImageLoader.getInstance();
@@ -73,7 +87,7 @@ public class ImagePagerFragment extends Fragment {
 
 		//imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity().getApplicationContext()));
 		imageLoader.init(defaultconfiguration);
-		pager.setAdapter(new ImageAdapter(getActivity(), imageLoader));
+		pager.setAdapter(new ImageAdapter(getActivity(), imageLoader, this.uriStrings));
 		pager.setCurrentItem(0);
 		return rootView;
 	}

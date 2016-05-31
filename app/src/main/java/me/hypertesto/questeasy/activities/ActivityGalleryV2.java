@@ -13,6 +13,8 @@ import android.view.View;
 
 import com.github.clans.fab.FloatingActionButton;
 
+import java.util.ArrayList;
+
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.ui.ImagePagerFragment;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -43,6 +45,16 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 		if (fr == null) {
 			fr = new ImagePagerFragment();
 		}
+
+		Intent intentFromForm = getIntent();
+		ArrayList<String> uriStrings = (ArrayList<String>)
+				intentFromForm.getSerializableExtra(StaticGlobals.intentExtras.URI_S_TO_GALLERY);
+
+		System.out.println(uriStrings);
+
+		Bundle fragArgs = new Bundle();
+		fragArgs.putStringArrayList(StaticGlobals.bundleArgs.STRING_URIS, uriStrings);
+		fr.setArguments(fragArgs);
 
 		getSupportFragmentManager().beginTransaction().add(R.id.gallery_container, fr).commit();
 

@@ -39,14 +39,18 @@ public class ImageAdapter extends PagerAdapter {
 	private ImageLoader imageLoader2;
 	private DisplayImageOptions options;
 
+	private ArrayList<String> pictureUriStrings;
+
 
 	/*
 		Costructor for ImageAdapter
 
 	 */
-	public ImageAdapter(Context context, ImageLoader imageLoader) {
+	public ImageAdapter(Context context, ImageLoader imageLoader, ArrayList<String> uris){
 		inflater = LayoutInflater.from(context);
 		this.imageLoader2 = imageLoader;
+
+		this.pictureUriStrings = uris;
 
 		//load images' paths
 		this.filePaths = FileUtils.getFilePaths(this.filePaths);
@@ -73,7 +77,7 @@ public class ImageAdapter extends PagerAdapter {
 	//gettin images' number
 	@Override
 	public int getCount() {
-		return filePaths.size();
+		return this.pictureUriStrings.size();
 	}
 
 	@Override
@@ -85,10 +89,12 @@ public class ImageAdapter extends PagerAdapter {
 		final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
 
 		//convert image path to Uri
-		String UriS = FileUtils.getImagePathUriToString(filePaths.get(position));
+		String uriS;
+		//uriS = FileUtils.getImagePathUriToString(filePaths.get(position));
+		uriS = this.pictureUriStrings.get(position);
 
 		//load image
-		imageLoader2.displayImage(UriS,imageView,options,new SimpleImageLoadingListener(){
+		imageLoader2.displayImage(uriS,imageView,options,new SimpleImageLoadingListener(){
 					@Override
 					public void onLoadingStarted(String imageUri, View view) {
 						spinner.setVisibility(View.VISIBLE);

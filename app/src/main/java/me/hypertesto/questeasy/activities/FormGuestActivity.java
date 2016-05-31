@@ -1,6 +1,5 @@
 package me.hypertesto.questeasy.activities;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,14 +23,10 @@ import android.widget.Toast;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
-import java.io.File;
 import java.io.Serializable;
 import java.text.ParseException;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 
 import me.hypertesto.questeasy.model.Documento;
@@ -65,8 +59,9 @@ public class FormGuestActivity extends AppCompatActivity {
 	private PersonalDataFragment fragmentPersonal;
 	private DocumentDataFragment fragmentDocument;
 
-
 	private Serializable ser;
+
+	private ArrayList<String> pictureUris = new ArrayList<>();
 
 	private BottomBar mBottomBar;
 
@@ -96,8 +91,12 @@ public class FormGuestActivity extends AppCompatActivity {
 
 					case R.id.galleryButton:
 
+						ArrayList<String>  stringUris = new ArrayList<String>();
+						stringUris.addAll(pictureUris);
+
 						Intent galleryIntent = new Intent(FormGuestActivity.this, ActivityGalleryV2.class);
-						startActivityForResult(galleryIntent,StaticGlobals.requestCodes.GALLERY);
+						galleryIntent.putExtra(StaticGlobals.intentExtras.URI_S_TO_GALLERY, stringUris);
+						startActivityForResult(galleryIntent, StaticGlobals.requestCodes.GALLERY);
 						//startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
 						break;
 
@@ -262,6 +261,7 @@ public class FormGuestActivity extends AppCompatActivity {
 					case Guest.type.GROUP_MEMBER:
 						Guest g = (Guest) ser;
 						fragmentPersonal.setGuest(g);
+						this.pictureUris = g.getPictureUris();
 						break;
 
 					default:
@@ -307,6 +307,8 @@ public class FormGuestActivity extends AppCompatActivity {
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
 					sg.setDocumento(d);
 
+					sg.addPictureUris(this.pictureUris);
+
 					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, sg);
 					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
@@ -338,6 +340,8 @@ public class FormGuestActivity extends AppCompatActivity {
 
 					fhg.setDocumento(d);
 
+					fhg.addPictureUris(this.pictureUris);
+
 					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, fhg);
 					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
@@ -360,6 +364,8 @@ public class FormGuestActivity extends AppCompatActivity {
 					fmg.setCittadinanza(fragmentPersonal.getCittadinanza());
 					p = fragmentPersonal.getBirthPlace();
 					fmg.setPlaceOfBirth(p);
+
+					fmg.addPictureUris(this.pictureUris);
 
 					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, fmg);
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
@@ -390,6 +396,8 @@ public class FormGuestActivity extends AppCompatActivity {
 					d.setLuogoRilascio(fragmentDocument.getDocumentReleasePlace());
 					ghg.setDocumento(d);
 
+					ghg.addPictureUris(this.pictureUris);
+
 					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, ghg);
 					resultIntent.putExtra(StaticGlobals.intentExtras.PERMANENZA, fragmentPermanenza.getPermanenza());
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
@@ -412,6 +420,8 @@ public class FormGuestActivity extends AppCompatActivity {
 					p = fragmentPersonal.getBirthPlace();
 					gmg.setPlaceOfBirth(p);
 
+					gmg.addPictureUris(this.pictureUris);
+
 					resultIntent.putExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST, gmg);
 					setResult(StaticGlobals.resultCodes.GUEST_FORM_SUCCESS, resultIntent);
 					break;
@@ -421,11 +431,8 @@ public class FormGuestActivity extends AppCompatActivity {
 			}
 
 			finish();
-		}
-		else if (id == android.R.id.home){
-			/*finish();
-			return true;
-			*/
+		} else if (id == android.R.id.home){
+			finish();
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -531,6 +538,7 @@ public class FormGuestActivity extends AppCompatActivity {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		fileUri = FileUtils.getOutputMediaFileUri(StaticGlobals.image.MEDIA_TYPE_IMAGE);
+		this.pictureUris.add(fileUri.toString());
 
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
