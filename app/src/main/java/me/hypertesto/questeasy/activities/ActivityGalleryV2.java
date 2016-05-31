@@ -50,7 +50,7 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 		ArrayList<String> uriStrings = (ArrayList<String>)
 				intentFromForm.getSerializableExtra(StaticGlobals.intentExtras.URI_S_TO_GALLERY);
 
-		System.out.println(uriStrings);
+		System.out.println("URISTRINGS: " + uriStrings);
 
 		Bundle fragArgs = new Bundle();
 		fragArgs.putStringArrayList(StaticGlobals.bundleArgs.STRING_URIS, uriStrings);

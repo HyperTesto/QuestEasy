@@ -6,16 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.CoordinatorLayout;
-
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -25,10 +21,9 @@ import com.roughike.bottombar.OnMenuTabClickListener;
 
 import java.io.Serializable;
 import java.text.ParseException;
-
 import java.util.ArrayList;
 
-
+import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
 import me.hypertesto.questeasy.model.FamilyMemberGuest;
@@ -39,7 +34,6 @@ import me.hypertesto.questeasy.model.MainGuest;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
-import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.ui.DocumentDataFragment;
 import me.hypertesto.questeasy.ui.PermanenzaFragment;
 import me.hypertesto.questeasy.ui.PersonalDataFragment;
@@ -61,7 +55,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 	private Serializable ser;
 
-	private ArrayList<String> pictureUris = new ArrayList<>();
+	private ArrayList<String> pictureUris;
 
 	private BottomBar mBottomBar;
 
@@ -74,6 +68,14 @@ public class FormGuestActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
+
+		if (savedInstanceState != null && savedInstanceState.getStringArrayList("pictureUris") != null){
+			System.out.println("Getting images from saved instance...");
+			pictureUris  = savedInstanceState.getStringArrayList("pictureUris");
+		}else {
+			System.out.println("new pictureUri");
+			pictureUris = new ArrayList<>();
+		}
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -91,13 +93,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 					case R.id.galleryButton:
 
-						ArrayList<String>  stringUris = new ArrayList<String>();
-						stringUris.addAll(pictureUris);
-
-						Intent galleryIntent = new Intent(FormGuestActivity.this, ActivityGalleryV2.class);
-						galleryIntent.putExtra(StaticGlobals.intentExtras.URI_S_TO_GALLERY, stringUris);
-						startActivityForResult(galleryIntent, StaticGlobals.requestCodes.GALLERY);
-						//startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
+						startGallery();
 						break;
 
 					case R.id.voiceButton:
@@ -136,8 +132,7 @@ public class FormGuestActivity extends AppCompatActivity {
 						break;
 
 					case R.id.galleryButton:
-						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
-						//TODO: ask permissions
+						startGallery();
 						break;
 
 					case R.id.voiceButton:
@@ -290,8 +285,17 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		Recognition rec = new Recognition();
-
+		//System.out.println("INTENT: " + data.getStringExtra(MediaStore.EXTRA_OUTPUT));
 		switch (requestCode) {
+			case StaticGlobals.resultCodes.CAMERA_CAPTURE_IMAGE_SUCCESS:
+				if (resultCode == RESULT_OK){
+
+					//System.out.println("IMAGE_PATH:" + "file:///"+ imagePath);
+					System.out.println("fileUri: " + fileUri);
+					this.pictureUris.add(fileUri.toString());
+				}
+				break;
+
 			case StaticGlobals.requestCodes.GALLERY:
 				if ( resultCode == StaticGlobals.resultCodes.VOICE_FROM_GALLEY_SUCCESS ){
 					Log.i(StaticGlobals.logTags.VOICE_REC, "Parsing data from gallery");
@@ -375,12 +379,22 @@ public class FormGuestActivity extends AppCompatActivity {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		fileUri = FileUtils.getOutputMediaFileUri(StaticGlobals.image.MEDIA_TYPE_IMAGE);
-		this.pictureUris.add(fileUri.toString());
+
 
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
 		// start the image capture Intent
 		startActivityForResult(intent, StaticGlobals.resultCodes.CAMERA_CAPTURE_IMAGE_SUCCESS);
+	}
+
+	private void startGallery() {
+		ArrayList<String> stringUris = new ArrayList<>();
+		stringUris.addAll(pictureUris);
+
+		Intent galleryIntent = new Intent(FormGuestActivity.this, ActivityGalleryV2.class);
+		galleryIntent.putExtra(StaticGlobals.intentExtras.URI_S_TO_GALLERY, stringUris);
+		startActivityForResult(galleryIntent, StaticGlobals.requestCodes.GALLERY);
+		//TODO: ask permissions
 	}
 
 	@Override
@@ -389,8 +403,10 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		// Necessary to restore the BottomBar's state, otherwise we would
 		// lose the current tab on orientation change.
+		System.out.println("HERE");
 		mBottomBar.onSaveInstanceState(outState);
 		outState.putBoolean("done", done);
+		outState.putStringArrayList("pictureUris", pictureUris);
 
 	}
 

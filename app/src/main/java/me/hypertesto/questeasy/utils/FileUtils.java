@@ -7,6 +7,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.SyncFailedException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,7 +121,7 @@ public class FileUtils {
 	 */
 
 
-	private static File getOutputMediaFile(int type) {
+	public static File getOutputMediaFile(int type) {
 
 		// External sdcard location
 		File mediaStorageDir = new File(
@@ -138,8 +139,9 @@ public class FileUtils {
 		}
 
 		// Create a media file name
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-				Locale.getDefault()).format(new Date());
+		System.out.println("LOLOLOLOLOLOLOL");
+		String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date());
+		System.out.println("timeStamp: " + timeStamp);
 		File mediaFile;
 		if (type == StaticGlobals.image.MEDIA_TYPE_IMAGE) {
 			mediaFile = new File(mediaStorageDir.getPath() + File.separator
