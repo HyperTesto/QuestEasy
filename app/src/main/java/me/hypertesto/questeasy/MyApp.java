@@ -10,7 +10,8 @@ import org.acra.annotation.ReportsCrashes;
  * Created by hypertesto on 31/05/16.
  */
 @ReportsCrashes(
-		formUri = "https://questura.hypertesto.me/api/v1/reportchrash"
+		formUri = "http://questura.hypertesto.me:8080/api/v1/crashreport",
+		reportType = org.acra.sender.HttpSender.Type.JSON
 )
 public class MyApp extends Application {
 
