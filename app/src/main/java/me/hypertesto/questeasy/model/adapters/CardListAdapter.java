@@ -89,9 +89,9 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		TextDrawable drawable = TextDrawable.builder().buildRoundRect(initialLetter,
 				color, 100);
 		typeImg.setImageDrawable(drawable);
-		 if(!mSelectedItems.valueAt(position)){
+		 //if(!mSelectedItems.valueAt(position)){
 			 //insert here code
-		 }
+		 //}
 
 		return view;
 	}
