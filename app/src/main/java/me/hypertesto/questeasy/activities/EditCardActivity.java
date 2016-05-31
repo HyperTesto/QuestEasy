@@ -401,7 +401,7 @@ public class EditCardActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				itemContainer = (RelativeLayout) listView.getChildAt(position);
+				itemContainer = (RelativeLayout)getViewByPosition(position, listView);
 				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
 				if (checked) {
 					letterImage.startAnimation(flipAnim);
@@ -450,6 +450,21 @@ public class EditCardActivity extends AppCompatActivity {
 		});
 	}
 
+	/*
+		This method return the correct selected view in the given listview
+	 */
+	public View getViewByPosition(int position, ListView listView) {
+		final int firstListItemPosition = listView.getFirstVisiblePosition();
+		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+		if (position < firstListItemPosition || position > lastListItemPosition ) {
+			return listView.getAdapter().getView(position, listView.getChildAt(position), listView);
+		} else {
+			final int childIndex = position - firstListItemPosition;
+			return listView.getChildAt(childIndex);
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -469,11 +484,12 @@ public class EditCardActivity extends AppCompatActivity {
 				finish();
 				return true;
 			case android.R.id.home :
-				Intent resultIntent2 = new Intent();
+				/*Intent resultIntent2 = new Intent();
 				resultIntent2.putExtra(StaticGlobals.intentExtras.CARD, card);
 				setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent2);
 				finish();
 				return true;
+				*/
 			default:
 				return super.onOptionsItemSelected(item);
 		}
