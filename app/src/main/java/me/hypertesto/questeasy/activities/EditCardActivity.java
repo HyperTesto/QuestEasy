@@ -469,6 +469,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 		adapter = new GroupListAdapter(this, R.layout.guest_list_item, guests);
 		listView.setAdapter(adapter);
+
 	}
 
 	/*
@@ -486,20 +487,33 @@ public class EditCardActivity extends AppCompatActivity {
 		}
 	}
 
+
+	public void saveCard(){
+		// Write your code here
+		Intent resultIntent = new Intent();
+		resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
+		setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		int id = item.getItemId();
 		if (id == android.R.id.home){
-			Intent resultIntent = new Intent();
-			resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
-			setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+			saveCard();
 			finish();
 			return true;
 		}
 		else{
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+
+	@Override
+	public void onBackPressed() {
+		saveCard();
+		super.onBackPressed();
 	}
 
 }
