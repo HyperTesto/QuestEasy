@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.clans.fab.FloatingActionButton;
@@ -284,6 +285,8 @@ public class EditCardActivity extends AppCompatActivity {
 										FamilyCard fc = (FamilyCard) card;
 										fc.getFamiliari().remove(selectedItem);
 										adapter.remove(selectedItem);
+									} else {
+										Toast.makeText(getApplicationContext(), "Cannot delete Family Head Guest", Toast.LENGTH_LONG).show();
 									}
 
 								} else if (card instanceof GroupCard){
@@ -291,7 +294,11 @@ public class EditCardActivity extends AppCompatActivity {
 										GroupCard gc = (GroupCard) card;
 										gc.getAltri().remove(selectedItem);
 										adapter.remove(selectedItem);
+									} else {
+										Toast.makeText(getApplicationContext(), "Cannot delete Group Head Guest", Toast.LENGTH_LONG).show();
 									}
+								} else {
+									Toast.makeText(getApplicationContext(), "Cannot delete Single Guest", Toast.LENGTH_LONG).show();
 								}
 							}
 						}
