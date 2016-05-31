@@ -120,14 +120,17 @@ public class FormGuestActivity extends AppCompatActivity {
 				switch (menuItemId) {
 					case R.id.photoButton:
 						captureImage();
+						//TODO: ask permissions
 						break;
 
 					case R.id.galleryButton:
 						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
+						//TODO: ask permissions
 						break;
 
 					case R.id.voiceButton:
 
+						//TODO: ask permissions
 						Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 						i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 						i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT");

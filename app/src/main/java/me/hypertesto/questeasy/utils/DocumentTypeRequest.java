@@ -20,7 +20,7 @@ import me.hypertesto.questeasy.model.DocumentType;
  */
 public class DocumentTypeRequest {
 
-	private String remoteAPI = "https://questura.hypertesto.me/api/v1/documenti/";
+	private String remoteAPI = "http://questura.hypertesto.me:8080/api/v1/documenti/";
 
 	/**
 	 * Returns a list of DocType that starts with the string str

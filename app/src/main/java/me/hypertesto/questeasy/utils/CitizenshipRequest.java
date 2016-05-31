@@ -24,7 +24,7 @@ import me.hypertesto.questeasy.model.Place;
  */
 public class CitizenshipRequest implements AutoCompleteRequest{
 
-	private String remoteAPI = "https://questura.hypertesto.me/api/v1/cittadinanza/";
+	private String remoteAPI = "http://questura.hypertesto.me:8080/api/v1/cittadinanza/";
 
 	@Override
 	public List<Place> find(Context context, String str) {
