@@ -48,6 +48,7 @@
 			android:name=".activities.EditDecActivity"
 			android:label="@string/insertDcard"
 			android:launchMode="singleTop"
+			android:configChanges="orientation|screenSize"
 			android:parentActivityName=".activities.HomeActivity">
 
 			<!-- Parent activity meta-data to support 4.0 and lower -->
@@ -69,6 +70,7 @@
 		<activity
 			android:name=".activities.EditCardActivity"
 			android:label="@string/cardTitleBar"
+			android:configChanges="orientation|screenSize"
 			android:parentActivityName=".activities.EditDecActivity"
 			>
 			<meta-data
@@ -77,6 +79,7 @@
 		</activity>
 		<activity android:name=".activities.ActivityGalleryV2"
 				  android:label="@string/bottomGallery"
+				  android:configChanges="orientation|screenSize"
 				  android:parentActivityName=".activities.FormGuestActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
