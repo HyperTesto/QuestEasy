@@ -284,7 +284,10 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				itemContainer = (RelativeLayout)listView.getChildAt(position);
+				Log.e("CHECKED ITEMS","i " +checkedCount);
+				Log.e("POSTITION RELATIVE 1 ","P " +position);
+				itemContainer = (RelativeLayout)getViewByPosition(position,listView);
+				//itemContainer.setBackgroundColor(getResources().getColor(R.color.pink_pressed));
 				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);
 				if (checked){
 					letterImage.startAnimation(flipAnim);
@@ -310,6 +313,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 			@Override
 			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				Log.d("SELECTED   ", "s");
 				switch (item.getItemId()) {
 					case R.id.delete:
 						SparseBooleanArray selected = adapter.getSelectedIds();
@@ -332,6 +336,21 @@ public class EditDecActivity extends AppCompatActivity {
 				adapter.removeSelection();
 			}
 		});
+	}
+
+	/*
+		This method return the correct selected view in the given listview
+	 */
+	public View getViewByPosition(int position, ListView listView) {
+		final int firstListItemPosition = listView.getFirstVisiblePosition();
+		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+		if (position < firstListItemPosition || position > lastListItemPosition ) {
+			return listView.getAdapter().getView(position, listView.getChildAt(position), listView);
+		} else {
+			final int childIndex = position - firstListItemPosition;
+			return listView.getChildAt(childIndex);
+		}
 	}
 
 	public void sendFormRequest (FloatingActionButton formFab, Integer typeGuest){
@@ -522,6 +541,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 
 	}
+
 
 	private void updateList(){
 		ArrayList<Card> items = new ArrayList<>();
