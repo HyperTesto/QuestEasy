@@ -431,22 +431,10 @@ public class FormGuestActivity extends AppCompatActivity {
 			}
 
 			finish();
-		} else if (id == android.R.id.home){
-			finish();
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.form_bar, menu);
-
-		return super.onCreateOptionsMenu(menu);
-	}
-
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
