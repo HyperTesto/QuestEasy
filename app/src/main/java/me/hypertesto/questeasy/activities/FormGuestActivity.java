@@ -4,21 +4,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.CoordinatorLayout;
-
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -26,16 +19,11 @@ import android.widget.Toast;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
-
 import java.util.ArrayList;
 
-
+import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Documento;
 import me.hypertesto.questeasy.model.FamilyHeadGuest;
 import me.hypertesto.questeasy.model.FamilyMemberGuest;
@@ -46,7 +34,6 @@ import me.hypertesto.questeasy.model.MainGuest;
 import me.hypertesto.questeasy.model.Place;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.ui.DatePickerFragment;
-import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.ui.DocumentDataFragment;
 import me.hypertesto.questeasy.ui.PermanenzaFragment;
 import me.hypertesto.questeasy.ui.PersonalDataFragment;
@@ -82,13 +69,13 @@ public class FormGuestActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form_guest);
 
-		/*if (savedInstanceState != null && savedInstanceState.getStringArrayList("pictureUris") != null){
+		if (savedInstanceState != null && savedInstanceState.getStringArrayList("pictureUris") != null){
 			System.out.println("Getting images from saved instance...");
 			pictureUris  = savedInstanceState.getStringArrayList("pictureUris");
 		}else {
 			System.out.println("new pictureUri");
 			pictureUris = new ArrayList<>();
-		}*/
+		}
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -106,13 +93,7 @@ public class FormGuestActivity extends AppCompatActivity {
 
 					case R.id.galleryButton:
 
-						ArrayList<String>  stringUris = new ArrayList<String>();
-						stringUris.addAll(pictureUris);
-
-						Intent galleryIntent = new Intent(FormGuestActivity.this, ActivityGalleryV2.class);
-						galleryIntent.putExtra(StaticGlobals.intentExtras.URI_S_TO_GALLERY, stringUris);
-						startActivityForResult(galleryIntent, StaticGlobals.requestCodes.GALLERY);
-						//startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
+						startGallery();
 						break;
 
 					case R.id.voiceButton:
@@ -151,8 +132,7 @@ public class FormGuestActivity extends AppCompatActivity {
 						break;
 
 					case R.id.galleryButton:
-						startActivity(new Intent(FormGuestActivity.this, ActivityGalleryV2.class));
-						//TODO: ask permissions
+						startGallery();
 						break;
 
 					case R.id.voiceButton:
@@ -556,6 +536,16 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		// start the image capture Intent
 		startActivityForResult(intent, StaticGlobals.resultCodes.CAMERA_CAPTURE_IMAGE_SUCCESS);
+	}
+
+	private void startGallery() {
+		ArrayList<String> stringUris = new ArrayList<>();
+		stringUris.addAll(pictureUris);
+
+		Intent galleryIntent = new Intent(FormGuestActivity.this, ActivityGalleryV2.class);
+		galleryIntent.putExtra(StaticGlobals.intentExtras.URI_S_TO_GALLERY, stringUris);
+		startActivityForResult(galleryIntent, StaticGlobals.requestCodes.GALLERY);
+		//TODO: ask permissions
 	}
 
 	@Override
