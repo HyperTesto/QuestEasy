@@ -50,10 +50,10 @@ public class EditCardActivity extends AppCompatActivity {
 	private GroupListAdapter adapter;
 	private RelativeLayout itemContainer;
 	private ImageView letterImage;
-	private Animation flipAnim;
-	private Animation flipAnimReverse;
-	private TextDrawable textDrawable;
-	private int colorSelected;
+	//private Animation flipAnim;
+	//private Animation flipAnimReverse;
+	//private TextDrawable textDrawable;
+	//private int colorSelected;
 
 	private int indexClicked;
 
@@ -62,7 +62,7 @@ public class EditCardActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_card);
 		this.listView = (ListView) findViewById(R.id.lvMembers);
-		flipAnim = AnimationUtils.loadAnimation(EditCardActivity.this, R.anim.flip_anim);
+		/*flipAnim = AnimationUtils.loadAnimation(EditCardActivity.this, R.anim.flip_anim);
 		flipAnimReverse = AnimationUtils.loadAnimation(EditCardActivity.this,R.anim.flip_anim);
 
 		flipAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -94,6 +94,7 @@ public class EditCardActivity extends AppCompatActivity {
 			}
 		});
 
+
 		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
 			@Override
 			public void onAnimationStart(Animation animation) {
@@ -114,7 +115,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 			}
 		});
-
+		*/
 		Intent intent = getIntent();
 
 		Serializable tmp = intent.getSerializableExtra(StaticGlobals.intentExtras.CARD);
@@ -250,13 +251,14 @@ public class EditCardActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				itemContainer = (RelativeLayout) getViewByPosition(position, listView);
+				/*itemContainer = (RelativeLayout) getViewByPosition(position, listView);
 				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
 				if (checked) {
 					letterImage.startAnimation(flipAnim);
 				} else {
 					letterImage.startAnimation(flipAnimReverse);
 				}
+				*/
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
@@ -479,7 +481,7 @@ public class EditCardActivity extends AppCompatActivity {
 	/*
 		This method return the correct selected view in the given listview
 	 */
-	public View getViewByPosition(int position, ListView listView) {
+	/*	public View getViewByPosition(int position, ListView listView) {
 		final int firstListItemPosition = listView.getFirstVisiblePosition();
 		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
 		System.out.println("FIRSLISTITEM " + firstListItemPosition + "Lastiitem" + lastListItemPosition +
@@ -491,6 +493,7 @@ public class EditCardActivity extends AppCompatActivity {
 			return listView.getChildAt(childIndex);
 		}
 	}
+	*/
 
 
 	public void saveCard(){

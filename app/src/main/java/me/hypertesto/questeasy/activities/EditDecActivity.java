@@ -69,11 +69,14 @@ public class EditDecActivity extends AppCompatActivity {
 	private FloatingActionButton familyFab;
 	private int mPreviousVisibleItem;
 	private RelativeLayout itemContainer;
-	private Animation flipAnim;
+
+	/*private Animation flipAnim;
 	private Animation flipAnimReverse;
 	private ImageView letterImage;
 	private TextDrawable textDrawable;
 	private int colorSelected;
+	*/
+
 	CardListAdapter adapter;
 
 
@@ -165,8 +168,8 @@ public class EditDecActivity extends AppCompatActivity {
 		singlefab = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
 		groupFab = (FloatingActionButton) findViewById(R.id.categoryGuestGroupGo);
 		familyFab = (FloatingActionButton) findViewById(R.id.categoryGuestFamilyGo);
-		flipAnim = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
-		flipAnimReverse = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
+		//flipAnim = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
+		//flipAnimReverse = AnimationUtils.loadAnimation(EditDecActivity.this,R.anim.flip_anim);
 
 		createSaveDialog();
 		createFilterDialog();
@@ -186,7 +189,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 		fabMenu.hideMenuButton(false);
 
-		new FabAnimation(fabMenu, getApplicationContext());
+		/*new FabAnimation(fabMenu, getApplicationContext());
 		flipAnim.setAnimationListener(new Animation.AnimationListener() {
 
 			@Override
@@ -237,6 +240,8 @@ public class EditDecActivity extends AppCompatActivity {
 			}
 		});
 
+		*/
+
 		listView.setOnScrollListener(new ListScrollListener(fabMenu));
 
 		try{
@@ -286,8 +291,8 @@ public class EditDecActivity extends AppCompatActivity {
 
 				Log.e("CHECKED ITEMS","i " +checkedCount);
 				Log.e("POSTITION RELATIVE 1 ","P " +position);
-				itemContainer = (RelativeLayout)getViewByPosition(position,listView);
-				//itemContainer.setBackgroundColor(getResources().getColor(R.color.pink_pressed));
+				/*itemContainer = (RelativeLayout)getViewByPosition(position,listView);
+				itemContainer.setBackgroundColor(getResources().getColor(R.color.pink_pressed));
 				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);
 				if (checked){
 					letterImage.startAnimation(flipAnim);
@@ -295,6 +300,7 @@ public class EditDecActivity extends AppCompatActivity {
 				else{
 					letterImage.startAnimation(flipAnimReverse);
 				}
+				*/
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
@@ -349,7 +355,7 @@ public class EditDecActivity extends AppCompatActivity {
 	/*
 		This method return the correct selected view in the given listview
 	 */
-	public View getViewByPosition(int position, ListView listView) {
+	/*public View getViewByPosition(int position, ListView listView) {
 		final int firstListItemPosition = listView.getFirstVisiblePosition();
 		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
 		System.out.println("FIRSLISTITEM "+firstListItemPosition+ "Lastiitem" +lastListItemPosition +
@@ -361,6 +367,7 @@ public class EditDecActivity extends AppCompatActivity {
 			return listView.getChildAt(childIndex);
 		}
 	}
+	*/
 
 	public void sendFormRequest (FloatingActionButton formFab, Integer typeGuest){
 		final Intent intentForm = new Intent(EditDecActivity.this, EditCardActivity.class);
