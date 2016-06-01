@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -45,7 +49,7 @@ import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 import me.hypertesto.questeasy.utils.WordsCapitalizer;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements Target{
 
 	private ListView lv;
 	private FloatingActionButton insertNewDcard;
@@ -288,6 +292,13 @@ public class HomeActivity extends AppCompatActivity {
 
 		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));
 
+		new ShowcaseView.Builder(this)
+				.withMaterialShowcase()
+				.setTarget(this)
+				.setContentTitle("Titolo")
+				.setContentText("Test")
+				.build();
+
 	}
 
 	@Override
@@ -407,4 +418,11 @@ public class HomeActivity extends AppCompatActivity {
 		}
 	}
 
+	@Override
+	public Point getPoint() {
+		int[] coord = new int[2];
+		insertNewDcard.getLocationInWindow(coord);
+		return new Point(coord[0] + (int) insertNewDcard.getPivotX(),
+						coord[1] + (int) insertNewDcard.getPivotY());
+	}
 }
