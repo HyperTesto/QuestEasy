@@ -16,4 +16,5 @@
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
     <color name="white_overlay">#fff3f3f3</color>
     <color name="background_bar">#6e6c6c</color>
+    <color name="splash_background">#E0F7FA</color>
 </resources>
