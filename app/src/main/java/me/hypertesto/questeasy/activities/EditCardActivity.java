@@ -40,6 +40,8 @@ import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.GroupListAdapter;
+import me.hypertesto.questeasy.utils.FabAnimation;
+import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 import me.hypertesto.questeasy.utils.UnknownGuestTypeException;
 
@@ -165,6 +167,10 @@ public class EditCardActivity extends AppCompatActivity {
 		}
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_edit_card);
+
+		fab.hide(false);
+		new FabAnimation(fab, getApplicationContext());
+		listView.setOnScrollListener(new ListScrollListener(fab));
 
 		if ((card instanceof  FamilyCard) || (card instanceof GroupCard)){
 			fab.setImageResource(R.drawable.ic_person_add);
