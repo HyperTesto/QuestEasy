@@ -291,7 +291,7 @@ public class EditDecActivity extends AppCompatActivity {
 				final int checkedCount = listView.getCheckedItemCount();
 
 				Log.e("CHECKED ITEMS","i " +checkedCount);
-				Log.e("POSTITION RELATIVE 1 ","P " +position);
+				Log.e("POSTITION RELATIVE 1 ", "P " + position);
 				/*itemContainer = (RelativeLayout)getViewByPosition(position,listView);
 				itemContainer.setBackgroundColor(getResources().getColor(R.color.pink_pressed));
 				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);
@@ -540,8 +540,12 @@ public class EditDecActivity extends AppCompatActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 
-
+						ArrayList<Card> items = new ArrayList<>();
+						items.addAll(displayed);
+						adapter = new CardListAdapter(EditDecActivity.this,R.layout.card_list_item,items);
 						adapter.getFilter().filter(selectedItemDialogFilter.toString());
+						listView = (ListView)findViewById(R.id.cardlistView);
+						listView.setAdapter(adapter);
 						filterAlertDialog.dismiss();
 					}
 				}).
