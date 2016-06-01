@@ -53,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
 	private NavigationView mNavigationView;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
+	private ActionMode myMode;
 
 
 
@@ -185,6 +186,7 @@ public class HomeActivity extends AppCompatActivity {
 
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				myMode = mode;
 				mode.getMenuInflater().inflate(R.menu.delete_item_ba2v2, menu);
 				return true;
 			}
@@ -275,6 +277,7 @@ public class HomeActivity extends AppCompatActivity {
 				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_DATE, dec.getDate());
 				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_OWNER, dec.getOwner());
 
+				checkAndDeleteModeAction();
 				startActivity(newDecIntent);
 			}
 		});
@@ -306,14 +309,6 @@ public class HomeActivity extends AppCompatActivity {
 
 		adapter = new DeclarationListAdapter(this, R.layout.dec_list_item, decs);
 		lv.setAdapter(adapter);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.activity_main_bar, menu);
-		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -374,6 +369,15 @@ public class HomeActivity extends AppCompatActivity {
 	protected void onSaveInstanceState(Bundle icicle) {
 		super.onSaveInstanceState(icicle);
 
+	}
+
+	/**
+	 * This method delete actionMode when swtiching between activities
+	 */
+	private void checkAndDeleteModeAction(){
+		if (myMode != null){
+			myMode.finish();
+		}
 	}
 
 	@Override

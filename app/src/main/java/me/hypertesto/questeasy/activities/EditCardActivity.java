@@ -46,13 +46,14 @@ import me.hypertesto.questeasy.utils.UnknownGuestTypeException;
 public class EditCardActivity extends AppCompatActivity {
 	private Card card;
 	private ListView listView;
+	private ActionMode myMode;
 	private GroupListAdapter adapter;
 	private RelativeLayout itemContainer;
 	private ImageView letterImage;
-	private Animation flipAnim;
-	private Animation flipAnimReverse;
-	private TextDrawable textDrawable;
-	private int colorSelected;
+	//private Animation flipAnim;
+	//private Animation flipAnimReverse;
+	//private TextDrawable textDrawable;
+	//private int colorSelected;
 
 	private int indexClicked;
 
@@ -61,7 +62,7 @@ public class EditCardActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_card);
 		this.listView = (ListView) findViewById(R.id.lvMembers);
-		flipAnim = AnimationUtils.loadAnimation(EditCardActivity.this, R.anim.flip_anim);
+		/*flipAnim = AnimationUtils.loadAnimation(EditCardActivity.this, R.anim.flip_anim);
 		flipAnimReverse = AnimationUtils.loadAnimation(EditCardActivity.this,R.anim.flip_anim);
 
 		flipAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -93,6 +94,7 @@ public class EditCardActivity extends AppCompatActivity {
 			}
 		});
 
+
 		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
 			@Override
 			public void onAnimationStart(Animation animation) {
@@ -113,7 +115,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 			}
 		});
-
+		*/
 		Intent intent = getIntent();
 
 		Serializable tmp = intent.getSerializableExtra(StaticGlobals.intentExtras.CARD);
@@ -178,10 +180,12 @@ public class EditCardActivity extends AppCompatActivity {
 					} else if (card instanceof FamilyCard) {
 						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.FAMILY_MEMBER);
 						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
+						checkAndDeleteModeAction();
 						startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_FAMILY_MEMBER);
 					} else if (card instanceof GroupCard){
 						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.GROUP_MEMBER);
 						intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
+						checkAndDeleteModeAction();
 						startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_GROUP_MEMBER);
 					}
 				}
@@ -247,13 +251,14 @@ public class EditCardActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				itemContainer = (RelativeLayout) getViewByPosition(position, listView);
+				/*itemContainer = (RelativeLayout) getViewByPosition(position, listView);
 				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
 				if (checked) {
 					letterImage.startAnimation(flipAnim);
 				} else {
 					letterImage.startAnimation(flipAnimReverse);
 				}
+				*/
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
@@ -261,6 +266,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				myMode = mode;
 				mode.getMenuInflater().inflate(R.menu.delete_item_ba2v2, menu);
 				return true;
 			}
@@ -475,10 +481,11 @@ public class EditCardActivity extends AppCompatActivity {
 	/*
 		This method return the correct selected view in the given listview
 	 */
-	public View getViewByPosition(int position, ListView listView) {
+	/*	public View getViewByPosition(int position, ListView listView) {
 		final int firstListItemPosition = listView.getFirstVisiblePosition();
 		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
-
+		System.out.println("FIRSLISTITEM " + firstListItemPosition + "Lastiitem" + lastListItemPosition +
+				" position " + position);
 		if (position < firstListItemPosition || position > lastListItemPosition ) {
 			return listView.getAdapter().getView(position, listView.getChildAt(position), listView);
 		} else {
@@ -486,6 +493,7 @@ public class EditCardActivity extends AppCompatActivity {
 			return listView.getChildAt(childIndex);
 		}
 	}
+	*/
 
 
 	public void saveCard(){
@@ -493,6 +501,15 @@ public class EditCardActivity extends AppCompatActivity {
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra(StaticGlobals.intentExtras.CARD, card);
 		setResult(StaticGlobals.resultCodes.EDIT_CARD_SUCCESS, resultIntent);
+	}
+
+	/**
+	 * This method delete actionMode when swtiching between activities
+	 */
+	private void checkAndDeleteModeAction(){
+		if (myMode != null){
+			myMode.finish();
+		}
 	}
 
 	@Override

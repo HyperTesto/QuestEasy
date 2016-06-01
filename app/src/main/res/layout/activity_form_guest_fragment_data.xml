@@ -99,7 +99,7 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
 		android:layout_below="@id/gender_group"
-		android:layout_marginTop="8dp"
+		android:layout_marginTop="15dp"
 		android:focusable="false"
 		android:onClick="showDatePickerDialog"
 		android:hint="@string/dateBirthGuest"
@@ -137,6 +137,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/luogoGuest"
+			android:layout_marginTop="3dp"
 			android:imeOptions="flagNoExtractUi|actionSearch"
 			android:textSize="15dp" />
 

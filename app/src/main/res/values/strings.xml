@@ -36,7 +36,7 @@
 		\n\t\t\t\tSimone Calciolari \n\t\t\t\tGianluca Apriceno\n
     </string>
 
-	<string name = "modExam">Modalità esame</string>
+	<string name="modExam">Modalità esame</string>
 	<string name="saveGuestCard">salva ospiti</string>
 	<string name="cardTitleBar">ospiti</string>
 	<string name="saveDialogTitle">Salva su</string>
