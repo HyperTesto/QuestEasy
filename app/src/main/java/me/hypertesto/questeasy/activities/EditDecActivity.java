@@ -83,6 +83,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 	private AlertDialog.Builder saveDialogBuilder;
 
+
 	private final CharSequence [] dialogItems = {StaticGlobals.saveDialogOptions.SAVE_DISK,
 			StaticGlobals.saveDialogOptions.SHARE};
 
@@ -95,6 +96,7 @@ public class EditDecActivity extends AppCompatActivity {
 			StaticGlobals.filterDialogOptions.FILTER_GROUP};
 	private boolean[] selectedCheckedItems ={false, false, false};
 	private AlertDialog filterAlertDialog;
+	private ActionMode myMode;
 
 
 	@Override
@@ -300,6 +302,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				myMode = mode;
 				mode.getMenuInflater().inflate(R.menu.delete_item_ba2v2, menu);
 				return true;
 			}
@@ -381,7 +384,7 @@ public class EditDecActivity extends AppCompatActivity {
 				if (fabMenu.isOpened()) {
 					fabMenu.close(false);
 				}
-
+				checkAndDeleteModeAction();
 				startActivityForResult(intentForm, StaticGlobals.requestCodes.NEW_CARD);
 			}
 		});
@@ -557,6 +560,13 @@ public class EditDecActivity extends AppCompatActivity {
 		listView.setAdapter(adapter);
 	}
 
+
+	private void checkAndDeleteModeAction(){
+		if (myMode != null){
+			myMode.finish();
+			System.out.println("MY mode deleted");
+		}
+	}
 	@Override
 	public void onPause(){
 		super.onPause();
