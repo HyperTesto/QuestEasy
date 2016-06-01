@@ -325,8 +325,8 @@ public class EditDecActivity extends AppCompatActivity {
 								fsd.open();
 								fsd.updateDeclaration(displayed);
 								fsd.close();
-
-								adapter.remove(selectedItem);
+								updateList();
+								//adapter.remove(selectedItem);
 							}
 						}
 						mode.finish();

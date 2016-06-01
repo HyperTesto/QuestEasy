@@ -43,9 +43,8 @@ public class CardListAdapter extends ArrayAdapter<Card> implements Filterable {
 		super(context, layoutId, items);
 		this.context = context;
 		this.layoutId = layoutId;
-		this.items = new ArrayList<Card>();
-		this.items.addAll(items);
-		this.itemsFiltered = new ArrayList<Card>();
+		this.items = items;
+		this.itemsFiltered = new ArrayList<>();
 		this.itemsFiltered.addAll(items);
 		this.mSelectedItems = new SparseBooleanArray();
 	}
