@@ -315,7 +315,9 @@ public class HomeActivity extends AppCompatActivity {
 	protected void onPause() {
 		super.onPause();
 
-		myMode.finish();
+		if (myMode != null){
+			myMode.finish();
+		}
 	}
 
 	@Override
