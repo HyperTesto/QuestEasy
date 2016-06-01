@@ -312,14 +312,6 @@ public class HomeActivity extends AppCompatActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-
-		inflater.inflate(R.menu.activity_main_bar, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long

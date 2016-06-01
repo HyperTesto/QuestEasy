@@ -189,7 +189,8 @@ public class EditDecActivity extends AppCompatActivity {
 
 		fabMenu.hideMenuButton(false);
 
-		/*new FabAnimation(fabMenu, getApplicationContext());
+		new FabAnimation(fabMenu, getApplicationContext());
+		/*
 		flipAnim.setAnimationListener(new Animation.AnimationListener() {
 
 			@Override
