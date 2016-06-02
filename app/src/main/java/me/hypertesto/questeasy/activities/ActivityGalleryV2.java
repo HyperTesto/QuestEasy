@@ -1,7 +1,10 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
@@ -11,11 +14,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 
 import me.hypertesto.questeasy.R;
+import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
+import me.hypertesto.questeasy.showcase.FabTarget;
 import me.hypertesto.questeasy.ui.ImagePagerFragment;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 import me.hypertesto.questeasy.voice.CustomRecognitionListener;
@@ -34,10 +40,16 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 	private final Intent resultIntent = new Intent();
 	CustomRecognitionListener recognizerListener;
 
+	private ShowcaseView scv;
+	private SharedPreferences sharedPref;
+	public static final String TUTORIAL_FOURTH_SHOWN = "tutorialFourthShown";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gallery);
+
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 		Fragment fr;
 		String tag = ImagePagerFragment.class.getSimpleName();
@@ -76,6 +88,7 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 			public boolean onTouch(View v, MotionEvent event) {
 
 				if (event.getAction() == MotionEvent.ACTION_DOWN){
+					scv.hide(); //just to be sure
 					Log.i(StaticGlobals.logTags.VOICE_REC, "Start listening");
 					speech.startListening(recognizerIntent);
 				} else if (event.getAction() == MotionEvent.ACTION_UP){
@@ -85,6 +98,42 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 				return false;
 			}
 		});
+
+		if (sharedPref.getBoolean(TUTORIAL_FOURTH_SHOWN, true)){
+			System.out.println("Building showcase...");
+			new AsyncTask<String, Integer, String>(){
+
+				@Override
+				protected String doInBackground(String... params) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.out.println("End sleep");
+					return null;
+				}
+				// This runs in UI when background thread finishes
+				@Override
+				protected void onPostExecute(String result) {
+					super.onPostExecute(result);
+					System.out.println("onPostExecute");
+					scv = new ShowcaseView.Builder(ActivityGalleryV2.this)
+							.withMaterialShowcase()
+							.setTarget(new FabTarget(fab))
+							.setContentTitle(R.string.second_step_title)
+							.setContentText(R.string.second_step_desc)
+							.setStyle(R.style.CustomShowcaseTheme2)
+							.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
+							.build();
+					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+					SharedPreferences.Editor editor = sharedPref.edit();
+					editor.putBoolean(TUTORIAL_FOURTH_SHOWN, false);
+					editor.apply();
+				}
+			}.execute();
+
+		}
 	}
 
 	@Override
