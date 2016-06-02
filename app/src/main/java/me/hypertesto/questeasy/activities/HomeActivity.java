@@ -23,9 +23,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
@@ -43,13 +45,15 @@ import me.hypertesto.questeasy.model.User;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.notifications.NotificationEventReceiver;
+import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
+import me.hypertesto.questeasy.showcase.FabTarget;
 import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 import me.hypertesto.questeasy.utils.WordsCapitalizer;
 
-public class HomeActivity extends AppCompatActivity implements Target{
+public class HomeActivity extends AppCompatActivity{
 
 	private ListView lv;
 	private FloatingActionButton insertNewDcard;
@@ -292,12 +296,14 @@ public class HomeActivity extends AppCompatActivity implements Target{
 
 		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));
 
-		new ShowcaseView.Builder(this)
+		ShowcaseView scv = new ShowcaseView.Builder(this)
 				.withMaterialShowcase()
-				.setTarget(this)
-				.setContentTitle("Titolo")
-				.setContentText("Test")
+				.setTarget(new FabTarget(insertNewDcard))
+				.setContentTitle("Benvenuto!")
+				.setContentText("Per cominciare ad aggiungere dichiarazioni clicca il bottone in basso a sinistra.\nPuoi aprire una dichiarazione al giorno")
+				.setStyle(R.style.CustomShowcaseTheme2)
 				.build();
+		scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
 
 	}
 
@@ -425,13 +431,5 @@ public class HomeActivity extends AppCompatActivity implements Target{
 			// other 'case' lines to check for other
 			// permissions this app might request
 		}
-	}
-
-	@Override
-	public Point getPoint() {
-		int[] coord = new int[2];
-		insertNewDcard.getLocationInWindow(coord);
-		return new Point(coord[0] + (int) insertNewDcard.getPivotX(),
-						coord[1] + (int) insertNewDcard.getPivotY());
 	}
 }
