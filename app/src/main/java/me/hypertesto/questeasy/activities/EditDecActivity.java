@@ -166,9 +166,10 @@ public class EditDecActivity extends AppCompatActivity {
 				fsd.updateDeclaration(displayed);
 				fsd.close();
 
-				Intent i = new Intent(EditDecActivity.this, HomeActivity.class);
+				//Intent i = new Intent(EditDecActivity.this, HomeActivity.class);
 				Toast.makeText(this, "Aggiornamento completato", Toast.LENGTH_LONG).show();
-				startActivity(i);
+				//startActivity(i);
+				finish();
 				return true;
 
 			case R.id.action_export_dec:
@@ -182,9 +183,10 @@ public class EditDecActivity extends AppCompatActivity {
 				fsd2.deleteDeclaration(displayed);
 				fsd2.close();
 
-				Intent ii = new Intent(EditDecActivity.this, HomeActivity.class);
+				//Intent ii = new Intent(EditDecActivity.this, HomeActivity.class);
 				Toast.makeText(this, "Cancellazione completata", Toast.LENGTH_LONG).show();
-				startActivity(ii);
+				finish();
+				//startActivity(ii);
 				return true;
 
 			case R.id.action_filterDec:
@@ -325,8 +327,7 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				Log.e("CHECKED ITEMS","i " + checkedCount);
-				Log.e("POSTITION RELATIVE 1 ","P " +position);
+
 				/*itemContainer = (RelativeLayout)getViewByPosition(position,listView);
 				itemContainer.setBackgroundColor(getResources().getColor(R.color.pink_pressed));
 				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);
@@ -575,8 +576,12 @@ public class EditDecActivity extends AppCompatActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 
-
+						ArrayList<Card> items = new ArrayList<>();
+						items.addAll(displayed);
+						adapter = new CardListAdapter(EditDecActivity.this,R.layout.card_list_item,items);
 						adapter.getFilter().filter(selectedItemDialogFilter.toString());
+						listView = (ListView)findViewById(R.id.cardlistView);
+						listView.setAdapter(adapter);
 						filterAlertDialog.dismiss();
 					}
 				}).

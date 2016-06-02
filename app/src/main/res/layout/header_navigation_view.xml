@@ -23,29 +23,16 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:gravity="left"
-		android:layout_marginBottom="8dp"
-		android:textSize="14sp"
-		android:textColor="#fff"
+		android:layout_marginBottom="24dp"
+		android:textSize="20sp"
+		android:textStyle="bold"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
 		android:layout_marginLeft="24dp"
-		android:text="Subinfos bbbbb"
+		android:text="@string/nameUser"
 		/>
 
-	<TextView
-		android:id = "@+id/infoVarie"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:gravity="left"
-		android:paddingBottom="4dp"
-		android:layout_alignLeft="@id/subInfo"
-		android:layout_alignStart="@id/subInfo"
-		android:layout_above="@id/subInfo"
-		android:textSize="14sp"
-		android:textStyle="bold"
-		android:text="Info varie"
-		/>
 
 
 </RelativeLayout>

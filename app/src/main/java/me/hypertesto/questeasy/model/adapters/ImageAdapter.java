@@ -61,8 +61,8 @@ public class ImageAdapter extends PagerAdapter {
 
 		//Option image display
 		this.options = new DisplayImageOptions.Builder()
-				.showImageForEmptyUri(R.drawable.famiglia)
-				.showImageOnFail(R.drawable.famiglia)
+				.showImageForEmptyUri(R.drawable.ic_loading_failure)
+				.showImageOnFail(R.drawable.ic_loading_failure)
 				.resetViewBeforeLoading(true)
 				.cacheOnDisk(true)
 				.imageScaleType(ImageScaleType.EXACTLY)

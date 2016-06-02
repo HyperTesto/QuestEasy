@@ -163,9 +163,10 @@ public class HomeActivity extends AppCompatActivity{
 								Collections.sort(decs);
 
 								fsd.close();
-
-								adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, decs);
-								lv.setAdapter(adapter);
+								adapter.clear();
+								adapter.addAll(decs);
+								//adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, decs);
+								//lv.setAdapter(adapter);
 								break;
 							case R.id.nav_settings:
 								startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
@@ -356,8 +357,8 @@ public class HomeActivity extends AppCompatActivity{
 		mDrawerToggle = new ActionBarDrawerToggle(
 				this,
 				mDrawerLayout,         /* DrawerLayout object */
-				R.string.aboutNav,  /* "open drawer" description */
-				R.string.aboutNav
+				R.string.opendDrawer,  /* "open drawer" description */
+				R.string.closeDrawer
 		){
 			/** Called when a drawer has settled in a completely closed state. */
 			public void onDrawerClosed(View view) {

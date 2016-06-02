@@ -45,10 +45,19 @@
 	<string name="okButton">OK</string>
 	<string name="cancelButton">CANCELLA</string>
 	<string name="filterDialotTitle">Filtra per</string>
+
+	<string name ="saveForm">Salva</string>
+
 	<string name="bottomPhoto">Scatta foto</string>
 	<string name="bottomVoice">Parla</string>
 	<string name="bottomGallery">Galleria</string>
 
 	<string name="errorPermanenza">Inserire permanenza minore di 31 giorni</string>
+
+	<string name ="opendDrawer">drawer aperto</string>
+	<string name ="closeDrawer">drawer chiuso</string>
+
+	<string name ="nameUser">Nome utente</string>
+
 
 </resources>
