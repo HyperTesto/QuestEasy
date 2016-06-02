@@ -55,7 +55,6 @@ public class PermanenzaFragment extends Fragment {
 						Toast.makeText(getActivity(), R.string.errorPermanenza, Toast.LENGTH_LONG).show();
 						StringBuilder sb = new StringBuilder(permanenzaString);
 						permTextView.setText(sb.deleteCharAt(1).toString());
-						permTextView.setSelection(1);
 					}
 
 				}
@@ -65,6 +64,7 @@ public class PermanenzaFragment extends Fragment {
 			public void afterTextChanged(Editable s) {
 			}
 		});
+
 
 
 		restorePreviousValues(savedInstanceState);
