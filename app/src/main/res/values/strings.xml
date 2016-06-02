@@ -63,4 +63,9 @@
 	<string name="welcome">Benvenuto!</string>
 	<string name="first_desc">Per cominciare ad aggiungere dichiarazioni clicca il bottone in basso a destra.
 			Puoi aprire una dichiarazione al giorno</string>
+	<!-- SECOND TUTORIAL STEP-->
+	<string name="second_step_title">Inserisci nuovi arrivi</string>
+	<string name="second_step_desc">Qui puoi cominciare ad inserire i tuoi arrivi di oggi.\n
+			Gli arrivi sono distinti in 3 categorie: ospiti singoli, gruppi o famiglie.\n
+			Clicca sul bottone in basso a destra e inserisci i tuoi primi ospiti!</string>
 </resources>
