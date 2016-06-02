@@ -155,9 +155,10 @@ public class HomeActivity extends AppCompatActivity {
 								Collections.sort(decs);
 
 								fsd.close();
-
-								adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, decs);
-								lv.setAdapter(adapter);
+								adapter.clear();
+								adapter.addAll(decs);
+								//adapter = new DeclarationListAdapter(getApplicationContext(), R.layout.dec_list_item, decs);
+								//lv.setAdapter(adapter);
 								break;
 							case R.id.nav_settings:
 								startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
