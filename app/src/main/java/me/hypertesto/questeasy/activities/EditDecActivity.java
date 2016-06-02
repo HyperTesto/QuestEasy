@@ -154,9 +154,10 @@ public class EditDecActivity extends AppCompatActivity {
 				fsd.updateDeclaration(displayed);
 				fsd.close();
 
-				Intent i = new Intent(EditDecActivity.this, HomeActivity.class);
+				//Intent i = new Intent(EditDecActivity.this, HomeActivity.class);
 				Toast.makeText(this, "Aggiornamento completato", Toast.LENGTH_LONG).show();
-				startActivity(i);
+				//startActivity(i);
+				finish();
 				return true;
 
 			case R.id.action_export_dec:
@@ -170,9 +171,10 @@ public class EditDecActivity extends AppCompatActivity {
 				fsd2.deleteDeclaration(displayed);
 				fsd2.close();
 
-				Intent ii = new Intent(EditDecActivity.this, HomeActivity.class);
+				//Intent ii = new Intent(EditDecActivity.this, HomeActivity.class);
 				Toast.makeText(this, "Cancellazione completata", Toast.LENGTH_LONG).show();
-				startActivity(ii);
+				finish();
+				//startActivity(ii);
 				return true;
 
 			case R.id.action_filterDec:
