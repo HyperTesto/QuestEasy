@@ -52,4 +52,7 @@
 	<string name ="opendDrawer">drawer aperto</string>
 	<string name ="closeDrawer">drawer chiuso</string>
 
+	<string name ="nameUser">Nome utente</string>
+
+
 </resources>
