@@ -121,10 +121,10 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 					scv = new ShowcaseView.Builder(ActivityGalleryV2.this)
 							.withMaterialShowcase()
 							.setTarget(new FabTarget(fab))
-							.setContentTitle(R.string.second_step_title)
-							.setContentText(R.string.second_step_desc)
+							.setContentTitle(R.string.fourth_step_title)
+							.setContentText(R.string.fourth_step_desc)
 							.setStyle(R.style.CustomShowcaseTheme2)
-							.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
+							//.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
 							.build();
 					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
 					SharedPreferences.Editor editor = sharedPref.edit();

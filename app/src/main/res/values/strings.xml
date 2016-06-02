@@ -68,4 +68,14 @@
 	<string name="second_step_desc">Qui puoi cominciare ad inserire i tuoi arrivi di oggi.\n
 			Gli arrivi sono distinti in 3 categorie: ospiti singoli, gruppi o famiglie.\n
 			Clicca sul bottone in basso a destra e inserisci i tuoi primi ospiti!</string>
+	<!-- THIRD TUTORIAL STEP-->
+	<string name="third_step_title">Inserisci nuovi arrivi</string>
+	<string name="third_step_desc">Qui puoi cominciare ad inserire i tuoi arrivi di oggi.\n
+			Gli arrivi sono distinti in 3 categorie: ospiti singoli, gruppi o famiglie.\n
+			Clicca sul bottone in basso a destra e inserisci i tuoi primi ospiti!</string>
+	<!-- FOURTH TUTORIAL STEP-->
+	<string name="fourth_step_title">Galleria immagini</string>
+	<string name="fourth_step_desc">In questa schermata puoi trovare le foto che hai scattato.\n.
+		Puoi anche compilare i campi tramite comandi vocali tenendo premuto il bottone in basso a destra e rilasciandolo al termine.\n
+		Trovi maggiori informazioni sui comandi vocali nella guida.</string>
 </resources>
