@@ -147,9 +147,32 @@ public class EditDecActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-
 			case R.id.action_saveDec:
+				FSDeclarationDao fsd = new FSDeclarationDao(getApplicationContext());
+
+				fsd.open();
+				fsd.updateDeclaration(displayed);
+				fsd.close();
+
+				Intent i = new Intent(EditDecActivity.this, HomeActivity.class);
+				Toast.makeText(this, "Aggiornamento completato", Toast.LENGTH_LONG).show();
+				startActivity(i);
+				return true;
+
+			case R.id.action_export_dec:
 				saveAlertDialog.show();
+				return true;
+
+			case R.id.action_delete_dec:
+				FSDeclarationDao fsd2 = new FSDeclarationDao(getApplicationContext());
+
+				fsd2.open();
+				fsd2.deleteDeclaration(displayed);
+				fsd2.close();
+
+				Intent ii = new Intent(EditDecActivity.this, HomeActivity.class);
+				Toast.makeText(this, "Cancellazione completata", Toast.LENGTH_LONG).show();
+				startActivity(ii);
 				return true;
 
 			case R.id.action_filterDec:
@@ -290,8 +313,7 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				Log.e("CHECKED ITEMS","i " +checkedCount);
-				Log.e("POSTITION RELATIVE 1 ", "P " + position);
+
 				/*itemContainer = (RelativeLayout)getViewByPosition(position,listView);
 				itemContainer.setBackgroundColor(getResources().getColor(R.color.pink_pressed));
 				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);

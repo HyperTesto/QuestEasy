@@ -15,14 +15,14 @@
 		app:showAsAction="never"
 		android:title="@string/saveDecMenuItem"/>
 	<item
-		android:id="@+id/action_settings34"
+		android:id="@+id/action_export_dec"
 		android:orderInCategory="300"
 		app:showAsAction="never"
-		android:title="@string/categoryG"/>
+		android:title="@string/actionExport"/>
 	<item
-		android:id="@+id/action_settings3"
+		android:id="@+id/action_delete_dec"
 		android:orderInCategory="400"
 		app:showAsAction="never"
-		android:title="@string/categoryG"/>
+		android:title="@string/actionDelete"/>
 
 </menu>

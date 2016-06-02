@@ -312,6 +312,15 @@ public class HomeActivity extends AppCompatActivity {
 	}
 
 	@Override
+	protected void onPause() {
+		super.onPause();
+
+		if (myMode != null){
+			myMode.finish();
+		}
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long

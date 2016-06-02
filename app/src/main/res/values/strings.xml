@@ -9,7 +9,9 @@
 	<string name="categoryS">singolo</string>
 	<string name="categoryF">famiglia</string>
 	<string name="categoryG">gruppo</string>
-	<string name="saveDecMenuItem">salva</string>
+	<string name="saveDecMenuItem">Salva</string>
+	<string name="actionExport">Esporta</string>
+	<string name="actionDelete">Elimina</string>
 	<string name="confirmGuestForm">conferma ospite</string>
 	<string name="personalDataGuest">Dati personali</string>
 	<string name="permanenzaHint">30</string>

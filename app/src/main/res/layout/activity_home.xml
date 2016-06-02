@@ -21,7 +21,9 @@
 			android:layout_height="wrap_content"
 			android:choiceMode="multipleChoiceModal"
 			android:divider="@color/listDivider"
-			android:dividerHeight="1dp"/>
+			android:dividerHeight="1dp"
+			android:paddingBottom="78dp"
+			android:clipToPadding="false"/>
 
 
 	<com.github.clans.fab.FloatingActionButton
