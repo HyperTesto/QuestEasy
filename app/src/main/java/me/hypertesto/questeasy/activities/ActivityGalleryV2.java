@@ -102,13 +102,24 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 		int id = item.getItemId();
 
 		if (id == android.R.id.home){
-			Log.d(StaticGlobals.logTags.VOICE_DEBUG, "TEXT: " + recognizerListener.getMatch());
-			resultIntent.putExtra(StaticGlobals.intentExtras.MATCHES_FROM_GALLEY, recognizerListener.getMatch());
-			setResult(StaticGlobals.resultCodes.VOICE_FROM_GALLEY_SUCCESS, resultIntent);
+			returnForm();
 			finish();
 			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	public void onBackPressed() {
+		returnForm();
+		super.onBackPressed();
+	}
+
+	public void returnForm(){
+		Log.d(StaticGlobals.logTags.VOICE_DEBUG, "TEXT: " + recognizerListener.getMatch());
+		resultIntent.putExtra(StaticGlobals.intentExtras.MATCHES_FROM_GALLEY, recognizerListener.getMatch());
+		setResult(StaticGlobals.resultCodes.VOICE_FROM_GALLEY_SUCCESS, resultIntent);
+	}
+
 }
