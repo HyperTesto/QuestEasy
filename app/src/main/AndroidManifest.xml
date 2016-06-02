@@ -68,7 +68,7 @@
 				android:name=".activities.FormGuestActivity"
 				android:label="@string/formTitleBar"
 				android:launchMode="singleTop"
-				android:windowSoftInputMode="adjustResize">
+				android:windowSoftInputMode="adjustPan">
 		</activity>
 		<activity
 				android:name=".activities.EditCardActivity"
