@@ -3,7 +3,7 @@
 	  xmlns:app="http://schemas.android.com/apk/res-auto">
 
 		<item
-			android:id="@+id/action_filterDec"
+			android:id="@+id/saveForm"
 			android:orderInCategory="100"
 			app:showAsAction="always"
 			android:icon="@drawable/ic_action_save_form"
