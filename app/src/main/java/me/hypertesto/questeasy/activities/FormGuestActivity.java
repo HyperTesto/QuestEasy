@@ -81,8 +81,9 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.formCordinator),
-				findViewById(R.id.myScrollingContent), savedInstanceState);
+		//mBottomBar = BottomBar.attachShy((CoordinatorLayout) findViewById(R.id.formCordinator),
+		//		findViewById(R.id.myScrollingContent), savedInstanceState);
+		mBottomBar = BottomBar.attach(this,savedInstanceState);
 		mBottomBar.setDefaultTabPosition(2);
 		//mBottomBar.getChildAt(3).setVisibility(View.GONE);
 		mBottomBar.setItemsFromMenu(R.menu.bottom_bar, new OnMenuTabClickListener() {
