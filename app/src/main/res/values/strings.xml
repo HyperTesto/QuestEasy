@@ -49,4 +49,7 @@
 
 	<string name="errorPermanenza">Inserire permanenza minore di 31 giorni</string>
 
+	<string name ="opendDrawer">drawer aperto</string>
+	<string name ="closeDrawer">drawer chiuso</string>
+
 </resources>

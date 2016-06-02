@@ -330,8 +330,8 @@ public class HomeActivity extends AppCompatActivity {
 		mDrawerToggle = new ActionBarDrawerToggle(
 				this,
 				mDrawerLayout,         /* DrawerLayout object */
-				R.string.aboutNav,  /* "open drawer" description */
-				R.string.aboutNav
+				R.string.opendDrawer,  /* "open drawer" description */
+				R.string.closeDrawer
 		){
 			/** Called when a drawer has settled in a completely closed state. */
 			public void onDrawerClosed(View view) {
