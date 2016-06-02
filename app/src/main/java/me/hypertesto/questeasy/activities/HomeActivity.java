@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -38,6 +39,7 @@ import com.github.clans.fab.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.concurrent.ThreadFactory;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
@@ -62,13 +64,17 @@ public class HomeActivity extends AppCompatActivity{
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ActionMode myMode;
+	private SharedPreferences sharedPref;
+	private ShowcaseView scv;
 
-
+	public static final String TUTORIAL_FIRST_SHOWN = "tutorialFirstShown";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 		int readStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 		int writeStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -109,7 +115,7 @@ public class HomeActivity extends AppCompatActivity{
 
 
 		setupDrawer();
-		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		//String syncConnPref = sharedPref.getString(SettingsActivity.KEY_PREF_SYNC_CONN, "");
 
 		Log.d(StaticGlobals.logTags.DEBUG, "pref_user" + sharedPref.getString("pref_user", ""));
@@ -287,6 +293,7 @@ public class HomeActivity extends AppCompatActivity{
 				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_OWNER, dec.getOwner());
 
 				checkAndDeleteModeAction();
+				scv.hide();	//hide the showcase
 				startActivity(newDecIntent);
 			}
 		});
@@ -297,14 +304,41 @@ public class HomeActivity extends AppCompatActivity{
 
 		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));
 
-		ShowcaseView scv = new ShowcaseView.Builder(this)
-				.withMaterialShowcase()
-				.setTarget(new FabTarget(insertNewDcard))
-				.setContentTitle("Benvenuto!")
-				.setContentText("Per cominciare ad aggiungere dichiarazioni clicca il bottone in basso a sinistra.\nPuoi aprire una dichiarazione al giorno")
-				.setStyle(R.style.CustomShowcaseTheme2)
-				.build();
-		scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+		if (sharedPref.getBoolean(TUTORIAL_FIRST_SHOWN, true)){
+			System.out.println("Building showcase...");
+			new AsyncTask<String, Integer, String>(){
+
+				@Override
+				protected String doInBackground(String... params) {
+					try {
+						Thread.sleep(1500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.out.println("End sleep");
+					return null;
+				}
+				// This runs in UI when background thread finishes
+				@Override
+				protected void onPostExecute(String result) {
+					super.onPostExecute(result);
+					System.out.println("onPostExecute");
+					scv = new ShowcaseView.Builder(HomeActivity.this)
+							.withMaterialShowcase()
+							.setTarget(new FabTarget(insertNewDcard))
+							.setContentTitle(R.string.welcome)
+							.setContentText(R.string.first_desc)
+							.setStyle(R.style.CustomShowcaseTheme2)
+							.build();
+					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+					SharedPreferences.Editor editor = sharedPref.edit();
+					editor.putBoolean(TUTORIAL_FIRST_SHOWN, false);
+					editor.apply();
+				}
+			}.execute();
+
+		}
+
 
 	}
 

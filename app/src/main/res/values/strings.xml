@@ -58,6 +58,9 @@
 	<string name ="closeDrawer">drawer chiuso</string>
 
 	<string name ="nameUser">Nome utente</string>
-
-
+	
+	<!-- FIRST TUTORIAL STEP-->
+	<string name="welcome">Benvenuto!</string>
+	<string name="first_desc">Per cominciare ad aggiungere dichiarazioni clicca il bottone in basso a destra.
+			Puoi aprire una dichiarazione al giorno</string>
 </resources>
