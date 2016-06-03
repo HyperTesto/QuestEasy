@@ -134,7 +134,10 @@ public class EditCardActivity extends AppCompatActivity {
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
 				startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_SINGLE_GUEST);
 			} else {
-				this.updateListView();
+				//this.updateListView();
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, sgCard.getGuest());
+				startActivityForResult(intentToForm, StaticGlobals.requestCodes.EDIT_SINGLE_GUEST);
 			}
 
 		} else if (tmp instanceof FamilyCard){
@@ -342,7 +345,8 @@ public class EditCardActivity extends AppCompatActivity {
 						SingleGuest sg = (SingleGuest) s;
 						((SingleGuestCard) card).setGuest(sg);
 						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
-
+						saveCard();
+						finish();
 						System.out.println(((SingleGuestCard) card).getGuest().getName());
 					}
 				}
