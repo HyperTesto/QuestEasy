@@ -78,4 +78,10 @@
 	<string name="fourth_step_desc">In questa schermata puoi trovare le foto che hai scattato.\n.
 		Puoi anche compilare i campi tramite comandi vocali tenendo premuto il bottone in basso a destra e rilasciandolo al termine.\n
 		Trovi maggiori informazioni sui comandi vocali nella guida.</string>
+	<!-- FIFTH TUTORIAL STEP-->
+	<string name="fifth_step_title">Congratulazioni!</string>
+	<string name="fifth_step_desc">Ora che hai creato il tuo primo capifamiglia/capogruppo puoi
+	cominciare ad aggiungere altri membi che verranno salvati in automatico.\n
+	Puoi aggiungerne quanti vuoi e quando hai finito puoi tornare in tutta tranquillità alla schermata
+	precedente.</string>
 </resources>
