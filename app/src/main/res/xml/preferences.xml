@@ -11,7 +11,12 @@
 			android:title="Attiva notifiche"
 			android:summary="Abilita notifiche di invio o compilazione di dichiarazioni incomplete"
 			android:defaultValue="true" />
-
+		<SwitchPreference
+			android:key="pref_tutorial"
+			android:title="Mostra tutorial"
+			android:summary="Mostra il tutorial ad ogni avvio dell'applicazione"
+			android:defaultValue="false" />
+		/>
 		<SwitchPreference
 			android:key="pref_stats"
 			android:title="Statistiche"
@@ -19,16 +24,10 @@
 			android:defaultValue="true" />
 		/>
 		<SwitchPreference
-			android:key="pref_crash_report"
+			android:key="acra.enable"
 			android:title="Crash"
-			android:summary="Invia report di crash"
+			android:summary="Invia report di crash (nessun dato sensibile verrà inviato)"
 			android:defaultValue="true" />
-		/>
-		<SwitchPreference
-			android:key="pref_tutorial"
-			android:title="Mostra tutorial"
-			android:summary="Mostra il tutorial ad ogni avvio dell'applicazione"
-			android:defaultValue="false" />
 		/>
 	</PreferenceCategory>
 
