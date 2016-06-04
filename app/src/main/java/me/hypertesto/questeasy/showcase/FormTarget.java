@@ -11,7 +11,6 @@ import com.roughike.bottombar.BottomBar;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.ui.PermanenzaFragment;
-import me.hypertesto.questeasy.ui.PersonalDataFragment;
 
 /**
  * Simple class to handle targets in FormGuestActivity

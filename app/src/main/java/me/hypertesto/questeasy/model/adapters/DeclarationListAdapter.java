@@ -1,8 +1,6 @@
 package me.hypertesto.questeasy.model.adapters;
 
 import android.content.Context;
-import android.text.Layout;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -53,23 +53,13 @@ import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class EditDecActivity extends AppCompatActivity {
 
-	private FloatingActionMenu gotoSelectCategory;
 	private ListView listView;
 	private FrameLayout frameLayout;
 	private FloatingActionMenu fabMenu;
-	private boolean stateMenu;
 	private FloatingActionButton singlefab;
 	private FloatingActionButton groupFab;
 	private FloatingActionButton familyFab;
-	private int mPreviousVisibleItem;
-	private RelativeLayout itemContainer;
 
-	/*private Animation flipAnim;
-	private Animation flipAnimReverse;
-	private ImageView letterImage;
-	private TextDrawable textDrawable;
-	private int colorSelected;
-	*/
 
 	CardListAdapter adapter;
 
@@ -147,29 +137,6 @@ public class EditDecActivity extends AppCompatActivity {
 
 		}
 	}
-
-	/*@Override
-	public void onConfigurationChanged(Configuration config) {
-		super.onConfigurationChanged(config);
-
-		// Checks the orientation
-		if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-			setContentView(R.layout.activity_edit_dec_o);
-
-		} else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-			setContentView(R.layout.activity_edit_dec);
-		}
-		defineSettings();
-		/*if (stateMenu) {
-			fabMenu.expand();
-			frameLayout.getBackground().setAlpha(170);
-		}
-
-
-	}
-	*/
-
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -249,58 +216,6 @@ public class EditDecActivity extends AppCompatActivity {
 		fabMenu.hideMenuButton(false);
 
 		new FabAnimation(fabMenu, getApplicationContext());
-		/*
-		flipAnim.setAnimationListener(new Animation.AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				textDrawable = (TextDrawable) letterImage.getDrawable();
-
-				if (Build.VERSION.SDK_INT >= 23) {
-					colorSelected = ContextCompat.getColor(EditDecActivity.this,R.color.background_bar );
-				} else {
-					colorSelected = getResources().getColor(R.color.background_bar);
-				}
-
-				DrawableCompat.setTint(textDrawable,colorSelected);
-				letterImage.setImageDrawable(textDrawable);
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-
-		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				textDrawable = (TextDrawable) letterImage.getDrawable();
-				DrawableCompat.setTint(textDrawable,textDrawable.getPaint().getColor());
-				letterImage.setImageDrawable(textDrawable);
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-
-		*/
 
 		listView.setOnScrollListener(new ListScrollListener(fabMenu));
 		fabMenu.setOnClickListener(new View.OnClickListener() {
@@ -357,17 +272,6 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-
-				/*itemContainer = (RelativeLayout)getViewByPosition(position,listView);
-				itemContainer.setBackgroundColor(getResources().getColor(R.color.pink_pressed));
-				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);
-				if (checked){
-					letterImage.startAnimation(flipAnim);
-				}
-				else{
-					letterImage.startAnimation(flipAnimReverse);
-				}
-				*/
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
@@ -418,23 +322,6 @@ public class EditDecActivity extends AppCompatActivity {
 			}
 		});
 	}
-
-	/*
-		This method return the correct selected view in the given listview
-	 */
-	/*public View getViewByPosition(int position, ListView listView) {
-		final int firstListItemPosition = listView.getFirstVisiblePosition();
-		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
-		System.out.println("FIRSLISTITEM "+firstListItemPosition+ "Lastiitem" +lastListItemPosition +
-				" position "+ position);
-		if (position < firstListItemPosition || position > lastListItemPosition ) {
-			return listView.getAdapter().getView(position, listView.getChildAt(position), listView);
-		} else {
-			final int childIndex = position - firstListItemPosition;
-			return listView.getChildAt(childIndex);
-		}
-	}
-	*/
 
 	public void sendFormRequest (FloatingActionButton formFab, Integer typeGuest){
 		final Intent intentForm = new Intent(EditDecActivity.this, EditCardActivity.class);

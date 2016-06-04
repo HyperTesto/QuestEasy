@@ -49,12 +49,6 @@ public class EditCardActivity extends AppCompatActivity {
 	private ListView listView;
 	private ActionMode myMode;
 	private GroupListAdapter adapter;
-	private RelativeLayout itemContainer;
-	private ImageView letterImage;
-	//private Animation flipAnim;
-	//private Animation flipAnimReverse;
-	//private TextDrawable textDrawable;
-	//private int colorSelected;
 
 	private int indexClicked;
 	FloatingActionButton fab;
@@ -72,60 +66,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 		setContentView(R.layout.activity_edit_card);
 		this.listView = (ListView) findViewById(R.id.lvMembers);
-		/*flipAnim = AnimationUtils.loadAnimation(EditCardActivity.this, R.anim.flip_anim);
-		flipAnimReverse = AnimationUtils.loadAnimation(EditCardActivity.this,R.anim.flip_anim);
 
-		flipAnim.setAnimationListener(new Animation.AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				textDrawable = (TextDrawable) letterImage.getDrawable();
-
-				if (Build.VERSION.SDK_INT >= 23) {
-					colorSelected = ContextCompat.getColor(EditCardActivity.this, R.color.background_bar);
-				} else {
-					colorSelected = getResources().getColor(R.color.background_bar);
-				}
-
-				DrawableCompat.setTint(textDrawable, colorSelected);
-				letterImage.setImageDrawable(textDrawable);
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-
-
-		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				textDrawable = (TextDrawable) letterImage.getDrawable();
-				DrawableCompat.setTint(textDrawable,textDrawable.getPaint().getColor());
-				letterImage.setImageDrawable(textDrawable);
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-		*/
 		Intent intent = getIntent();
 
 		Serializable tmp = intent.getSerializableExtra(StaticGlobals.intentExtras.CARD);
@@ -268,14 +209,6 @@ public class EditCardActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				/*itemContainer = (RelativeLayout) getViewByPosition(position, listView);
-				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
-				if (checked) {
-					letterImage.startAnimation(flipAnim);
-				} else {
-					letterImage.startAnimation(flipAnimReverse);
-				}
-				*/
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
@@ -534,24 +467,6 @@ public class EditCardActivity extends AppCompatActivity {
 		listView.setAdapter(adapter);
 
 	}
-
-	/*
-		This method return the correct selected view in the given listview
-	 */
-	/*	public View getViewByPosition(int position, ListView listView) {
-		final int firstListItemPosition = listView.getFirstVisiblePosition();
-		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
-		System.out.println("FIRSLISTITEM " + firstListItemPosition + "Lastiitem" + lastListItemPosition +
-				" position " + position);
-		if (position < firstListItemPosition || position > lastListItemPosition ) {
-			return listView.getAdapter().getView(position, listView.getChildAt(position), listView);
-		} else {
-			final int childIndex = position - firstListItemPosition;
-			return listView.getChildAt(childIndex);
-		}
-	}
-	*/
-
 
 	public void saveCard(){
 		// Write your code here

@@ -16,7 +16,6 @@ import me.hypertesto.questeasy.R;
 public class AudioTrackButton extends ImageView {
 
 	protected MediaPlayer mediaPlayer;
-	//TODO: add track
 
 	public AudioTrackButton(Context context, AttributeSet attrs){
 		super(context, attrs);
