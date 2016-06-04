@@ -293,7 +293,9 @@ public class HomeActivity extends AppCompatActivity{
 				newDecIntent.putExtra(StaticGlobals.intentExtras.DECLARATION_OWNER, dec.getOwner());
 
 				checkAndDeleteModeAction();
-				scv.hide();	//hide the showcase
+				if (scv != null){
+					scv.hide();	//hide the showcase on fab click
+				}
 				startActivity(newDecIntent);
 			}
 		});

@@ -319,7 +319,9 @@ public class EditDecActivity extends AppCompatActivity {
 		fabMenu.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				scv.hide();
+				if (scv != null){
+					scv.hide();
+				}
 			}
 		});
 

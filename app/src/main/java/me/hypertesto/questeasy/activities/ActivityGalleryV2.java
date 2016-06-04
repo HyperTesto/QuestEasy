@@ -88,7 +88,9 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 			public boolean onTouch(View v, MotionEvent event) {
 
 				if (event.getAction() == MotionEvent.ACTION_DOWN){
-					scv.hide(); //just to be sure
+					if (scv != null){
+						scv.hide(); //just to be sure
+					}
 					Log.i(StaticGlobals.logTags.VOICE_REC, "Start listening");
 					speech.startListening(recognizerIntent);
 				} else if (event.getAction() == MotionEvent.ACTION_UP){
