@@ -1,0 +1,64 @@
+package me.hypertesto.questeasy.ui;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.media.MediaPlayer;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.ImageView;
+
+import me.hypertesto.questeasy.R;
+
+import static me.hypertesto.questeasy.R.styleable.AudioTrackButton_audioTrack;
+
+/**
+ * An image button that play-stop the audio track declared in his res file
+ * Created by hypertesto on 04/06/16.
+ */
+public class AudioTrackButton extends ImageView {
+
+	protected MediaPlayer mediaPlayer;
+	//TODO: add track
+
+	public AudioTrackButton(Context context, AttributeSet attrs){
+		super(context, attrs);
+		setImageResource(R.drawable.ic_play);
+
+		TypedArray a = context.getTheme().obtainStyledAttributes(
+				attrs,
+				R.styleable.AudioTrackButton,
+				0, 0);
+		try {
+
+			mediaPlayer = MediaPlayer.create(context, a.getResourceId(R.styleable.AudioTrackButton_audioTrack,0));
+
+			//we make sure to update the view when the track is finished
+			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+				@Override
+				public void onCompletion(MediaPlayer mp) {
+					setImageResource(R.drawable.ic_play);	//TODO: set to play icon
+				}
+			});
+
+			this.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+
+					//toggle execution and update the view
+					if (mediaPlayer.isPlaying()) {
+						System.out.println("STOPPING...");
+						mediaPlayer.stop();
+						setImageResource(R.drawable.ic_play);	//TODO: set to play icon
+					} else {
+						System.out.println("STARTING");
+						mediaPlayer.start();
+						setImageResource(R.drawable.ic_stop);	//TODO: set to stop icon
+					}
+				}
+			});
+		} finally {
+			a.recycle();
+		}
+
+	}
+}
