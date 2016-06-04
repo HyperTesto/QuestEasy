@@ -86,6 +86,7 @@ public class EditCardActivity extends AppCompatActivity {
 				//this.updateListView();
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, sgCard.getGuest());
+				intentToForm.putExtra(StaticGlobals.intentExtras.PERMANENZA, sgCard.getPermanenza());
 				startActivityForResult(intentToForm, StaticGlobals.requestCodes.EDIT_SINGLE_GUEST);
 			}
 
@@ -401,7 +402,6 @@ public class EditCardActivity extends AppCompatActivity {
 				break;
 		}
 
-		//TODO: guida contestuale
 		if (sharedPref.getBoolean(TUTORIAL_FIFTH_SHOWN, true)){
 			System.out.println("Building showcase...");
 			new AsyncTask<String, Integer, String>(){
