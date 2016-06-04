@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+***********************************************************************************
+NOTE: This code is rubbish but i had no time to implement the custom viewGrup     *
+			At the moment only the play/pause button uses a custom extended view. *
+***********************************************************************************
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:padding="10dp">
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/api_guide_part_1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+			<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="5dp">
+
+				<me.hypertesto.questeasy.ui.AudioTrackButton
+					android:id="@+id/audio_1"
+					app:audioTrack="@raw/permanenza_1"
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:layout_alignParentStart="true"
+					android:layout_alignParentLeft="true"
+					android:layout_centerVertical="true"
+					/>
+
+				<TextView
+					android:id="@+id/case_1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/caso_1"
+					android:textColor="#000000"
+					android:textSize="18sp"
+					android:layout_alignParentTop="true"
+					android:layout_toRightOf="@+id/audio_1"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/permanenza_x_giorni"
+					android:textSize="14sp"
+					android:layout_alignBottom="@+id/audio_1"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"
+					android:layout_below="@+id/case_1"
+					android:layout_toRightOf="@+id/audio_1"
+					android:layout_toEndOf="@+id/audio_1"/>
+
+			</RelativeLayout>
+
+			<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="5dp">
+
+				<me.hypertesto.questeasy.ui.AudioTrackButton
+					android:id="@+id/audio_2"
+					app:audioTrack="@raw/permanenza_2"
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:layout_alignParentStart="true"
+					android:layout_alignParentLeft="true"
+					android:layout_centerVertical="true"
+					/>
+
+				<TextView
+					android:id="@+id/case_2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/caso_2"
+					android:textColor="#000000"
+					android:textSize="18sp"
+					android:layout_alignTop="@+id/audio_2"
+					android:layout_toRightOf="@+id/audio_2"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/x_giorni_di_permanenza"
+					android:textSize="14sp"
+					android:layout_alignBottom="@+id/audio_2"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"
+					android:layout_below="@+id/case_2"
+					android:layout_toRightOf="@+id/audio_2"
+					android:layout_toEndOf="@+id/audio_2"/>
+
+			</RelativeLayout>
+
+			<TextView
+				android:id="@+id/api_guide_part_2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+
+
+			<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="5dp">
+
+				<me.hypertesto.questeasy.ui.AudioTrackButton
+					android:id="@+id/audio_3"
+					app:audioTrack="@raw/personal_1"
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:layout_alignParentStart="true"
+					android:layout_alignParentLeft="true"
+					android:layout_centerVertical="true"
+					/>
+
+				<TextView
+					android:id="@+id/case_3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/caso_3"
+					android:textColor="#000000"
+					android:textSize="18sp"
+					android:layout_alignTop="@+id/audio_3"
+					android:layout_toRightOf="@+id/audio_3"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/signor_a_nome_cognome"
+					android:textSize="14sp"
+					android:layout_alignBottom="@+id/audio_3"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"
+					android:layout_below="@+id/case_3"
+					android:layout_toRightOf="@+id/audio_3"
+					android:layout_toEndOf="@+id/audio_3"/>
+
+			</RelativeLayout>
+
+			<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="5dp">
+
+				<me.hypertesto.questeasy.ui.AudioTrackButton
+					android:id="@+id/audio_4"
+					app:audioTrack="@raw/personal_2"
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:layout_alignParentStart="true"
+					android:layout_alignParentLeft="true"
+					android:layout_centerVertical="true"
+					/>
+
+				<TextView
+					android:id="@+id/case_4"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/caso_4"
+					android:textColor="#000000"
+					android:textSize="18sp"
+					android:layout_alignTop="@+id/audio_4"
+					android:layout_toRightOf="@+id/audio_4"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/nato_a_a_in_luogo"
+					android:textSize="14sp"
+					android:layout_alignBottom="@+id/audio_4"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"
+					android:layout_below="@+id/case_4"
+					android:layout_toRightOf="@+id/audio_4"
+					android:layout_toEndOf="@+id/audio_4"/>
+
+			</RelativeLayout>
+
+			<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="5dp">
+
+				<me.hypertesto.questeasy.ui.AudioTrackButton
+					android:id="@+id/audio_5"
+					app:audioTrack="@raw/personal_3"
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:layout_alignParentStart="true"
+					android:layout_alignParentLeft="true"
+					android:layout_centerVertical="true"
+					/>
+
+				<TextView
+					android:id="@+id/case_5"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/caso_5"
+					android:textColor="#000000"
+					android:textSize="18sp"
+					android:layout_alignTop="@+id/audio_5"
+					android:layout_toRightOf="@+id/audio_5"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/cittadinanza_luogo"
+					android:textSize="14sp"
+					android:layout_alignBottom="@+id/audio_5"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"
+					android:layout_below="@+id/case_5"
+					android:layout_toRightOf="@+id/audio_5"
+					android:layout_toEndOf="@+id/audio_5"/>
+
+			</RelativeLayout>
+
+
+			<TextView
+				android:id="@+id/api_guide_part_3"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+
+			<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="5dp">
+
+				<me.hypertesto.questeasy.ui.AudioTrackButton
+					android:id="@+id/audio_6"
+					app:audioTrack="@raw/document_1"
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:layout_alignParentStart="true"
+					android:layout_alignParentLeft="true"
+					android:layout_centerVertical="true"
+					/>
+
+				<TextView
+					android:id="@+id/case_6"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/caso_6"
+					android:textColor="#000000"
+					android:textSize="18sp"
+					android:layout_alignTop="@+id/audio_6"
+					android:layout_toRightOf="@+id/audio_6"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/carta_di_identit_numero_x_rilasciata_a_in_luogo"
+					android:textSize="14sp"
+					android:layout_alignBottom="@+id/audio_6"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentEnd="true"
+					android:layout_below="@+id/case_6"
+					android:layout_toRightOf="@+id/audio_6"
+					android:layout_toEndOf="@+id/audio_6"/>
+
+			</RelativeLayout>
+
+		</LinearLayout>
+	</ScrollView>
+
+</LinearLayout>

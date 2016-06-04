@@ -170,6 +170,8 @@ public class HomeActivity extends AppCompatActivity{
 							case R.id.nav_settings:
 								startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
 								break;
+							case R.id.nav_api_guide:
+								startActivity(new Intent(HomeActivity.this, VocalGuideActivity.class));
 							default:
 								break;
 						}
