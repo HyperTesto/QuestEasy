@@ -298,6 +298,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_HEAD:
 				((FamilyCard) card).setFamiliari(new ArrayList<FamilyMemberGuest>());
+				showTutorialStep();
 			case StaticGlobals.requestCodes.EDIT_FAMILY_HEAD:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
@@ -329,6 +330,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 			case StaticGlobals.requestCodes.NEW_GROUP_HEAD:
 				((GroupCard) card).setAltri(new ArrayList<GroupMemberGuest>());
+				showTutorialStep();
 			case StaticGlobals.requestCodes.EDIT_GROUP_HEAD:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
@@ -401,44 +403,6 @@ public class EditCardActivity extends AppCompatActivity {
 			default:
 				break;
 		}
-
-		if (sharedPref.getBoolean(TUTORIAL_FIFTH_SHOWN, true)){
-			System.out.println("Building showcase...");
-			new AsyncTask<String, Integer, String>(){
-
-				@Override
-				protected String doInBackground(String... params) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					System.out.println("End sleep");
-					return null;
-				}
-				// This runs in UI when background thread finishes
-				@Override
-				protected void onPostExecute(String result) {
-					super.onPostExecute(result);
-					System.out.println("onPostExecute");
-					scv = new ShowcaseView.Builder(EditCardActivity.this)
-							.withMaterialShowcase()
-							.setTarget(new ShowcaseTarget.Fab(fab))
-							.setContentTitle(R.string.fifth_step_title)
-							.setContentText(R.string.fifth_step_desc)
-							.setStyle(R.style.CustomShowcaseTheme2)
-							//.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
-							.build();
-					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
-					SharedPreferences.Editor editor = sharedPref.edit();
-					editor.putBoolean(TUTORIAL_FIFTH_SHOWN, false);
-					editor.apply();
-				}
-			}.execute();
-
-		}
-
-
 	}
 
 	private void updateListView(){
@@ -503,6 +467,44 @@ public class EditCardActivity extends AppCompatActivity {
 	public void onBackPressed() {
 		saveCard();
 		super.onBackPressed();
+	}
+
+	private void showTutorialStep(){
+		if (sharedPref.getBoolean(TUTORIAL_FIFTH_SHOWN, true)){
+			System.out.println("Building showcase...");
+			new AsyncTask<String, Integer, String>(){
+
+				@Override
+				protected String doInBackground(String... params) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.out.println("End sleep");
+					return null;
+				}
+				// This runs in UI when background thread finishes
+				@Override
+				protected void onPostExecute(String result) {
+					super.onPostExecute(result);
+					System.out.println("onPostExecute");
+					scv = new ShowcaseView.Builder(EditCardActivity.this)
+							.withMaterialShowcase()
+							.setTarget(new ShowcaseTarget.Fab(fab))
+							.setContentTitle(R.string.fifth_step_title)
+							.setContentText(R.string.fifth_step_desc)
+							.setStyle(R.style.CustomShowcaseTheme2)
+							//.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
+							.build();
+					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+					SharedPreferences.Editor editor = sharedPref.edit();
+					editor.putBoolean(TUTORIAL_FIFTH_SHOWN, false);
+					editor.apply();
+				}
+			}.execute();
+
+		}
 	}
 
 }
