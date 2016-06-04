@@ -21,7 +21,8 @@
 			android:key="pref_stats"
 			android:title="Statistiche"
 			android:summary="Invia statistiche anonime sull'utilizzo"
-			android:defaultValue="true" />
+			android:defaultValue="true"
+			android:enabled="false"/>
 		/>
 		<SwitchPreference
 			android:key="acra.enable"
