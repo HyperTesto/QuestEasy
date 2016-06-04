@@ -3,21 +3,15 @@ package me.hypertesto.questeasy.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -25,7 +19,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -45,7 +38,7 @@ import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.GroupListAdapter;
 import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
-import me.hypertesto.questeasy.showcase.FabTarget;
+import me.hypertesto.questeasy.showcase.ShowcaseTarget;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -497,7 +490,7 @@ public class EditCardActivity extends AppCompatActivity {
 					System.out.println("onPostExecute");
 					scv = new ShowcaseView.Builder(EditCardActivity.this)
 							.withMaterialShowcase()
-							.setTarget(new FabTarget(fab))
+							.setTarget(new ShowcaseTarget.Fab(fab))
 							.setContentTitle(R.string.fifth_step_title)
 							.setContentText(R.string.fifth_step_desc)
 							.setStyle(R.style.CustomShowcaseTheme2)

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,25 +20,19 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
-import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.concurrent.ThreadFactory;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
@@ -48,7 +41,7 @@ import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.notifications.NotificationEventReceiver;
 import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
-import me.hypertesto.questeasy.showcase.FabTarget;
+import me.hypertesto.questeasy.showcase.ShowcaseTarget;
 import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
@@ -327,7 +320,7 @@ public class HomeActivity extends AppCompatActivity{
 					System.out.println("onPostExecute");
 					scv = new ShowcaseView.Builder(HomeActivity.this)
 							.withMaterialShowcase()
-							.setTarget(new FabTarget(insertNewDcard))
+							.setTarget(new ShowcaseTarget.Fab(insertNewDcard))
 							.setContentTitle(R.string.welcome)
 							.setContentText(R.string.first_desc)
 							.setStyle(R.style.CustomShowcaseTheme2)
