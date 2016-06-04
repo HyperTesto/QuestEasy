@@ -9,8 +9,6 @@ import android.widget.ImageView;
 
 import me.hypertesto.questeasy.R;
 
-import static me.hypertesto.questeasy.R.styleable.AudioTrackButton_audioTrack;
-
 /**
  * An image button that play-stop the audio track declared in his res file
  * Created by hypertesto on 04/06/16.
@@ -36,7 +34,7 @@ public class AudioTrackButton extends ImageView {
 			mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					setImageResource(R.drawable.ic_play);	//TODO: set to play icon
+					setImageResource(R.drawable.ic_play);
 				}
 			});
 
@@ -48,11 +46,11 @@ public class AudioTrackButton extends ImageView {
 					if (mediaPlayer.isPlaying()) {
 						System.out.println("STOPPING...");
 						mediaPlayer.stop();
-						setImageResource(R.drawable.ic_play);	//TODO: set to play icon
+						setImageResource(R.drawable.ic_play);
 					} else {
 						System.out.println("STARTING");
 						mediaPlayer.start();
-						setImageResource(R.drawable.ic_stop);	//TODO: set to stop icon
+						setImageResource(R.drawable.ic_stop);
 					}
 				}
 			});
