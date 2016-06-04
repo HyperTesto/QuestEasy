@@ -109,4 +109,9 @@
 	<string name="cittadinanza_luogo">cittadinanza luogo</string>
 	<string name="caso_6">Caso 6</string>
 	<string name="carta_di_identit_numero_x_rilasciata_a_in_luogo">Carta di identità numero x rilasciata a/in luogo</string>
+
+	<!-- REMOTE API REQUEST EXCEPTIONS -->
+	<string name="citizenship_json_exception">Attenzione, non ci sono stati che iniziano con questa stringa</string>
+	<string name="remote_api_net_error">Errore di rete</string>
+	<string name="place_json_exception">Attenzione, nessun luogo comincia con questa stringa</string>
 </resources>
