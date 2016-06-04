@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory
 		android:title="Info utente"
 		android:key="pref_key_storage_settings">
 		<EditTextPreference
@@ -30,6 +29,4 @@
 			android:summary="Invia report di crash (nessun dato sensibile verrà inviato)"
 			android:defaultValue="true" />
 		/>
-	</PreferenceCategory>
-
 </PreferenceScreen>
