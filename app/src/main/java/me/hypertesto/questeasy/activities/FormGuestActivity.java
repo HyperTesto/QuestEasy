@@ -1,14 +1,17 @@
 package me.hypertesto.questeasy.activities;
 
+import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -90,15 +93,33 @@ public class FormGuestActivity extends AppCompatActivity {
 			public void onMenuTabSelected(int menuItemId) {
 				switch (menuItemId) {
 					case R.id.photoButton:
-						captureImage();
+
+						int writeStorage = ContextCompat.checkSelfPermission(FormGuestActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+						int camera = ContextCompat.checkSelfPermission(FormGuestActivity.this, Manifest.permission.CAMERA);
+
+						if (writeStorage == PackageManager.PERMISSION_GRANTED
+							&& camera == PackageManager.PERMISSION_GRANTED	){
+
+							captureImage();
+
+						} else {
+							CharSequence text = getApplicationContext().getString(R.string.camera_none);
+							int duration = Toast.LENGTH_LONG;
+
+							Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+							toast.show();
+							Log.i("INFO", getResources().getString(R.string.permission_none));
+						}
 						break;
 
 					case R.id.galleryButton:
 
+						//TODO: ask for permissions
 						startGallery();
 						break;
 
 					case R.id.voiceButton:
+						//TODO: ask for permissions
 						if(!firsTimeVoice){
 							firsTimeVoice = true;
 						}else{
@@ -129,6 +150,7 @@ public class FormGuestActivity extends AppCompatActivity {
 			public void onMenuTabReSelected(int menuItemId) {
 				switch (menuItemId) {
 					case R.id.photoButton:
+
 						captureImage();
 						//TODO: ask permissions
 						break;

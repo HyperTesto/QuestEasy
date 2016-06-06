@@ -111,11 +111,14 @@
 	<string name="carta_di_identit_numero_x_rilasciata_a_in_luogo">Carta di identità numero x rilasciata a/in luogo</string>
 
 	<!-- REMOTE API REQUEST EXCEPTIONS -->
-	<string name="citizenship_json_exception">Nessuno stato trovato</string>
+	<string name="citizenship_json_exception">Stato inesistente</string>
 	<string name="remote_api_net_error">Errore di rete</string>
-	<string name="place_json_exception">Nessun luogo trovato</string>
-	<string name="document_json_exception">Nessun documento trovato</string>
+	<string name="place_json_exception">Luogo inesistente</string>
+	<string name="document_json_exception">Documento inesistente</string>
 
-	<!-- PERMISSION STUFF -->
+	<!-- PERMISSIONS STUFF -->
 	<string name="permission_none">Non hai fornito i permessi</string>
+	<string name="camera_none">Permessi fotocamera mancanti!</string>
+	<string name="storage_none">Permessi archiviazione mancanti!</string>
+	<string name="vocal_none">Permessi audio mancanti!"</string>
 </resources>
