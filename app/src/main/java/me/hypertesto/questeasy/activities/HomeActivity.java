@@ -457,6 +457,7 @@ public class HomeActivity extends AppCompatActivity{
 
 				} else {
 
+					//TODO: show a better explanation using an alert
 					CharSequence text = getApplicationContext().getString(R.string.permission_none);
 					int duration = Toast.LENGTH_LONG;
 
