@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,25 +20,19 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
-import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.concurrent.ThreadFactory;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Declaration;
@@ -76,36 +69,34 @@ public class HomeActivity extends AppCompatActivity{
 
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+		// Android guidelines
 		int readStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 		int writeStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 		int internet = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+		int camera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+		int phoneState = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+		int wakeLock = ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK);
+		int recordAudio = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
 
 		if ( readStorage != PackageManager.PERMISSION_GRANTED
 			|| writeStorage != PackageManager.PERMISSION_GRANTED
-			|| internet != PackageManager.PERMISSION_GRANTED) {
+			|| internet != PackageManager.PERMISSION_GRANTED
+			|| camera != PackageManager.PERMISSION_GRANTED
+			|| phoneState != PackageManager.PERMISSION_GRANTED
+			|| wakeLock != PackageManager.PERMISSION_GRANTED
+			|| recordAudio != PackageManager.PERMISSION_GRANTED) {
 
-			/*// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-					Manifest.permission.READ_CONTACTS)) {
+			ActivityCompat.requestPermissions(this,
+					new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+							Manifest.permission.WRITE_EXTERNAL_STORAGE,
+							Manifest.permission.INTERNET,
+							Manifest.permission.CAMERA,
+							Manifest.permission.READ_PHONE_STATE,
+							Manifest.permission.WAKE_LOCK,
+							Manifest.permission.RECORD_AUDIO
+					},
+					StaticGlobals.permissions.REQUEST_MANDATORY);
 
-				// Show an expanation to the user *asynchronously* -- don't block
-				// this thread waiting for the user's response! After the user
-				// sees the explanation, try again to request the permission.
-
-			} else {
-			*/
-				// No explanation needed, we can request the permission.
-
-				ActivityCompat.requestPermissions(this,
-						new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-									Manifest.permission.WRITE_EXTERNAL_STORAGE,
-									Manifest.permission.INTERNET},
-						StaticGlobals.permissions.REQUEST_MANDATORY);
-
-				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-				// app-defined int constant. The callback method gets the
-				// result of the request.
-			//}
 		}
 
 		NotificationEventReceiver.setUpAlarm(this.getApplicationContext());
@@ -115,8 +106,6 @@ public class HomeActivity extends AppCompatActivity{
 
 
 		setupDrawer();
-		final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		//String syncConnPref = sharedPref.getString(SettingsActivity.KEY_PREF_SYNC_CONN, "");
 
 		Log.d(StaticGlobals.logTags.DEBUG, "pref_user" + sharedPref.getString("pref_user", ""));
 
@@ -447,12 +436,18 @@ public class HomeActivity extends AppCompatActivity{
 	public void onRequestPermissionsResult(int requestCode,
 										   String permissions[], int[] grantResults) {
 		switch (requestCode) {
+
+			//TODO: android guidelines suggest to ask only few permission in a single shot
 			case StaticGlobals.permissions.REQUEST_MANDATORY: {
 				// If request is cancelled, the result arrays are empty.
 				if (grantResults.length > 0
 						&& grantResults[0] == PackageManager.PERMISSION_GRANTED
 						&& grantResults[1] == PackageManager.PERMISSION_GRANTED
-						&& grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+						&& grantResults[2] == PackageManager.PERMISSION_GRANTED
+						&& grantResults[3] == PackageManager.PERMISSION_GRANTED
+						&& grantResults[4] == PackageManager.PERMISSION_GRANTED
+						&& grantResults[5] == PackageManager.PERMISSION_GRANTED
+						&& grantResults[6] == PackageManager.PERMISSION_GRANTED) {
 
 					// permission was granted, yay! Do the
 					// contacts-related task you need to do.
