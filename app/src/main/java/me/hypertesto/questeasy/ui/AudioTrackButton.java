@@ -44,7 +44,8 @@ public class AudioTrackButton extends ImageView {
 					//toggle execution and update the view
 					if (mediaPlayer.isPlaying()) {
 						System.out.println("STOPPING...");
-						mediaPlayer.stop();
+						mediaPlayer.pause();
+						mediaPlayer.seekTo(0);
 						setImageResource(R.drawable.ic_play);
 					} else {
 						System.out.println("STARTING");
