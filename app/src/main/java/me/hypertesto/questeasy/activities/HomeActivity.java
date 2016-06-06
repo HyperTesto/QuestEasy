@@ -26,6 +26,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.clans.fab.FloatingActionButton;
@@ -456,10 +457,13 @@ public class HomeActivity extends AppCompatActivity{
 
 				} else {
 
+					CharSequence text = getApplicationContext().getString(R.string.permission_none);
+					int duration = Toast.LENGTH_LONG;
 
-					Log.i("INFO", "l'applicazione ha bisogno almeno di questi permessi per funzionare correttamente!");
+					Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+					toast.show();
+					Log.i("INFO", getResources().getString(R.string.permission_none));
 				}
-				return;
 			}
 
 			// other 'case' lines to check for other

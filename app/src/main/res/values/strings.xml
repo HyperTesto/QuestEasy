@@ -115,4 +115,7 @@
 	<string name="remote_api_net_error">Errore di rete</string>
 	<string name="place_json_exception">Nessun luogo trovato</string>
 	<string name="document_json_exception">Nessun documento trovato</string>
+
+	<!-- PERMISSION STUFF -->
+	<string name="permission_none">Non hai fornito i permessi, l\'applicazione potrebbe non funzionare correttamente</string>
 </resources>
