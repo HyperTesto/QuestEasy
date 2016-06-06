@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -22,11 +23,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -39,13 +45,15 @@ import me.hypertesto.questeasy.model.User;
 import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.notifications.NotificationEventReceiver;
+import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
+import me.hypertesto.questeasy.showcase.FabTarget;
 import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 import me.hypertesto.questeasy.utils.WordsCapitalizer;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity{
 
 	private ListView lv;
 	private FloatingActionButton insertNewDcard;
@@ -288,6 +296,15 @@ public class HomeActivity extends AppCompatActivity {
 
 		lv.setOnScrollListener(new ListScrollListener(insertNewDcard));
 
+		ShowcaseView scv = new ShowcaseView.Builder(this)
+				.withMaterialShowcase()
+				.setTarget(new FabTarget(insertNewDcard))
+				.setContentTitle("Benvenuto!")
+				.setContentText("Per cominciare ad aggiungere dichiarazioni clicca il bottone in basso a sinistra.\nPuoi aprire una dichiarazione al giorno")
+				.setStyle(R.style.CustomShowcaseTheme2)
+				.build();
+		scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+
 	}
 
 	@Override
@@ -415,5 +432,4 @@ public class HomeActivity extends AppCompatActivity {
 			// permissions this app might request
 		}
 	}
-
 }

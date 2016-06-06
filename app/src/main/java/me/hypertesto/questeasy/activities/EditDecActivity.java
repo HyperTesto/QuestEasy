@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -50,6 +51,8 @@ import me.hypertesto.questeasy.model.User;
 import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
+import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
+import me.hypertesto.questeasy.showcase.FabTarget;
 import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.FileUtils;
@@ -110,6 +113,15 @@ public class EditDecActivity extends AppCompatActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		defineSettings();
+
+		ShowcaseView scv = new ShowcaseView.Builder(this)
+				.withMaterialShowcase()
+				.setTarget(new FabTarget(fabMenu))
+				.setContentTitle("Creazione dichiarazione")
+				.setContentText("In questa schermata puoi aggiungere nuovi arrivi o modificarne di esistenti.\nAggiungi il primo toccando il bottone in basso a destra")
+				.setStyle(R.style.CustomShowcaseTheme2)
+				.build();
+		scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
 	}
 
 	/*@Override
