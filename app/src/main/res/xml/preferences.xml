@@ -9,7 +9,7 @@
 			android:key="pref_notify"
 			android:title="Attiva notifiche"
 			android:summary="Abilita notifiche di invio o compilazione di dichiarazioni incomplete"
-			android:defaultValue="true" />
+			android:defaultValue="false" />
 		<SwitchPreference
 			android:key="pref_tutorial"
 			android:title="Mostra tutorial"
