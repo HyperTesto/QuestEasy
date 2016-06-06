@@ -427,7 +427,6 @@ public class FormGuestActivity extends AppCompatActivity {
 
 		// Necessary to restore the BottomBar's state, otherwise we would
 		// lose the current tab on orientation change.
-		System.out.println("HERE");
 		mBottomBar.onSaveInstanceState(outState);
 		outState.putBoolean("done", done);
 		outState.putStringArrayList("pictureUris", pictureUris);

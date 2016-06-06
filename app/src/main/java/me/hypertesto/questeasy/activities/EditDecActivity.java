@@ -529,7 +529,6 @@ public class EditDecActivity extends AppCompatActivity {
 	private void checkAndDeleteModeAction(){
 		if (myMode != null){
 			myMode.finish();
-			System.out.println("MY mode deleted");
 		}
 	}
 	@Override

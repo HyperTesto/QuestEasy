@@ -116,7 +116,7 @@ public class EditCardActivity extends AppCompatActivity {
 			}
 
 		} else {
-			throw new RuntimeException("cacca");
+			throw new RuntimeException("Unsupported guest type");
 		}
 
 		fab = (FloatingActionButton) findViewById(R.id.fab_edit_card);
@@ -424,7 +424,7 @@ public class EditCardActivity extends AppCompatActivity {
 			guests.addAll(gc.getAltri());
 
 		} else {
-			throw new RuntimeException("WTF");
+			throw new RuntimeException("Unsupported card type");
 		}
 
 		adapter = new GroupListAdapter(this, R.layout.guest_list_item, guests);
