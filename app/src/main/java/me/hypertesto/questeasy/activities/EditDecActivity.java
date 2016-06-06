@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -19,30 +16,20 @@ import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -56,7 +43,7 @@ import me.hypertesto.questeasy.model.adapters.CardListAdapter;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
-import me.hypertesto.questeasy.showcase.FabTarget;
+import me.hypertesto.questeasy.showcase.ShowcaseTarget;
 import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.FileUtils;
@@ -66,23 +53,13 @@ import me.hypertesto.questeasy.utils.StaticGlobals;
 
 public class EditDecActivity extends AppCompatActivity {
 
-	private FloatingActionMenu gotoSelectCategory;
 	private ListView listView;
 	private FrameLayout frameLayout;
 	private FloatingActionMenu fabMenu;
-	private boolean stateMenu;
 	private FloatingActionButton singlefab;
 	private FloatingActionButton groupFab;
 	private FloatingActionButton familyFab;
-	private int mPreviousVisibleItem;
-	private RelativeLayout itemContainer;
 
-	/*private Animation flipAnim;
-	private Animation flipAnimReverse;
-	private ImageView letterImage;
-	private TextDrawable textDrawable;
-	private int colorSelected;
-	*/
 
 	CardListAdapter adapter;
 
@@ -144,7 +121,7 @@ public class EditDecActivity extends AppCompatActivity {
 					System.out.println("onPostExecute");
 					scv = new ShowcaseView.Builder(EditDecActivity.this)
 							.withMaterialShowcase()
-							.setTarget(new FabTarget(fabMenu))
+							.setTarget(new ShowcaseTarget.FabMenu(fabMenu))
 							.setContentTitle(R.string.second_step_title)
 							.setContentText(R.string.second_step_desc)
 							.setStyle(R.style.CustomShowcaseTheme2)
@@ -160,29 +137,6 @@ public class EditDecActivity extends AppCompatActivity {
 
 		}
 	}
-
-	/*@Override
-	public void onConfigurationChanged(Configuration config) {
-		super.onConfigurationChanged(config);
-
-		// Checks the orientation
-		if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-			setContentView(R.layout.activity_edit_dec_o);
-
-		} else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-			setContentView(R.layout.activity_edit_dec);
-		}
-		defineSettings();
-		/*if (stateMenu) {
-			fabMenu.expand();
-			frameLayout.getBackground().setAlpha(170);
-		}
-
-
-	}
-	*/
-
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -262,58 +216,6 @@ public class EditDecActivity extends AppCompatActivity {
 		fabMenu.hideMenuButton(false);
 
 		new FabAnimation(fabMenu, getApplicationContext());
-		/*
-		flipAnim.setAnimationListener(new Animation.AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				textDrawable = (TextDrawable) letterImage.getDrawable();
-
-				if (Build.VERSION.SDK_INT >= 23) {
-					colorSelected = ContextCompat.getColor(EditDecActivity.this,R.color.background_bar );
-				} else {
-					colorSelected = getResources().getColor(R.color.background_bar);
-				}
-
-				DrawableCompat.setTint(textDrawable,colorSelected);
-				letterImage.setImageDrawable(textDrawable);
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-
-		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				textDrawable = (TextDrawable) letterImage.getDrawable();
-				DrawableCompat.setTint(textDrawable,textDrawable.getPaint().getColor());
-				letterImage.setImageDrawable(textDrawable);
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-
-		*/
 
 		listView.setOnScrollListener(new ListScrollListener(fabMenu));
 		fabMenu.setOnClickListener(new View.OnClickListener() {
@@ -370,17 +272,6 @@ public class EditDecActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-
-				/*itemContainer = (RelativeLayout)getViewByPosition(position,listView);
-				itemContainer.setBackgroundColor(getResources().getColor(R.color.pink_pressed));
-				letterImage = (ImageView) itemContainer.findViewById(R.id.cardTypeImg);
-				if (checked){
-					letterImage.startAnimation(flipAnim);
-				}
-				else{
-					letterImage.startAnimation(flipAnimReverse);
-				}
-				*/
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
@@ -431,23 +322,6 @@ public class EditDecActivity extends AppCompatActivity {
 			}
 		});
 	}
-
-	/*
-		This method return the correct selected view in the given listview
-	 */
-	/*public View getViewByPosition(int position, ListView listView) {
-		final int firstListItemPosition = listView.getFirstVisiblePosition();
-		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
-		System.out.println("FIRSLISTITEM "+firstListItemPosition+ "Lastiitem" +lastListItemPosition +
-				" position "+ position);
-		if (position < firstListItemPosition || position > lastListItemPosition ) {
-			return listView.getAdapter().getView(position, listView.getChildAt(position), listView);
-		} else {
-			final int childIndex = position - firstListItemPosition;
-			return listView.getChildAt(childIndex);
-		}
-	}
-	*/
 
 	public void sendFormRequest (FloatingActionButton formFab, Integer typeGuest){
 		final Intent intentForm = new Intent(EditDecActivity.this, EditCardActivity.class);

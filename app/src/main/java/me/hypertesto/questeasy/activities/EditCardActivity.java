@@ -3,21 +3,15 @@ package me.hypertesto.questeasy.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -25,7 +19,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -45,7 +38,7 @@ import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.GroupListAdapter;
 import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
-import me.hypertesto.questeasy.showcase.FabTarget;
+import me.hypertesto.questeasy.showcase.ShowcaseTarget;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -56,12 +49,6 @@ public class EditCardActivity extends AppCompatActivity {
 	private ListView listView;
 	private ActionMode myMode;
 	private GroupListAdapter adapter;
-	private RelativeLayout itemContainer;
-	private ImageView letterImage;
-	//private Animation flipAnim;
-	//private Animation flipAnimReverse;
-	//private TextDrawable textDrawable;
-	//private int colorSelected;
 
 	private int indexClicked;
 	FloatingActionButton fab;
@@ -79,60 +66,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 		setContentView(R.layout.activity_edit_card);
 		this.listView = (ListView) findViewById(R.id.lvMembers);
-		/*flipAnim = AnimationUtils.loadAnimation(EditCardActivity.this, R.anim.flip_anim);
-		flipAnimReverse = AnimationUtils.loadAnimation(EditCardActivity.this,R.anim.flip_anim);
 
-		flipAnim.setAnimationListener(new Animation.AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				textDrawable = (TextDrawable) letterImage.getDrawable();
-
-				if (Build.VERSION.SDK_INT >= 23) {
-					colorSelected = ContextCompat.getColor(EditCardActivity.this, R.color.background_bar);
-				} else {
-					colorSelected = getResources().getColor(R.color.background_bar);
-				}
-
-				DrawableCompat.setTint(textDrawable, colorSelected);
-				letterImage.setImageDrawable(textDrawable);
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-
-
-		flipAnimReverse.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				textDrawable = (TextDrawable) letterImage.getDrawable();
-				DrawableCompat.setTint(textDrawable,textDrawable.getPaint().getColor());
-				letterImage.setImageDrawable(textDrawable);
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-		*/
 		Intent intent = getIntent();
 
 		Serializable tmp = intent.getSerializableExtra(StaticGlobals.intentExtras.CARD);
@@ -152,6 +86,7 @@ public class EditCardActivity extends AppCompatActivity {
 				//this.updateListView();
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, sgCard.getGuest());
+				intentToForm.putExtra(StaticGlobals.intentExtras.PERMANENZA, sgCard.getPermanenza());
 				startActivityForResult(intentToForm, StaticGlobals.requestCodes.EDIT_SINGLE_GUEST);
 			}
 
@@ -275,14 +210,6 @@ public class EditCardActivity extends AppCompatActivity {
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 				final int checkedCount = listView.getCheckedItemCount();
 
-				/*itemContainer = (RelativeLayout) getViewByPosition(position, listView);
-				letterImage = (ImageView) itemContainer.findViewById(R.id.guestTypeImg);
-				if (checked) {
-					letterImage.startAnimation(flipAnim);
-				} else {
-					letterImage.startAnimation(flipAnimReverse);
-				}
-				*/
 				mode.setTitle(checkedCount + " Selezionati");
 				adapter.toggleSelection(position);
 
@@ -371,6 +298,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 			case StaticGlobals.requestCodes.NEW_FAMILY_HEAD:
 				((FamilyCard) card).setFamiliari(new ArrayList<FamilyMemberGuest>());
+				showTutorialStep();
 			case StaticGlobals.requestCodes.EDIT_FAMILY_HEAD:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
@@ -402,6 +330,7 @@ public class EditCardActivity extends AppCompatActivity {
 
 			case StaticGlobals.requestCodes.NEW_GROUP_HEAD:
 				((GroupCard) card).setAltri(new ArrayList<GroupMemberGuest>());
+				showTutorialStep();
 			case StaticGlobals.requestCodes.EDIT_GROUP_HEAD:
 				if (resultCode == StaticGlobals.resultCodes.GUEST_FORM_SUCCESS){
 					Serializable s = data.getSerializableExtra(StaticGlobals.intentExtras.FORM_OUTPUT_GUEST);
@@ -474,45 +403,6 @@ public class EditCardActivity extends AppCompatActivity {
 			default:
 				break;
 		}
-
-		//TODO: guida contestuale
-		if (sharedPref.getBoolean(TUTORIAL_FIFTH_SHOWN, true)){
-			System.out.println("Building showcase...");
-			new AsyncTask<String, Integer, String>(){
-
-				@Override
-				protected String doInBackground(String... params) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					System.out.println("End sleep");
-					return null;
-				}
-				// This runs in UI when background thread finishes
-				@Override
-				protected void onPostExecute(String result) {
-					super.onPostExecute(result);
-					System.out.println("onPostExecute");
-					scv = new ShowcaseView.Builder(EditCardActivity.this)
-							.withMaterialShowcase()
-							.setTarget(new FabTarget(fab))
-							.setContentTitle(R.string.fifth_step_title)
-							.setContentText(R.string.fifth_step_desc)
-							.setStyle(R.style.CustomShowcaseTheme2)
-							//.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
-							.build();
-					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
-					SharedPreferences.Editor editor = sharedPref.edit();
-					editor.putBoolean(TUTORIAL_FIFTH_SHOWN, false);
-					editor.apply();
-				}
-			}.execute();
-
-		}
-
-
 	}
 
 	private void updateListView(){
@@ -541,24 +431,6 @@ public class EditCardActivity extends AppCompatActivity {
 		listView.setAdapter(adapter);
 
 	}
-
-	/*
-		This method return the correct selected view in the given listview
-	 */
-	/*	public View getViewByPosition(int position, ListView listView) {
-		final int firstListItemPosition = listView.getFirstVisiblePosition();
-		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
-		System.out.println("FIRSLISTITEM " + firstListItemPosition + "Lastiitem" + lastListItemPosition +
-				" position " + position);
-		if (position < firstListItemPosition || position > lastListItemPosition ) {
-			return listView.getAdapter().getView(position, listView.getChildAt(position), listView);
-		} else {
-			final int childIndex = position - firstListItemPosition;
-			return listView.getChildAt(childIndex);
-		}
-	}
-	*/
-
 
 	public void saveCard(){
 		// Write your code here
@@ -595,6 +467,44 @@ public class EditCardActivity extends AppCompatActivity {
 	public void onBackPressed() {
 		saveCard();
 		super.onBackPressed();
+	}
+
+	private void showTutorialStep(){
+		if (sharedPref.getBoolean(TUTORIAL_FIFTH_SHOWN, true)){
+			System.out.println("Building showcase...");
+			new AsyncTask<String, Integer, String>(){
+
+				@Override
+				protected String doInBackground(String... params) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.out.println("End sleep");
+					return null;
+				}
+				// This runs in UI when background thread finishes
+				@Override
+				protected void onPostExecute(String result) {
+					super.onPostExecute(result);
+					System.out.println("onPostExecute");
+					scv = new ShowcaseView.Builder(EditCardActivity.this)
+							.withMaterialShowcase()
+							.setTarget(new ShowcaseTarget.Fab(fab))
+							.setContentTitle(R.string.fifth_step_title)
+							.setContentText(R.string.fifth_step_desc)
+							.setStyle(R.style.CustomShowcaseTheme2)
+							//.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
+							.build();
+					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+					SharedPreferences.Editor editor = sharedPref.edit();
+					editor.putBoolean(TUTORIAL_FIFTH_SHOWN, false);
+					editor.apply();
+				}
+			}.execute();
+
+		}
 	}
 
 }

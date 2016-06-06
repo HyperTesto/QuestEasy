@@ -58,30 +58,61 @@
 	<string name ="closeDrawer">drawer chiuso</string>
 
 	<string name ="nameUser">Nome utente</string>
-	
+
 	<!-- FIRST TUTORIAL STEP-->
 	<string name="welcome">Benvenuto!</string>
 	<string name="first_desc">Per cominciare ad aggiungere dichiarazioni clicca il bottone in basso a destra.
 			Puoi aprire una dichiarazione al giorno</string>
+
 	<!-- SECOND TUTORIAL STEP-->
 	<string name="second_step_title">Inserisci nuovi arrivi</string>
 	<string name="second_step_desc">Qui puoi cominciare ad inserire i tuoi arrivi di oggi.\n
 			Gli arrivi sono distinti in 3 categorie: ospiti singoli, gruppi o famiglie.\n
 			Clicca sul bottone in basso a destra e inserisci i tuoi primi ospiti!</string>
+
 	<!-- THIRD TUTORIAL STEP-->
 	<string name="third_step_title">Inserisci nuovi arrivi</string>
 	<string name="third_step_desc">Qui puoi cominciare ad inserire i tuoi arrivi di oggi.\n
 			Gli arrivi sono distinti in 3 categorie: ospiti singoli, gruppi o famiglie.\n
 			Clicca sul bottone in basso a destra e inserisci i tuoi primi ospiti!</string>
+
 	<!-- FOURTH TUTORIAL STEP-->
 	<string name="fourth_step_title">Galleria immagini</string>
 	<string name="fourth_step_desc">In questa schermata puoi trovare le foto che hai scattato.\n.
 		Puoi anche compilare i campi tramite comandi vocali tenendo premuto il bottone in basso a destra e rilasciandolo al termine.\n
 		Trovi maggiori informazioni sui comandi vocali nella guida.</string>
+
 	<!-- FIFTH TUTORIAL STEP-->
 	<string name="fifth_step_title">Congratulazioni!</string>
 	<string name="fifth_step_desc">Ora che hai creato il tuo primo capifamiglia/capogruppo puoi
 	cominciare ad aggiungere altri membi che verranno salvati in automatico.\n
 	Puoi aggiungerne quanti vuoi e quando hai finito puoi tornare in tutta tranquillità alla schermata
 	precedente.</string>
+
+	<!-- VOCAL API GUIDE -->
+	<string name="api_menu_title">Guida comandi vocali</string>
+	<string name="api_guide_intro"><![CDATA[<p>I vari dati dell\'ospite possono essere inseriti tramite comandi vocali che
+	seguono dei pattern prestabiliti.<br>
+	<b>NOTA: il risualtato di tale operazione dipende molto dalla qualità del microfono e dal rumore di sottofondo.</b></p>
+	<h2>Permanenza</h2>]]></string>
+	<string name="api_guide_part_2"><![CDATA[<h2>Dati personali</h2>]]></string>
+	<string name="api_guide_part_3"><![CDATA[<h2>Dati Documento</h2>]]></string>
+	<string name="caso_1">Caso 1</string>
+	<string name="permanenza_x_giorni">Permanenza x giorni</string>
+	<string name="caso_2">Caso 2</string>
+	<string name="x_giorni_di_permanenza">x giorni di permanenza</string>
+	<string name="caso_3">Caso 3</string>
+	<string name="signor_a_nome_cognome">signor[a] nome cognome</string>
+	<string name="caso_4">Caso 4</string>
+	<string name="nato_a_a_in_luogo">nato/a a/in luogo</string>
+	<string name="caso_5">Caso 5</string>
+	<string name="cittadinanza_luogo">cittadinanza luogo</string>
+	<string name="caso_6">Caso 6</string>
+	<string name="carta_di_identit_numero_x_rilasciata_a_in_luogo">Carta di identità numero x rilasciata a/in luogo</string>
+
+	<!-- REMOTE API REQUEST EXCEPTIONS -->
+	<string name="citizenship_json_exception">Nessuno stato trovato</string>
+	<string name="remote_api_net_error">Errore di rete</string>
+	<string name="place_json_exception">Nessun luogo trovato</string>
+	<string name="document_json_exception">Nessun documento trovato</string>
 </resources>

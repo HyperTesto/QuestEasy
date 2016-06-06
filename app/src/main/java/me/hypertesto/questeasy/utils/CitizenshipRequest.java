@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.model.Place;
 
 /**
@@ -47,10 +48,8 @@ public class CitizenshipRequest implements AutoCompleteRequest{
 
 					filteredPlaces.add(item);
 
-					System.out.println("[DEBUG] " + oneObject.getString("nome"));
-
 				} catch (JSONException e) {
-					CharSequence text = "Error parsing JSON";
+					CharSequence text = context.getString(R.string.citizenship_json_exception);
 					int duration = Toast.LENGTH_SHORT;
 
 					Toast toast = Toast.makeText(context, text, duration);
@@ -60,21 +59,16 @@ public class CitizenshipRequest implements AutoCompleteRequest{
 			}
 
 		} catch (InterruptedException e) {
-			CharSequence text = "Errore di rete";
+			CharSequence text = context.getString(R.string.remote_api_net_error);
 			int duration = Toast.LENGTH_SHORT;
 
 			Toast toast = Toast.makeText(context, text, duration);
 			toast.show();
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			/*CharSequence text = "Errore di esecuzione";
-			int duration = Toast.LENGTH_SHORT;
-
-			Toast toast = Toast.makeText(context, text, duration);
-			toast.show();*/
 			e.printStackTrace();
 		} catch (JSONException e) {
-			CharSequence text = "Error parsing JSON";
+			CharSequence text = context.getString(R.string.citizenship_json_exception);
 			int duration = Toast.LENGTH_SHORT;
 
 			Toast toast = Toast.makeText(context, text, duration);

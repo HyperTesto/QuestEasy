@@ -41,7 +41,7 @@ import me.hypertesto.questeasy.model.adapters.DeclarationListAdapter;
 import me.hypertesto.questeasy.model.dao.fs.FSDeclarationDao;
 import me.hypertesto.questeasy.notifications.NotificationEventReceiver;
 import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
-import me.hypertesto.questeasy.showcase.FabTarget;
+import me.hypertesto.questeasy.showcase.ShowcaseTarget;
 import me.hypertesto.questeasy.utils.DateUtils;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
@@ -166,6 +166,8 @@ public class HomeActivity extends AppCompatActivity{
 							case R.id.nav_settings:
 								startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
 								break;
+							case R.id.nav_api_guide:
+								startActivity(new Intent(HomeActivity.this, VocalGuideActivity.class));
 							default:
 								break;
 						}
@@ -316,7 +318,7 @@ public class HomeActivity extends AppCompatActivity{
 					System.out.println("onPostExecute");
 					scv = new ShowcaseView.Builder(HomeActivity.this)
 							.withMaterialShowcase()
-							.setTarget(new FabTarget(insertNewDcard))
+							.setTarget(new ShowcaseTarget.Fab(insertNewDcard))
 							.setContentTitle(R.string.welcome)
 							.setContentText(R.string.first_desc)
 							.setStyle(R.style.CustomShowcaseTheme2)

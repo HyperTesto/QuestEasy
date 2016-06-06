@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory
 		android:title="Info utente"
 		android:key="pref_key_storage_settings">
 		<EditTextPreference
@@ -11,25 +10,23 @@
 			android:title="Attiva notifiche"
 			android:summary="Abilita notifiche di invio o compilazione di dichiarazioni incomplete"
 			android:defaultValue="true" />
-
-		<SwitchPreference
-			android:key="pref_stats"
-			android:title="Statistiche"
-			android:summary="Invia statistiche anonime sull'utilizzo"
-			android:defaultValue="true" />
-		/>
-		<SwitchPreference
-			android:key="pref_crash_report"
-			android:title="Crash"
-			android:summary="Invia report di crash"
-			android:defaultValue="true" />
-		/>
 		<SwitchPreference
 			android:key="pref_tutorial"
 			android:title="Mostra tutorial"
 			android:summary="Mostra il tutorial ad ogni avvio dell'applicazione"
 			android:defaultValue="false" />
 		/>
-	</PreferenceCategory>
-
+		<SwitchPreference
+			android:key="pref_stats"
+			android:title="Statistiche"
+			android:summary="Invia statistiche anonime sull'utilizzo"
+			android:defaultValue="true"
+			android:enabled="false"/>
+		/>
+		<SwitchPreference
+			android:key="acra.enable"
+			android:title="Crash"
+			android:summary="Invia report di crash (nessun dato sensibile verrà inviato)"
+			android:defaultValue="true" />
+		/>
 </PreferenceScreen>
