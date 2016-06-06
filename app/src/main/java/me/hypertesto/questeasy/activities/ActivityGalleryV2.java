@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import me.hypertesto.questeasy.R;
 import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
-import me.hypertesto.questeasy.showcase.FabTarget;
+import me.hypertesto.questeasy.showcase.ShowcaseTarget;
 import me.hypertesto.questeasy.ui.ImagePagerFragment;
 import me.hypertesto.questeasy.utils.StaticGlobals;
 import me.hypertesto.questeasy.voice.CustomRecognitionListener;
@@ -122,7 +122,7 @@ public class ActivityGalleryV2 extends AppCompatActivity {
 					System.out.println("onPostExecute");
 					scv = new ShowcaseView.Builder(ActivityGalleryV2.this)
 							.withMaterialShowcase()
-							.setTarget(new FabTarget(fab))
+							.setTarget(new ShowcaseTarget.Fab(fab))
 							.setContentTitle(R.string.fourth_step_title)
 							.setContentText(R.string.fourth_step_desc)
 							.setStyle(R.style.CustomShowcaseTheme2)

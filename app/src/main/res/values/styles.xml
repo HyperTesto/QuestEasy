@@ -29,7 +29,7 @@
 	<style name="CustomShowcaseTheme2" parent="ShowcaseView">
 		<item name="sv_backgroundColor">#e51249d9</item>
 		<item name="sv_showcaseColor">#25467A</item>
-		<item name="sv_buttonText">Close</item>
+		<item name="sv_buttonText">Chiudi</item>
 		<item name="sv_titleTextAppearance">@style/CustomTitle2</item>
 		<item name="sv_detailTextAppearance">@style/CustomText2</item>
 	</style>

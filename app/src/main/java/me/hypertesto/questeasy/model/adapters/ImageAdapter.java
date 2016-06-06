@@ -3,8 +3,6 @@ package me.hypertesto.questeasy.model.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -21,11 +19,9 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import me.hypertesto.questeasy.R;
-import me.hypertesto.questeasy.activities.FormGuestActivity;
 import me.hypertesto.questeasy.utils.FileUtils;
 
 /**

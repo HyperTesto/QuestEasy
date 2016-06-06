@@ -10,6 +10,10 @@
 		android:icon="@drawable/ic_info_outline"
 		android:title="@string/aboutNav" />
 	<item
+		android:id="@+id/nav_api_guide"
+		android:icon="@drawable/ic_voice_guide"
+		android:title="@string/api_menu_title" />
+	<item
 		android:id="@+id/nav_exam_mod"
 		android:icon="@android:drawable/ic_menu_slideshow"
 		android:title="@string/modExam" />
