@@ -3,9 +3,12 @@ package me.hypertesto.questeasy.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,7 @@ import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -82,6 +86,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 	CardListAdapter adapter;
 
+	public static final String TUTORIAL_SECOND_SHOWN = "tutorialSecondShown";
 
 	private Declaration displayed;
 	private int indexClicked;
@@ -103,25 +108,57 @@ public class EditDecActivity extends AppCompatActivity {
 	private boolean[] selectedCheckedItems ={false, false, false};
 	private AlertDialog filterAlertDialog;
 	private ActionMode myMode;
-
+	private ShowcaseView scv;
+	private SharedPreferences sharedPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_dec);
 
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 		defineSettings();
 
-		ShowcaseView scv = new ShowcaseView.Builder(this)
-				.withMaterialShowcase()
-				.setTarget(new FabTarget(fabMenu))
-				.setContentTitle("Creazione dichiarazione")
-				.setContentText("In questa schermata puoi aggiungere nuovi arrivi o modificarne di esistenti.\nAggiungi il primo toccando il bottone in basso a destra")
-				.setStyle(R.style.CustomShowcaseTheme2)
-				.build();
-		scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+		if (sharedPref.getBoolean(TUTORIAL_SECOND_SHOWN, true)){
+			System.out.println("Building showcase...");
+			new AsyncTask<String, Integer, String>(){
+
+				@Override
+				protected String doInBackground(String... params) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.out.println("End sleep");
+					return null;
+				}
+				// This runs in UI when background thread finishes
+				@Override
+				protected void onPostExecute(String result) {
+					super.onPostExecute(result);
+					System.out.println("onPostExecute");
+					scv = new ShowcaseView.Builder(EditDecActivity.this)
+							.withMaterialShowcase()
+							.setTarget(new FabTarget(fabMenu))
+							.setContentTitle(R.string.second_step_title)
+							.setContentText(R.string.second_step_desc)
+							.setStyle(R.style.CustomShowcaseTheme2)
+							.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
+							.build();
+					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+					SharedPreferences.Editor editor = sharedPref.edit();
+					editor.putBoolean(TUTORIAL_SECOND_SHOWN, false);
+					editor.apply();
+				}
+			}.execute();
+
+		}
 	}
 
 	/*@Override
@@ -200,8 +237,7 @@ public class EditDecActivity extends AppCompatActivity {
 
 	private void defineSettings() {
 		frameLayout = (FrameLayout) findViewById(R.id.frameButtonCategory);
-		fabMenu = (FloatingActionMenu) findViewById
-				(R.id.categoryGuestGo);
+		fabMenu = (FloatingActionMenu) findViewById(R.id.categoryGuestGo);
 		singlefab = (FloatingActionButton) findViewById(R.id.categoryGuestSingleGo);
 		groupFab = (FloatingActionButton) findViewById(R.id.categoryGuestGroupGo);
 		familyFab = (FloatingActionButton) findViewById(R.id.categoryGuestFamilyGo);
@@ -222,7 +258,6 @@ public class EditDecActivity extends AppCompatActivity {
 		fsd.close();
 
 		this.updateList();
-
 
 		fabMenu.hideMenuButton(false);
 
@@ -281,6 +316,14 @@ public class EditDecActivity extends AppCompatActivity {
 		*/
 
 		listView.setOnScrollListener(new ListScrollListener(fabMenu));
+		fabMenu.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (scv != null){
+					scv.hide();
+				}
+			}
+		});
 
 		try{
 			frameLayout.getBackground().setAlpha(0);

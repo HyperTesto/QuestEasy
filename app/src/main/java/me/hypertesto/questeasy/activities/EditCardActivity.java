@@ -1,7 +1,10 @@
 package me.hypertesto.questeasy.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.io.Serializable;
@@ -40,6 +44,8 @@ import me.hypertesto.questeasy.model.Guest;
 import me.hypertesto.questeasy.model.SingleGuest;
 import me.hypertesto.questeasy.model.SingleGuestCard;
 import me.hypertesto.questeasy.model.adapters.GroupListAdapter;
+import me.hypertesto.questeasy.showcase.ButtonLayoutParams;
+import me.hypertesto.questeasy.showcase.FabTarget;
 import me.hypertesto.questeasy.utils.FabAnimation;
 import me.hypertesto.questeasy.utils.ListScrollListener;
 import me.hypertesto.questeasy.utils.StaticGlobals;
@@ -58,10 +64,19 @@ public class EditCardActivity extends AppCompatActivity {
 	//private int colorSelected;
 
 	private int indexClicked;
+	FloatingActionButton fab;
+
+	private SharedPreferences sharedPref;
+	private ShowcaseView scv;
+
+	public static final String TUTORIAL_FIFTH_SHOWN = "tutorialFifthShown";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 		setContentView(R.layout.activity_edit_card);
 		this.listView = (ListView) findViewById(R.id.lvMembers);
 		/*flipAnim = AnimationUtils.loadAnimation(EditCardActivity.this, R.anim.flip_anim);
@@ -134,7 +149,10 @@ public class EditCardActivity extends AppCompatActivity {
 				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, (Serializable) null);
 				startActivityForResult(intentToForm, StaticGlobals.requestCodes.NEW_SINGLE_GUEST);
 			} else {
-				this.updateListView();
+				//this.updateListView();
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TYPE, Guest.type.SINGLE_GUEST);
+				intentToForm.putExtra(StaticGlobals.intentExtras.GUEST_TO_EDIT, sgCard.getGuest());
+				startActivityForResult(intentToForm, StaticGlobals.requestCodes.EDIT_SINGLE_GUEST);
 			}
 
 		} else if (tmp instanceof FamilyCard){
@@ -166,7 +184,7 @@ public class EditCardActivity extends AppCompatActivity {
 			throw new RuntimeException("cacca");
 		}
 
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_edit_card);
+		fab = (FloatingActionButton) findViewById(R.id.fab_edit_card);
 
 		fab.hide(false);
 		new FabAnimation(fab, getApplicationContext());
@@ -342,7 +360,8 @@ public class EditCardActivity extends AppCompatActivity {
 						SingleGuest sg = (SingleGuest) s;
 						((SingleGuestCard) card).setGuest(sg);
 						card.setPermanenza(data.getIntExtra(StaticGlobals.intentExtras.PERMANENZA,100));
-
+						saveCard();
+						finish();
 						System.out.println(((SingleGuestCard) card).getGuest().getName());
 					}
 				}
@@ -455,6 +474,45 @@ public class EditCardActivity extends AppCompatActivity {
 			default:
 				break;
 		}
+
+		//TODO: guida contestuale
+		if (sharedPref.getBoolean(TUTORIAL_FIFTH_SHOWN, true)){
+			System.out.println("Building showcase...");
+			new AsyncTask<String, Integer, String>(){
+
+				@Override
+				protected String doInBackground(String... params) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.out.println("End sleep");
+					return null;
+				}
+				// This runs in UI when background thread finishes
+				@Override
+				protected void onPostExecute(String result) {
+					super.onPostExecute(result);
+					System.out.println("onPostExecute");
+					scv = new ShowcaseView.Builder(EditCardActivity.this)
+							.withMaterialShowcase()
+							.setTarget(new FabTarget(fab))
+							.setContentTitle(R.string.fifth_step_title)
+							.setContentText(R.string.fifth_step_desc)
+							.setStyle(R.style.CustomShowcaseTheme2)
+							//.hideOnTouchOutside() //this showcase doesn't enforce an action because fabMenu has an issue with showCase
+							.build();
+					scv.setButtonPosition(new ButtonLayoutParams(getResources()).bottomLeft());
+					SharedPreferences.Editor editor = sharedPref.edit();
+					editor.putBoolean(TUTORIAL_FIFTH_SHOWN, false);
+					editor.apply();
+				}
+			}.execute();
+
+		}
+
+
 	}
 
 	private void updateListView(){
